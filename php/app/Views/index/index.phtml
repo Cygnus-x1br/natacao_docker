@@ -1,16 +1,17 @@
 <?php
 
-foreach ($this->viewData->equipes as $value) {
-  echo '<h1>' . $value['nomeEquipe'] .  ' - ' . $value['nomeFantasiaEquipe'] . '</h1><br>';
+
+foreach ($this->viewData->atleta as $value) {
+  //echo '<h1>' . $value['nomeAtleta'] .  ' - ' . $value['dataNascAtleta'] . '</h1><br>';
 }
 
 ?>
 
 <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
   <img src="./images/fernando.jpg" class="img-foto" alt="">
-  <h1 class="display-4 fw-normal text-body-emphasis">Nome do Atleta</h1>
+  <h1 class="display-4 fw-normal text-body-emphasis"><?= $value['nomeAtleta'] ?></h1>
   <p class="fs-5 text-body-secondary">Equipe</p>
-  <p class="fs-5 text-body-secondary">Categoria</p>
+  <p class="fs-5 text-body-secondary"><?= $value['dataNascAtleta'] ?></p>
 </div>
 </header>
 
