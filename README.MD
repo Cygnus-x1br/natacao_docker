@@ -13,3 +13,7 @@ Criação do Dockerfile para o PHP.
 Para inicializar o container do PHP execute o seguinte comando (executando em modo de desenvolvimento):
 
 docker run -d -p 8082:80 --name natacao_app -v /~/projects/natacao/php:/var/www/html --rm --network natacao_network natacao_app
+
+Criar uma pasta local db_data (dados do MySQL) ou criar um volume Docker para armazenar o banco ???
+
+Criar o arquivo Env.php
