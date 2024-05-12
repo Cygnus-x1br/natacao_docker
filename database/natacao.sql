@@ -187,6 +187,30 @@ VALUES(null, 'Mirim 2', 10);
 INSERT INTO tb_categoria
 VALUES(null, 'Petiz 1', 11);
 INSERT INTO tb_categoria
-VALUES(null, 'Petiz 1', 11);
+VALUES(null, 'Petiz 2', 12);
 INSERT INTO tb_categoria
-VALUES(null, 'Adulto', 99);
+VALUES(null, 'Infantil 1', 13);
+INSERT INTO tb_categoria
+VALUES(null, 'Infantil 2', 14);
+INSERT INTO tb_categoria
+VALUES(null, 'Juvenil 1', 15);
+INSERT INTO tb_categoria
+VALUES(null, 'Juvenil 2', 16);
+INSERT INTO tb_categoria
+VALUES(null, 'Junior 1', 17);
+INSERT INTO tb_categoria
+VALUES(null, 'Junior 2', 18);
+INSERT INTO tb_categoria
+VALUES(null, 'Absoluto', 99);
+-- Tabela TEste de dados
+INSERT INTO tb_atleta
+VALUES(
+    null,
+    'Fernando',
+    '2016 -03 -13',
+    '111.222.333-44',
+    'FAP123456',
+    'Masculino',
+    '99.888.777-6',
+    null
+  );

@@ -12,11 +12,11 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'IndexController',
             'action' => 'index'
         );
-        // $routes['view_all_notes'] = array(
-        //     'route' => '/view_all_notes',
-        //     'controller' => 'IndexController',
-        //     'action' => 'view_all_notes'
-        // );
+        $routes['view_atleta'] = array(
+            'route' => '/view_atleta',
+            'controller' => 'AtletaController',
+            'action' => 'view_atleta'
+        );
         // $routes['view_note'] = array(
         //     'route' => '/view_note',
         //     'controller' => 'IndexController',

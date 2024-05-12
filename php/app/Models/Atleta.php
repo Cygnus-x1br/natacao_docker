@@ -26,7 +26,7 @@ class Atleta extends Model
 
     public function getAtleta()
     {
-        $atleta = "SELECT * FROM tb_atleta WHERE IDATLETA=2";
+        $atleta = "SELECT * FROM tb_atleta WHERE IDATLETA=1";
         $stmt = $this->db->prepare($atleta);
         $stmt->execute();
 
