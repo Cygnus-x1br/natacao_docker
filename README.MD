@@ -6,7 +6,13 @@ Criação do Dockerfile para o Banco de Dados.
 -Utilizando a imagem do MySQL 8.4
 Para inicializar o container do MySQL execute o seguinte comando:
 
+Inicialização com volume local
+
 docker run -d -p 3317:3306 --name mysql_natacao -v /~/projects/natacao/db_data:/var/lib/mysql --rm --network natacao_network -e MYSQL_ALLOW_EMPTY_PASSWORD=True natacao_database
+
+Inicialização com docker volume
+
+docker run -d -p 3317:3306 --name mysql_natacao -v natacao_data_volume:/var/lib/mysql --rm -e MYSQL_ALLOW_EMPTY_PASSWORD=True --network natacao_network natacao_database
 
 Criação do Dockerfile para o PHP.
 -Utilizando a imagem do PHP 8.2-apache

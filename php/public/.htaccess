@@ -1,4 +1,4 @@
-Options All -Indexes
+# Options All -Indexes
 
 # Error Document 403 http://notes.jmarc.com.br/error
 
@@ -6,7 +6,7 @@ Options All -Indexes
   RewriteEngine on
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^(.\*)$ index.php/$1 [L]
+  RewriteRule ^(.*)$ index.php/$1 [L]
 </IfModule>
 
 # <IfModule>

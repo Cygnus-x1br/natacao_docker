@@ -11,7 +11,7 @@ class Connection
     {
         try {
 
-            $conn = new \PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8", DB_USER, DB_PASSWD);
+            $conn = new \PDO("mysql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME . ";charset=utf8", DB_USER, DB_PASSWD);
             //echo 'Connected...';
             return $conn;
         } catch (\PDOException $err) {

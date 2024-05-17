@@ -7,6 +7,10 @@ use MF\Model\Model;
 class Atleta extends Model
 {
     private $idatleta;
+    private $nomeAtleta;
+    private $sobreNomeAtleta;
+    private $apelidoAtleta;
+    private $emailAtleta;
     private $dataNascAtleta;
     private $cpfAtleta;
     private $numRegistroAtleta;
@@ -30,6 +34,7 @@ class Atleta extends Model
         $stmt = $this->db->prepare($atleta);
         $stmt->execute();
 
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        //return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 }
