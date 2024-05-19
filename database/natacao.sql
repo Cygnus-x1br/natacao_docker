@@ -76,6 +76,8 @@ numeroProva VARCHAR(5) NOT NULL,
 genero ENUM('M', 'F') NOT NULL,
 ID_TORNEIO INT,
 ID_DISTANCIAESTILO INT,
+-- ID_ESTILO INT,
+-- ID_DISTANCIA INT,
 ID_CATEGORIA_MIN INT,
 ID_CATEGORIA_MAX INT
 );
@@ -100,31 +102,60 @@ CREATE TABLE tb_atleta (
   numRegistroAtleta VARCHAR(10),
   sexoAtleta ENUM('M', 'F') NOT NULL,
   rgAtleta VARCHAR(12),
-  ID_TORNEIO INT
+  ID_EQUIPE INT
 );
+CREATE TABLE tba_prova_atleta (
+  IDPROVAATLETA INT PRIMARY KEY AUTO_INCREMENT,
+  ID_PROVA INT,
+  ID_ATLETA INT
+);
+--
+ALTER TABLE tba_prova_atleta
+ADD CONSTRAINT FK_PROVAATLETA_PROVA FOREIGN KEY(ID_PROVA) REFERENCES tb_prova(IDPROVA);
+ALTER TABLE tba_prova_atleta
+ADD CONSTRAINT FK_PROVAATLETA_ATLETA FOREIGN KEY(ID_ATLETA) REFERENCES tb_atleta(IDATLETA);
+--
 CREATE TABLE tb_indices (
-  IDINDICE INT PRIMARY KEY AUTO_INCREMENT,
-  anoIndice INT NOT NULL,
-  tempoIndice TIME(2) NOT NULL,
-  ID_CATEGORIA INT NOT NULL,
-  generoIndice ENUM('M', 'F') NOT NULL,
-  tipoIndice VARCHAR(30) NOT NULL,
-  ID_DISTANCIAESTILO INT NOT NULL,
-  ID_PISCINA INT NOT NULL
+IDINDICE INT PRIMARY KEY AUTO_INCREMENT,
+anoIndice INT NOT NULL,
+tempoIndice TIME(2) NOT NULL,
+ID_CATEGORIA INT NOT NULL,
+generoIndice ENUM('M', 'F') NOT NULL,
+tipoIndice VARCHAR(30) NOT NULL,
+ID_DISTANCIAESTILO INT NOT NULL,
+ID_PISCINA INT NOT NULL
 );
+--
+ALTER TABLE tb_indices
+ADD CONSTRAINT FK_INDICE_PISCINA FOREIGN KEY(ID_PISCINA) REFERENCES tb_piscina(IDPISCINA);
+ALTER TABLE tb_indices
+ADD CONSTRAINT FK_INDICE_CATEGORIA FOREIGN KEY(ID_CATEGORIA) REFERENCES tb_categoria(IDCATEGORIA);
+--
 CREATE TABLE tb_tempoAtleta (
-  IDTMPATLETA INT PRIMARY KEY AUTO_INCREMENT,
-  tempoAtleta TIME(2) NOT NULL,
-  ID_PROVA INT NOT NULL,
-  ID_ATLETA INT NOT NULL
+IDTMPATLETA INT PRIMARY KEY AUTO_INCREMENT,
+tempoAtleta TIME(2) NOT NULL,
+ID_PROVA INT NOT NULL,
+ID_ATLETA INT NOT NULL
 );
+--
+ALTER TABLE tb_tempoAtleta
+ADD CONSTRAINT FK_TEMPOATLETA_PROVA FOREIGN KEY(ID_PROVA) REFERENCES tb_prova(IDPROVA);
+ALTER TABLE tb_tempoAtleta
+ADD CONSTRAINT FK_TEMPOATLETA_ATLETA FOREIGN KEY(ID_ATLETA) REFERENCES tb_atleta(IDATLETA);
+--
 CREATE TABLE tb_metaAtleta (
-  IDMETAATLETA INT PRIMARY KEY AUTO_INCREMENT,
-  tempoMetaAtleta TIME(2) NOT NULL,
-  ID_TAMPISCINA INT NOT NULL,
-  ID_ESTILO INT NOT NULL,
-  ID_ATLETA INT NOT NULL
+IDMETAATLETA INT PRIMARY KEY AUTO_INCREMENT,
+tempoMetaAtleta TIME(2) NOT NULL,
+ID_PISCINA INT NOT NULL,
+ID_DISTANCIAESTILO INT NOT NULL,
+ID_ATLETA INT NOT NULL
 );
+--
+ALTER TABLE tb_metaAtleta
+ADD CONSTRAINT FK_METAATLETA_ATLETA FOREIGN KEY(ID_ATLETA) REFERENCES tb_atleta(IDATLETA);
+ALTER TABLE tb_metaAtleta
+ADD CONSTRAINT FK_METAATLETA_PISCINA FOREIGN KEY(ID_PISCINA) REFERENCES tb_piscina(IDPISCINA);
+--
 -- Insercao de dados nas tabelas fixas
 -- Tabla Estados
 INSERT INTO tb_estado
@@ -294,6 +325,42 @@ INSERT INTO tba_distancia_estilo
 VALUES(null, 3, 1);
 INSERT INTO tba_distancia_estilo
 VALUES(null, 4, 1);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 5, 1);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 6, 1);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 7, 1);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 1, 2);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 2, 2);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 3, 2);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 4, 2);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 1, 3);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 2, 3);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 3, 3);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 4, 3);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 1, 4);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 2, 4);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 3, 4);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 4, 4);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 3, 5);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 4, 5);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 5, 5);
 INSERT INTO tb_prova
 VALUES(
     null,
@@ -368,6 +435,21 @@ VALUES(
 -- FROM tba_distancia_estilo 
 -- INNER JOIN tb_distancia AS d ON ID_DISTANCIA = d.IDDISTANCIA 
 -- INNER JOIN tb_estilo AS e ON ID_ESTILO = e.IDESTILO;
--- SELECT numeroProva, c.nomeCategoria, c2.nomeCategoria FROM tb_prova
--- INNER JOIN tb_categoria AS c ON ID_CATEGORIA_MIN = c.IDCATEGORIA
--- INNER JOIN tb_categoria AS c2 ON ID_CATEGORIA_MAX = c2.IDCATEGORIA
+--
+-- SELECT anoIndice, tempoIndice, generoIndice, tipoIndice, p.tamanhoPiscina, c.nomeCategoria, d.distancia, e.nomeEstilo FROM tb_indices
+-- INNER JOIN tb_categoria AS c ON ID_CATEGORIA = c.IDCATEGORIA
+-- INNER JOIN tb_distancia AS d ON 
+-- (SELECT ID_DISTANCIA AS dist FROM tba_distancia_estilo WHERE tb_indices.ID_DISTANCIAESTILO = IDDISTANCIAESTILO) = d.IDDISTANCIA
+-- INNER JOIN tb_estilo AS e ON 
+-- (SELECT ID_ESTILO AS est FROM tba_distancia_estilo WHERE tb_indices.ID_DISTANCIAESTILO = IDDISTANCIAESTILO) = e.IDESTILO
+-- INNER JOIN tb_piscina AS p ON ID_PISCINA = p.IDPISCINA;
+--
+-- SELECT numeroProva, genero, t.nomeTorneio, t.dataTorneio, p.tamanhoPiscina, d.distancia, e.nomeEstilo, cmin.nomeCategoria AS "Categoria Minima", cmax.nomeCategoria AS "Categoria Maxima" FROM tb_prova
+-- INNER JOIN tb_torneio AS t ON ID_TORNEIO = t.IDTORNEIO
+-- INNER JOIN tb_distancia AS d ON 
+-- (SELECT ID_DISTANCIA AS dist FROM tba_distancia_estilo WHERE tb_prova.ID_DISTANCIAESTILO = IDDISTANCIAESTILO) = d.IDDISTANCIA
+-- INNER JOIN tb_estilo AS e ON 
+-- (SELECT ID_ESTILO AS est FROM tba_distancia_estilo WHERE tb_prova.ID_DISTANCIAESTILO = IDDISTANCIAESTILO) = e.IDESTILO
+-- INNER JOIN tb_piscina AS p ON t.ID_PISCINA = p.IDPISCINA
+-- INNER JOIN tb_categoria AS cmin ON ID_CATEGORIA_MIN = cmin.IDCATEGORIA
+-- INNER JOIN tb_categoria AS cmax ON ID_CATEGORIA_MAX = cmax.IDCATEGORIA;
