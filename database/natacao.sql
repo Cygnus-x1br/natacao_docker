@@ -76,14 +76,10 @@ numeroProva VARCHAR(5) NOT NULL,
 genero ENUM('M', 'F') NOT NULL,
 ID_TORNEIO INT,
 ID_DISTANCIAESTILO INT,
--- ID_ESTILO INT,
--- ID_DISTANCIA INT,
 ID_CATEGORIA_MIN INT,
 ID_CATEGORIA_MAX INT
 );
--- 
--- ALTER TABLE tb_prova
--- ADD CONSTRAINT FK_PROVA_DISTANCIAESTILO FOREIGN KEY(ID_DISTANCIAESTILO) REFERENCES tba_distancia_estilo(IDDISTANCIAESTILO);
+--
 ALTER TABLE tb_prova
 ADD CONSTRAINT FK_PROVA_CATEGORIA_MIN FOREIGN KEY(ID_CATEGORIA_MIN) REFERENCES tb_categoria(IDCATEGORIA);
 ALTER TABLE tb_prova
@@ -104,10 +100,27 @@ CREATE TABLE tb_atleta (
   rgAtleta VARCHAR(12),
   ID_EQUIPE INT
 );
+--
+ALTER TABLE tb_atleta
+ADD CONSTRAINT FK_ATLETA_EQUIPE FOREIGN KEY(ID_EQUIPE) REFERENCES tb_equipe(IDEQUIPE);
+--
+CREATE TABLE tb_atleta_bio (
+IDATLETABIO INT PRIMARY KEY AUTO_INCREMENT,
+ID_ATLETA INT NOT NULL,
+dataDadosBiologicos DATE NOT NULL,
+pesoAtleta FLOAT NOT NULL,
+alturaAtleta FLOAT NOT NULL,
+envergaduraAtleta FLOAT NOT NULL,
+observacaoBiologicaAtleta TEXT
+);
+--
+ALTER TABLE tb_atleta_bio
+ADD CONSTRAINT FK_ATLETABIO_ATLETA FOREIGN KEY(ID_ATLETA) REFERENCES tb_atleta(IDATLETA);
+--
 CREATE TABLE tba_prova_atleta (
-  IDPROVAATLETA INT PRIMARY KEY AUTO_INCREMENT,
-  ID_PROVA INT,
-  ID_ATLETA INT
+IDPROVAATLETA INT PRIMARY KEY AUTO_INCREMENT,
+ID_PROVA INT,
+ID_ATLETA INT
 );
 --
 ALTER TABLE tba_prova_atleta
@@ -199,13 +212,13 @@ VALUES(null, 'Bahia', 'BA');
 INSERT INTO tb_estado
 VALUES(null, 'Paraiba', 'PB');
 INSERT INTO tb_estado
-VALUES(null, 'Espírito Santo', 'ES');
+VALUES(null, 'Espirito Santo', 'ES');
 INSERT INTO tb_estado
 VALUES(null, 'Minas Gerais', 'MG');
 INSERT INTO tb_estado
 VALUES(null, 'Rio de Janeiro', 'RJ');
 INSERT INTO tb_estado
-VALUES(null, 'São Paulo', 'SP');
+VALUES(null, 'Sao Paulo', 'SP');
 INSERT INTO tb_estado
 VALUES(null, 'Parana', 'PR');
 INSERT INTO tb_estado
@@ -306,8 +319,32 @@ VALUES(
     null,
     'Federacao Aquatica Paulista',
     'FAP',
-    null,
+    './images/logos/logoFAP.png',
     24
+  );
+INSERT INTO tb_federacao
+VALUES(
+    null,
+    'Federacao Aquatica do Rio de Janeiro',
+    'FARJ',
+    './images/logos/logoFARJ.png',
+    23
+  );
+INSERT INTO tb_federacao
+VALUES(
+    null,
+    'Federacao Aquatica Mineira',
+    'FARJ',
+    './images/logos/logoFAM.png',
+    22
+  );
+INSERT INTO tb_federacao
+VALUES(
+    null,
+    'Federacao Aquatica Capixaba',
+    'FAC',
+    './images/logos/logoFAC.png',
+    21
   );
 INSERT INTO tb_torneio
 VALUES(
@@ -444,8 +481,10 @@ VALUES(
 -- (SELECT ID_ESTILO AS est FROM tba_distancia_estilo WHERE tb_indices.ID_DISTANCIAESTILO = IDDISTANCIAESTILO) = e.IDESTILO
 -- INNER JOIN tb_piscina AS p ON ID_PISCINA = p.IDPISCINA;
 --
--- SELECT numeroProva, genero, t.nomeTorneio, t.dataTorneio, p.tamanhoPiscina, d.distancia, e.nomeEstilo, cmin.nomeCategoria AS "Categoria Minima", cmax.nomeCategoria AS "Categoria Maxima" FROM tb_prova
+-- SELECT numeroProva, genero, t.nomeTorneio, t.dataTorneio, f.nomeFantasiaFederacao, p.tamanhoPiscina, d.distancia, e.nomeEstilo, cmin.nomeCategoria AS "Categoria Minima", cmax.nomeCategoria AS "Categoria Maxima" FROM tb_prova
 -- INNER JOIN tb_torneio AS t ON ID_TORNEIO = t.IDTORNEIO
+-- INNER JOIN tb_federacao AS f ON 
+-- (SELECT tb_torneio.ID_FEDERACAO FROM tb_torneio WHERE tb_prova.ID_TORNEIO = tb_torneio.IDTORNEIO) = f.IDFEDERACAO
 -- INNER JOIN tb_distancia AS d ON 
 -- (SELECT ID_DISTANCIA AS dist FROM tba_distancia_estilo WHERE tb_prova.ID_DISTANCIAESTILO = IDDISTANCIAESTILO) = d.IDDISTANCIA
 -- INNER JOIN tb_estilo AS e ON 

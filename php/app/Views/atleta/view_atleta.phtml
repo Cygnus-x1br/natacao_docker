@@ -62,50 +62,51 @@ $categoria = $this->viewData->categoria;
     <div class="row g-5">
       <div class="col-md-5 col-lg-4 order-md-last">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
-          <span class="text-primary">Your cart</span>
-          <span class="badge bg-primary rounded-pill">3</span>
+          <span class="text-primary">Últimas provas</span>
+          <span class="badge bg-primary rounded-pill">?</span>
         </h4>
         <ul class="list-group mb-3">
           <li class="list-group-item d-flex justify-content-between lh-sm">
             <div>
-              <h6 class="my-0">Product name</h6>
-              <small class="text-body-secondary">Brief description</small>
+              <h6 class="my-0"><a href="#" class="text-decoration-none">Prova</a></h6>
+              <small class="text-body-secondary">Torneio</small>
+              <h6 class="text-body-secondary">11/11/2024</h6>
             </div>
-            <span class="text-body-secondary">$12</span>
+            <span class="text-body-secondary">00:00.00</span>
           </li>
           <li class="list-group-item d-flex justify-content-between lh-sm">
             <div>
-              <h6 class="my-0">Second product</h6>
-              <small class="text-body-secondary">Brief description</small>
+              <h6 class="my-0"><a href="#" class="text-decoration-none">Prova</a></h6>
+              <small class="text-body-secondary">Torneio</small>
+              <h6 class="text-body-secondary">11/11/2024</h6>
             </div>
-            <span class="text-body-secondary">$8</span>
+            <span class="text-body-secondary">00:00.00</span>
           </li>
           <li class="list-group-item d-flex justify-content-between lh-sm">
             <div>
-              <h6 class="my-0">Third item</h6>
-              <small class="text-body-secondary">Brief description</small>
+              <h6 class="my-0"><a href="#" class="text-decoration-none">Prova</a></h6>
+              <small class="text-body-secondary">Torneio</small>
+              <h6 class="text-body-secondary">11/11/2024</h6>
             </div>
-            <span class="text-body-secondary">$5</span>
+            <span class="text-body-secondary">00:00.00</span>
           </li>
           <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
-            <div class="text-success">
-              <h6 class="my-0">Promo code</h6>
-              <small>EXAMPLECODE</small>
+            <div>
+              <h6 class="my-0"><a href="#" class="text-decoration-none">Prova</a></h6>
+              <small class="text-body-secondary">Torneio</small>
+              <h6 class="text-body-secondary">11/11/2024</h6>
             </div>
-            <span class="text-success">−$5</span>
+            <span class="text-body-secondary">00:00.00</span>
           </li>
-          <li class="list-group-item d-flex justify-content-between">
-            <span>Total (USD)</span>
-            <strong>$20</strong>
-          </li>
+
         </ul>
 
-        <form class="card p-2">
+        <!-- <form class="card p-2">
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Promo code">
             <button type="submit" class="btn btn-secondary">Redeem</button>
           </div>
-        </form>
+        </form> -->
       </div>
       <div class="col-md-7 col-lg-8">
         <h4 class="mb-3"></h4>
@@ -140,9 +141,9 @@ $categoria = $this->viewData->categoria;
             <div class="col-md-6">
 
               <div class="row">
-                <label for="data_nascimento" class="form-label">Data de Nascimento</label>
+                <label for="birth_date" class="form-label">Data de Nascimento</label>
                 <div class="col-md-6">
-                  <input type="text" class="form-control" id="data_nascimento" placeholder="" value="<?php echo implode('/', array_reverse(explode('-', $atleta['dataNascAtleta']))); ?>">
+                  <input type="text" class="form-control" id="birth_date" placeholder="" value="<?php echo implode('/', array_reverse(explode('-', $atleta['dataNascAtleta']))); ?>">
 
                 </div>
                 <div class="col-md-6">

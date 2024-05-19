@@ -17,6 +17,16 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'AtletaController',
             'action' => 'view_atleta'
         );
+        $routes['view_equipe'] = array(
+            'route' => '/view_equipe',
+            'controller' => 'EquipeController',
+            'action' => 'view_equipe'
+        );
+        $routes['list_federacao'] = array(
+            'route' => '/list_federacao',
+            'controller' => 'FederacaoController',
+            'action' => 'list_federacao'
+        );
         // $routes['view_note'] = array(
         //     'route' => '/view_note',
         //     'controller' => 'IndexController',
