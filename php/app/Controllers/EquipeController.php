@@ -7,8 +7,12 @@ use MF\Model\Container;
 
 class EquipeController extends Action
 {
-  public function view_equipe()
+  public function list_equipes()
   {
-    $this->render('view_equipe');
+    $equipe = Container::getModel('Equipe');
+    $equipe_data = $equipe->getAllEquipes();
+    $this->viewData->equipes = $equipe_data;
+
+    $this->render('list_equipes');
   }
 }

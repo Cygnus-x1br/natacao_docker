@@ -23,7 +23,7 @@ class Equipe extends Model
 
   public function getAllEquipes()
   {
-    $equipe = "SELECT * FROM tb_equipe ORDER BY IDEQUIPE DESC";
+    $equipe = "SELECT *, f.nomeFantasiaFederacao FROM tb_equipe INNER JOIN tb_federacao AS f ON ID_FEDERACAO = f.IDFEDERACAO ORDER BY IDEQUIPE DESC";
     $stmt = $this->db->prepare($equipe);
     $stmt->execute();
 

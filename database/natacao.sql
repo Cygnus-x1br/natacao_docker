@@ -462,6 +462,22 @@ VALUES(
     2,
     2
   );
+INSERT INTO tb_equipes
+VALUES(
+    null,
+    'Associação Atlética São Caetano',
+    'Natação São Caetano',
+    './images/logos/logoSaoCaetano.png',
+    1
+  );
+INSERT INTO tb_equipes
+VALUES(
+    null,
+    'Primeiro de Maio Futebol Clube',
+    'Natação Santo André',
+    './images/logos/logoSAndre.png',
+    1
+  );
 -- Querrys
 -- SELECT nomeTorneio, f.nomeFantasiaFederacao, p.tamanhoPiscina 
 -- FROM tb_torneio 
