@@ -39,6 +39,11 @@ CREATE TABLE tb_federacao (
   nomeFederacao varchar(100) NOT NULL,
   nomeFantasiaFederacao varchar(50),
   logoFederacao varchar(150),
+  siteFederacao varchar(100),
+  emailFederacao varchar(100),
+  telefoneFederacao varchar(20),
+  facebookFederacao varchar(100),
+  instagramFederacao varchar(100),
   ID_ESTADO INT NOT NULL
 );
 -- 
@@ -50,6 +55,11 @@ CREATE TABLE tb_equipe (
   nomeEquipe varchar(100) NOT NULL,
   nomeFantasiaEquipe varchar(50),
   logoEquipe varchar(150),
+  siteEquipe varchar(100),
+  emailEquipe varchar(100),
+  telefoneEquipe varchar(20),
+  facebookEquipe varchar(100),
+  instagramEquipe varchar(100),
   ID_FEDERACAO INT
 );
 -- 
@@ -320,6 +330,11 @@ VALUES(
     'Federacao Aquatica Paulista',
     'FAP',
     './images/logos/logoFAP.png',
+    null,
+    null,
+    null,
+    null,
+    null,
     24
   );
 INSERT INTO tb_federacao
@@ -328,6 +343,11 @@ VALUES(
     'Federacao Aquatica do Rio de Janeiro',
     'FARJ',
     './images/logos/logoFARJ.png',
+    null,
+    null,
+    null,
+    null,
+    null,
     23
   );
 INSERT INTO tb_federacao
@@ -336,6 +356,11 @@ VALUES(
     'Federacao Aquatica Mineira',
     'FARJ',
     './images/logos/logoFAM.png',
+    null,
+    null,
+    null,
+    null,
+    null,
     22
   );
 INSERT INTO tb_federacao
@@ -344,6 +369,11 @@ VALUES(
     'Federacao Aquatica Capixaba',
     'FAC',
     './images/logos/logoFAC.png',
+    null,
+    null,
+    null,
+    null,
+    null,
     21
   );
 INSERT INTO tb_torneio
@@ -421,6 +451,17 @@ VALUES(
 INSERT INTO tb_indices
 VALUES(
     null,
+    2023,
+    '00:00:30.75',
+    13,
+    'F',
+    'Brasileiro Inverno',
+    1,
+    2
+  );
+INSERT INTO tb_indices
+VALUES(
+    null,
     2024,
     '00:00:31.60',
     13,
@@ -462,20 +503,30 @@ VALUES(
     2,
     2
   );
-INSERT INTO tb_equipes
+INSERT INTO tb_equipe
 VALUES(
     null,
     'Associação Atlética São Caetano',
     'Natação São Caetano',
     './images/logos/logoSaoCaetano.png',
+    null,
+    null,
+    null,
+    null,
+    null,
     1
   );
-INSERT INTO tb_equipes
+INSERT INTO tb_equipe
 VALUES(
     null,
     'Primeiro de Maio Futebol Clube',
     'Natação Santo André',
     './images/logos/logoSAndre.png',
+    null,
+    null,
+    null,
+    null,
+    null,
     1
   );
 -- Querrys

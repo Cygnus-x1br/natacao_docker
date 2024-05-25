@@ -27,10 +27,30 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'EquipeController',
             'action' => 'view_equipe'
         );
+        $routes['add_equipe'] = array(
+            'route' => '/add_equipe',
+            'controller' => 'EquipeController',
+            'action' => 'add_equipe'
+        );
+        $routes['save_equipe'] = array(
+            'route' => '/save_equipe',
+            'controller' => 'EquipeController',
+            'action' => 'save_equipe'
+        );
         $routes['list_federacao'] = array(
             'route' => '/list_federacao',
             'controller' => 'FederacaoController',
             'action' => 'list_federacao'
+        );
+        $routes['list_indices'] = array(
+            'route' => '/list_indices',
+            'controller' => 'IndicesController',
+            'action' => 'list_indices'
+        );
+        $routes['teste'] = array(
+            'route' => '/filtra_indices',
+            'controller' => 'IndicesController',
+            'action' => 'filtra_indices'
         );
         // $routes['view_note'] = array(
         //     'route' => '/view_note',

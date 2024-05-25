@@ -8,9 +8,14 @@ class Equipe extends Model
 {
   private $idequipe;
   private $nomeEquipe;
-  private $noteFantasiaEquipe;
+  private $nomeFantasiaEquipe;
   private $logoEquipe;
-
+  private $siteEquipe;
+  private $emailEquipe;
+  private $telefoneEquipe;
+  private $facebookEquipe;
+  private $instagramEquipe;
+  private $id_federacao;
   public function __get($atribute)
   {
     return $this->$atribute;
@@ -29,15 +34,43 @@ class Equipe extends Model
 
     return $stmt->fetchAll(\PDO::FETCH_ASSOC);
   }
-  // public function getNote()
-  // {
-  //   $note = "SELECT * FROM tb_notes WHERE IDNOTE=:idnote";
-  //   $stmt = $this->db->prepare($note);
-  //   $stmt->bindValue(':idnote', $this->__get('idnote'));
-  //   $stmt->execute();
+  public function getEquipe()
+  {
+    $note = "SELECT * FROM tb_equipe WHERE IDEQUIPE=:idequipe";
+    $stmt = $this->db->prepare($note);
+    $stmt->bindValue(':idequipe', $this->__get('idequipe'));
+    $stmt->execute();
 
-  //   return $stmt->fetch(\PDO::FETCH_ASSOC);
-  // }
+    return $stmt->fetch(\PDO::FETCH_ASSOC);
+  }
+
+  public function verificaCadastro($verifyData)
+  {
+    $equipe = "SELECT $verifyData FROM tb_equipe WHERE $verifyData=:$verifyData";
+    $stmt = $this->db->prepare($equipe);
+    $stmt->bindValue(":" . $verifyData, $this->__get($verifyData));
+    $stmt->execute();
+    return $stmt->fetch(\PDO::FETCH_ASSOC);
+  }
+
+  public function addEquipe()
+  {
+    $equipe = "INSERT INTO tb_equipe(nomeEquipe, nomeFantasiaEquipe, logoEquipe, siteEquipe, emailEquipe, telefoneEquipe, facebookEquipe, instagramEquipe, ID_FEDERACAO)
+         VALUES(:nomeEquipe, :nomeFantasiaEquipe, :logoEquipe, :siteEquipe, :emailEquipe, :telefoneEquipe, :facebookEquipe, :instagramEquipe, :id_federacao)";
+    $stmt = $this->db->prepare($equipe);
+    $stmt->bindValue(':nomeEquipe', $this->__get('nomeEquipe'));
+    $stmt->bindValue(':nomeFantasiaEquipe', $this->__get('nomeFantasiaEquipe'));
+    $stmt->bindValue(':logoEquipe', $this->__get('logoEquipe'));
+    $stmt->bindValue(':siteEquipe', $this->__get('siteEquipe'));
+    $stmt->bindValue(':emailEquipe', $this->__get('emailEquipe'));
+    $stmt->bindValue(':telefoneEquipe', $this->__get('telefoneEquipe'));
+    $stmt->bindValue(':facebookEquipe', $this->__get('facebookEquipe'));
+    $stmt->bindValue(':instagramEquipe', $this->__get('instagramEquipe'));
+    $stmt->bindValue(':id_federacao', $this->__get('id_federacao'));
+    $stmt->execute();
+
+    return $this;
+  }
 
   // public function addNote()
   // {

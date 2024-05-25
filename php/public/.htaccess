@@ -1,4 +1,4 @@
-# Options All -Indexes
+Options All -Indexes
 
 # Error Document 403 http://notes.jmarc.com.br/error
 
@@ -8,21 +8,3 @@
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^(.*)$ index.php/$1 [L]
 </IfModule>
-
-# <IfModule>
-
-# AddHandler application/x-httpd-ea-php73 .php .php7 .phtml
-
-# </IfModule>
-
-# php -- BEGIN cPanel-generated handler, do not edit
-
-# Defina o pacote “ea-php80” como a linguagem padrão de programação “PHP”.
-
-# <IfModule mime_module>
-
-# AddHandler application/x-httpd-ea-php80 .php .php8 .phtml
-
-# </IfModule>
-
-# php -- END cPanel-generated handler, do not edit

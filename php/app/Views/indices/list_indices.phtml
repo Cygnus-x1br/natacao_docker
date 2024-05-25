@@ -1,0 +1,103 @@
+<?php
+
+$indices = $this->viewData->indices;
+$anos = $this->viewData->anosIndice;
+$tipos = $this->viewData->tipoIndice;
+$categorias = $this->viewData->categorias;
+// print_r($anos);
+// print_r($tipos);
+// echo '<br>';
+// var_dump(array_search('2024', array_column($indices, 'anoIndice')));
+?>
+
+
+<main>
+  <div class="py-5 text-center">
+    <h2 class="fw-light">Tabela de Índices</h2>
+    <p class="lead"></p>
+  </div>
+
+  <div class="row p-3 ">
+    <form action="filtra_indices" method="post" class="row g-3 d-flex align-items-end">
+      <div class="col-md-4 col-lg-2">
+        <label for="anoIndice" class="form-label">Ano</label>
+        <select name="anoIndice" class="form-select" id="anoIndice">
+          <option value="">Selecione</option>
+          <?php foreach ($anos as $ano) { ?>
+            <option value="<?= $ano ?>"><?= $ano ?></option>
+          <?php }; ?>
+        </select>
+      </div>
+      <div class="col-md-4 col-lg-2">
+        <label for="tipoIndice" class="form-label">Tipo</label>
+        <select name="tipoIndice" class="form-select" id="tipoIndice">
+          <option value="">Selecione</option>
+          <?php foreach ($tipos as $tipo) { ?>
+            <option value="<?= $tipo ?>"><?= $tipo ?></option>
+          <?php }; ?>
+        </select>
+      </div>
+      <div class="col-md-4 col-lg-2">
+        <label for="generoIndice" class="form-label">Genero</label>
+        <select name="generoIndice" class="form-select" id="generoIndice">
+          <option value="">Selecione</option>
+          <option value="F">Feminino</option>
+          <option value="M">Masculino</option>
+        </select>
+      </div>
+      <div class="col-md-4 col-lg-2">
+        <label for="categoriaIndice" class="form-label">Categoria</label>
+        <select name="id_categoria" class="form-select" id="categoriaIndice">
+          <option value="">Selecione</option>
+          <?php foreach ($categorias as $categoria) { ?>
+            <option value="<?= $categoria['IDCATEGORIA'] ?>"><?= $categoria['nomeCategoria'] ?></option>
+          <?php }; ?>
+        </select>
+      </div>
+      <div class="col-md-4 col-lg-2">
+        <input type="submit" class="form-control btn btn-primary" value="Filtrar" id="filtrar">
+      </div>
+    </form>
+  </div>
+
+  <div class="table-responsive small">
+    <?php foreach ($anos as $ano) { ?>
+      <?php if ((array_search($ano, array_column($indices, 'anoIndice'))) !== false) {
+      ?>
+        <h2><?= $ano ?></h2>
+        <?php foreach ($tipos as $tipo) { ?>
+          <?php if ((array_search($tipo, array_column($indices, 'tipoIndice'))) !== false) {
+          ?>
+            <h3><?= $tipo ?></h3>
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th scope="col">Prova</th>
+                  <th scope="col">Genero</th>
+                  <th scope="col">Categoria</th>
+                  <th scope="col">Tempo</th>
+                </tr>
+              </thead>
+              <?php foreach ($indices as $indice) {
+                if ($indice['anoIndice'] == $ano && $indice['tipoIndice'] == $tipo) {
+              ?>
+                  <tbody style="background-color:blue;">
+                    <tr>
+                      <td class="col-sm-3"><?= $indice['distancia'] . 'm ' . $indice['nomeEstilo'] ?></td>
+                      <td class="col-sm-2"><?= $indice['generoIndice'] ?></td>
+                      <td class="col-sm-3"><?= $indice['nomeCategoria'] ?></td>
+                      <td class="col-sm-4"><?= $indice['tempoIndice'] ?></td>
+                    </tr>
+                  </tbody>
+                <?php } ?>
+              <?php } ?>
+            </table>
+          <?php }; ?>
+        <?php }; ?>
+      <?php } ?>
+      <hr>
+    <?php
+    }
+    ?>
+  </div>
+</main>

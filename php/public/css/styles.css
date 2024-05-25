@@ -9,3 +9,27 @@
   object-fit: cover;
   object-position: 0 20%;
 }
+
+.img-logo {
+  
+ 
+  max-width: 320px;
+  max-height: 320px;
+  
+  /* width: 240px; */
+  height: 240px;
+  object-fit: cover;
+  object-position: 0 20%;
+}
+.img-logo-border {
+  border: 1px solid #999;
+ 
+  max-width: 320px;
+  max-height: 320px;
+  
+  /* width: 240px; */
+  height: 240px;
+  width: 240px;
+  object-fit: cover;
+  object-position: 0 20%;
+}
