@@ -101,13 +101,18 @@ CREATE TABLE tb_atleta (
   IDATLETA INT PRIMARY KEY AUTO_INCREMENT,
   nomeAtleta varchar(100) NOT NULL,
   sobreNomeAtleta varchar(30) NOT NULL,
-  apelidoAtleta varchar(50) NOT NULL,
-  emailAtleta varchar(100) NOT NULL,
+  apelidoAtleta varchar(50),
+  emailAtleta varchar(100),
   dataNascAtleta DATE NOT NULL,
   cpfAtleta VARCHAR(14) NOT NULL,
   numRegistroAtleta VARCHAR(10),
   sexoAtleta ENUM('M', 'F') NOT NULL,
   rgAtleta VARCHAR(12),
+  fotoAtleta VARCHAR(150),
+  instagramAtleta VARCHAR(100),
+  facebookAtleta VARCHAR(100),
+  telefoneAtleta VARCHAR(20),
+  whatsappAtleta VARCHAR(20),
   ID_EQUIPE INT
 );
 --
@@ -296,9 +301,18 @@ VALUES(18, 'Junior 2', 18);
 INSERT INTO tb_categoria
 VALUES(99, 'Absoluto', 99);
 -- Tabela TEste de dados
-INSERT INTO tb_atleta
+INSERT INTO tb_atleta(
+    nomeAtleta,
+    sobreNomeAtleta,
+    apelidoAtleta,
+    emailAtleta,
+    dataNascAtleta,
+    cpfAtleta,
+    numRegistroAtleta,
+    sexoAtleta,
+    rgAtleta
+  )
 VALUES(
-    null,
     'Fernando',
     'Fiad',
     'Mini-Tom',
@@ -307,12 +321,20 @@ VALUES(
     '111.222.333-44',
     'FAP123456',
     'M',
-    '99.888.777-6',
-    null
+    '99.888.777-6'
   );
-INSERT INTO tb_atleta
+INSERT INTO tb_atleta(
+    nomeAtleta,
+    sobreNomeAtleta,
+    apelidoAtleta,
+    emailAtleta,
+    dataNascAtleta,
+    cpfAtleta,
+    numRegistroAtleta,
+    sexoAtleta,
+    rgAtleta
+  )
 VALUES(
-    null,
     'Antonio',
     'Fiad',
     'Tom',
@@ -321,8 +343,7 @@ VALUES(
     '555.666.777-88',
     '987654',
     'M',
-    '11.222.333-4',
-    null
+    '11.222.333-4'
   );
 INSERT INTO tb_federacao
 VALUES(
