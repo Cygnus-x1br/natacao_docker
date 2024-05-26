@@ -12,10 +12,25 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'IndexController',
             'action' => 'index'
         );
+        $routes['select_atleta'] = array(
+            'route' => '/select_atleta',
+            'controller' => 'AtletaController',
+            'action' => 'select_atleta'
+        );
         $routes['view_atleta'] = array(
             'route' => '/view_atleta',
             'controller' => 'AtletaController',
             'action' => 'view_atleta'
+        );
+        $routes['add_atleta'] = array(
+            'route' => '/add_atleta',
+            'controller' => 'AtletaController',
+            'action' => 'add_atleta'
+        );
+        $routes['save_atleta'] = array(
+            'route' => '/save_atleta',
+            'controller' => 'AtletaController',
+            'action' => 'save_atleta'
         );
         $routes['list_equipes'] = array(
             'route' => '/list_equipes',
@@ -47,7 +62,7 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'IndicesController',
             'action' => 'list_indices'
         );
-        $routes['teste'] = array(
+        $routes['filtra_indices'] = array(
             'route' => '/filtra_indices',
             'controller' => 'IndicesController',
             'action' => 'filtra_indices'

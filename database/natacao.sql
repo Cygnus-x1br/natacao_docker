@@ -1,3 +1,4 @@
+--Versao 0.1.1.1
 CREATE DATABASE natacao;
 USE natacao;
 -- Criacao de tabelas fixas

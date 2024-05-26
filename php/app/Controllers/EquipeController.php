@@ -39,8 +39,6 @@ class EquipeController extends Action
   }
   public function save_equipe()
   {
-
-    print_r($_POST);
     $federacao = Container::getModel('Federacao');
     $federacao_data = $federacao->getAllFederacoes();
     $this->viewData->federacoes = $federacao_data;
@@ -98,7 +96,7 @@ class EquipeController extends Action
     }
 
     $tmp_file = $file['tmp_name'];
-    $path = './images/logos';
+    $path = './images/logos/';
     $save_file = $path . 'logo' . $_POST['nomeFantasiaEquipe']  . '.' . $extensao;
     $teste = move_uploaded_file($tmp_file, $save_file);
     if ($teste == 1) {

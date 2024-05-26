@@ -2,6 +2,8 @@
 // print_r($this->viewData->equipe);
 $equipe = $this->viewData->equipe;
 $federacoes = $this->viewData->federacoes;
+
+$disabled = 'disabled';
 ?>
 
 <div class="container">
@@ -66,20 +68,20 @@ $federacoes = $this->viewData->federacoes;
           <div class="row g-3">
             <div class="col-12">
               <label for="firstName" class="form-label">Nome</label>
-              <input type="text" class="form-control" id="firstName" placeholder="Nome" value="<?= $equipe['nomeEquipe'] ?>" required>
+              <input type="text" class="form-control" id="firstName" placeholder="Nome" value="<?= $equipe['nomeEquipe'] ?>" <?= $disabled ?>>
               <div class="invalid-feedback">
                 Valid first name is required.
               </div>
             </div>
             <div class="col-12">
               <label for="nickname" class="form-label">Sigla</label>
-              <input type="text" class="form-control" id="nickname" placeholder="Apelido" value="<?= $equipe['nomeFantasiaEquipe'] ?>">
+              <input type="text" class="form-control" id="nickname" placeholder="Apelido" value="<?= $equipe['nomeFantasiaEquipe'] ?>" <?= $disabled ?>>
             </div>
           </div>
 
           <div class="col-12">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="you@example.com" value="">
+            <input type="email" class="form-control" id="email" placeholder="you@example.com" value="" <?= $disabled ?>>
             <div class="invalid-feedback">
               Please enter a valid email address.
             </div>
@@ -87,7 +89,7 @@ $federacoes = $this->viewData->federacoes;
 
           <div class="col-12">
             <label for="address" class="form-label">Site</label>
-            <input type="text" class="form-control" id="address" placeholder="www.example.com" required>
+            <input type="text" class="form-control" id="address" placeholder="www.example.com" <?= $disabled ?>>
             <div class="invalid-feedback">
               Please enter your shipping address.
             </div>
@@ -95,26 +97,26 @@ $federacoes = $this->viewData->federacoes;
           <div class="row g-3">
             <div class="col-6">
               <label for="facebook" class="form-label">Facebook <span class="text-body-secondary">(Opcional)</span></label>
-              <input type="text" class="form-control" id="facebook" placeholder="Link facebook">
+              <input type="text" class="form-control" id="facebook" placeholder="Link facebook" <?= $disabled ?>>
             </div>
             <div class="col-6">
               <label for="instagram" class="form-label">Instagram <span class="text-body-secondary">(Opcional)</span></label>
-              <input type="text" class="form-control" id="instagram" placeholder="Link Instagram">
+              <input type="text" class="form-control" id="instagram" placeholder="Link Instagram" <?= $disabled ?>>
             </div>
           </div>
 
           <div class="col-md-5">
             <label for="telefone" class="form-label">Telefone<span class="text-body-secondary">(Opcional)</span></label>
-            <input type="text" class="form-control" id="telefone" placeholder="">
+            <input type="text" class="form-control" id="telefone" placeholder="" <?= $disabled ?>>
           </div>
           <div class="row gy-3">
             <div class="col-md-6">
               <label for="logoEquipe" class="form-label">Logotipo</label>
-              <input type="text" class="form-control" id="logoEquipe" placeholder="" value="<?= $equipe['logoEquipe'] ?>">
+              <input type="text" class="form-control" id="logoEquipe" placeholder="" value="<?= $equipe['logoEquipe'] ?>" <?= $disabled ?>>
             </div>
             <div class="col-md-6">
               <label for="federacao" class="form-label">Federação</label>
-              <select name="federacao" class="form-select" id="federacao">
+              <select name="federacao" class="form-select" id="federacao" <?= $disabled ?>>
                 <option value="">Selecione</option>
                 <?php foreach ($federacoes as $federacao) { ?>
                   <option value="<?= $federacao['IDFEDERACAO'] ?>" <?php if ($federacao['IDFEDERACAO'] == $equipe['ID_FEDERACAO']) echo 'selected' ?>><?= $federacao['nomeFederacao'] ?></option>
@@ -123,7 +125,10 @@ $federacoes = $this->viewData->federacoes;
             </div>
           </div>
           <hr class="my-4">
-          <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+          <div class="grid column-gap-0">
+            <button class="w-25 btn btn-primary btn-lg" type="submit">Editar</button>
+            <a class="w-25 btn btn-secondary btn-lg" href="/list_equipes">Voltar</a>
+          </div>
         </form>
       </div>
     </div>
