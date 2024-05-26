@@ -12,6 +12,23 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'IndexController',
             'action' => 'index'
         );
+
+        $routes['signin'] = array(
+            'route' => '/sign_in',
+            'controller' => 'SignInController',
+            'action' => 'sign_in'
+        );
+        $routes['log_out'] = array(
+            'route' => '/log_out',
+            'controller' => 'SignInController',
+            'action' => 'log_out'
+        );
+        $routes['authenticate'] = array(
+            'route' => '/authenticate',
+            'controller' => 'SignInController',
+            'action' => 'authenticate'
+        );
+
         $routes['select_atleta'] = array(
             'route' => '/select_atleta',
             'controller' => 'AtletaController',

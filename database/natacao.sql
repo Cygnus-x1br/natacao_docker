@@ -1,4 +1,4 @@
---Versao 0.1.1.1
+-- Versao 0.1.1.2
 CREATE DATABASE natacao;
 USE natacao;
 -- Criacao de tabelas fixas
@@ -34,6 +34,14 @@ ALTER TABLE tba_distancia_estilo
 ADD CONSTRAINT FK_ESTILO_DISTANCIA FOREIGN KEY(ID_ESTILO) REFERENCES tb_estilo(IDESTILO);
 ALTER TABLE tba_distancia_estilo
 ADD CONSTRAINT FK_DISTANCIA_ESTILO FOREIGN KEY(ID_DISTANCIA) REFERENCES tb_distancia(IDDISTANCIA);
+--
+CREATE TABLE tb_users (
+IDUSER INT PRIMARY KEY AUTO_INCREMENT,
+username varchar(20) NOT NULL,
+passwd varchar(256) NOT NULL,
+user_name varchar(100) NOT NULL,
+permission char(1) NOT NULL
+);
 -- Criacao de Tabelas 
 CREATE TABLE tb_federacao (
   IDFEDERACAO INT PRIMARY KEY AUTO_INCREMENT,
@@ -549,6 +557,14 @@ VALUES(
     null,
     null,
     null,
+    1
+  );
+INSERT INTO tb_users
+VALUES(
+    null,
+    'admin',
+    sha1('admin'),
+    'admin',
     1
   );
 -- Querrys
