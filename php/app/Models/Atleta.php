@@ -36,7 +36,7 @@ class Atleta extends Model
     }
     public function getAtleta()
     {
-        $atleta = "SELECT * FROM tb_atleta WHERE IDATLETA=:idatleta";
+        $atleta = "SELECT *, e.nomeEquipe, e.nomeFantasiaEquipe, e.logoEquipe FROM tb_atleta INNER JOIN tb_equipe AS e ON ID_EQUIPE = e.IDEQUIPE WHERE IDATLETA=:idatleta";
         $stmt = $this->db->prepare($atleta);
         $stmt->bindValue(':idatleta', $this->__get('idatleta'));
         $stmt->execute();
@@ -90,6 +90,46 @@ class Atleta extends Model
                      :whatsappAtleta,
                        :id_equipe)";
         $stmt = $this->db->prepare($atleta);
+        $stmt->bindValue(':nomeAtleta', $this->__get('nomeAtleta'));
+        $stmt->bindValue(':sobreNomeAtleta', $this->__get('sobreNomeAtleta'));
+        $stmt->bindValue(':apelidoAtleta', $this->__get('apelidoAtleta'));
+        $stmt->bindValue(':emailAtleta', $this->__get('emailAtleta'));
+        $stmt->bindValue(':dataNascAtleta', $this->__get('dataNascAtleta'));
+        $stmt->bindValue(':cpfAtleta', $this->__get('cpfAtleta'));
+        $stmt->bindValue(':numRegistroAtleta', $this->__get('numRegistroAtleta'));
+        $stmt->bindValue(':sexoAtleta', $this->__get('sexoAtleta'));
+        $stmt->bindValue(':rgAtleta', $this->__get('rgAtleta'));
+        $stmt->bindValue(':fotoAtleta', $this->__get('fotoAtleta'));
+        $stmt->bindValue(':instagramAtleta', $this->__get('instagramAtleta'));
+        $stmt->bindValue(':facebookAtleta', $this->__get('facebookAtleta'));
+        $stmt->bindValue(':telefoneAtleta', $this->__get('telefoneAtleta'));
+        $stmt->bindValue(':whatsappAtleta', $this->__get('whatsappAtleta'));
+        $stmt->bindValue(':id_equipe', $this->__get('id_equipe'));
+        $stmt->execute();
+
+        return $this;
+    }
+    public function editAtleta()
+    {
+        $atleta = "UPDATE tb_atleta
+         SET nomeAtleta = :nomeAtleta,
+            sobreNomeAtleta = :sobreNomeAtleta,
+             apelidoAtleta = :apelidoAtleta,
+              emailAtleta = :emailAtleta,
+               dataNascAtleta = :dataNascAtleta,
+                cpfAtleta = :cpfAtleta,
+                 numRegistroAtleta = :numRegistroAtleta,
+                  sexoAtleta = :sexoAtleta,
+                   rgAtleta = :rgAtleta,
+                    fotoAtleta = :fotoAtleta,
+                     instagramAtleta = :instagramAtleta,
+                      facebookAtleta = :facebookAtleta,
+                       telefoneAtleta = :telefoneAtleta,
+                        whatsappAtleta = :whatsappAtleta,
+                          id_equipe = :id_equipe
+         WHERE idatleta = :idatleta";
+        $stmt = $this->db->prepare($atleta);
+        $stmt->bindValue(':idatleta', $this->__get('idatleta'));
         $stmt->bindValue(':nomeAtleta', $this->__get('nomeAtleta'));
         $stmt->bindValue(':sobreNomeAtleta', $this->__get('sobreNomeAtleta'));
         $stmt->bindValue(':apelidoAtleta', $this->__get('apelidoAtleta'));

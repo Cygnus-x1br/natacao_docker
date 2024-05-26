@@ -15,27 +15,25 @@
     <div class="container">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         <?php
-        foreach ($this->viewData->equipes as $equipe) {
-          echo '
-        <div class="col">
-          <div class="card shadow-sm">
+        foreach ($this->viewData->equipes as $equipe) { ?>
+          <div class="col">
+            <div class="card shadow-sm">
               <title></title>
-              <img class="bd-placeholder-img card-img-top" style="max-height: 225px; object-fit: contain" src="' . $equipe['logoEquipe'] . '" width="auto" " ></text>
-            <div class="card-body">
-              <h6 class="card-text">' . $equipe['nomeFantasiaEquipe'] . '</h6>
-              <p class="card-text">' . $equipe['nomeEquipe'] . '</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <a href="/view_equipe?idequipe=' . $equipe['IDEQUIPE'] . '"class="btn btn-sm btn-outline-secondary">View</a>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+              <img class="bd-placeholder-img card-img-top p-4" style="max-height: 225px; object-fit: contain" src="<?= $equipe['logoEquipe'] ?>" alt="Logotipo <?= $equipe['nomeFantasiaEquipe'] ?>" width="auto"></text>
+              <div class=" card-body">
+                <h6 class="card-text"><?= $equipe['nomeFantasiaEquipe'] ?></h6>
+                <p class="card-text"><?= $equipe['nomeEquipe'] ?></p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <a href="/view_equipe?idequipe=<?= $equipe['IDEQUIPE'] ?>" class="btn btn-sm btn-outline-secondary">View</a>
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  </div>
+                  <small class="text-body-secondary"><?= $equipe['nomeFantasiaFederacao'] ?></small>
                 </div>
-                <small class="text-body-secondary">' . $equipe['nomeFantasiaFederacao'] . '</small>
               </div>
             </div>
           </div>
-        </div>
-        ';
-        } ?>
+        <?php } ?>
       </div>
     </div>
 </main>

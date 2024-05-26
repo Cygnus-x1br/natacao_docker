@@ -3,31 +3,31 @@ CREATE DATABASE natacao;
 USE natacao;
 -- Criacao de tabelas fixas
 CREATE TABLE tb_estado (
-  IDESTADO INT PRIMARY KEY AUTO_INCREMENT,
-  nomeEstado varchar(30) NOT NULL,
-  siglaEstado char(2) NOT NULL
+    IDESTADO INT PRIMARY KEY AUTO_INCREMENT,
+    nomeEstado varchar(30) NOT NULL,
+    siglaEstado char(2) NOT NULL
 );
 CREATE TABLE tb_categoria (
-  IDCATEGORIA INT PRIMARY KEY AUTO_INCREMENT,
-  nomeCategoria varchar(100) NOT NULL,
-  idadeCategoria INT
+    IDCATEGORIA INT PRIMARY KEY AUTO_INCREMENT,
+    nomeCategoria varchar(100) NOT NULL,
+    idadeCategoria INT
 );
 CREATE TABLE tb_piscina (
-  IDPISCINA INT PRIMARY KEY AUTO_INCREMENT,
-  tamanhoPiscina INT NOT NULL
+    IDPISCINA INT PRIMARY KEY AUTO_INCREMENT,
+    tamanhoPiscina INT NOT NULL
 );
 CREATE TABLE tb_distancia (
-  IDDISTANCIA INT PRIMARY KEY AUTO_INCREMENT,
-  distancia INT NOT NULL
+    IDDISTANCIA INT PRIMARY KEY AUTO_INCREMENT,
+    distancia INT NOT NULL
 );
 CREATE TABLE tb_estilo (
-  IDESTILO INT PRIMARY KEY AUTO_INCREMENT,
-  nomeEstilo varchar(100) NOT NULL
+    IDESTILO INT PRIMARY KEY AUTO_INCREMENT,
+    nomeEstilo varchar(100) NOT NULL
 );
 CREATE TABLE tba_distancia_estilo (
-  IDDISTANCIAESTILO INT PRIMARY KEY AUTO_INCREMENT,
-  ID_DISTANCIA INT NOT NULL,
-  ID_ESTILO INT NOT NULL
+    IDDISTANCIAESTILO INT PRIMARY KEY AUTO_INCREMENT,
+    ID_DISTANCIA INT NOT NULL,
+    ID_ESTILO INT NOT NULL
 );
 --
 ALTER TABLE tba_distancia_estilo
@@ -44,44 +44,44 @@ permission char(1) NOT NULL
 );
 -- Criacao de Tabelas 
 CREATE TABLE tb_federacao (
-  IDFEDERACAO INT PRIMARY KEY AUTO_INCREMENT,
-  nomeFederacao varchar(100) NOT NULL,
-  nomeFantasiaFederacao varchar(50),
-  logoFederacao varchar(150),
-  siteFederacao varchar(100),
-  emailFederacao varchar(100),
-  telefoneFederacao varchar(20),
-  facebookFederacao varchar(100),
-  instagramFederacao varchar(100),
-  ID_ESTADO INT NOT NULL
+    IDFEDERACAO INT PRIMARY KEY AUTO_INCREMENT,
+    nomeFederacao varchar(100) NOT NULL,
+    nomeFantasiaFederacao varchar(50),
+    logoFederacao varchar(150),
+    siteFederacao varchar(100),
+    emailFederacao varchar(100),
+    telefoneFederacao varchar(20),
+    facebookFederacao varchar(100),
+    instagramFederacao varchar(100),
+    ID_ESTADO INT NOT NULL
 );
 -- 
 ALTER TABLE tb_federacao
 ADD CONSTRAINT FK_FEDERACAO_ESTADO FOREIGN KEY(ID_ESTADO) REFERENCES tb_estado(IDESTADO);
 -- 
 CREATE TABLE tb_equipe (
-  IDEQUIPE INT PRIMARY KEY AUTO_INCREMENT,
-  nomeEquipe varchar(100) NOT NULL,
-  nomeFantasiaEquipe varchar(50),
-  logoEquipe varchar(150),
-  siteEquipe varchar(100),
-  emailEquipe varchar(100),
-  telefoneEquipe varchar(20),
-  facebookEquipe varchar(100),
-  instagramEquipe varchar(100),
-  ID_FEDERACAO INT
+    IDEQUIPE INT PRIMARY KEY AUTO_INCREMENT,
+    nomeEquipe varchar(100) NOT NULL,
+    nomeFantasiaEquipe varchar(50),
+    logoEquipe varchar(150),
+    siteEquipe varchar(100),
+    emailEquipe varchar(100),
+    telefoneEquipe varchar(20),
+    facebookEquipe varchar(100),
+    instagramEquipe varchar(100),
+    ID_FEDERACAO INT
 );
 -- 
 ALTER TABLE tb_equipe
 ADD CONSTRAINT FK_EQUIPE_FEDERACAO FOREIGN KEY(ID_FEDERACAO) REFERENCES tb_federacao(IDFEDERACAO);
 -- 
 CREATE TABLE tb_torneio (
-  IDTORNEIO INT PRIMARY KEY AUTO_INCREMENT,
-  nomeTorneio varchar(100) NOT NULL,
-  dataTorneio DATE NOT NULL,
-  -- ID_CIDADE INT,
-  ID_PISCINA INT,
-  ID_FEDERACAO INT
+    IDTORNEIO INT PRIMARY KEY AUTO_INCREMENT,
+    nomeTorneio varchar(100) NOT NULL,
+    dataTorneio DATE NOT NULL,
+    -- ID_CIDADE INT,
+    ID_PISCINA INT,
+    ID_FEDERACAO INT
 );
 -- 
 ALTER TABLE tb_torneio
@@ -107,22 +107,22 @@ ALTER TABLE tb_prova
 ADD CONSTRAINT FK_PROVA_TORNEIO FOREIGN KEY(ID_TORNEIO) REFERENCES tb_torneio(IDTORNEIO);
 -- 
 CREATE TABLE tb_atleta (
-  IDATLETA INT PRIMARY KEY AUTO_INCREMENT,
-  nomeAtleta varchar(100) NOT NULL,
-  sobreNomeAtleta varchar(30) NOT NULL,
-  apelidoAtleta varchar(50),
-  emailAtleta varchar(100),
-  dataNascAtleta DATE NOT NULL,
-  cpfAtleta VARCHAR(14) NOT NULL,
-  numRegistroAtleta VARCHAR(10),
-  sexoAtleta ENUM('M', 'F') NOT NULL,
-  rgAtleta VARCHAR(12),
-  fotoAtleta VARCHAR(150),
-  instagramAtleta VARCHAR(100),
-  facebookAtleta VARCHAR(100),
-  telefoneAtleta VARCHAR(20),
-  whatsappAtleta VARCHAR(20),
-  ID_EQUIPE INT
+    IDATLETA INT PRIMARY KEY AUTO_INCREMENT,
+    nomeAtleta varchar(100) NOT NULL,
+    sobreNomeAtleta varchar(30) NOT NULL,
+    apelidoAtleta varchar(50),
+    emailAtleta varchar(100),
+    dataNascAtleta DATE NOT NULL,
+    cpfAtleta VARCHAR(14) NOT NULL,
+    numRegistroAtleta VARCHAR(10),
+    sexoAtleta ENUM('M', 'F') NOT NULL,
+    rgAtleta VARCHAR(12),
+    fotoAtleta VARCHAR(150),
+    instagramAtleta VARCHAR(100),
+    facebookAtleta VARCHAR(100),
+    telefoneAtleta VARCHAR(20),
+    whatsappAtleta VARCHAR(20),
+    ID_EQUIPE INT
 );
 --
 ALTER TABLE tb_atleta
@@ -311,109 +311,113 @@ INSERT INTO tb_categoria
 VALUES(99, 'Absoluto', 99);
 -- Tabela TEste de dados
 INSERT INTO tb_atleta(
-    nomeAtleta,
-    sobreNomeAtleta,
-    apelidoAtleta,
-    emailAtleta,
-    dataNascAtleta,
-    cpfAtleta,
-    numRegistroAtleta,
-    sexoAtleta,
-    rgAtleta
-  )
+        nomeAtleta,
+        sobreNomeAtleta,
+        apelidoAtleta,
+        emailAtleta,
+        dataNascAtleta,
+        cpfAtleta,
+        numRegistroAtleta,
+        sexoAtleta,
+        rgAtleta,
+        fotoAtleta
+    )
 VALUES(
-    'Fernando',
-    'Fiad',
-    'Mini-Tom',
-    'fernando@gmail.com',
-    '2016-03-13',
-    '111.222.333-44',
-    'FAP123456',
-    'M',
-    '99.888.777-6'
-  );
+        'Fernando',
+        'Fiad',
+        'Mini-Tom',
+        'fernando@gmail.com',
+        '2016-03-13',
+        '111.222.333-44',
+        'FAP123456',
+        'M',
+        '99.888.777-6',
+        './images/fotos/foto_1_Fiad_2016-03-13.jpg'
+    );
 INSERT INTO tb_atleta(
-    nomeAtleta,
-    sobreNomeAtleta,
-    apelidoAtleta,
-    emailAtleta,
-    dataNascAtleta,
-    cpfAtleta,
-    numRegistroAtleta,
-    sexoAtleta,
-    rgAtleta
-  )
+        nomeAtleta,
+        sobreNomeAtleta,
+        apelidoAtleta,
+        emailAtleta,
+        dataNascAtleta,
+        cpfAtleta,
+        numRegistroAtleta,
+        sexoAtleta,
+        rgAtleta,
+        fotoAtleta
+    )
 VALUES(
-    'Antonio',
-    'Fiad',
-    'Tom',
-    'tom@gmail.com',
-    '2011-04-07',
-    '555.666.777-88',
-    '987654',
-    'M',
-    '11.222.333-4'
-  );
+        'Antonio',
+        'Fiad',
+        'Tom',
+        'tom@gmail.com',
+        '2011-04-07',
+        '555.666.777-88',
+        '987654',
+        'M',
+        '11.222.333-4',
+        './images/fotos/foto_2_Fiad_2011-04-07.jpg'
+    );
 INSERT INTO tb_federacao
 VALUES(
-    null,
-    'Federacao Aquatica Paulista',
-    'FAP',
-    './images/logos/logoFAP.png',
-    null,
-    null,
-    null,
-    null,
-    null,
-    24
-  );
+        null,
+        'Federacao Aquatica Paulista',
+        'FAP',
+        './images/logos/logoFAP.png',
+        null,
+        null,
+        null,
+        null,
+        null,
+        24
+    );
 INSERT INTO tb_federacao
 VALUES(
-    null,
-    'Federacao Aquatica do Rio de Janeiro',
-    'FARJ',
-    './images/logos/logoFARJ.png',
-    null,
-    null,
-    null,
-    null,
-    null,
-    23
-  );
+        null,
+        'Federacao Aquatica do Rio de Janeiro',
+        'FARJ',
+        './images/logos/logoFARJ.png',
+        null,
+        null,
+        null,
+        null,
+        null,
+        23
+    );
 INSERT INTO tb_federacao
 VALUES(
-    null,
-    'Federacao Aquatica Mineira',
-    'FARJ',
-    './images/logos/logoFAM.png',
-    null,
-    null,
-    null,
-    null,
-    null,
-    22
-  );
+        null,
+        'Federacao Aquatica Mineira',
+        'FARJ',
+        './images/logos/logoFAM.png',
+        null,
+        null,
+        null,
+        null,
+        null,
+        22
+    );
 INSERT INTO tb_federacao
 VALUES(
-    null,
-    'Federacao Aquatica Capixaba',
-    'FAC',
-    './images/logos/logoFAC.png',
-    null,
-    null,
-    null,
-    null,
-    null,
-    21
-  );
+        null,
+        'Federacao Aquatica Capixaba',
+        'FAC',
+        './images/logos/logoFAC.png',
+        null,
+        null,
+        null,
+        null,
+        null,
+        21
+    );
 INSERT INTO tb_torneio
 VALUES(
-    null,
-    '3o Torneio Regional Petz a Senior',
-    '2024-05-18',
-    1,
-    1
-  );
+        null,
+        '3o Torneio Regional Petz a Senior',
+        '2024-05-18',
+        1,
+        1
+    );
 INSERT INTO tba_distancia_estilo
 VALUES(null, 1, 1);
 INSERT INTO tba_distancia_estilo
@@ -458,115 +462,118 @@ INSERT INTO tba_distancia_estilo
 VALUES(null, 4, 5);
 INSERT INTO tba_distancia_estilo
 VALUES(null, 5, 5);
+--
 INSERT INTO tb_prova
 VALUES(
-    null,
-    1,
-    'M',
-    1,
-    5,
-    13,
-    99
-  );
+        null,
+        1,
+        'M',
+        1,
+        5,
+        13,
+        99
+    );
 INSERT INTO tb_prova
 VALUES(
-    null,
-    1,
-    'F',
-    1,
-    5,
-    13,
-    99
-  );
+        null,
+        1,
+        'F',
+        1,
+        5,
+        13,
+        99
+    );
+--
 INSERT INTO tb_indices
 VALUES(
-    null,
-    2023,
-    '00:00:30.75',
-    13,
-    'F',
-    'Brasileiro Inverno',
-    1,
-    2
-  );
+        null,
+        2023,
+        '00:00:30.75',
+        13,
+        'F',
+        'Brasileiro Inverno',
+        1,
+        2
+    );
 INSERT INTO tb_indices
 VALUES(
-    null,
-    2024,
-    '00:00:31.60',
-    13,
-    'F',
-    'Brasileiro Inverno',
-    1,
-    2
-  );
+        null,
+        2024,
+        '00:00:31.60',
+        13,
+        'F',
+        'Brasileiro Inverno',
+        1,
+        2
+    );
 INSERT INTO tb_indices
 VALUES(
-    null,
-    2024,
-    '00:01:09.04',
-    13,
-    'F',
-    'Brasileiro Inverno',
-    2,
-    2
-  );
+        null,
+        2024,
+        '00:01:09.04',
+        13,
+        'F',
+        'Brasileiro Inverno',
+        2,
+        2
+    );
 INSERT INTO tb_indices
 VALUES(
-    null,
-    2024,
-    '00:00:28.86',
-    13,
-    'M',
-    'Brasileiro Inverno',
-    1,
-    2
-  );
+        null,
+        2024,
+        '00:00:28.86',
+        13,
+        'M',
+        'Brasileiro Inverno',
+        1,
+        2
+    );
 INSERT INTO tb_indices
 VALUES(
-    null,
-    2024,
-    '00:01:03.66',
-    13,
-    'M',
-    'Brasileiro Inverno',
-    2,
-    2
-  );
+        null,
+        2024,
+        '00:01:03.66',
+        13,
+        'M',
+        'Brasileiro Inverno',
+        2,
+        2
+    );
+--
 INSERT INTO tb_equipe
 VALUES(
-    null,
-    'Associação Atlética São Caetano',
-    'Natação São Caetano',
-    './images/logos/logoSaoCaetano.png',
-    null,
-    null,
-    null,
-    null,
-    null,
-    1
-  );
+        null,
+        'Associacao Atletica Sao Caetano',
+        'Natacao Sao Caetano',
+        './images/logos/logoSaoCaetano.png',
+        null,
+        null,
+        null,
+        null,
+        null,
+        1
+    );
 INSERT INTO tb_equipe
 VALUES(
-    null,
-    'Primeiro de Maio Futebol Clube',
-    'Natação Santo André',
-    './images/logos/logoSAndre.png',
-    null,
-    null,
-    null,
-    null,
-    null,
-    1
-  );
+        null,
+        'Primeiro de Maio Futebol Clube',
+        'Natacao Santo Andre',
+        './images/logos/logoSAndre.png',
+        null,
+        null,
+        null,
+        null,
+        null,
+        1
+    );
 INSERT INTO tb_users
 VALUES(
-    null,
-    'admin',
-    sha1('admin'),
-    'admin',
-    1
-  );
+        null,
+        'admin',
+        sha1('admin'),
+        'admin',
+        1
+    );
 -- Querrys
 -- SELECT nomeTorneio, f.nomeFantasiaFederacao, p.tamanhoPiscina 
 -- FROM tb_torneio 

@@ -39,6 +39,11 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'AtletaController',
             'action' => 'view_atleta'
         );
+        $routes['index_atleta'] = array(
+            'route' => '/index_atleta',
+            'controller' => 'AtletaController',
+            'action' => 'index_atleta'
+        );
         $routes['add_atleta'] = array(
             'route' => '/add_atleta',
             'controller' => 'AtletaController',
@@ -48,6 +53,11 @@ class Route extends \MF\Init\Bootstrap
             'route' => '/save_atleta',
             'controller' => 'AtletaController',
             'action' => 'save_atleta'
+        );
+        $routes['edit_atleta'] = array(
+            'route' => '/edit_atleta',
+            'controller' => 'AtletaController',
+            'action' => 'edit_atleta'
         );
         $routes['list_equipes'] = array(
             'route' => '/list_equipes',

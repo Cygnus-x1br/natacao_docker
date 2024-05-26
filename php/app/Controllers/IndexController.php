@@ -10,8 +10,6 @@ class IndexController extends Action
   public function index()
   {
 
-
-
     if (isset($_GET['id'])) {
       $atleta = Container::getModel('Atleta');
       $atleta->__set('idatleta', $_GET['id']);
@@ -28,9 +26,9 @@ class IndexController extends Action
       $equipe_data = $equipes->getAllEquipes();
       $this->viewData->equipes = $equipe_data;
 
-      $this->render('index');
+      $this->render('index_atleta');
     }
 
-    header('Location: ./select_atleta');
+    $this->render('index');
   }
 }

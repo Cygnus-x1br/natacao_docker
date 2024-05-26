@@ -65,11 +65,13 @@ $equipes = $this->viewData->equipes;
       </div>
       <div class="col-md-7 col-lg-8">
         <h4 class="mb-3"></h4>
-        <form class="needs-validation" novalidate>
+
+        <form action="edit_atleta" method="POST" class="needs-validation" enctype="multipart/form-data">
+          <input type="hidden" name="idAtleta" value="<?= $atleta['IDATLETA'] ?>">
           <div class="row g-3">
             <div class="col-sm-6">
               <label for="firstName" class="form-label">Nome</label>
-              <input type="text" class="form-control" id="firstName" placeholder="Nome" value="<?= $atleta['nomeAtleta'] ?>" required>
+              <input type="text" class="form-control" id="firstName" name="nomeAtleta" placeholder="Nome" value="<?= $atleta['nomeAtleta'] ?>" required>
               <div class="invalid-feedback">
                 Valid first name is required.
               </div>
@@ -77,7 +79,7 @@ $equipes = $this->viewData->equipes;
 
             <div class="col-sm-6">
               <label for="lastName" class="form-label">Sobrenome</label>
-              <input type="text" class="form-control" id="lastName" placeholder="Sobrenome" value="<?= $atleta['sobreNomeAtleta'] ?>">
+              <input type="text" class="form-control" id="lastName" name="sobreNomeAtleta" placeholder="Sobrenome" value="<?= $atleta['sobreNomeAtleta'] ?>">
               <div class="invalid-feedback">
                 Valid last name is required.
               </div>
@@ -85,14 +87,14 @@ $equipes = $this->viewData->equipes;
 
             <div class="col-sm-6">
               <label for="nickname" class="form-label">Apelido</label>
-              <input type="text" class="form-control" id="nickname" placeholder="Apelido" value="<?= $atleta['apelidoAtleta'] ?>">
+              <input type="text" class="form-control" id="nickname" name="apelidoAtleta" placeholder="Apelido" value="<?= $atleta['apelidoAtleta'] ?>">
             </div>
 
             <div class="col-md-6">
               <div class="row">
                 <label for="birth_date" class="form-label">Data de Nascimento</label>
                 <div class="col-md-6">
-                  <input type="text" class="form-control" id="birth_date" placeholder="" value="<?php echo implode('/', array_reverse(explode('-', $atleta['dataNascAtleta']))); ?>">
+                  <input type="date" class="form-control" id="birth_date" name="dataNascAtleta" placeholder="" value="<?= $atleta['dataNascAtleta']; ?>">
                 </div>
                 <div class="col-md-6">
                   <p><?= $categoria['nomeCategoria'] ?></p>
@@ -101,7 +103,7 @@ $equipes = $this->viewData->equipes;
             </div>
             <div class="col-12">
               <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com" value="<?= $atleta['emailAtleta'] ?>">
+              <input type="email" class="form-control" id="email" name="emailAtleta" placeholder="you@example.com" value="<?= $atleta['emailAtleta'] ?>">
               <div class="invalid-feedback">
                 Please enter a valid email address.
               </div>
@@ -110,11 +112,11 @@ $equipes = $this->viewData->equipes;
             <label class="mt-3">Sexo</label>
             <div class="my-3">
               <div class="form-check">
-                <input id="masculino" name="sexoAleta" type="radio" class="form-check-input" checked required>
+                <input id="masculino" name="sexoAtleta" value="M" type="radio" class="form-check-input" checked required>
                 <label class="form-check-label" for="masculino">Masculino</label>
               </div>
               <div class="form-check">
-                <input id="feminino" name="sexoAleta" type="radio" class="form-check-input" required>
+                <input id="feminino" name="sexoAtleta" value="F" type="radio" class="form-check-input" required>
                 <label class="form-check-label" for="feminino">Feminino</label>
               </div>
             </div>
@@ -122,35 +124,39 @@ $equipes = $this->viewData->equipes;
             <div class="row gy-3">
               <div class="col-md-6">
                 <label for="cpfAtleta" class="form-label">CPF</label>
-                <input type="text" class="form-control" id="cpfAtleta" placeholder="" value="<?= $atleta['cpfAtleta'] ?>">
+                <input type="text" class="form-control" id="cpfAtleta" name="cpfAtleta" placeholder="" value="<?= $atleta['cpfAtleta'] ?>">
               </div>
               <div class="col-md-6">
                 <label for="rgAtleta" class="form-label">RG</label>
-                <input type="text" class="form-control" id="rgAtleta" placeholder="" value="<?= $atleta['rgAtleta'] ?>">
+                <input type="text" class="form-control" id="rgAtleta" name="rgAtleta" placeholder="" value="<?= $atleta['rgAtleta'] ?>">
               </div>
 
               <div class="d-flex align-items-start">
                 <div class="col-md-4 me-2">
-                  <label for="cc-number" class="form-label">Registro na Federação</label>
-                  <input type="text" class="form-control" id="cc-number" placeholder="" value="<?= $atleta['numRegistroAtleta'] ?>">
+                  <label for="numRegistroAtleta" class="form-label">Registro na Federação</label>
+                  <input type="text" class="form-control" id="numRegistroAtleta" name="numRegistroAtleta" placeholder="" value="<?= $atleta['numRegistroAtleta'] ?>">
                 </div>
                 <div class="col-md-6">
                   <label for="equipeAtleta" class="form-label">Equipe</label>
 
                   <div class="d-flex align-items-start">
-                    <select class="form-select me-2" name="equipeAtleta" id="equipeAtleta">
+                    <select class="form-select me-2" name="id_equipe" id="equipeAtleta">
                       <option value="">Selected</option>
                       <?php foreach ($equipes as $equipe) { ?>
-                        <option value="<?= $equipe['IDEQUIPE'] ?>" <?php if ($equipe['IDEQUIPE'] == $atleta['ID_EQUIPE']) echo 'selected' ?>><?= $equipe['nomeFantasiaEquipe'] . ' - ' . $equipe['nomeEquipe'] ?></option>
+                        <option value="<?= $equipe['IDEQUIPE'] ?>" <?php if ($equipe['IDEQUIPE'] == $atleta['ID_EQUIPE']) {
+                                                                      echo 'selected';
+                                                                      $logoEquipe = $equipe['logoEquipe'];
+                                                                    } ?>><?= $equipe['nomeFantasiaEquipe'] . ' - ' . $equipe['nomeEquipe'] ?></option>
                       <?php } ?>
                     </select>
                   </div>
                 </div>
-                <img src="<?= $equipe['logoEquipe'] ?>" style="width: 100px;" alt="">
+                <img src="<?= $logoEquipe ? $logoEquipe : ''; ?>" style="width: 100px;" alt="">
               </div>
               <div class="col-md-4">
                 <label for="fotoAtleta" class="form-label">Foto</label>
-                <input type="file" class="form-control" id="fotoAtleta" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="fotoAtleta" accept="image/jpeg,.gif,.png">
+                <input type="file" class="form-control" id="fotoAtleta" name="fotoAtleta" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="fotoAtleta" accept="image/jpeg,.gif,.png" value="<?= $atleta['fotoAtleta'] ?>">
+                <input type="hidden" name="fotoAntiga" value="<?= $atleta['fotoAtleta'] ?>">
               </div>
             </div>
 
@@ -185,7 +191,7 @@ $equipes = $this->viewData->equipes;
             </div>
             <hr class="my-4">
 
-            <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+            <button class="w-100 btn btn-primary btn-lg" type="submit">Editar</button>
         </form>
       </div>
     </div>

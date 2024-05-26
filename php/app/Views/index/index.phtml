@@ -1,17 +1,13 @@
 <?php
 
-
-$atleta = $this->viewData->atleta;
-$categoria = $this->viewData->categoria;
-
 ?>
 
-<div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-  <img src="" class="img-foto" alt="">
-  <h1 class="display-4 fw-normal text-body-emphasis"><?= $atleta['nomeAtleta'] ?></h1>
-  <p class="fs-5 text-body-secondary">Equipe</p>
-  <p class="fs-5 text-body-secondary"><?php echo implode('/',  array_reverse(explode('-', $atleta['dataNascAtleta']))) ?> - <?= $categoria['nomeCategoria'] ?></p>
-</div>
+<header class="">
+  <div class="pricing-header pb-md-4 mx-auto text-center">
+    <img src="./images/capa_index.jpeg" class="img-index mb-5" alt="">
+    <h1 class="display-4 fw-light text-body-emphasis">Sistema de Gestão de Atletas de Natação</h1>
+    <p class="fs-5 text-body-secondary">Equipe</p>
+  </div>
 </header>
 
 <main>

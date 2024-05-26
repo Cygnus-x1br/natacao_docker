@@ -84,7 +84,7 @@ class Users extends Model
         $user = "SELECT * FROM tb_users WHERE username=:username AND passwd=:passwd";
         $stmt = $this->db->prepare($user);
         $stmt->bindValue(':username', $this->__get('username'));
-        $stmt->bindValue(':passwd', $this->__get('passwd'));
+        $stmt->bindValue(':passwd', sha1($this->__get('passwd')));
         $stmt->execute();
         $user_authenticated = $stmt->fetch(\PDO::FETCH_ASSOC);
 

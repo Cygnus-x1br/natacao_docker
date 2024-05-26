@@ -16,9 +16,8 @@ class SignInController extends Action
     public function authenticate()
     {
         if (empty($_POST['username']) || empty($_POST['passwd'])) {
-            echo 'Digite um nome de usuário válido';
-            die();
-        };
+            header('Location: /sign_in?login=erro');
+        }
         $user = Container::getModel('users');
         $user->__set('username', $_POST['username']);
         $user->__set('passwd', $_POST['passwd']);
