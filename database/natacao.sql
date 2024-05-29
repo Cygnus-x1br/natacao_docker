@@ -1,4 +1,4 @@
--- Versao 0.1.1.2
+-- Versao 0.1.2.3
 CREATE DATABASE natacao;
 USE natacao;
 -- Criacao de tabelas fixas
@@ -74,20 +74,41 @@ CREATE TABLE tb_equipe (
 -- 
 ALTER TABLE tb_equipe
 ADD CONSTRAINT FK_EQUIPE_FEDERACAO FOREIGN KEY(ID_FEDERACAO) REFERENCES tb_federacao(IDFEDERACAO);
+--
+CREATE TABLE tb_complexo (
+IDCOMPLEXO INT PRIMARY KEY AUTO_INCREMENT,
+nomeComplexo varchar(100) NOT NULL,
+nomeFantasiaComplexo varchar(50) NOT NULL,
+fotoComplexo varchar(150),
+enderecoComplexo varchar(100),
+bairroComplexo varchar(100),
+cepComplexo varchar(20),
+cidadeComplexo varchar(100),
+latitudeComplexo FLOAT,
+longitudeComplexo FLOAT,
+observacaoComplexo TEXT,
+ID_ESTADO INT
+);
 -- 
+ALTER TABLE tb_complexo
+ADD CONSTRAINT FK_COMPLEXO_ESTADO FOREIGN KEY(ID_ESTADO) REFERENCES tb_estado(IDESTADO);
+--
 CREATE TABLE tb_torneio (
-    IDTORNEIO INT PRIMARY KEY AUTO_INCREMENT,
-    nomeTorneio varchar(100) NOT NULL,
-    dataTorneio DATE NOT NULL,
-    -- ID_CIDADE INT,
-    ID_PISCINA INT,
-    ID_FEDERACAO INT
+IDTORNEIO INT PRIMARY KEY AUTO_INCREMENT,
+nomeTorneio varchar(100) NOT NULL,
+dataTorneio DATE NOT NULL,
+dataFimTorneio DATE,
+ID_COMPLEXO INT,
+ID_PISCINA INT,
+ID_FEDERACAO INT
 );
 -- 
 ALTER TABLE tb_torneio
 ADD CONSTRAINT FK_TORNEIO_PISCINA FOREIGN KEY(ID_PISCINA) REFERENCES tb_piscina(IDPISCINA);
 ALTER TABLE tb_torneio
 ADD CONSTRAINT FK_TORNEIO_FEDERACAO FOREIGN KEY(ID_FEDERACAO) REFERENCES tb_federacao(IDFEDERACAO);
+-- ALTER TABLE tb_torneio
+-- ADD CONSTRAINT FK_TORNEIO_COMPLEXO FOREIGN KEY(ID_COMPLEXO) REFERENCES tb_complexo(IDCOMPLEXO);
 --
 CREATE TABLE tb_prova (
 IDPROVA INT PRIMARY KEY AUTO_INCREMENT,
@@ -105,6 +126,8 @@ ALTER TABLE tb_prova
 ADD CONSTRAINT FK_PROVA_CATEGORIA_MAX FOREIGN KEY(ID_CATEGORIA_MAX) REFERENCES tb_categoria(IDCATEGORIA);
 ALTER TABLE tb_prova
 ADD CONSTRAINT FK_PROVA_TORNEIO FOREIGN KEY(ID_TORNEIO) REFERENCES tb_torneio(IDTORNEIO);
+-- ALTER TABLE tb_prova
+-- ADD CONSTRAINT FK_PROVA_DISTANCIAESTILO FOREIGN KEY(ID_DISTANCIAESTILO) REFERENCES tba_distancia_estilo(IDDISTANCIAESTILO);
 -- 
 CREATE TABLE tb_atleta (
     IDATLETA INT PRIMARY KEY AUTO_INCREMENT,
@@ -310,53 +333,18 @@ VALUES(18, 'Junior 2', 18);
 INSERT INTO tb_categoria
 VALUES(99, 'Absoluto', 99);
 -- Tabela TEste de dados
-INSERT INTO tb_atleta(
-        nomeAtleta,
-        sobreNomeAtleta,
-        apelidoAtleta,
-        emailAtleta,
-        dataNascAtleta,
-        cpfAtleta,
-        numRegistroAtleta,
-        sexoAtleta,
-        rgAtleta,
-        fotoAtleta
-    )
+INSERT INTO tb_federacao
 VALUES(
-        'Fernando',
-        'Fiad',
-        'Mini-Tom',
-        'fernando@gmail.com',
-        '2016-03-13',
-        '111.222.333-44',
-        'FAP123456',
-        'M',
-        '99.888.777-6',
-        './images/fotos/foto_1_Fiad_2016-03-13.jpg'
-    );
-INSERT INTO tb_atleta(
-        nomeAtleta,
-        sobreNomeAtleta,
-        apelidoAtleta,
-        emailAtleta,
-        dataNascAtleta,
-        cpfAtleta,
-        numRegistroAtleta,
-        sexoAtleta,
-        rgAtleta,
-        fotoAtleta
-    )
-VALUES(
-        'Antonio',
-        'Fiad',
-        'Tom',
-        'tom@gmail.com',
-        '2011-04-07',
-        '555.666.777-88',
-        '987654',
-        'M',
-        '11.222.333-4',
-        './images/fotos/foto_2_Fiad_2011-04-07.jpg'
+        null,
+        'Confederacao Brasileira de Desportos Aquaticos',
+        'CBDA',
+        './images/logos/logoCBDA.png',
+        null,
+        null,
+        null,
+        null,
+        null,
+        24
     );
 INSERT INTO tb_federacao
 VALUES(
@@ -410,11 +398,49 @@ VALUES(
         null,
         21
     );
+INSERT INTO tb_equipe
+VALUES(
+        null,
+        'Associacao Atletica Sao Caetano',
+        'Natacao Sao Caetano',
+        './images/logos/logoSaoCaetano.png',
+        null,
+        null,
+        null,
+        null,
+        null,
+        1
+    );
+INSERT INTO tb_equipe
+VALUES(
+        null,
+        'Primeiro de Maio Futebol Clube',
+        'Natacao Santo Andre',
+        './images/logos/logoSAndre.png',
+        null,
+        null,
+        null,
+        null,
+        null,
+        1
+    );
 INSERT INTO tb_torneio
 VALUES(
         null,
-        '3o Torneio Regional Petz a Senior',
+        '3o Torneio Regional Petiz a Senior',
         '2024-05-18',
+        null,
+        1,
+        1,
+        1
+    );
+INSERT INTO tb_torneio
+VALUES(
+        null,
+        'Campeonato Brasileiro Interclubes Infantil de Inverno',
+        '2024-06-10',
+        '2024-06-15',
+        3,
         1,
         1
     );
@@ -493,7 +519,7 @@ VALUES(
         'F',
         'Brasileiro Inverno',
         1,
-        2
+        1
     );
 INSERT INTO tb_indices
 VALUES(
@@ -512,6 +538,66 @@ VALUES(
         2024,
         '00:01:09.04',
         13,
+        'F',
+        'Brasileiro Inverno',
+        2,
+        2
+    ),
+    (
+        null,
+        2024,
+        '00:01:07.58',
+        14,
+        'F',
+        'Brasileiro Inverno',
+        2,
+        2
+    ),
+    (
+        null,
+        2024,
+        '00:01:06.60',
+        15,
+        'F',
+        'Brasileiro Inverno',
+        2,
+        2
+    ),
+    (
+        null,
+        2024,
+        '00:01:05.77',
+        16,
+        'F',
+        'Brasileiro Inverno',
+        2,
+        2
+    ),
+    (
+        null,
+        2024,
+        '00:01:05.10',
+        17,
+        'F',
+        'Brasileiro Inverno',
+        2,
+        2
+    ),
+    (
+        null,
+        2024,
+        '00:01:04.47',
+        18,
+        'F',
+        'Brasileiro Inverno',
+        2,
+        2
+    ),
+    (
+        null,
+        2024,
+        '00:01:04.47',
+        99,
         'F',
         'Brasileiro Inverno',
         2,
@@ -538,40 +624,180 @@ VALUES(
         'Brasileiro Inverno',
         2,
         2
+    ),
+    (
+        null,
+        2024,
+        '00:01:00.33',
+        14,
+        'M',
+        'Brasileiro Inverno',
+        2,
+        2
+    ),
+    (
+        null,
+        2024,
+        '00:00:58.26',
+        15,
+        'M',
+        'Brasileiro Inverno',
+        2,
+        2
+    ),
+    (
+        null,
+        2024,
+        '00:00:57.18',
+        16,
+        'M',
+        'Brasileiro Inverno',
+        2,
+        2
+    ),
+    (
+        null,
+        2024,
+        '00:00:56.31',
+        17,
+        'M',
+        'Brasileiro Inverno',
+        2,
+        2
+    ),
+    (
+        null,
+        2024,
+        '00:00:55.68',
+        18,
+        'M',
+        'Brasileiro Inverno',
+        2,
+        2
+    ),
+    (
+        null,
+        2024,
+        '00:00:55.68',
+        99,
+        'M',
+        'Brasileiro Inverno',
+        2,
+        2
     );
 --
-INSERT INTO tb_equipe
-VALUES(
-        null,
-        'Associacao Atletica Sao Caetano',
-        'Natacao Sao Caetano',
-        './images/logos/logoSaoCaetano.png',
-        null,
-        null,
-        null,
-        null,
-        null,
-        1
-    );
-INSERT INTO tb_equipe
-VALUES(
-        null,
-        'Primeiro de Maio Futebol Clube',
-        'Natacao Santo Andre',
-        './images/logos/logoSAndre.png',
-        null,
-        null,
-        null,
-        null,
-        null,
-        1
-    );
 INSERT INTO tb_users
 VALUES(
         null,
         'admin',
         sha1('admin'),
         'admin',
+        1
+    );
+INSERT INTO tb_complexo(
+        nomeComplexo,
+        nomeFantasiaComplexo,
+        fotoComplexo,
+        enderecoComplexo,
+        bairroComplexo,
+        cidadeComplexo,
+        ID_ESTADO
+    )
+VALUES(
+        'Complexo Esportivo Lauro Gomes de Almeida',
+        'Conjunto Aquatico Leonardo Sperate',
+        './images/fotos/piscina_Conjunto Aquatico Leonardo Sperate.jpg' 'Av. Walter Thome, 64',
+        'Rua Walter Thome, 64',
+        'Bairro Olimpico',
+        'Sao Caetano do Sul',
+        24
+    );
+INSERT INTO tb_complexo(
+        nomeComplexo,
+        nomeFantasiaComplexo,
+        fotoComplexo,
+        enderecoComplexo,
+        bairroComplexo,
+        cidadeComplexo,
+        ID_ESTADO
+    )
+VALUES(
+        'Complexo Esportivo Pedro Dell Antonia',
+        'Complexo Esportivo Pedro Dell Antonia',
+        './images/fotos/piscina_Complexo esportivo Pedro Dell Antonia.jpg',
+        'Rua Sao Pedro, 27',
+        'Silveira',
+        'Santo Andre',
+        24
+    );
+INSERT INTO tb_complexo(
+        nomeComplexo,
+        nomeFantasiaComplexo,
+        fotoComplexo,
+        enderecoComplexo,
+        bairroComplexo,
+        cidadeComplexo,
+        ID_ESTADO
+    )
+VALUES(
+        'Nova Piscina Olimpica da Bahia',
+        'Nova Piscina Olimpica da Bahia',
+        './images/fotos/piscina_Nova Piscina Olimpica da Bahia.jpg',
+        'Av Mario Leal Ferreira',
+        'Brotas',
+        'Salvador',
+        19
+    );
+INSERT INTO tb_atleta(
+        nomeAtleta,
+        sobreNomeAtleta,
+        apelidoAtleta,
+        emailAtleta,
+        dataNascAtleta,
+        cpfAtleta,
+        numRegistroAtleta,
+        sexoAtleta,
+        rgAtleta,
+        fotoAtleta,
+        ID_EQUIPE
+    )
+VALUES(
+        'Fernando',
+        'Fiad',
+        'Mini-Tom',
+        'fernando@gmail.com',
+        '2016-03-13',
+        '111.222.333-44',
+        'FAP123456',
+        'M',
+        '99.888.777-6',
+        './images/fotos/foto_1_Fiad_2016-03-13.jpg',
+        1
+    );
+INSERT INTO tb_atleta(
+        nomeAtleta,
+        sobreNomeAtleta,
+        apelidoAtleta,
+        emailAtleta,
+        dataNascAtleta,
+        cpfAtleta,
+        numRegistroAtleta,
+        sexoAtleta,
+        rgAtleta,
+        fotoAtleta,
+        ID_EQUIPE
+    )
+VALUES(
+        'Antonio',
+        'Fiad',
+        'Tom',
+        'tom@gmail.com',
+        '2011-04-07',
+        '555.666.777-88',
+        '987654',
+        'M',
+        '11.222.333-4',
+        './images/fotos/foto_2_Fiad_2011-04-07.jpg',
         1
     );
 -- Querrys

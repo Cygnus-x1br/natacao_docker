@@ -34,6 +34,8 @@ class Atleta extends Model
     {
         $this->$atribute = $value;
     }
+
+
     public function getAtleta()
     {
         $atleta = "SELECT *, e.nomeEquipe, e.nomeFantasiaEquipe, e.logoEquipe FROM tb_atleta INNER JOIN tb_equipe AS e ON ID_EQUIPE = e.IDEQUIPE WHERE IDATLETA=:idatleta";

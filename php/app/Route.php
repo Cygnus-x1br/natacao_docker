@@ -74,6 +74,11 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'EquipeController',
             'action' => 'add_equipe'
         );
+        $routes['edit_equipe'] = array(
+            'route' => '/edit_equipe',
+            'controller' => 'EquipeController',
+            'action' => 'edit_equipe'
+        );
         $routes['save_equipe'] = array(
             'route' => '/save_equipe',
             'controller' => 'EquipeController',
@@ -83,6 +88,46 @@ class Route extends \MF\Init\Bootstrap
             'route' => '/list_federacao',
             'controller' => 'FederacaoController',
             'action' => 'list_federacao'
+        );
+        $routes['list_complexos'] = array(
+            'route' => '/list_complexos',
+            'controller' => 'ComplexoController',
+            'action' => 'list_complexos'
+        );
+        $routes['view_complexo'] = array(
+            'route' => '/view_complexo',
+            'controller' => 'ComplexoController',
+            'action' => 'view_complexo'
+        );
+        $routes['add_complexo'] = array(
+            'route' => '/add_complexo',
+            'controller' => 'ComplexoController',
+            'action' => 'add_complexo'
+        );
+        $routes['save_complexo'] = array(
+            'route' => '/save_complexo',
+            'controller' => 'ComplexoController',
+            'action' => 'save_complexo'
+        );
+        $routes['edit_complexo'] = array(
+            'route' => '/edit_complexo',
+            'controller' => 'ComplexoController',
+            'action' => 'edit_complexo'
+        );
+        $routes['add_torneio'] = array(
+            'route' => '/add_torneio',
+            'controller' => 'TorneioController',
+            'action' => 'add_torneio'
+        );
+        $routes['save_torneio'] = array(
+            'route' => '/save_torneio',
+            'controller' => 'TorneioController',
+            'action' => 'save_torneio'
+        );
+        $routes['list_torneios'] = array(
+            'route' => '/list_torneios',
+            'controller' => 'TorneioController',
+            'action' => 'list_torneios'
         );
         $routes['list_indices'] = array(
             'route' => '/list_indices',

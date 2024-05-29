@@ -1,0 +1,41 @@
+<main>
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Piscinas</h1>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+
+            <a class="w-25 btn btn-primary btn-lg" href="/add_complexo">Adicionar</a>
+        </div>
+    </section>
+
+    <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <?php
+                if (!empty($this->viewData->complexos)) {
+                    foreach ($this->viewData->complexos as $complexo) { ?>
+                        <div class="col">
+                            <div class="card shadow-sm">
+                                <title></title>
+                                <img class="bd-placeholder-img card-img-top p-4" style="max-height: 225px; object-fit: contain" src="<?= $complexo['fotoComplexo'] ?>" alt="Logotipo <?= $complexo['nomeFantasiaComplexo'] ?>" width="auto"></text>
+                                <div class=" card-body">
+                                    <h6 class="card-text"><?= $complexo['nomeFantasiaComplexo'] ?></h6>
+                                    <p class="card-text"><?= $complexo['nomeComplexo'] ?></p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a href="/view_complexo?idcomplexo=<?= $complexo['IDCOMPLEXO'] ?>" class="btn btn-sm btn-outline-secondary">View</a>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                        </div>
+                                        <small class="text-body-secondary"><?= $complexo['nomeFantasiaComplexo'] ?></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                <?php }
+                } ?>
+            </div>
+        </div>
+</main>

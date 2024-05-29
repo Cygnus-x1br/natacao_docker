@@ -1,0 +1,88 @@
+<?php
+$piscinas = $this->viewData->piscinas;
+$complexos = $this->viewData->complexos;
+$federacoes = $this->viewData->federacoes;
+
+?>
+
+<div class="container">
+    <main>
+        <div class="py-5 text-center">
+            <h2>Cadastro de Torneios</h2>
+            <p class="lead">Incluir novo torneio</p>
+        </div>
+        <?php if (isset($_GET['error']) && $_GET['error'] == '3') {
+            echo '<div class="alert alert-danger" role="alert">
+                Nome já cadastrado
+                </div>';
+        } elseif (isset($_GET['error']) && $_GET['error'] == '4') {
+            echo '<div class="alert alert-danger" role="alert">
+                Sigla já cadastrada
+                </div>';
+        } ?>
+
+        <div class="row g-5">
+            <div class="col-md-5 col-lg-4 order-md-last">
+                <div class="d-flex justify-content-center align-items-center mb-3">
+                    <img class="img-logo-border" src="#" class="img-foto-border" alt="" style="display: none;">
+                </div>
+
+            </div>
+            <div class="col-md-7 col-lg-8">
+                <h4 class="mb-3"></h4>
+                <form action="save_torneio" class="needs-validation" method="post" enctype="multipart/form-data">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label for="nomeTorneio" class="form-label">Nome Torneio</label>
+                            <?php if (isset($_GET['error']) && $_GET['error'] == '1') {
+                                echo '<div class="alert alert-danger" role="alert">
+                                        Campo Obrigatório
+                                     </div>';
+                            } ?>
+                            <input type="text" class="form-control" id="nomeTorneio" placeholder="Nome" name="nomeTorneio" value="" required>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="dataTorneio" class="form-label">Data</label>
+                                <input type="date" class="form-control" id="dataTorneio" placeholder="Apelido" name="dataTorneio" value="" required>
+                            </div>
+                            <div class="col-md-8">
+                                <label for="federacao" class="form-label">Federação</label>
+                                <select name="id_federacao" class="form-select" id="federacao">
+                                    <option value="">Selecione</option>
+                                    <?php foreach ($federacoes as $federacao) { ?>
+                                        <option value="<?= $federacao['IDFEDERACAO'] ?>"><?= $federacao['nomeFantasiaFederacao'] . ' - ' . $federacao['nomeFederacao']  ?></option>
+                                    <?php }; ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label for="complexo" class="form-label">Local</label>
+                                <select name="id_complexo" class="form-select" id="complexo">
+                                    <option value="">Selecione</option>
+                                    <?php foreach ($complexos as $complexo) { ?>
+                                        <option value="<?= $complexo['IDCOMPLEXO'] ?>"><?= $complexo['nomeFantasiaComplexo'] ?></option>
+                                    <?php }; ?>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="piscina" class="form-label">Piscina</label>
+                                <select name="id_piscina" class="form-select" id="piscina">
+                                    <option value="">Selecione</option>
+                                    <?php foreach ($piscinas as $piscina) { ?>
+                                        <option value="<?= $piscina['IDPISCINA'] ?>"><?= $piscina['tamanhoPiscina'] . ' m' ?></option>
+                                    <?php }; ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+                    <button class="w-100 btn btn-primary btn-lg" type="submit">Incluir</button>
+                </form>
+            </div>
+        </div>
+    </main>
