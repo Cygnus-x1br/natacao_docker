@@ -432,7 +432,7 @@ VALUES(
         null,
         1,
         1,
-        1
+        2
     );
 INSERT INTO tb_torneio
 VALUES(
@@ -518,7 +518,7 @@ VALUES(
         13,
         'F',
         'Brasileiro Inverno',
-        1,
+        2,
         1
     );
 INSERT INTO tb_indices
@@ -529,7 +529,7 @@ VALUES(
         13,
         'F',
         'Brasileiro Inverno',
-        1,
+        2,
         2
     );
 INSERT INTO tb_indices
@@ -540,7 +540,7 @@ VALUES(
         13,
         'F',
         'Brasileiro Inverno',
-        2,
+        3,
         2
     ),
     (
@@ -550,7 +550,7 @@ VALUES(
         14,
         'F',
         'Brasileiro Inverno',
-        2,
+        3,
         2
     ),
     (
@@ -560,7 +560,7 @@ VALUES(
         15,
         'F',
         'Brasileiro Inverno',
-        2,
+        3,
         2
     ),
     (
@@ -570,7 +570,7 @@ VALUES(
         16,
         'F',
         'Brasileiro Inverno',
-        2,
+        3,
         2
     ),
     (
@@ -580,7 +580,7 @@ VALUES(
         17,
         'F',
         'Brasileiro Inverno',
-        2,
+        3,
         2
     ),
     (
@@ -590,7 +590,7 @@ VALUES(
         18,
         'F',
         'Brasileiro Inverno',
-        2,
+        3,
         2
     ),
     (
@@ -600,7 +600,7 @@ VALUES(
         99,
         'F',
         'Brasileiro Inverno',
-        2,
+        3,
         2
     );
 INSERT INTO tb_indices
@@ -611,7 +611,7 @@ VALUES(
         13,
         'M',
         'Brasileiro Inverno',
-        1,
+        2,
         2
     );
 INSERT INTO tb_indices
@@ -622,7 +622,7 @@ VALUES(
         13,
         'M',
         'Brasileiro Inverno',
-        2,
+        3,
         2
     ),
     (
@@ -632,7 +632,7 @@ VALUES(
         14,
         'M',
         'Brasileiro Inverno',
-        2,
+        3,
         2
     ),
     (
@@ -642,7 +642,7 @@ VALUES(
         15,
         'M',
         'Brasileiro Inverno',
-        2,
+        3,
         2
     ),
     (
@@ -652,7 +652,7 @@ VALUES(
         16,
         'M',
         'Brasileiro Inverno',
-        2,
+        3,
         2
     ),
     (
@@ -662,7 +662,7 @@ VALUES(
         17,
         'M',
         'Brasileiro Inverno',
-        2,
+        3,
         2
     ),
     (
@@ -672,7 +672,7 @@ VALUES(
         18,
         'M',
         'Brasileiro Inverno',
-        2,
+        3,
         2
     ),
     (
@@ -682,7 +682,7 @@ VALUES(
         99,
         'M',
         'Brasileiro Inverno',
-        2,
+        3,
         2
     );
 --
@@ -706,7 +706,7 @@ INSERT INTO tb_complexo(
 VALUES(
         'Complexo Esportivo Lauro Gomes de Almeida',
         'Conjunto Aquatico Leonardo Sperate',
-        './images/fotos/piscina_Conjunto Aquatico Leonardo Sperate.jpg' 'Av. Walter Thome, 64',
+        './images/fotos/piscina_ConjuntoAquaticoLeonardoSperate.jpg',
         'Rua Walter Thome, 64',
         'Bairro Olimpico',
         'Sao Caetano do Sul',
@@ -724,7 +724,7 @@ INSERT INTO tb_complexo(
 VALUES(
         'Complexo Esportivo Pedro Dell Antonia',
         'Complexo Esportivo Pedro Dell Antonia',
-        './images/fotos/piscina_Complexo esportivo Pedro Dell Antonia.jpg',
+        './images/fotos/piscina_ComplexoEsportivoPedroDellAntonia.jpg',
         'Rua Sao Pedro, 27',
         'Silveira',
         'Santo Andre',
