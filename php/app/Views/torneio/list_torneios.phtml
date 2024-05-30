@@ -1,15 +1,21 @@
 <main>
-    <div class="py-5 text-center">
-        <h2>Listagem de Torneios</h2>
-        <p class="lead"></p>
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Torneios</h1>
+            </div>
+        </div>
+    </section>
+    <div class="d-flex justify-content-end mb-5">
+        <a class="w-25 btn btn-primary btn-lg" href="/add_torneio">Adicionar</a>
     </div>
     <?php foreach ($this->viewData->torneios as $torneio) { ?>
         <div class="col-md-10">
             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                <img class="col-auto d-none d-lg-block mt-3" src="<?= $torneio['logoFederacao'] ?>" alt="" width="80" height="80">
+                <img class="col-2 d-none d-lg-block mt-3 object-fit-contain" src="<?= $torneio['logoFederacao'] ?>" alt="">
                 <div class="col p-4 d-flex flex-column position-static">
                     <strong class="d-inline-block mb-2 text-primary-emphasis"><?= $torneio['nomeFantasiaFederacao'] ?></strong>
-                    <h3 class="mb-0"><?= $torneio['nomeTorneio'] ?></h3>
+                    <h3 class="display-6 mb-0"><?= $torneio['nomeTorneio'] ?></h3>
                     <div class="mb-1 text-body-secondary"><?php echo implode('/',  array_reverse(explode('-', $torneio['dataTorneio']))) ?></div>
                     <p class="lead card-text mb-1"><?= $torneio['nomeFantasiaComplexo'] ?></p>
                     <p class="card-text mb-auto "><em><?= 'Piscina: ' . $torneio['tamanhoPiscina'] . 'm' ?></em></p>
