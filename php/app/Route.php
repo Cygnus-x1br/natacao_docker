@@ -12,6 +12,11 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'IndexController',
             'action' => 'index'
         );
+        $routes['register'] = array(
+            'route' => '/register',
+            'controller' => 'IndexController',
+            'action' => 'register'
+        );
 
         $routes['signin'] = array(
             'route' => '/sign_in',

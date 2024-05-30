@@ -52,9 +52,6 @@ class AtletaController extends Action
 
     public function save_atleta()
     {
-
-        // print_r($_POST);
-
         if ($_POST['nomeAtleta'] == '') {
             header("Location: /add_atleta?error=1");
         } elseif ($_POST['dataNascAtleta'] == '') {
@@ -77,7 +74,6 @@ class AtletaController extends Action
         $atleta->__set('numRegistroAtleta', $_POST['numRegistroAtleta']);
         $atleta->__set('sexoAtleta', $_POST['sexoAtleta']);
         $atleta->__set('rgAtleta', $_POST['rgAtleta']);
-        // $atleta->__set('fotoAtleta', $_POST['fotoAtleta']);
         $atleta->__set('instagramAtleta', $_POST['instagramAtleta']);
         $atleta->__set('facebookAtleta', $_POST['facebookAtleta']);
         $atleta->__set('whatsappAtleta', $_POST['whatsappAtleta']);
@@ -86,10 +82,7 @@ class AtletaController extends Action
 
         $atleta->addAtleta();
 
-
-        // $id = $atleta->getAtletaNome();
-
-        header("Location: /view_atleta?id=" . $atleta->__get('idAtleta'));
+        header("Location: /view_atleta?id=" . $atleta['idatleta']);
     }
     public function edit_atleta()
     {
@@ -108,8 +101,6 @@ class AtletaController extends Action
         } elseif ($_FILES['fotoAtleta']['size'] === 0) {
             $atleta->__set('fotoAtleta', $_POST['fotoAntiga']);
         }
-        // elseif ($_FILES['fotoAtleta']['size'] === 0) {
-        // }
         $atleta->__set('nomeAtleta', $_POST['nomeAtleta']);
         $atleta->__set('sobreNomeAtleta', $_POST['sobreNomeAtleta']);
         $atleta->__set('apelidoAtleta', $_POST['apelidoAtleta']);
@@ -126,7 +117,6 @@ class AtletaController extends Action
         $atleta->__set('id_equipe', $_POST['id_equipe']);
 
         $atleta->editAtleta();
-        // $id = $atleta->getAtletaNome();
 
         header("Location: /index_atleta?id=" . $_POST['idAtleta']);
     }

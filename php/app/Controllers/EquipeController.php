@@ -58,8 +58,6 @@ class EquipeController extends Action
         if (($_FILES['logoEquipe']['size'] !== 0)) {
             $file_save = $this->upload_file();
             $equipe->__set('logoEquipe', $file_save);
-            // } else if ($edit == 'edit' && ($_FILES['logoEquipe']['size'] == 0)) {
-            //   $equipe->__set('logoEquipe', $_POST['logoEquipe']);
         }
         $equipe->__set('nomeEquipe', $_POST['nomeEquipe']);
         $equipe->__set('nomeFantasiaEquipe', $_POST['nomeFantasiaEquipe']);
@@ -68,7 +66,6 @@ class EquipeController extends Action
         $equipe->__set('telefoneEquipe', $_POST['telefoneEquipe']);
         $equipe->__set('facebookEquipe', $_POST['facebookEquipe']);
         $equipe->__set('instagramEquipe', $_POST['instagramEquipe']);
-        // $equipe->__set('logoEquipe', $_POST['logoEquipe']);
         $equipe->__set('id_federacao', $_POST['id_federacao']);
 
 
@@ -81,7 +78,6 @@ class EquipeController extends Action
 
             header("Location: /list_equipes");
         }
-        // $this->viewData->equipe = $equipe_data;
     }
     public function edit_equipe()
     {
@@ -99,8 +95,6 @@ class EquipeController extends Action
         if (($_FILES['logoEquipe']['size'] !== 0)) {
             $file_save = $this->upload_file();
             $equipe->__set('logoEquipe', $file_save);
-            // } else if ($edit == 'edit' && ($_FILES['logoEquipe']['size'] == 0)) {
-            //   $equipe->__set('logoEquipe', $_POST['logoEquipe']);
         } elseif ($_FILES['logoEquipe']['size'] === 0) {
             $equipe->__set('logoEquipe', $_POST['fotoAntiga']);
         }
@@ -111,7 +105,6 @@ class EquipeController extends Action
         $equipe->__set('telefoneEquipe', $_POST['telefoneEquipe']);
         $equipe->__set('facebookEquipe', $_POST['facebookEquipe']);
         $equipe->__set('instagramEquipe', $_POST['instagramEquipe']);
-        // $equipe->__set('logoEquipe', $_POST['logoEquipe']);
         $equipe->__set('id_federacao', $_POST['id_federacao']);
 
 
@@ -124,7 +117,6 @@ class EquipeController extends Action
 
             header("Location: /list_equipes");
         }
-        // $this->viewData->equipe = $equipe_data;
     }
 
     private function upload_file()

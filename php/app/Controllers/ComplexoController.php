@@ -49,8 +49,6 @@ class ComplexoController extends Action
         if (($_FILES['fotoComplexo']['size'] !== 0)) {
             $file_save = $this->upload_file();
             $complexo->__set('fotoComplexo', $file_save);
-            // } else if ($edit == 'edit' && ($_FILES['logoEquipe']['size'] == 0)) {
-            //   $complexo->__set('logoEquipe', $_POST['logoEquipe']);
         }
         $complexo->__set('nomeComplexo', $_POST['nomeComplexo']);
         $complexo->__set('nomeFantasiaComplexo', $_POST['nomeFantasiaComplexo']);
@@ -80,8 +78,6 @@ class ComplexoController extends Action
         if (($_FILES['fotoComplexo']['size'] !== 0)) {
             $file_save = $this->upload_file();
             $complexo->__set('fotoComplexo', $file_save);
-            // } else if ($edit == 'edit' && ($_FILES['logoEquipe']['size'] == 0)) {
-            //   $complexo->__set('logoEquipe', $_POST['logoEquipe']);
         } elseif ($_FILES['fotoComplexo']['size'] === 0) {
             $complexo->__set('fotoComplexo', $_POST['fotoAntiga']);
         }
