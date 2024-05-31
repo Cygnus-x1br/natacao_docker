@@ -156,6 +156,16 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'ProvaController',
             'action' => 'list_provas'
         );
+        $routes['add_prova'] = array(
+            'route' => '/add_prova',
+            'controller' => 'ProvaController',
+            'action' => 'add_prova'
+        );
+        $routes['save_prova'] = array(
+            'route' => '/save_prova',
+            'controller' => 'ProvaController',
+            'action' => 'save_prova'
+        );
         // $routes['view_note'] = array(
         //     'route' => '/view_note',
         //     'controller' => 'IndexController',

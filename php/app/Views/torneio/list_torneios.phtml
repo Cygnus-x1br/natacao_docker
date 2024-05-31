@@ -5,10 +5,10 @@
                 <h1 class="fw-light">Torneios</h1>
             </div>
         </div>
+        <div class="d-flex justify-content-end mb-5">
+            <a class="w-25 btn btn-primary btn-lg" id="errorModal" href="/add_torneio">Adicionar</a>
+        </div>
     </section>
-    <div class="d-flex justify-content-end mb-5">
-        <a class="w-25 btn btn-primary btn-lg" id="errorModal" href="/add_torneio">Adicionar</a>
-    </div>
     <?php foreach ($this->viewData->torneios as $torneio) { ?>
         <div class="col-md-10">
             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">

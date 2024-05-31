@@ -1,11 +1,49 @@
 <?php
 
 $distanciaEstilo = $this->viewData->distanciaEstilo;
-$torneio = $this->viewData->torneios;
-// $provas = $this->viewData->provas;
+$torneios = $this->viewData->torneios;
+$categorias = $this->viewData->categorias;
+$provas = $this->viewData->provas;
 
-echo '<pre>';
-print_r($distanciaEstilo);
-print_r($torneio);
-// print_r($provas);
-echo '</pre>';
+?>
+
+<main>
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Provas</h1>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            <a class="w-25 btn btn-primary btn-lg" id="errorModal" href="/add_prova">Adicionar</a>
+        </div>
+    </section>
+
+
+    <?php foreach ($torneios as $torneio) { ?>
+        <p class="lead"><?php echo $torneio['nomeTorneio'] . ' - ' . implode('/',  array_reverse(explode('-', $torneio['dataTorneio']))) ?></li>
+        <table class="table w-75 mx-auto">
+            <thead>
+                <tr>
+                    <th scope="col">Prova</th>
+                    <th scope="col">Estilo</th>
+                    <th scope="col">Genero</th>
+                    <th scope="col">Categorias</th>
+                </tr>
+            </thead>
+            <?php foreach ($provas as $prova) { ?>
+                <tbody>
+                    <?php if ($prova['id_torneio'] == $torneio['IDTORNEIO']) { ?>
+                        <tr>
+                            <td><?= 'Prova numero ' . $prova['numeroProva'] ?></td>
+                            <td><?= $prova['distancia'] . 'm ' . $prova['nomeEstilo'] ?></td>
+                            <td><?= $prova['genero'] ?></td>
+                            <td><?= $prova['categoriaMinima'] . ' a ' . $prova['categoriaMaxima'] ?></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            <?php } ?>
+        </table>
+        <hr>
+    <?php } ?>
+</main>

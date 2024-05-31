@@ -4,6 +4,8 @@ namespace App\Models;
 
 use MF\Model\Model;
 
+
+
 class Prova extends Model
 {
     private $idprova;
@@ -26,7 +28,18 @@ class Prova extends Model
 
     public function getAllProvas()
     {
-        $prova = "SELECT * FROM tb_prova ORDER BY IDPROVA ASC";
+        $prova = "SELECT numeroProva, genero, id_torneio,t.nomeTorneio, t.dataTorneio, f.nomeFantasiaFederacao, p.tamanhoPiscina, d.distancia, e.nomeEstilo, cmin.nomeCategoria AS categoriaMinima, cmax.nomeCategoria AS categoriaMaxima FROM tb_prova
+INNER JOIN tb_torneio AS t ON ID_TORNEIO = t.IDTORNEIO
+INNER JOIN tb_federacao AS f ON 
+(SELECT tb_torneio.ID_FEDERACAO FROM tb_torneio WHERE tb_prova.ID_TORNEIO = tb_torneio.IDTORNEIO) = f.IDFEDERACAO
+INNER JOIN tb_distancia AS d ON 
+(SELECT ID_DISTANCIA AS dist FROM tba_distancia_estilo WHERE tb_prova.ID_DISTANCIAESTILO = IDDISTANCIAESTILO) = d.IDDISTANCIA
+INNER JOIN tb_estilo AS e ON 
+(SELECT ID_ESTILO AS est FROM tba_distancia_estilo WHERE tb_prova.ID_DISTANCIAESTILO = IDDISTANCIAESTILO) = e.IDESTILO
+INNER JOIN tb_piscina AS p ON t.ID_PISCINA = p.IDPISCINA
+INNER JOIN tb_categoria AS cmin ON ID_CATEGORIA_MIN = cmin.IDCATEGORIA
+INNER JOIN tb_categoria AS cmax ON ID_CATEGORIA_MAX = cmax.IDCATEGORIA
+ORDER BY t.dataTorneio DESC, numeroProva ASC;";
         $stmt = $this->db->prepare($prova);
         $stmt->execute();
 

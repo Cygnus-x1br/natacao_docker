@@ -1,0 +1,103 @@
+<?php
+
+$distanciaEstilo = $this->viewData->distanciaEstilo;
+$torneios = $this->viewData->torneios;
+$categorias = $this->viewData->categorias;
+$provas = $this->viewData->provas;
+
+?>
+
+<main>
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Incluir Prova</h1>
+            </div>
+        </div>
+    </section>
+
+    <div class="col-md-12">
+        <form action="save_prova" method="POST" class="needs-validation" enctype="multipart/form-data">
+            <div class="row g-3 d-flex justify-content-between align-items-end">
+                <div class="col-md-3">
+                    <label for="nomeTorneio" class="form-label">Torneio</label>
+                    <select class="form-select" name="id_torneio" id="nomeTorneio">
+                        <option value="">Selected</option>
+                        <?php foreach ($torneios as $torneio) { ?>
+                            <option value="<?= $torneio['IDTORNEIO'] ?>"><?= $torneio['nomeTorneio'] . ' - ' . $torneio['nomeFantasiaComplexo'] ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="col-sm-1">
+                    <label for="numeroProva" class="form-label">No da Prova</label>
+                    <input type="text" class="form-control" id="numeroProva" name="numeroProva" placeholder="Nome" value="">
+                </div>
+                <div class="col-sm-2">
+                    <label for="distanciaEstilo" class="form-label">Estilo</label>
+                    <select class="form-select" name="id_distanciaestilo" id="distanciaEstilo">
+                        <option value="">Selected</option>
+                        <?php foreach ($distanciaEstilo as $de) { ?>
+                            <option value="<?= $de['IDDISTANCIAESTILO'] ?>"><?= $de['distancia'] . 'm - ' . $de['nomeEstilo'] ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="col-sm-1">
+                    <label for="genero" class="form-label">Genero</label>
+                    <select class="form-select" name="genero" id="genero">
+                        <option value="">Selected</option>
+                        <option value="F">Feminino</option>
+                        <option value="M">Masculino</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <label for="categoriaMinima" class="form-label">Categoria Minima</label>
+                    <select class="form-select" name="id_categoria_min" id="categoriaMinima">
+                        <option value="">Selected</option>
+                        <?php foreach ($categorias as $categoria) { ?>
+                            <option value="<?= $categoria['IDCATEGORIA'] ?>"><?= $categoria['nomeCategoria'] ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <label for="categoriaMaxima" class="form-label">Categoria Maxima</label>
+                    <select class="form-select" name="id_categoria_max" id="categoriaMaxima">
+                        <option value="">Selected</option>
+                        <?php foreach ($categorias as $categoria) { ?>
+                            <option value="<?= $categoria['IDCATEGORIA'] ?>"><?= $categoria['nomeCategoria'] ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="col-sm-1">
+                    <button class="btn btn-primary h-25 w-100" type="submit">Incluir</button>
+                </div>
+            </div>
+            <hr class="my-4">
+        </form>
+        <?php foreach ($torneios as $torneio) { ?>
+            <p class="lead"><?= $torneio['nomeTorneio'] . ' - ' . $torneio['dataTorneio'] ?></li>
+            <table class="table w-75 mx-auto">
+                <thead>
+                    <tr>
+                        <th scope="col">Prova</th>
+                        <th scope="col">Estilo</th>
+                        <th scope="col">Genero</th>
+                        <th scope="col">Categorias</th>
+                    </tr>
+                </thead>
+                <?php foreach ($provas as $prova) { ?>
+                    <tbody>
+                        <?php if ($prova['id_torneio'] == $torneio['IDTORNEIO']) { ?>
+                            <tr>
+                                <td><?= 'Prova numero ' . $prova['numeroProva'] ?></td>
+                                <td><?= $prova['distancia'] . 'm ' . $prova['nomeEstilo'] ?></td>
+                                <td><?= $prova['genero'] ?></td>
+                                <td><?= $prova['categoriaMinima'] . ' a ' . $prova['categoriaMaxima'] ?></td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                <?php } ?>
+            </table>
+            <hr>
+        <?php } ?>
+    </div>
+</main>

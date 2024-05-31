@@ -26,7 +26,7 @@ class Torneio extends Model
 
     public function getAllTorneios()
     {
-        $torneio = "SELECT nomeTorneio, dataTorneio, c.nomeFantasiaComplexo, c.fotoComplexo, p.tamanhoPiscina, f.nomeFantasiaFederacao, f.logoFederacao FROM tb_torneio INNER JOIN tb_complexo as c ON ID_COMPLEXO=c.IDCOMPLEXO INNER JOIN tb_piscina as p ON ID_PISCINA=p.IDPISCINA INNER JOIN tb_federacao as f ON ID_FEDERACAO=f.IDFEDERACAO ORDER BY dataTorneio DESC, nomeTorneio ASC";
+        $torneio = "SELECT IDTORNEIO,nomeTorneio, dataTorneio, c.nomeFantasiaComplexo, c.fotoComplexo, p.tamanhoPiscina, f.nomeFantasiaFederacao, f.logoFederacao FROM tb_torneio INNER JOIN tb_complexo as c ON ID_COMPLEXO=c.IDCOMPLEXO INNER JOIN tb_piscina as p ON ID_PISCINA=p.IDPISCINA INNER JOIN tb_federacao as f ON ID_FEDERACAO=f.IDFEDERACAO ORDER BY dataTorneio DESC, nomeTorneio ASC";
         $stmt = $this->db->prepare($torneio);
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);

@@ -26,8 +26,13 @@ class AtletaController extends Action
             header('Location: /error?error=1002');
             die();
         }
-
         $this->viewData->atleta = $atleta_data;
+
+        $tempoAtleta = Container::getModel('Tempo');
+        $tempoAtleta->__set('id_atleta', $_GET['id']);
+        $tempoAtleta_data = $tempoAtleta->getTempo();
+        $this->viewData->tempoAtleta = $tempoAtleta_data;
+
 
         $idade = date('Y') - (explode('-', $atleta_data['dataNascAtleta']))[0];
         $idade = $idade > 19 ? 99 : ($idade < 7 ? 7 : $idade);

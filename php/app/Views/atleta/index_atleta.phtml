@@ -1,8 +1,10 @@
 <?php
 
 $atleta = $this->viewData->atleta;
-$categoria = $this->viewData->categoria
+$categoria = $this->viewData->categoria;
+$tempoAtleta = $this->viewData->tempoAtleta;
 
+// print_r($tempoAtleta);
 ?>
 
 <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
@@ -19,25 +21,27 @@ $categoria = $this->viewData->categoria
 <main>
 
     <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-        <div class="col">
-            <div class="card mb-4 rounded-3 shadow-sm">
-                <div class="card-header py-3">
-                    <h4 class="my-0 fw-normal">Prova principal 1</h4>
-                </div>
-                <div class="card-body">
-                    <p>MELHOR TEMPO</p>
-                    <h1 class="card-title pricing-card-title">00:00.00</h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>22/11/22</li>
-                        <li>Torneio???</li>
-                        <li>Piscina???</li>
-                        <li>Local???</li>
-                    </ul>
-                    <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+        <?php foreach ($tempoAtleta as $tempo) { ?>
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal"><?= $tempo['distancia'] . 'm ' . $tempo['nomeEstilo'] ?> </h4>
+                    </div>
+                    <div class="card-body">
+                        <p>MELHOR TEMPO</p>
+                        <h1 class="card-title pricing-card-title"><?= $tempo['tempoAtleta'] ?></h1>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li><?= $tempo['dataTorneio'] ?></li>
+                            <li><?= $tempo['nomeTorneio'] ?></li>
+                            <li><?= $tempo['tamanhoPiscina'] . 'm' ?></li>
+                            <li>Local???</li>
+                        </ul>
+                        <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col">
+        <?php } ?>
+        <!-- <div class="col">
             <div class="card mb-4 rounded-3 shadow-sm">
                 <div class="card-header py-3">
                     <h4 class="my-0 fw-normal">Prova principal 2</h4>
@@ -72,7 +76,7 @@ $categoria = $this->viewData->categoria
                     <button type="button" class="w-100 btn btn-lg btn-primary">Contact us</button>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 
     <h2 class="display-6 text-center mb-4">Compare plans</h2>
