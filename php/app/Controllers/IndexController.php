@@ -1,16 +1,22 @@
 <?php
 
+
 namespace App\Controllers;
 
 use MF\Controller\Action;
 use MF\Model\Container;
 
+session_start();
 class IndexController extends Action
 {
     public function index()
     {
 
         if (isset($_GET['id'])) {
+            if (!isset($_SESSION['id'])) {
+                header('Location: /sign_in');
+                die();
+            }
             $atleta = Container::getModel('Atleta');
             $atleta->__set('idatleta', $_GET['id']);
             $atleta_data = $atleta->getAtleta();

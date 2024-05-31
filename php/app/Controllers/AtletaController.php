@@ -5,13 +5,28 @@ namespace App\Controllers;
 use MF\Controller\Action;
 use MF\Model\Container;
 
+session_start();
 class AtletaController extends Action
 {
+    public function authenticate()
+    {
+        if (!isset($_SESSION['id'])) {
+            header('Location: /error?error=1001');
+            die();
+        }
+    }
     public function index_atleta()
     {
+        $this->authenticate();
         $atleta = Container::getModel('Atleta');
         $atleta->__set('idatleta', $_GET['id']);
         $atleta_data = $atleta->getAtleta();
+        // print_r($atleta_data);
+        if ($_SESSION['nome'] != $atleta_data['emailAtleta'] && $_SESSION['permissao'] != '2') {
+            header('Location: /error?error=1002');
+            die();
+        }
+
         $this->viewData->atleta = $atleta_data;
 
         $idade = date('Y') - (explode('-', $atleta_data['dataNascAtleta']))[0];
@@ -22,10 +37,15 @@ class AtletaController extends Action
     }
     public function view_atleta()
     {
+        $this->authenticate();
 
         $atleta = Container::getModel('Atleta');
         $atleta->__set('idatleta', $_GET['id']);
         $atleta_data = $atleta->getAtleta();
+        if ($_SESSION['nome'] != $atleta_data['emailAtleta'] && $_SESSION['permissao'] != '2') {
+            header('Location: /error?error=1002');
+            die();
+        }
         $this->viewData->atleta = $atleta_data;
 
         $idade = date('Y') - (explode('-', $atleta_data['dataNascAtleta']))[0];
@@ -39,6 +59,13 @@ class AtletaController extends Action
 
     public function select_atleta()
     {
+        $this->authenticate();
+
+        if ($_SESSION['permissao'] != '2') {
+
+            header('Location: /index_atleta?id=' . $_SESSION['id']);
+            die();
+        }
         $this->render('select_atleta');
     }
 
@@ -86,7 +113,10 @@ class AtletaController extends Action
     }
     public function edit_atleta()
     {
-        print_r($_POST);
+        $this->authenticate();
+
+
+        // print_r($_POST);
         if ($_POST['nomeAtleta'] == '') {
             header("Location: /add_atleta?error=1");
         } elseif ($_POST['dataNascAtleta'] == '') {

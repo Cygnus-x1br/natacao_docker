@@ -9,6 +9,7 @@ class SignInController extends Action
 {
     public function sign_in()
     {
+        $this->setHtmlData->referer = $_SERVER['HTTP_REFERER'];
         // $this->setHtmlData->signed = 'enabled';
         $this->render('sign_in', 'sign_in_layout');
     }
@@ -25,15 +26,15 @@ class SignInController extends Action
 
         if ($user->__get('iduser') && $user->__get('username')) {
 
-            session_start(['cookie_lifetime' => 86400,]);
+            session_start(['cookie_lifetime' => 86400]);
             $_SESSION['id'] = $user->__get('iduser');
             $_SESSION['nome'] = $user->__get('user_name');
             $_SESSION['permissao'] = $user->__get('permission');
 
             $this->setHtmlData->signed = 'enabled';
-            header('Location: /');
+            header('Location:' . $_POST['location']);
         } else {
-            echo 'Usuário Inválido';
+            header('Location: /sing_in?login=erro');
         }
     }
     public function log_out()

@@ -5,10 +5,15 @@ namespace App\Controllers;
 use MF\Controller\Action;
 use MF\Model\Container;
 
+session_start();
 class TorneioController extends Action
 {
     public function add_torneio()
     {
+        if (!isset($_SESSION['id'])) {
+            header('Location: /error?error=1001');
+            die();
+        }
 
         $piscina = Container::getModel('Piscina');
         $piscinas = $piscina->getPiscinas();

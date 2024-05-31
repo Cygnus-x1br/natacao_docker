@@ -7,7 +7,7 @@
         </div>
     </section>
     <div class="d-flex justify-content-end mb-5">
-        <a class="w-25 btn btn-primary btn-lg" href="/add_torneio">Adicionar</a>
+        <a class="w-25 btn btn-primary btn-lg" id="errorModal" href="/add_torneio">Adicionar</a>
     </div>
     <?php foreach ($this->viewData->torneios as $torneio) { ?>
         <div class="col-md-10">
@@ -24,11 +24,8 @@
                     </a>
                 </div>
                 <div class="col-auto d-none d-lg-block">
-                    <!-- <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"> -->
-                    <!-- <title>Placeholder</title> -->
                     <rect width="100%" height="100%" fill="" />
                     <img src="<?= $torneio['fotoComplexo'] ?>" alt="" width="350" height="250">
-                    <!-- </svg> -->
                 </div>
             </div>
         </div>

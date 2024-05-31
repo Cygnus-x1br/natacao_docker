@@ -148,9 +148,19 @@
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                     <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">Agenda</a>
-                    <a class="py-2 btn btn-primary text-decoration-none" href="./sign_in">Entrar</a>
+                    <?php if (!isset($_SESSION['id'])) { ?>
+                        <a class="py-2 btn btn-primary text-decoration-none" href="./sign_in">Entrar</a>
+                    <?php } else { ?>
+                        <a class="py-2 btn btn-primary text-decoration-none" href="./log_out">Sair</a>
+                    <?php } ?>
+
                 </nav>
             </div>
+            <?php
+            echo '<pre>';
+            print_r($_SESSION);
+            echo '</pre>';
+            ?>
 
             <?php $this->content() ?>
 

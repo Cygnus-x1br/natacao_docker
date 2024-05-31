@@ -5,6 +5,7 @@ namespace App\Controllers;
 use MF\Controller\Action;
 use MF\Model\Container;
 
+session_start();
 class ComplexoController extends Action
 {
     public function list_complexos()

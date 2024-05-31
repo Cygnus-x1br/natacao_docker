@@ -688,10 +688,18 @@ VALUES(
 --
 INSERT INTO tb_users
 VALUES(
-        null,
-        'admin',
-        sha1('admin'),
-        'admin',
+        2,
+        'tom@gmail.com',
+        sha1('aczf0704'),
+        'tom@gmail.com',
+        1
+    );
+INSERT INTO tb_users
+VALUES(
+        3,
+        'fernando@gmail.com',
+        sha1('fhzf1303'),
+        'fernando@gmail.com',
         1
     );
 INSERT INTO tb_complexo(

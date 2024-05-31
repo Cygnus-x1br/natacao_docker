@@ -5,8 +5,17 @@ namespace App\Controllers;
 use MF\Controller\Action;
 use MF\Model\Container;
 
+session_start();
 class EquipeController extends Action
 {
+    public function authenticate()
+    {
+
+        if (!isset($_SESSION['id'])) {
+            header('Location: /error?error=1001');
+            die();
+        }
+    }
     public function list_equipes()
     {
         $equipes = Container::getModel('Equipe');
@@ -36,6 +45,7 @@ class EquipeController extends Action
 
     public function add_equipe()
     {
+        $this->authenticate();
         $federacao = Container::getModel('Federacao');
         $federacao_data = $federacao->getAllFederacoes();
         $this->viewData->federacoes = $federacao_data;
@@ -81,6 +91,7 @@ class EquipeController extends Action
     }
     public function edit_equipe()
     {
+        $this->authenticate();
         $federacao = Container::getModel('Federacao');
         $federacao_data = $federacao->getAllFederacoes();
         $this->viewData->federacoes = $federacao_data;

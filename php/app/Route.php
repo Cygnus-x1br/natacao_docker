@@ -12,6 +12,13 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'IndexController',
             'action' => 'index'
         );
+
+        $routes['error'] = array(
+            'route' => '/error',
+            'controller' => 'ErrorController',
+            'action' => 'error'
+        );
+
         $routes['register'] = array(
             'route' => '/register',
             'controller' => 'IndexController',
@@ -143,6 +150,11 @@ class Route extends \MF\Init\Bootstrap
             'route' => '/filtra_indices',
             'controller' => 'IndicesController',
             'action' => 'filtra_indices'
+        );
+        $routes['list_provas'] = array(
+            'route' => '/list_provas',
+            'controller' => 'ProvaController',
+            'action' => 'list_provas'
         );
         // $routes['view_note'] = array(
         //     'route' => '/view_note',
