@@ -23,3 +23,9 @@ docker run -d -p 8082:80 --name natacao_app -v /~/projects/natacao/php:/var/www/
 Criar uma pasta local db_data (dados do MySQL) ou criar um volume Docker para armazenar o banco ???
 
 Criar o arquivo Env.php
+
+Javascript:
+
+vanilla-masker: (Mascaras para os dados)
+
+https://github.com/vanilla-masker/vanilla-masker

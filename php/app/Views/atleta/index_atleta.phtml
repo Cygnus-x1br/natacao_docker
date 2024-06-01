@@ -4,6 +4,13 @@ $atleta = $this->viewData->atleta;
 $categoria = $this->viewData->categoria;
 $tempoAtleta = $this->viewData->tempoAtleta;
 
+function adjustTime($fullTime)
+{
+    $time = explode(':', $fullTime);
+    (array_shift($time));
+    return implode(':', $time);
+}
+
 // print_r($tempoAtleta);
 ?>
 
@@ -29,7 +36,7 @@ $tempoAtleta = $this->viewData->tempoAtleta;
                     </div>
                     <div class="card-body">
                         <p>MELHOR TEMPO</p>
-                        <h1 class="card-title pricing-card-title"><?= $tempo['tempoAtleta'] ?></h1>
+                        <h1 class="card-title pricing-card-title"><?php echo adjustTime($tempo['tempoAtleta']) ?></h1>
                         <ul class="list-unstyled mt-3 mb-4">
                             <li><?= $tempo['dataTorneio'] ?></li>
                             <li><?= $tempo['nomeTorneio'] ?></li>

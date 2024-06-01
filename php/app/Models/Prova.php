@@ -28,7 +28,7 @@ class Prova extends Model
 
     public function getAllProvas()
     {
-        $prova = "SELECT numeroProva, genero, id_torneio,t.nomeTorneio, t.dataTorneio, f.nomeFantasiaFederacao, p.tamanhoPiscina, d.distancia, e.nomeEstilo, cmin.nomeCategoria AS categoriaMinima, cmax.nomeCategoria AS categoriaMaxima FROM tb_prova
+        $prova = "SELECT idprova ,numeroProva, genero, id_torneio,t.nomeTorneio, t.dataTorneio, f.nomeFantasiaFederacao, p.tamanhoPiscina, d.distancia, e.nomeEstilo, cmin.nomeCategoria AS categoriaMinima, cmax.nomeCategoria AS categoriaMaxima FROM tb_prova
 INNER JOIN tb_torneio AS t ON ID_TORNEIO = t.IDTORNEIO
 INNER JOIN tb_federacao AS f ON 
 (SELECT tb_torneio.ID_FEDERACAO FROM tb_torneio WHERE tb_prova.ID_TORNEIO = tb_torneio.IDTORNEIO) = f.IDFEDERACAO
@@ -44,6 +44,15 @@ ORDER BY t.dataTorneio DESC, numeroProva ASC;";
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getProvaMin()
+    {
+        $prova = "SELECT * FROM tb_prova WHERE IDPROVA = :idprova";
+        $stmt = $this->db->prepare($prova);
+        $stmt->bindValue(':idprova', $this->__get('idprova'));
+        $stmt->execute();
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
     public function saveProva()

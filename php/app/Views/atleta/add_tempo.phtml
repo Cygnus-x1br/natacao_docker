@@ -1,0 +1,105 @@
+<?php
+
+$distanciaEstilo = $this->viewData->distanciaEstilo;
+$torneios = $this->viewData->torneios;
+$categorias = $this->viewData->categorias;
+$provas = $this->viewData->provas;
+
+// print_r($torneios);
+// print_r($provas);
+
+?>
+
+<main>
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Registrar Tempo</h1>
+            </div>
+        </div>
+    </section>
+
+    <div class="col-md-12">
+        <form action="save_tempo" method="POST" class="needs-validation" enctype="multipart/form-data">
+            <div class="row g-3 d-flex justify-content-between align-items-end">
+                <div class="col-md-4">
+                    <label for="nomeTorneio" class="form-label">Torneio</label>
+                    <select class="form-select" name="id_torneio" id="nomeTorneio">
+                        <option value="">Selected</option>
+                        <?php foreach ($torneios as $torneio) { ?>
+                            <option value="<?= $torneio['IDTORNEIO'] ?>"><?= $torneio['nomeTorneio'] . ' - ' . $torneio['nomeFantasiaComplexo'] ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="col-sm-4">
+                    <label for="prova" class="form-label" id="provaLabel">Prova</label>
+                    <select class="form-select torneio0 removeList">
+                        <option value="">Selected</option>
+                    </select>
+                    <?php foreach ($torneios as $torneio) { ?>
+                        <select class="form-select <?= 'torneio' . $torneio['IDTORNEIO'] ?> removeList d-none">
+                            <option value="">Selected</option>
+                            <?php foreach ($provas as $prova) {
+                                if ($torneio['IDTORNEIO'] == $prova['id_torneio']) { ?>
+                                    <option value="<?= $prova['idprova'] ?>"><?= $prova['distancia'] . 'm - ' . $prova['nomeEstilo'] . ' - ' . $prova['genero'] . ' - ' . $prova['categoriaMinima'] . ' a ' . $prova['categoriaMaxima'] ?></option>
+                                <?php } ?>
+                            <?php } ?>
+                        </select>
+                    <?php } ?>
+                </div>
+                <div class="col-sm-2">
+                    <label for="tempoAtleta" class="form-label">Tempo</label>
+                    <input type="text" name="tempoAtleta" class="form-control" id="tempoAtleta">
+                </div>
+                <div class="col-sm-1">
+                    <button class="btn btn-primary h-25 w-100" type="submit">Incluir</button>
+                </div>
+            </div>
+            <hr class="my-4">
+        </form>
+        <?php foreach ($torneios as $torneio) { ?>
+            <p class="lead"><?= $torneio['nomeTorneio'] . ' - ' . $torneio['dataTorneio'] ?></li>
+            <table class="table w-75 mx-auto">
+                <thead>
+                    <tr>
+                        <th scope="col">Prova</th>
+                        <th scope="col">Estilo</th>
+                        <th scope="col">Genero</th>
+                        <th scope="col">Categorias</th>
+                    </tr>
+                </thead>
+                <?php foreach ($provas as $prova) { ?>
+                    <tbody>
+                        <?php if ($prova['id_torneio'] == $torneio['IDTORNEIO']) { ?>
+                            <tr>
+                                <td><?= 'Prova numero ' . $prova['numeroProva'] ?></td>
+                                <td><?= $prova['distancia'] . 'm ' . $prova['nomeEstilo'] ?></td>
+                                <td><?= $prova['genero'] ?></td>
+                                <td><?= $prova['categoriaMinima'] . ' a ' . $prova['categoriaMaxima'] ?></td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                <?php } ?>
+            </table>
+            <hr>
+        <?php } ?>
+    </div>
+</main>
+
+<script src="../assets/js/vanilla-masker.min.js"></script>
+<script>
+    VMasker(document.querySelector('#tempoAtleta')).maskPattern('99:99.99');
+
+    let nomeTorneio = document.getElementById('nomeTorneio');
+    let lists = document.getElementsByClassName('removeList');
+    nomeTorneio.addEventListener('change', function() {
+        for (let i = 0; i < lists.length; i++) {
+            if (lists[i].classList.contains('d-none') === false) {
+                lists[i].classList.add('d-none');
+            }
+        }
+        console.log(document.getElementsByClassName(`torneio${nomeTorneio.value}`))
+        document.getElementsByClassName(`torneio${nomeTorneio.value}`)[0].classList.remove('d-none');
+        document.getElementsByClassName(`torneio${nomeTorneio.value}`)[0].name = 'id_prova';
+    });
+</script>

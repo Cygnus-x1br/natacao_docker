@@ -156,6 +156,67 @@ class AtletaController extends Action
         header("Location: /index_atleta?id=" . $_POST['idAtleta']);
     }
 
+    public function tempos_atleta()
+    {
+        $this->render('tempos_atleta');
+    }
+
+    public function add_tempo()
+    {
+        $this->authenticate();
+
+        $tempoAtleta = Container::getModel('Tempo');
+        $tempoAtleta->__set('id_atleta', $_SESSION['id']);
+        $tempoAtleta_data = $tempoAtleta->getTempo();
+        $this->viewData->tempoAtleta = $tempoAtleta_data;
+
+        $torneio = Container::getModel('Torneio');
+        $torneio_data = $torneio->getAllTorneios();
+        $this->viewData->torneios = $torneio_data;
+
+        $distanciaEstilo = Container::getModel('DistanciaEstilo');
+        $distanciaEstilo_data = $distanciaEstilo->getAllDistanciaEstilo();
+        $this->viewData->distanciaEstilo = $distanciaEstilo_data;
+
+        $categoria = Container::getModel('Categoria');
+        $categoria_data = $categoria->getAllCategorias();
+        $this->viewData->categorias = $categoria_data;
+
+        $provas = Container::getModel('Prova');
+        $provas_data = $provas->getAllProvas();
+        $this->viewData->provas = $provas_data;
+
+        $this->render('add_tempo');
+    }
+
+    public function save_tempo()
+    {
+        $this->authenticate();
+
+        $prova = Container::getModel('Prova');
+        $prova->__set('idprova', $_POST['id_prova']);
+        $prova_data = $prova->getProvaMin();
+        // $this->viewData->provas = $provas_data;
+
+        $atleta = Container::getModel('Atleta');
+        $atleta->__set('idatleta', $_SESSION['id']);
+        $atleta_data = $atleta->getAtleta();
+        // $this->viewData->atleta = $atleta_data;
+
+        if ($atleta_data['sexoAtleta'] != $prova_data['genero']) {
+            header("Location: /error?error=1003");
+            die();
+        }
+        // print_r($_POST);
+
+        $tempoAtleta = Container::getModel('Tempo');
+        $tempoAtleta->__set('id_atleta', $_SESSION['id']);
+        $tempoAtleta->__set('id_prova', $_POST['id_prova']);
+        $tempoAtleta->__set('tempoAtleta', '00:' . $_POST['tempoAtleta']);
+        $tempoAtleta->saveTempo();
+        header("Location: /index_atleta?id=" . $_SESSION['id']);
+    }
+
     private function list_equipes()
     {
         $equipes = Container::getModel('Equipe');
