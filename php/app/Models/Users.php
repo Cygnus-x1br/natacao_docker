@@ -11,6 +11,7 @@ class Users extends Model
     private $username;
     private $passwd;
     private $user_name;
+    private $user_id;
     private $permission;
 
     public function __get($atribute)

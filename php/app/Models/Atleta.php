@@ -35,7 +35,19 @@ class Atleta extends Model
         $this->$atribute = $value;
     }
 
+    public function verificaAllAtletas()
+    {
+        $atletas = "SELECT * FROM tb_atleta WHERE sobreNomeAtleta=:sobreNomeAtleta OR dataNascAtleta=:dataNascAtleta OR cpfAtleta=:cpfAtleta OR numRegistroAtleta=:numRegistroAtleta OR emailAtleta=:emailAtleta";
+        $stmt = $this->db->prepare($atletas);
+        $stmt->bindValue(':sobreNomeAtleta', $this->__get('sobreNomeAtleta'));
+        $stmt->bindValue(':dataNascAtleta', $this->__get('dataNascAtleta'));
+        $stmt->bindValue(':cpfAtleta', $this->__get('cpfAtleta'));
+        $stmt->bindValue(':numRegistroAtleta', $this->__get('numRegistroAtleta'));
+        $stmt->bindValue(':emailAtleta', $this->__get('emailAtleta'));
+        $stmt->execute();
 
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
     public function getAtleta()
     {
         $atleta = "SELECT *, e.nomeEquipe, e.nomeFantasiaEquipe, e.logoEquipe FROM tb_atleta INNER JOIN tb_equipe AS e ON ID_EQUIPE = e.IDEQUIPE WHERE IDATLETA=:idatleta";
@@ -55,6 +67,16 @@ class Atleta extends Model
         $stmt->execute();
 
         //return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function getAtletaEmail()
+    {
+        $atleta = "SELECT * FROM tb_atleta WHERE emailAtleta=:emailAtleta";
+        $stmt = $this->db->prepare($atleta);
+        $stmt->bindValue(':emailAtleta', $this->__get('emailAtleta'));
+        $stmt->execute();
+
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 

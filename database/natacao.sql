@@ -1,4 +1,8 @@
--- Versao 0.1.2.3
+-- Versao 0.1.2.4
+-- Incluido campo user_id me tb_users
+-- Incluidas tabelas de prova e torneio do atleta
+-- Alterado campo email atleta para NOT NULL
+-- Criado registro Sem Equipe 
 CREATE DATABASE natacao;
 USE natacao;
 -- Criacao de tabelas fixas
@@ -40,6 +44,7 @@ IDUSER INT PRIMARY KEY AUTO_INCREMENT,
 username varchar(20) NOT NULL,
 passwd varchar(256) NOT NULL,
 user_name varchar(100) NOT NULL,
+user_id INT NOT NULL,
 permission char(1) NOT NULL
 );
 -- Criacao de Tabelas 
@@ -110,6 +115,23 @@ ADD CONSTRAINT FK_TORNEIO_FEDERACAO FOREIGN KEY(ID_FEDERACAO) REFERENCES tb_fede
 -- ALTER TABLE tb_torneio
 -- ADD CONSTRAINT FK_TORNEIO_COMPLEXO FOREIGN KEY(ID_COMPLEXO) REFERENCES tb_complexo(IDCOMPLEXO);
 --
+CREATE TABLE tb_torneioAtleta (
+IDTORNEIOATLETA INT PRIMARY KEY AUTO_INCREMENT,
+nomeTorneioAtleta varchar(100) NOT NULL,
+dataTorneioAtleta DATE NOT NULL,
+dataFimTorneioAtleta DATE,
+ID_COMPLEXO INT,
+ID_PISCINA INT,
+ID_FEDERACAO INT
+);
+-- 
+ALTER TABLE tb_torneioAtleta
+ADD CONSTRAINT FK_TORNEIO_PISCINA FOREIGN KEY(ID_PISCINA) REFERENCES tb_piscina(IDPISCINA);
+ALTER TABLE tb_torneioAtleta
+ADD CONSTRAINT FK_TORNEIO_FEDERACAO FOREIGN KEY(ID_FEDERACAO) REFERENCES tb_federacao(IDFEDERACAO);
+-- ALTER TABLE tb_torneioAtleta
+-- ADD CONSTRAINT FK_TORNEIO_COMPLEXO FOREIGN KEY(ID_COMPLEXO) REFERENCES tb_complexo(IDCOMPLEXO);
+--
 CREATE TABLE tb_prova (
 IDPROVA INT PRIMARY KEY AUTO_INCREMENT,
 numeroProva VARCHAR(5) NOT NULL,
@@ -129,12 +151,31 @@ ADD CONSTRAINT FK_PROVA_TORNEIO FOREIGN KEY(ID_TORNEIO) REFERENCES tb_torneio(ID
 -- ALTER TABLE tb_prova
 -- ADD CONSTRAINT FK_PROVA_DISTANCIAESTILO FOREIGN KEY(ID_DISTANCIAESTILO) REFERENCES tba_distancia_estilo(IDDISTANCIAESTILO);
 -- 
+CREATE TABLE tb_provaAtleta (
+    IDPROVAATLETA INT PRIMARY KEY AUTO_INCREMENT,
+    numeroProvaAtleta VARCHAR(5) NOT NULL,
+    generoProvaAtleta ENUM('M', 'F') NOT NULL,
+    ID_TORNEIOATLETA INT,
+    ID_DISTANCIAESTILO INT,
+    ID_CATEGORIA_MIN INT,
+    ID_CATEGORIA_MAX INT
+);
+--
+ALTER TABLE tb_provaAtleta
+ADD CONSTRAINT FK_PROVA_CATEGORIA_MIN FOREIGN KEY(ID_CATEGORIA_MIN) REFERENCES tb_categoria(IDCATEGORIA);
+ALTER TABLE tb_provaAtleta
+ADD CONSTRAINT FK_PROVA_CATEGORIA_MAX FOREIGN KEY(ID_CATEGORIA_MAX) REFERENCES tb_categoria(IDCATEGORIA);
+ALTER TABLE tb_provaAtleta
+ADD CONSTRAINT FK_PROVA_TORNEIOATLETA FOREIGN KEY(ID_TORNEIOATLETA) REFERENCES tb_torneioAtleta(IDTORNEIOATLETA);
+-- ALTER TABLE tb_provaAtleta
+-- ADD CONSTRAINT FK_PROVA_DISTANCIAESTILO FOREIGN KEY(ID_DISTANCIAESTILO) REFERENCES tba_distancia_estilo(IDDISTANCIAESTILO);
+-- 
 CREATE TABLE tb_atleta (
     IDATLETA INT PRIMARY KEY AUTO_INCREMENT,
     nomeAtleta varchar(100) NOT NULL,
     sobreNomeAtleta varchar(30) NOT NULL,
     apelidoAtleta varchar(50),
-    emailAtleta varchar(100),
+    emailAtleta varchar(100) NOT NULL,
     dataNascAtleta DATE NOT NULL,
     cpfAtleta VARCHAR(14) NOT NULL,
     numRegistroAtleta VARCHAR(10),
@@ -397,6 +438,19 @@ VALUES(
         null,
         null,
         21
+    );
+INSERT INTO tb_equipe
+VALUES(
+        1,
+        'Sem equipe',
+        'Sem equipe',
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1
     );
 INSERT INTO tb_equipe
 VALUES(

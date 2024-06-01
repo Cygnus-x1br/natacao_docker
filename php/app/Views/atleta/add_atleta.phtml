@@ -95,7 +95,7 @@ $categoria = $this->viewData->categoria;
                     <div class="col-md-8">
                         <label for="equipeAtleta" class="form-label">Equipe</label>
                         <select class="form-select" name="id_equipe" id="equipeAtleta">
-                            <option value="">Selected</option>
+                            <option value="1">Selected</option>
                             <?php foreach ($equipes as $equipe) { ?>
                                 <option value="<?= $equipe['IDEQUIPE'] ?>"><?= $equipe['nomeFantasiaEquipe'] . ' - ' . $equipe['nomeEquipe'] ?></option>
                             <?php } ?>

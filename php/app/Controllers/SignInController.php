@@ -28,8 +28,10 @@ class SignInController extends Action
 
             session_start(['cookie_lifetime' => 86400]);
             $_SESSION['id'] = $user->__get('iduser');
-            $_SESSION['nome'] = $user->__get('user_name');
+            $_SESSION['nome'] = $user->__get('username');
             $_SESSION['permissao'] = $user->__get('permission');
+            $_SESSION['user_id'] = $user->__get('iduser');
+            $_SESSION['user_name'] = $user->__get('user_name');
 
             $this->setHtmlData->signed = 'enabled';
             header('Location:' . $_POST['location']);

@@ -61,6 +61,16 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'AtletaController',
             'action' => 'add_atleta'
         );
+        $routes['create_user'] = array(
+            'route' => '/create_user',
+            'controller' => 'AtletaController',
+            'action' => 'create_user'
+        );
+        $routes['save_user'] = array(
+            'route' => '/save_user',
+            'controller' => 'AtletaController',
+            'action' => 'save_user'
+        );
         $routes['save_atleta'] = array(
             'route' => '/save_atleta',
             'controller' => 'AtletaController',

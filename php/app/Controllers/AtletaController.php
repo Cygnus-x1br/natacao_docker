@@ -97,8 +97,8 @@ class AtletaController extends Action
             // } else if ($edit == 'edit' && ($_FILES['logoEquipe']['size'] == 0)) {
             //   $equipe->__set('logoEquipe', $_POST['logoEquipe']);
         }
-        $atleta->__set('nomeAtleta', $_POST['nomeAtleta']);
-        $atleta->__set('sobreNomeAtleta', $_POST['sobreNomeAtleta']);
+        $atleta->__set('nomeAtleta', ucwords($_POST['nomeAtleta']));
+        $atleta->__set('sobreNomeAtleta', ucwords($_POST['sobreNomeAtleta']));
         $atleta->__set('apelidoAtleta', $_POST['apelidoAtleta']);
         $atleta->__set('emailAtleta', $_POST['emailAtleta']);
         $atleta->__set('dataNascAtleta', $_POST['dataNascAtleta']);
@@ -112,15 +112,69 @@ class AtletaController extends Action
         $atleta->__set('telefoneAtleta', $_POST['telefoneAtleta']);
         $atleta->__set('id_equipe', $_POST['id_equipe']);
 
+        $this->verificaCadastroAtleta($_POST['sobreNomeAtleta'], $_POST['dataNascAtleta'], $_POST['cpfAtleta'], $_POST['emailAtleta'], $_POST['numRegistroAtleta'], $_POST['nomeAtleta']);
+
         $atleta->addAtleta();
 
-        header("Location: /view_atleta?id=" . $atleta['idatleta']);
+        $this->create_user($_POST['emailAtleta']);
+
+        //header("Location: /view_atleta?id=" . $atleta['idatleta']);
+    }
+
+    private function create_user($emailAtleta)
+    {
+        echo $emailAtleta;
+        $atleta = Container::getModel('Atleta');
+        $atleta->__set('emailAtleta', $emailAtleta);
+        $atleta_data = $atleta->getAtletaEmail();
+        $this->viewData->atleta = $atleta_data;
+
+        $this->render('create_user', 'sign_in_layout');
+    }
+
+    public function save_user()
+    {
+        $user = Container::getModel('Users');
+        $user->__set('iduser', $_POST['idAtleta']);
+        $user->__set('username', $_POST['emailAtleta']);
+        $user->__set('passwd', $_POST['passwd']);
+        $user->__set('user_name', $_POST['emailAtleta']);
+        $user->__set('permission', 1);
+        $user->saveUser();
+
+        header("Location: /view_atleta?id=" . $_POST['IDATLETA']);
+    }
+
+    private function verificaCadastroAtleta($sobreNome, $dataNasc, $cpf, $email, $numRegistroAtleta, $nomeAtleta)
+    {
+
+        $atleta = Container::getModel('Atleta');
+        $atleta->__set('sobreNomeAtleta', $sobreNome);
+        $atleta->__set('dataNascAtleta', $dataNasc);
+        $atleta->__set('cpfAtleta', $cpf);
+        $atleta->__set('emailAtleta', $email);
+        $atleta->__set('numRegistroAtleta', $numRegistroAtleta);
+        $atleta_data = $atleta->verificaAllAtletas();
+
+        foreach ($atleta_data as $atleta) {
+            if ($atleta['sobreNomeAtleta'] == $sobreNome && $atleta['dataNascAtleta'] == $dataNasc && $atleta['nomeAtleta'] == $nomeAtleta) {
+                header("Location: /error?error=2001");
+                die();
+            } elseif ($atleta['emailAtleta'] == $email) {
+                header("Location: /error?error=2002");
+                die();
+            } elseif ($atleta['cpfAtleta'] == $cpf) {
+                header("Location: /error?error=2003");
+                die();
+            } elseif ($atleta['numRegistroAtleta'] == $numRegistroAtleta) {
+                header("Location: /error?error=2004");
+                die();
+            }
+        }
     }
     public function edit_atleta()
     {
         $this->authenticate();
-
-
         // print_r($_POST);
         if ($_POST['nomeAtleta'] == '') {
             header("Location: /add_atleta?error=1");
@@ -150,7 +204,6 @@ class AtletaController extends Action
         $atleta->__set('whatsappAtleta', $_POST['whatsappAtleta']);
         $atleta->__set('telefoneAtleta', $_POST['telefoneAtleta']);
         $atleta->__set('id_equipe', $_POST['id_equipe']);
-
         $atleta->editAtleta();
 
         header("Location: /index_atleta?id=" . $_POST['idAtleta']);
@@ -207,13 +260,13 @@ class AtletaController extends Action
             header("Location: /error?error=1003");
             die();
         }
-        // print_r($_POST);
 
         $tempoAtleta = Container::getModel('Tempo');
         $tempoAtleta->__set('id_atleta', $_SESSION['id']);
         $tempoAtleta->__set('id_prova', $_POST['id_prova']);
         $tempoAtleta->__set('tempoAtleta', '00:' . $_POST['tempoAtleta']);
         $tempoAtleta->saveTempo();
+
         header("Location: /index_atleta?id=" . $_SESSION['id']);
     }
 

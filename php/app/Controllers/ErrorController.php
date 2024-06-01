@@ -17,6 +17,18 @@ class ErrorController extends Action
         } elseif ($_GET['error'] == 1002) {
             $this->setHtmlData->error = 'Voce não tem permissao para acessar dados de atletas';
             $this->setHtmlData->url = $url;
+        } elseif ($_GET['error'] == 2001) {
+            $this->setHtmlData->error = 'Usuário já cadastrado com esse nome e data de nascimento';
+            $this->setHtmlData->url = $url;
+        } elseif ($_GET['error'] == 2002) {
+            $this->setHtmlData->error = 'Usuário já cadastrado com esse email';
+            $this->setHtmlData->url = $url;
+        } elseif ($_GET['error'] == 2003) {
+            $this->setHtmlData->error = 'Usuário já cadastrado com esse cpf';
+            $this->setHtmlData->url = $url;
+        } elseif ($_GET['error'] == 2004) {
+            $this->setHtmlData->error = 'Usuário já cadastrado com esse numero de registro';
+            $this->setHtmlData->url = $url;
         }
         $this->render('erro', 'error_layout');
     }
