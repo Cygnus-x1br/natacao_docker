@@ -53,7 +53,7 @@ class Tempo extends Model
 
     public function getMelhorTempo()
     {
-        $tempo = "SELECT numeroProva, genero, tempoAtleta, pr.ID_DISTANCIAESTILO, a.nomeAtleta, a.sobreNomeAtleta, t.nomeTorneio, t.dataTorneio, p.tamanhoPiscina, d.distancia, e.nomeEstilo, cmin.nomeCategoria AS CategoriaMinima, cmax.nomeCategoria AS CategoriaMaxima FROM tb_tempoAtleta
+        $tempo = "SELECT ID_PROVA, numeroProva, genero, tempoAtleta, pr.ID_DISTANCIAESTILO, a.nomeAtleta, a.sobreNomeAtleta, t.nomeTorneio, t.dataTorneio, p.tamanhoPiscina, d.distancia, e.nomeEstilo, cmin.nomeCategoria AS CategoriaMinima, cmax.nomeCategoria AS CategoriaMaxima FROM tb_tempoAtleta
         INNER JOIN tb_prova AS pr ON ID_PROVA = pr.IDPROVA
         INNER JOIN tb_atleta AS a ON ID_ATLETA = a.IDATLETA
         INNER JOIN tb_torneio AS t ON pr.ID_TORNEIO = t.IDTORNEIO

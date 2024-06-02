@@ -48,7 +48,7 @@ class Atleta extends Model
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
-    public function getAtleta()
+    public function getAtletabyID()
     {
         $atleta = "SELECT *, e.nomeEquipe, e.nomeFantasiaEquipe, e.logoEquipe FROM tb_atleta INNER JOIN tb_equipe AS e ON ID_EQUIPE = e.IDEQUIPE WHERE IDATLETA=:idatleta";
         $stmt = $this->db->prepare($atleta);

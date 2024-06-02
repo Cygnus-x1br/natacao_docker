@@ -29,6 +29,9 @@ class ErrorController extends Action
         } elseif ($_GET['error'] == 2004) {
             $this->setHtmlData->error = 'Usuário já cadastrado com esse numero de registro';
             $this->setHtmlData->url = $url;
+        } elseif ($_GET['error'] == 2005) {
+            $this->setHtmlData->error = 'Número de CPF inválido';
+            $this->setHtmlData->url = $url;
         } elseif ($_GET['error'] == 3001) {
             $this->setHtmlData->error = 'Prova incompativel com a categoria do atleta';
             $this->setHtmlData->url = $url;

@@ -1,8 +1,12 @@
+-- Versao 0.1.2.5
+-- Alterado campo tb_prova.numeroProva de VARCHAR para INT
+--
 -- Versao 0.1.2.4
--- Incluido campo user_id me tb_users
+-- Incluido campo user_id em tb_users
 -- Incluidas tabelas de prova e torneio do atleta
 -- Alterado campo email atleta para NOT NULL
--- Criado registro Sem Equipe 
+-- Criado registro Sem Equipe
+--
 CREATE DATABASE natacao;
 USE natacao;
 -- Criacao de tabelas fixas
@@ -134,7 +138,7 @@ ADD CONSTRAINT FK_TORNEIOUSUARIO_FEDERACAO FOREIGN KEY(ID_FEDERACAO) REFERENCES 
 --
 CREATE TABLE tb_prova (
 IDPROVA INT PRIMARY KEY AUTO_INCREMENT,
-numeroProva VARCHAR(5) NOT NULL,
+numeroProva INT NOT NULL,
 genero ENUM('M', 'F') NOT NULL,
 ID_TORNEIO INT,
 ID_DISTANCIAESTILO INT,
@@ -372,7 +376,7 @@ VALUES(17, 'Junior 1', 17);
 INSERT INTO tb_categoria
 VALUES(18, 'Junior 2', 18);
 INSERT INTO tb_categoria
-VALUES(99, 'Absoluto', 99);
+VALUES(99, 'Senior', 99);
 -- Tabela TEste de dados
 INSERT INTO tb_federacao
 VALUES(
@@ -417,7 +421,7 @@ INSERT INTO tb_federacao
 VALUES(
         null,
         'Federacao Aquatica Mineira',
-        'FARJ',
+        'FAM',
         './images/logos/logoFAM.png',
         null,
         null,
@@ -478,16 +482,16 @@ VALUES(
         null,
         1
     );
-INSERT INTO tb_torneio
-VALUES(
-        null,
-        '3o Torneio Regional Petiz a Senior',
-        '2024-05-18',
-        null,
-        1,
-        1,
-        2
-    );
+-- INSERT INTO tb_torneio
+-- VALUES(
+--         null,
+--         '3o Torneio Regional Petiz a Senior',
+--         '2024-05-18',
+--         null,
+--         1,
+--         1,
+--         2
+--     );
 INSERT INTO tb_torneio
 VALUES(
         null,
@@ -543,26 +547,26 @@ VALUES(null, 4, 5);
 INSERT INTO tba_distancia_estilo
 VALUES(null, 5, 5);
 --
-INSERT INTO tb_prova
-VALUES(
-        null,
-        1,
-        'M',
-        1,
-        5,
-        13,
-        99
-    );
-INSERT INTO tb_prova
-VALUES(
-        null,
-        1,
-        'F',
-        1,
-        5,
-        13,
-        99
-    );
+-- INSERT INTO tb_prova
+-- VALUES(
+--         null,
+--         1,
+--         'M',
+--         1,
+--         5,
+--         13,
+--         99
+--     );
+-- INSERT INTO tb_prova
+-- VALUES(
+--         null,
+--         1,
+--         'F',
+--         1,
+--         5,
+--         13,
+--         99
+--     );
 --
 INSERT INTO tb_indices
 VALUES(
@@ -758,15 +762,16 @@ VALUES(
         1,
         1
     );
+--
 INSERT INTO tb_complexo(
-        nomeComplexo,
-        nomeFantasiaComplexo,
-        fotoComplexo,
-        enderecoComplexo,
-        bairroComplexo,
-        cidadeComplexo,
-        ID_ESTADO
-    )
+nomeComplexo,
+nomeFantasiaComplexo,
+fotoComplexo,
+enderecoComplexo,
+bairroComplexo,
+cidadeComplexo,
+ID_ESTADO
+)
 VALUES(
         'Complexo Esportivo Lauro Gomes de Almeida',
         'Conjunto Aquatico Leonardo Sperate',

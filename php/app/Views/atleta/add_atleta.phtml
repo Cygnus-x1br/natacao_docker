@@ -3,6 +3,11 @@
 // $categoria = $this->viewData->categoria;
 $equipes = $this->viewData->equipes;
 $categoria = $this->viewData->categoria;
+
+$data = (isset($this->viewData->temporary_data)) ? $this->viewData->temporary_data : array();
+print_r($data);
+
+
 ?>
 
 
@@ -149,3 +154,6 @@ $categoria = $this->viewData->categoria;
 
     </main>
 </div>
+<script>
+    VMasker(document.querySelector('#cpfAtleta')).maskPattern('999.999.999-99');
+</script>

@@ -8,19 +8,13 @@ use MF\Model\Container;
 session_start();
 class AtletaController extends Action
 {
-    public function authenticate()
-    {
-        if (!isset($_SESSION['id'])) {
-            header('Location: /error?error=1001');
-            die();
-        }
-    }
+
     public function index_atleta()
     {
-        $this->authenticate();
+        Assets::authenticate();
         $atleta = Container::getModel('Atleta');
         $atleta->__set('idatleta', $_GET['id']);
-        $atleta_data = $atleta->getAtleta();
+        $atleta_data = $atleta->getAtletabyID();
         // print_r($atleta_data);
         if ($_SESSION['nome'] != $atleta_data['emailAtleta'] && $_SESSION['permissao'] != '2') {
             header('Location: /error?error=1002');
@@ -38,15 +32,17 @@ class AtletaController extends Action
         $idade = $idade > 19 ? 99 : ($idade < 7 ? 7 : $idade);
         $this->viewData->categoria = $this->test_category($idade);
 
+        $this->viewData->melhores_tempos = $this->melhores_tempos();
+
         $this->render('index_atleta');
     }
     public function view_atleta()
     {
-        $this->authenticate();
+        Assets::authenticate();
 
         $atleta = Container::getModel('Atleta');
         $atleta->__set('idatleta', $_GET['id']);
-        $atleta_data = $atleta->getAtleta();
+        $atleta_data = $atleta->getAtletabyID();
         if ($_SESSION['nome'] != $atleta_data['emailAtleta'] && $_SESSION['permissao'] != '2') {
             header('Location: /error?error=1002');
             die();
@@ -64,7 +60,7 @@ class AtletaController extends Action
 
     public function select_atleta()
     {
-        $this->authenticate();
+        Assets::authenticate();
 
         if ($_SESSION['permissao'] != '2') {
 
@@ -112,7 +108,14 @@ class AtletaController extends Action
         $atleta->__set('telefoneAtleta', $_POST['telefoneAtleta']);
         $atleta->__set('id_equipe', $_POST['id_equipe']);
 
-        $this->verificaCadastroAtleta($_POST['sobreNomeAtleta'], $_POST['dataNascAtleta'], $_POST['cpfAtleta'], $_POST['emailAtleta'], $_POST['numRegistroAtleta'], $_POST['nomeAtleta']);
+        // $this->verificaCadastroAtleta($_POST['sobreNomeAtleta'], $_POST['dataNascAtleta'], $_POST['cpfAtleta'], $_POST['emailAtleta'], $_POST['numRegistroAtleta'], $_POST['nomeAtleta']);
+        Assets::verificaCadastroAtleta($_POST['sobreNomeAtleta'], $_POST['dataNascAtleta'], $_POST['cpfAtleta'], $_POST['emailAtleta'], $_POST['numRegistroAtleta'], $_POST['nomeAtleta']);
+
+        $verificaCPF = Assets::verificaCPF($_POST['cpfAtleta']);
+
+        if ($verificaCPF == false) {
+            header('Location: error?error=2005');
+        }
 
         $atleta->addAtleta();
 
@@ -147,36 +150,9 @@ class AtletaController extends Action
         header("Location: /sign_in");
     }
 
-    private function verificaCadastroAtleta($sobreNome, $dataNasc, $cpf, $email, $numRegistroAtleta, $nomeAtleta)
-    {
-
-        $atleta = Container::getModel('Atleta');
-        $atleta->__set('sobreNomeAtleta', $sobreNome);
-        $atleta->__set('dataNascAtleta', $dataNasc);
-        $atleta->__set('cpfAtleta', $cpf);
-        $atleta->__set('emailAtleta', $email);
-        $atleta->__set('numRegistroAtleta', $numRegistroAtleta);
-        $atleta_data = $atleta->verificaAllAtletas();
-
-        foreach ($atleta_data as $atleta) {
-            if ($atleta['sobreNomeAtleta'] == $sobreNome && $atleta['dataNascAtleta'] == $dataNasc && $atleta['nomeAtleta'] == $nomeAtleta) {
-                header("Location: /error?error=2001");
-                die();
-            } elseif ($atleta['emailAtleta'] == $email) {
-                header("Location: /error?error=2002");
-                die();
-            } elseif ($atleta['cpfAtleta'] == $cpf) {
-                header("Location: /error?error=2003");
-                die();
-            } elseif ($atleta['numRegistroAtleta'] == $numRegistroAtleta) {
-                header("Location: /error?error=2004");
-                die();
-            }
-        }
-    }
     public function edit_atleta()
     {
-        $this->authenticate();
+        Assets::authenticate();
         // print_r($_POST);
         if ($_POST['nomeAtleta'] == '') {
             header("Location: /add_atleta?error=1");
@@ -216,11 +192,28 @@ class AtletaController extends Action
         $this->render('tempos_atleta');
     }
 
-    public function provas_atleta()
+    public function melhores_tempos()
     {
         $tempoAtleta = Container::getModel('Tempo');
         $tempoAtleta->__set('id_atleta', $_SESSION['user_id']);
         $tempoAtleta_data = $tempoAtleta->getMelhorTempo();
+
+        $filtra_prova = 0;
+        foreach ($tempoAtleta_data as $tempo) {
+            if ($filtra_prova != $tempo['ID_DISTANCIAESTILO'] && $tempo['tamanhoPiscina'] == 25) {
+                $filtra_prova = $tempo['ID_DISTANCIAESTILO'];
+                $melhor_tempo[] = ['data' => $tempo['dataTorneio'], 'torneio' => $tempo['nomeTorneio'], 'tempo' => $tempo['tempoAtleta'], 'distancia' => $tempo['distancia'], 'estilo' => $tempo['nomeEstilo'], 'piscina' => $tempo['tamanhoPiscina']];;
+            }
+        }
+
+        foreach ($tempoAtleta_data as $tempo) {
+            if ($filtra_prova != $tempo['ID_DISTANCIAESTILO'] && $tempo['tamanhoPiscina'] == 50) {
+                $filtra_prova = $tempo['ID_DISTANCIAESTILO'];
+                $melhor_tempo[] = ['data' => $tempo['dataTorneio'], 'torneio' => $tempo['nomeTorneio'], 'tempo' => $tempo['tempoAtleta'], 'distancia' => $tempo['distancia'], 'estilo' => $tempo['nomeEstilo'], 'piscina' => $tempo['tamanhoPiscina']];;
+            }
+        }
+
+        return $melhor_tempo;
     }
 
     // public function melhores_tempos() {
@@ -239,7 +232,7 @@ class AtletaController extends Action
 
     public function add_tempo()
     {
-        $this->authenticate();
+        Assets::authenticate();
 
         $tempoAtleta = Container::getModel('Tempo');
         $tempoAtleta->__set('id_atleta', $_SESSION['user_id']);
@@ -262,12 +255,14 @@ class AtletaController extends Action
         $provas_data = $provas->getAllProvas();
         $this->viewData->provas = $provas_data;
 
+
+
         $this->render('add_tempo');
     }
 
     public function save_tempo()
     {
-        $this->authenticate();
+        Assets::authenticate();
 
         $prova = Container::getModel('Prova');
         $prova->__set('idprova', $_POST['id_prova']);
@@ -276,7 +271,7 @@ class AtletaController extends Action
 
         $atleta = Container::getModel('Atleta');
         $atleta->__set('idatleta', $_SESSION['user_id']);
-        $atleta_data = $atleta->getAtleta();
+        $atleta_data = $atleta->getAtletabyID();
         // $this->viewData->atleta = $atleta_data;
 
         if ($atleta_data['sexoAtleta'] != $prova_data['genero']) {

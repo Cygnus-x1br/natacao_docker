@@ -4,7 +4,14 @@ $distanciaEstilo = $this->viewData->distanciaEstilo;
 $torneios = $this->viewData->torneios;
 $categorias = $this->viewData->categorias;
 $provas = $this->viewData->provas;
+$tempoAtleta = $this->viewData->tempoAtleta;
 
+function adjustTime($fullTime)
+{
+    $time = explode(':', $fullTime);
+    (array_shift($time));
+    return implode(':', $time);
+}
 // print_r($torneios);
 // print_r($provas);
 
@@ -57,36 +64,34 @@ $provas = $this->viewData->provas;
             </div>
             <hr class="my-4">
         </form>
-        <?php foreach ($torneios as $torneio) { ?>
-            <p class="lead"><?= $torneio['nomeTorneio'] . ' - ' . $torneio['dataTorneio'] ?></li>
-            <table class="table w-75 mx-auto">
+        <div class="table-responsive">
+            <table class="table text-center">
                 <thead>
                     <tr>
-                        <th scope="col">Prova</th>
-                        <th scope="col">Estilo</th>
-                        <th scope="col">Genero</th>
-                        <th scope="col">Categorias</th>
+                        <th style="width: 12%;">Data</th>
+                        <th style="width: 22%;">Torneio</th>
+                        <th style="width: 22%;">Piscina</th>
+                        <th style="width: 22%;">Estilo</th>
+                        <th style="width: 22%;">Tempo</th>
                     </tr>
                 </thead>
-                <?php foreach ($provas as $prova) { ?>
-                    <tbody>
-                        <?php if ($prova['id_torneio'] == $torneio['IDTORNEIO']) { ?>
-                            <tr>
-                                <td><?= 'Prova numero ' . $prova['numeroProva'] ?></td>
-                                <td><?= $prova['distancia'] . 'm ' . $prova['nomeEstilo'] ?></td>
-                                <td><?= $prova['genero'] ?></td>
-                                <td><?= $prova['categoriaMinima'] . ' a ' . $prova['categoriaMaxima'] ?></td>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
-                <?php } ?>
+                <tbody>
+                    <?php foreach ($tempoAtleta as $tempo) { ?>
+                        <tr>
+                            <td><?php echo implode('/',  array_reverse(explode('-', $tempo['dataTorneio']))) ?></td>
+                            <td><?= $tempo['nomeTorneio'] ?></td>
+                            <td><?= $tempo['tamanhoPiscina'] . 'm' ?></td>
+                            <td><?= $tempo['distancia'] . 'm ' . $tempo['nomeEstilo'] ?></td>
+                            <td><?php echo adjustTime($tempo['tempoAtleta']) ?></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
             </table>
-            <hr>
-        <?php } ?>
+        </div>
     </div>
 </main>
 
-<script src="../assets/js/vanilla-masker.min.js"></script>
+
 <script>
     VMasker(document.querySelector('#tempoAtleta')).maskPattern('99:99.99');
 
