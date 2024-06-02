@@ -1,12 +1,13 @@
 <?php
 //$location = $this->setHtmlData->referer;
 $atleta = $this->viewData->atleta;
+print_r($atleta);
 
 ?>
 <main class="form-signin w-100 m-auto">
     <form method="post" action="/save_user">
-        <!-- <input type="hidden" name="location" value="<?= $location ?>"> -->
-        <input type="hidden" name="idAtleta" value="<?= $atleta['idAtleta'] ?>">
+
+        <input type="hidden" name="idAtleta" value="<?= $atleta['IDATLETA'] ?>">
         <input type="hidden" name="emailAtleta" value="<?= $atleta['emailAtleta'] ?>">
         <img class="mb-4" src="./images/swim_icon.png" alt="" width="72" height="57">
         <h1 class="h3 mb-3 fw-normal">Cadastro de Senha</h1>
@@ -16,8 +17,8 @@ $atleta = $this->viewData->atleta;
             </div>
         <?php } ?>
         <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPasswrd1" name="passwd" placeholder="senha">
-            <label for="floatingPasswrd1">Digite uma senha</label>
+            <input type="password" class="form-control" id="floatingPassword1" name="passwd" placeholder="senha">
+            <label for="floatingPassword1">Digite uma senha</label>
         </div>
         <div class="form-floating">
             <input type="password" class="form-control" id="floatingPassword2" name="passwd_confirm" placeholder="senha">

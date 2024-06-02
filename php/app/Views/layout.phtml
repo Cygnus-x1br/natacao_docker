@@ -122,7 +122,11 @@
                 </a>
 
                 <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-                    <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/select_atleta">Dados Atleta</a>
+                    <?php if (isset($_SESSION['id']) && $_SESSION['permissao'] == 2) { ?>
+                        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/select_atleta">Dados Atleta</a>
+                    <?php } elseif (isset($_SESSION['id']) && $_SESSION['permissao'] == 1) { ?>
+                        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/index_atleta?id=<?= $_SESSION['user_id'] ?>">Dados Atleta</a>
+                    <?php } ?>
                     <a class="me-3 py-2 link-body-emphasis text-decoration-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tempos</a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="./list_indices">Índices</a></li>

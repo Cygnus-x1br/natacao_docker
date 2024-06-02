@@ -30,13 +30,19 @@ class SignInController extends Action
             $_SESSION['id'] = $user->__get('iduser');
             $_SESSION['nome'] = $user->__get('username');
             $_SESSION['permissao'] = $user->__get('permission');
-            $_SESSION['user_id'] = $user->__get('iduser');
+            $_SESSION['user_id'] = $user->__get('user_id');
             $_SESSION['user_name'] = $user->__get('user_name');
 
             $this->setHtmlData->signed = 'enabled';
-            header('Location:' . $_POST['location']);
+
+            if ($_SESSION['permissao'] == 2) {
+                header('Location:/');
+            } elseif ($_SESSION['permissao'] == 1) {
+                header('Location:index_atleta?id=' . $_SESSION['user_id']);
+            }
         } else {
-            header('Location: /sing_in?login=erro');
+            header('Location: /error?error=9999');
+            die();
         }
     }
     public function log_out()

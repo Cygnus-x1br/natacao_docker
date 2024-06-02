@@ -123,7 +123,7 @@ class AtletaController extends Action
 
     private function create_user($emailAtleta)
     {
-        echo $emailAtleta;
+        //echo $emailAtleta;
         $atleta = Container::getModel('Atleta');
         $atleta->__set('emailAtleta', $emailAtleta);
         $atleta_data = $atleta->getAtletaEmail();
@@ -135,14 +135,16 @@ class AtletaController extends Action
     public function save_user()
     {
         $user = Container::getModel('Users');
-        $user->__set('iduser', $_POST['idAtleta']);
+        $user->__set('user_id', $_POST['idAtleta']);
         $user->__set('username', $_POST['emailAtleta']);
         $user->__set('passwd', $_POST['passwd']);
         $user->__set('user_name', $_POST['emailAtleta']);
         $user->__set('permission', 1);
         $user->saveUser();
 
-        header("Location: /view_atleta?id=" . $_POST['IDATLETA']);
+        $user->login($_POST['emailAtleta'], $_POST['passwd']);
+
+        header("Location: /sign_in");
     }
 
     private function verificaCadastroAtleta($sobreNome, $dataNasc, $cpf, $email, $numRegistroAtleta, $nomeAtleta)
@@ -214,12 +216,33 @@ class AtletaController extends Action
         $this->render('tempos_atleta');
     }
 
+    public function provas_atleta()
+    {
+        $tempoAtleta = Container::getModel('Tempo');
+        $tempoAtleta->__set('id_atleta', $_SESSION['user_id']);
+        $tempoAtleta_data = $tempoAtleta->getMelhorTempo();
+    }
+
+    // public function melhores_tempos() {
+    //     $tempoAtleta = Container::getModel('Tempo');
+    //     $tempoAtleta->__set('id_atleta', $_SESSION['user_id']);
+    //     $tempoAtleta_data = $tempoAtleta->getTempo();
+
+    //     $provas = provas_atleta();
+    //     foreach($provas as $prova){
+    //         foreach($tempoAtleta_data as $tempo) {
+    //             if($prova == $tempo['id_prova']) {
+    //                 $melhor_tempo[] = $tempo['tempoAtleta'];
+
+    //     }
+    // }
+
     public function add_tempo()
     {
         $this->authenticate();
 
         $tempoAtleta = Container::getModel('Tempo');
-        $tempoAtleta->__set('id_atleta', $_SESSION['id']);
+        $tempoAtleta->__set('id_atleta', $_SESSION['user_id']);
         $tempoAtleta_data = $tempoAtleta->getTempo();
         $this->viewData->tempoAtleta = $tempoAtleta_data;
 
@@ -252,22 +275,22 @@ class AtletaController extends Action
         // $this->viewData->provas = $provas_data;
 
         $atleta = Container::getModel('Atleta');
-        $atleta->__set('idatleta', $_SESSION['id']);
+        $atleta->__set('idatleta', $_SESSION['user_id']);
         $atleta_data = $atleta->getAtleta();
         // $this->viewData->atleta = $atleta_data;
 
         if ($atleta_data['sexoAtleta'] != $prova_data['genero']) {
-            header("Location: /error?error=1003");
+            header("Location: /error?error=3001");
             die();
         }
 
         $tempoAtleta = Container::getModel('Tempo');
-        $tempoAtleta->__set('id_atleta', $_SESSION['id']);
+        $tempoAtleta->__set('id_atleta', $_SESSION['user_id']);
         $tempoAtleta->__set('id_prova', $_POST['id_prova']);
         $tempoAtleta->__set('tempoAtleta', '00:' . $_POST['tempoAtleta']);
         $tempoAtleta->saveTempo();
 
-        header("Location: /index_atleta?id=" . $_SESSION['id']);
+        header("Location: /index_atleta?id=" . $_SESSION['user_id']);
     }
 
     private function list_equipes()
@@ -301,7 +324,7 @@ class AtletaController extends Action
 
         $tmp_file = $file['tmp_name'];
         $path = './images/fotos/';
-        $save_file = $path . 'foto_' . $_POST['idAtleta']  . '_' . $_POST['sobreNomeAtleta'] . '_' . $_POST['dataNascAtleta'] . '.' . $extensao;
+        $save_file = $path . 'foto_' . str_replace(' ', '', mb_convert_encoding($_POST['nomeAtleta'], "UTF-8"))  . '_' . str_replace(' ', '', mb_convert_encoding($_POST['sobreNomeAtleta'], "UTF-8")) . '_' . $_POST['dataNascAtleta'] . '.' . $extensao;
         $teste = move_uploaded_file($tmp_file, $save_file);
         if ($teste == 1) {
             return $save_file;

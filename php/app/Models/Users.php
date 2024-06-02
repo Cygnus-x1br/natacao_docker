@@ -45,12 +45,13 @@ class Users extends Model
 
     public function saveUser()
     {
-        $user = "INSERT INTO tb_users(username, passwd, user_name, permission)
-         VALUES(:username, :passwd, :user_name, :permission)";
+        $user = "INSERT INTO tb_users(username, passwd, user_name, user_id, permission)
+         VALUES(:username, :passwd, :user_name, :user_id, :permission)";
         $stmt = $this->db->prepare($user);
         $stmt->bindValue(':username', $this->__get('username'));
         $stmt->bindValue(':passwd', sha1($this->__get('passwd')));
         $stmt->bindValue(':user_name', $this->__get('user_name'));
+        $stmt->bindValue(':user_id', intval($this->__get('user_id')));
         $stmt->bindValue(':permission', $this->__get('permission'));
         $stmt->execute();
 
@@ -93,6 +94,7 @@ class Users extends Model
             $this->__set('iduser', $user_authenticated['IDUSER']);
             $this->__set('username', $user_authenticated['username']);
             $this->__set('user_name', $user_authenticated['user_name']);
+            $this->__set('user_id', $user_authenticated['user_id']);
             $this->__set('permission', $user_authenticated['permission']);
         }
 
