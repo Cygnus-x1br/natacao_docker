@@ -492,16 +492,16 @@ VALUES(
 --         1,
 --         2
 --     );
-INSERT INTO tb_torneio
-VALUES(
-        null,
-        'Campeonato Brasileiro Interclubes Infantil de Inverno',
-        '2024-06-10',
-        '2024-06-15',
-        3,
-        1,
-        1
-    );
+-- INSERT INTO tb_torneio
+-- VALUES(
+--         null,
+--         'Campeonato Brasileiro Interclubes Infantil de Inverno',
+--         '2024-06-10',
+--         '2024-06-15',
+--         3,
+--         1,
+--         1
+--     );
 INSERT INTO tba_distancia_estilo
 VALUES(null, 1, 1);
 INSERT INTO tba_distancia_estilo

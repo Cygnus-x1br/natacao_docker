@@ -8,14 +8,6 @@ use MF\Model\Container;
 session_start();
 class EquipeController extends Action
 {
-    public function authenticate()
-    {
-
-        if (!isset($_SESSION['id'])) {
-            header('Location: /error?error=1001');
-            die();
-        }
-    }
     public function list_equipes()
     {
         $equipes = Container::getModel('Equipe');
@@ -45,7 +37,7 @@ class EquipeController extends Action
 
     public function add_equipe()
     {
-        $this->authenticate();
+        Assets::authenticate();
         $federacao = Container::getModel('Federacao');
         $federacao_data = $federacao->getAllFederacoes();
         $this->viewData->federacoes = $federacao_data;
@@ -54,6 +46,7 @@ class EquipeController extends Action
     }
     public function save_equipe()
     {
+        Assets::authenticate();
         $federacao = Container::getModel('Federacao');
         $federacao_data = $federacao->getAllFederacoes();
         $this->viewData->federacoes = $federacao_data;
@@ -91,7 +84,7 @@ class EquipeController extends Action
     }
     public function edit_equipe()
     {
-        $this->authenticate();
+        Assets::authenticate();
         $federacao = Container::getModel('Federacao');
         $federacao_data = $federacao->getAllFederacoes();
         $this->viewData->federacoes = $federacao_data;
@@ -117,17 +110,10 @@ class EquipeController extends Action
         $equipe->__set('facebookEquipe', $_POST['facebookEquipe']);
         $equipe->__set('instagramEquipe', $_POST['instagramEquipe']);
         $equipe->__set('id_federacao', $_POST['id_federacao']);
+        $equipe->__set('idequipe', $_POST['idequipe']);
+        $equipe->editEquipe();
 
-
-        if ($equipe->verificaCadastro('nomeEquipe') != '') {
-            header("Location: /add_equipe?error=3");
-        } elseif ($equipe->verificaCadastro('nomeFantasiaEquipe') != '') {
-            header("Location: /add_equipe?error=4");
-        } else {
-            $equipe->editEquipe();
-
-            header("Location: /list_equipes");
-        }
+        header("Location: /list_equipes");
     }
 
     private function upload_file()
@@ -148,7 +134,7 @@ class EquipeController extends Action
 
         $tmp_file = $file['tmp_name'];
         $path = './images/logos/';
-        $save_file = $path . 'logo' . $_POST['nomeFantasiaEquipe']  . '.' . $extensao;
+        $save_file = $path . 'logo' . str_replace(' ', '', mb_convert_encoding($_POST['nomeFantasiaEquipe'], "UTF-8")) . '.' . $extensao;
         $teste = move_uploaded_file($tmp_file, $save_file);
         if ($teste == 1) {
             return $save_file;

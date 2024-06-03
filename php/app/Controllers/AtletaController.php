@@ -52,8 +52,12 @@ class AtletaController extends Action
         $idade = date('Y') - (explode('-', $atleta_data['dataNascAtleta']))[0];
         $idade = $idade > 19 ? 99 : ($idade < 7 ? 7 : $idade);
         $this->viewData->categoria = $this->test_category($idade);
-
         $this->viewData->equipes = $this->list_equipes();
+
+        $tempo = Container::getModel('Tempo');
+        $tempo->__set('id_atleta', $_GET['id']);
+        $this->viewData->tempos = $tempo->getTempo();
+        $this->viewData->display = 'disabled';
 
         $this->render('view_atleta');
     }
@@ -63,7 +67,6 @@ class AtletaController extends Action
         Assets::authenticate();
 
         if ($_SESSION['permissao'] != '2') {
-
             header('Location: /index_atleta?id=' . $_SESSION['id']);
             die();
         }
@@ -108,7 +111,6 @@ class AtletaController extends Action
         $atleta->__set('telefoneAtleta', $_POST['telefoneAtleta']);
         $atleta->__set('id_equipe', $_POST['id_equipe']);
 
-        // $this->verificaCadastroAtleta($_POST['sobreNomeAtleta'], $_POST['dataNascAtleta'], $_POST['cpfAtleta'], $_POST['emailAtleta'], $_POST['numRegistroAtleta'], $_POST['nomeAtleta']);
         Assets::verificaCadastroAtleta($_POST['sobreNomeAtleta'], $_POST['dataNascAtleta'], $_POST['cpfAtleta'], $_POST['emailAtleta'], $_POST['numRegistroAtleta'], $_POST['nomeAtleta']);
 
         $verificaCPF = Assets::verificaCPF($_POST['cpfAtleta']);
@@ -116,11 +118,9 @@ class AtletaController extends Action
         if ($verificaCPF == false) {
             header('Location: error?error=2005');
         }
-
         $atleta->addAtleta();
 
         $this->create_user($_POST['emailAtleta']);
-
         //header("Location: /view_atleta?id=" . $atleta['idatleta']);
     }
 
@@ -197,6 +197,7 @@ class AtletaController extends Action
         $tempoAtleta = Container::getModel('Tempo');
         $tempoAtleta->__set('id_atleta', $_SESSION['user_id']);
         $tempoAtleta_data = $tempoAtleta->getMelhorTempo();
+        $melhor_tempo = [];
 
         $filtra_prova = 0;
         foreach ($tempoAtleta_data as $tempo) {
@@ -215,21 +216,6 @@ class AtletaController extends Action
 
         return $melhor_tempo;
     }
-
-    // public function melhores_tempos() {
-    //     $tempoAtleta = Container::getModel('Tempo');
-    //     $tempoAtleta->__set('id_atleta', $_SESSION['user_id']);
-    //     $tempoAtleta_data = $tempoAtleta->getTempo();
-
-    //     $provas = provas_atleta();
-    //     foreach($provas as $prova){
-    //         foreach($tempoAtleta_data as $tempo) {
-    //             if($prova == $tempo['id_prova']) {
-    //                 $melhor_tempo[] = $tempo['tempoAtleta'];
-
-    //     }
-    // }
-
     public function add_tempo()
     {
         Assets::authenticate();
@@ -254,8 +240,6 @@ class AtletaController extends Action
         $provas = Container::getModel('Prova');
         $provas_data = $provas->getAllProvas();
         $this->viewData->provas = $provas_data;
-
-
 
         $this->render('add_tempo');
     }

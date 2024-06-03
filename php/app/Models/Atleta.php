@@ -55,7 +55,6 @@ class Atleta extends Model
         $stmt->bindValue(':idatleta', $this->__get('idatleta'));
         $stmt->execute();
 
-        //return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
     public function getAtletaNome()
@@ -66,7 +65,6 @@ class Atleta extends Model
         $stmt->bindValue(':nomeAtleta', $this->__get('nomeAtleta'));
         $stmt->execute();
 
-        //return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 

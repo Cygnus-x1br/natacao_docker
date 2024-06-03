@@ -51,6 +51,8 @@ class SignInController extends Action
         unset($_SESSION["id"]);
         unset($_SESSION["nome"]);
         unset($_SESSION['permissao']);
+        unset($_SESSION['user_id']);
+        unset($_SESSION['user_name']);
         header("location: /");
     }
 

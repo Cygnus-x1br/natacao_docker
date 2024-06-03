@@ -5,6 +5,24 @@ $categoria = $this->viewData->categoria;
 $tempoAtleta = $this->viewData->tempoAtleta;
 $melhoresTempos = $this->viewData->melhores_tempos;
 
+foreach ($melhoresTempos as $tempo) {
+    if ($tempo['piscina'] === 25) {
+        $melhoresTempos25[] = $tempo;
+    }
+}
+foreach ($melhoresTempos as $tempo) {
+    if ($tempo['piscina'] === 50) {
+        $melhoresTempos50[] = $tempo;
+    }
+}
+
+if (count($melhoresTempos25) > 3) {
+    $melhoresTempos25 = array_chunk($melhoresTempos25, 3, true);
+}
+if (count($melhoresTempos50) > 3) {
+    $melhoresTempos50 = array_chunk($melhoresTempos50, 3, true);
+}
+
 function adjustTime($fullTime)
 {
     $time = explode(':', $fullTime);
@@ -27,53 +45,89 @@ function adjustTime($fullTime)
 </header>
 
 <main>
-    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-        <?php foreach ($melhoresTempos as $tempo) {
-            if ($tempo['piscina'] == 50) { ?>
-                <div class="col">
-                    <div class="card mb-4 rounded-3 shadow-sm" style="height: 400px;">
-                        <div class="card-header py-3">
-                            <h4 class="my-0 fw-normal"><?= $tempo['distancia'] . 'm ' . $tempo['estilo'] ?> </h4>
-                        </div>
-                        <div class="card-body">
-                            <p>MELHOR TEMPO</p>
-                            <h1 class="card-title pricing-card-title"><?php echo adjustTime($tempo['tempo']) ?></h1>
-                            <ul class="list-unstyled mt-3 mb-4">
-                                <li><?php echo implode('/',  array_reverse(explode('-', $tempo['data']))) ?></li>
-                                <li><?= $tempo['torneio'] ?></li>
-                                <li><?= 'Piscina: ' . $tempo['piscina'] . 'm' ?></li>
-                                <li>Local???</li>
-                            </ul>
-                            <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
-                        </div>
+    <div id="carousel50" class="carousel carousel-dark slide">
+        <div class="carousel-inner">
+            <?php for ($i = 0; $i < count($melhoresTempos50); $i++) {
+                $tempos = ($melhoresTempos50[$i]) ?>
+                <div class="carousel-item <?php if ($i == 0) {
+                                                echo 'active';
+                                            } ?>">
+                    <div class=" row row-cols-1 row-cols-md-3 mb-3 text-center">
+                        <?php foreach ($tempos as $tempo) { ?>
+                            <div class="col">
+                                <div class="card mb-4 rounded-3 shadow-sm" style="height: 400px;">
+                                    <div class="card-header py-3 bg-dark-subtle">
+                                        <h4 class="my-0 fw-normal"><?= $tempo['distancia'] . 'm ' . $tempo['estilo'] ?> </h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>MELHOR TEMPO</p>
+                                        <h1 class="card-title pricing-card-title"><?php echo adjustTime($tempo['tempo']) ?></h1>
+                                        <ul class="list-unstyled mt-3 mb-4">
+                                            <li><?php echo implode('/',  array_reverse(explode('-', $tempo['data']))) ?></li>
+                                            <li><?= $tempo['torneio'] ?></li>
+                                            <li><?= 'Piscina: ' . $tempo['piscina'] . 'm' ?></li>
+                                            <li>Local???</li>
+                                        </ul>
+                                        <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
                     </div>
                 </div>
-        <?php }
-        } ?>
+            <?php } ?>
+        </div>
+        <button class="carousel-control-prev" type="button" style="justify-content: start;" data-bs-target="#carousel50" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" style="justify-content: end;" data-bs-target="#carousel50" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
-    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-        <?php foreach ($melhoresTempos as $tempo) {
-            if ($tempo['piscina'] == 25) { ?>
-                <div class="col">
-                    <div class="card mb-4 rounded-3 shadow-sm" style="height: 400px;">
-                        <div class="card-header py-3">
-                            <h4 class="my-0 fw-normal"><?= $tempo['distancia'] . 'm ' . $tempo['estilo'] ?> </h4>
-                        </div>
-                        <div class="card-body">
-                            <p>MELHOR TEMPO</p>
-                            <h1 class="card-title pricing-card-title"><?php echo adjustTime($tempo['tempo']) ?></h1>
-                            <ul class="list-unstyled mt-3 mb-4">
-                                <li><?php echo implode('/',  array_reverse(explode('-', $tempo['data']))) ?></li>
-                                <li><?= $tempo['torneio'] ?></li>
-                                <li><?= 'Piscina: ' . $tempo['piscina'] . 'm' ?></li>
-                                <li>Local???</li>
-                            </ul>
-                            <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
-                        </div>
+
+    <div id="carousel25" class="carousel carousel-dark slide">
+        <div class="carousel-inner">
+            <?php for ($i = 0; $i < count($melhoresTempos50); $i++) {
+                $tempos = ($melhoresTempos50[$i]) ?>
+                <div class="carousel-item <?php if ($i == 0) {
+                                                echo 'active';
+                                            } ?>">
+                    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+                        <?php foreach ($melhoresTempos25 as $tempo) { ?>
+                            <div class="col">
+                                <div class="card mb-4 rounded-3 shadow-sm" style="height: 400px;">
+                                    <div class="card-header py-3 bg-info-subtle">
+                                        <h4 class="my-0 fw-normal"><?= $tempo['distancia'] . 'm ' . $tempo['estilo'] ?> </h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>MELHOR TEMPO</p>
+                                        <h1 class="card-title pricing-card-title"><?php echo adjustTime($tempo['tempo']) ?></h1>
+                                        <ul class="list-unstyled mt-3 mb-4">
+                                            <li><?php echo implode('/',  array_reverse(explode('-', $tempo['data']))) ?></li>
+                                            <li><?= $tempo['torneio'] ?></li>
+                                            <li><?= 'Piscina: ' . $tempo['piscina'] . 'm' ?></li>
+                                            <li>Local???</li>
+                                        </ul>
+                                        <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+
                     </div>
                 </div>
-        <?php }
-        } ?>
+            <?php } ?>
+        </div>
+        <button class="carousel-control-prev" type="button" style="justify-content: start;" data-bs-target="#carousel25" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" style="justify-content: end;" data-bs-target="#carousel25" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
 
     <h2 class="display-6 text-center mb-4">Últimas Provas</h2>

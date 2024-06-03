@@ -40,7 +40,6 @@ class IndexController extends Action
 
     public function register()
     {
-
         $this->render('register', 'sign_in_layout');
     }
 }

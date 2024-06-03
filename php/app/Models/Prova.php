@@ -4,8 +4,6 @@ namespace App\Models;
 
 use MF\Model\Model;
 
-
-
 class Prova extends Model
 {
     private $idprova;

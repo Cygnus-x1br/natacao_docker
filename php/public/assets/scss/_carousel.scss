@@ -92,7 +92,7 @@
   z-index: 1;
   // Use flex for alignment (1-3)
   display: flex; // 1. allow flex styles
-  align-items: center; // 2. vertically center contents
+  align-items: start; // 2. vertically center contents
   justify-content: center; // 3. horizontally center contents
   width: $carousel-control-width;
   padding: 0;
@@ -115,6 +115,7 @@
 .carousel-control-prev {
   left: 0;
   background-image: if($enable-gradients, linear-gradient(90deg, rgba($black, .25), rgba($black, .001)), null);
+
 }
 .carousel-control-next {
   right: 0;
