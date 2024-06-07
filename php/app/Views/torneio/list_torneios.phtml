@@ -16,7 +16,9 @@
                 <div class="col p-4 d-flex flex-column position-static">
                     <strong class="d-inline-block mb-2 text-primary-emphasis"><?= $torneio['nomeFantasiaFederacao'] ?></strong>
                     <h3 class="display-6 mb-0"><?= $torneio['nomeTorneio'] ?></h3>
-                    <div class="mb-1 text-body-secondary"><?php echo implode('/',  array_reverse(explode('-', $torneio['dataTorneio']))) ?></div>
+                    <div class="mb-1 text-body-secondary"><?php echo implode('/',  array_reverse(explode('-', $torneio['dataTorneio']))); ?><?php if ($torneio['dataFimTorneio'] != '' && $torneio['dataFimTorneio'] != $torneio['dataTorneio']) {
+                                                                                                                                                echo ' a ' .  implode('/',  array_reverse(explode('-', $torneio['dataFimTorneio'])));
+                                                                                                                                            } ?></div>
                     <p class="lead card-text mb-1"><?= $torneio['nomeFantasiaComplexo'] ?></p>
                     <p class="card-text mb-auto "><em><?= 'Piscina: ' . $torneio['tamanhoPiscina'] . 'm' ?></em></p>
                     <a href="#" class="btn btn-secondary ">

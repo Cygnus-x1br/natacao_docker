@@ -26,7 +26,7 @@ class Torneio extends Model
 
     public function getAllTorneios()
     {
-        $torneio = "SELECT IDTORNEIO,nomeTorneio, dataTorneio, c.nomeFantasiaComplexo, c.fotoComplexo, p.tamanhoPiscina, f.nomeFantasiaFederacao, f.logoFederacao FROM tb_torneio INNER JOIN tb_complexo as c ON ID_COMPLEXO=c.IDCOMPLEXO INNER JOIN tb_piscina as p ON ID_PISCINA=p.IDPISCINA INNER JOIN tb_federacao as f ON ID_FEDERACAO=f.IDFEDERACAO ORDER BY dataTorneio DESC, nomeTorneio ASC";
+        $torneio = "SELECT IDTORNEIO,nomeTorneio, dataTorneio, dataFimTorneio, c.nomeFantasiaComplexo, c.fotoComplexo, p.tamanhoPiscina, f.nomeFantasiaFederacao, f.logoFederacao FROM tb_torneio INNER JOIN tb_complexo as c ON ID_COMPLEXO=c.IDCOMPLEXO INNER JOIN tb_piscina as p ON ID_PISCINA=p.IDPISCINA INNER JOIN tb_federacao as f ON ID_FEDERACAO=f.IDFEDERACAO ORDER BY dataTorneio DESC, nomeTorneio ASC";
         $stmt = $this->db->prepare($torneio);
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -43,7 +43,7 @@ class Torneio extends Model
 
     public function saveTorneio()
     {
-        $torneio = "INSERT INTO tb_torneio(nomeTorneio, dataTorneio, id_complexo, id_piscina, id_federacao) VALUES(:nomeTorneio, :dataTorneio, :id_complexo, :id_piscina, :id_federacao)";
+        $torneio = "INSERT INTO tb_torneio(nomeTorneio, dataTorneio, dataFimTorneio, id_complexo, id_piscina, id_federacao) VALUES(:nomeTorneio, :dataTorneio, :id_complexo, :id_piscina, :id_federacao)";
         $stmt = $this->db->prepare($torneio);
         $stmt->bindValue(':nomeTorneio', $this->__get('nomeTorneio'));
         $stmt->bindValue(':dataTorneio', $this->__get('dataTorneio'));

@@ -1,9 +1,21 @@
-<header class="">
-    <div class="pricing-header pb-md-4 mx-auto text-center">
-        <img src="./images/capa_index.jpeg" class="img-index img-fluid mb-5" alt="">
-        <h1 class="display-3 fw-light text-body-emphasis mb-3">Sistema de Gestão de Atletas de Natação</h1>
-        <p class=" display-6 text-body-secondary p-3">Controle os resultados e estatísticas dos atletas. Verifique as metas e compare com os tempos obtidos. Analise a evolução física.</p>
-    </div>
+<?php
+
+$torneios = $this->viewData->torneios;
+
+if (count($torneios) > 0) {
+    $torneios = array_slice($torneios, 0, 3);
+}
+
+// print_r($torneios);
+
+?>
+
+
+<div class="pricing-header pb-md-4 mx-auto text-center">
+    <img src="./images/capa_index.jpeg" class="img-index img-fluid mb-5" alt="">
+    <h1 class="display-3 fw-light text-body-emphasis mb-3">Sistema de Gestão de Atletas de Natação</h1>
+    <p class=" display-6 text-body-secondary p-3">Controle os resultados e estatísticas dos atletas. Verifique as metas e compare com os tempos obtidos. Analise a evolução física.</p>
+</div>
 </header>
 
 <main>
@@ -12,63 +24,35 @@
         Últimos Torneios
     </h3>
     <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-        <div class="col">
-            <div class="card mb-4 rounded-3 shadow-sm">
-                <div class="card-header py-3">
-                    <h4 class="my-0 fw-normal">Prova principal 1</h4>
-                </div>
-                <div class="card-body">
-                    <p>MELHOR TEMPO</p>
-                    <h1 class="card-title pricing-card-title">00:00.00</h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>22/11/22</li>
-                        <li>Torneio???</li>
-                        <li>Piscina???</li>
-                        <li>Local???</li>
-                    </ul>
-                    <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card mb-4 rounded-3 shadow-sm">
-                <div class="card-header py-3">
-                    <h4 class="my-0 fw-normal">Prova principal 2</h4>
-                </div>
-                <div class="card-body">
-                    <p>MELHOR TEMPO</p>
-                    <h1 class="card-title pricing-card-title">00:00.00</h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>20 users included</li>
-                        <li>10 GB of storage</li>
-                        <li>Priority email support</li>
-                        <li>Help center access</li>
-                    </ul>
-                    <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
+        <?php foreach ($torneios as $torneio) { ?>
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm" style="height: 400px;">
+                    <div class="card-header py-3 bg-dark-subtle">
+                        <h4 class="my-0 fw-normal" style="height: 60px;"><?= $torneio['nomeTorneio'] ?></h4>
+                    </div>
+                    <div class="card-body">
+                        <p><?= $torneio['nomeFantasiaComplexo'] ?></p>
+                        <h1 class="card-title pricing-card-title"></h1>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li><?php $datas = implode('/',  array_reverse(explode('-', $torneio['dataTorneio'])));
+                                if ($torneio['dataFimTorneio'] != '' && $torneio['dataFimTorneio'] != $torneio['dataTorneio']) {
+                                    $datas = implode('/',  array_reverse(explode('-', $torneio['dataTorneio']))) . ' a ' . implode('/',  array_reverse(explode('-', $torneio['dataFimTorneio'])));
+                                }
+                                echo $datas; ?></li>
+                            <li><?= $torneio['nomeFantasiaFederacao'] ?></li>
+                            <li><?= 'Piscina: ' . $torneio['tamanhoPiscina'] . 'm' ?></li>
+                            <li>Local???</li>
+                        </ul>
+                        <a href="/sign_in" class="w-100 btn btn-lg btn-outline-primary">Entre</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="card mb-4 rounded-3 shadow-sm border-primary">
-                <div class="card-header py-3 text-bg-primary border-primary">
-                    <h4 class="my-0 fw-normal">Prova principal 3</h4>
-                </div>
-                <div class="card-body">
-                    <p>MELHOR TEMPO</p>
-                    <h1 class="card-title pricing-card-title">00:00.00</h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>30 users included</li>
-                        <li>15 GB of storage</li>
-                        <li>Phone and email support</li>
-                        <li>Help center access</li>
-                    </ul>
-                    <button type="button" class="w-100 btn btn-lg btn-primary">Contact us</button>
-                </div>
-            </div>
-        </div>
+        <?php } ?>
     </div>
 
-    <h2 class="display-6 text-center mb-4">Compare plans</h2>
+
+
+    <!-- <h2 class="display-6 text-center mb-4">Compare plans</h2>
 
     <div class="table-responsive">
         <table class="table text-center">
@@ -148,5 +132,5 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+    </div> -->
 </main>

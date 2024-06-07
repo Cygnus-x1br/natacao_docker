@@ -8,7 +8,10 @@
             <p><?= $this->setHtmlData->error ?></p>
         </div>
 
-
+        <?php if (isset($_GET['error']) && $_GET['error'] == '1001' || $_GET['error'] == '1002') { ?>
+            <a class="btn btn-primary w-100 py-2 mt-3" href="/sign_in">Ir para tela de logon</a>
+        <?php } ?>
         <a class="btn btn-primary w-100 py-2 mt-3" href="<?= $this->setHtmlData->url ?>">Voltar</a>
-        <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
+    </div>
+    <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
 </main>

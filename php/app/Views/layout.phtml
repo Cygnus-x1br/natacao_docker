@@ -9,20 +9,27 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.122.0">
-    <title>Pricing example · Bootstrap v5.3</title>
+    <title>Sistema de Gestão de Atletas</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/pricing/">
     <link rel="stylesheet" href="./css/styles.css">
-
-
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
     <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <!-- CDN para o Bootstrap  -->
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- CDN para o ChartJS (Gráficos) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous"></script>
+    <!-- Mascara de entrada -->
     <script src="../assets/js/vanilla-masker.min.js"></script>
 
     <style>
+        .bi {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+        }
+
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -202,13 +209,61 @@
             </footer>
     </div>
 
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+    <?php if ($_SERVER['REQUEST_URI'] == "/index_atleta") {
+
+        echo "<script>";
+        echo "const carousel25 = new bootstrap.Carousel('#carousel25');";
+        echo "const carousel50 = new bootstrap.Carousel('#carousel50');";
+        echo "</script>";
+    }
+    ?>
+
     <script>
-        const carousel25 = new bootstrap.Carousel('#carousel25');
-        const carousel50 = new bootstrap.Carousel('#carousel50');
+        (() => {
+            'use strict'
+            const ctx = document.getElementById('myChart')
+            const myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [
+                        'Sunday',
+                        'Monday',
+                        'Tuesday',
+                        'Wednesday',
+                        'Thursday',
+                        'Friday',
+                        'Saturday'
+                    ],
+                    datasets: [{
+                        data: [
+                            15339,
+                            21345,
+                            18483,
+                            24003,
+                            23489,
+                            24092,
+                            12034
+                        ],
+                        lineTension: 0,
+                        backgroundColor: 'transparent',
+                        borderColor: '#007bff',
+                        borderWidth: 4,
+                        pointBackgroundColor: '#007bff'
+                    }]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            boxPadding: 3
+                        }
+                    }
+                }
+            })
+        })()
     </script>
-
-
 </body>
 
 </html>

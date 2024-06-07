@@ -1,0 +1,105 @@
+<?php
+
+$distanciaEstilo = $this->viewData->distanciaEstilo;
+$torneios = $this->viewData->torneios;
+$categorias = $this->viewData->categorias;
+$provas = $this->viewData->provas;
+$tempoAtleta = $this->viewData->tempoAtleta;
+
+$torneiosParticipados = $this->viewData->torneiosParticipados;
+$anos = $this->viewData->anos;
+$estilos = $this->viewData->estilos;
+
+function adjustTime($fullTime)
+{
+    $time = explode(':', $fullTime);
+    (array_shift($time));
+    return implode(':', $time);
+}
+
+?>
+
+<main>
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Tempos Registrados</h1>
+            </div>
+        </div>
+    </section>
+    <div class="d-flex justify-content-end mb-5">
+        <a class="btn btn-primary" href="./add_tempo">Incluir Tempo</a>
+    </div>
+
+    <div class="row p-3 ">
+        <form action="filtra_tempos" method="post" class="row g-3 d-flex align-items-end">
+            <div class="col-md-4 col-lg-2">
+                <label for="anoTempo" class="form-label">Ano</label>
+                <select name="anoTempo" class="form-select" id="anoTempo">
+                    <option value="">Selecione</option>
+                    <?php foreach ($anos as $ano) { ?>
+                        <option value="<?= $ano ?>"><?= $ano ?></option>
+                    <?php }; ?>
+                </select>
+            </div>
+            <div class="col-md-4 col-lg-2">
+                <label for="nomeTorneio" class="form-label">Torneio</label>
+                <select name="nomeTorneio" class="form-select" id="nomeTorneio">
+                    <option value="">Selecione</option>
+                    <?php foreach ($torneiosParticipados as $torneio) { ?>
+                        <option value="<?= $torneio ?>"><?= $torneio ?></option>
+                    <?php }; ?>
+                </select>
+            </div>
+            <div class="col-md-4 col-lg-2">
+                <label for="tamanhoPiscina" class="form-label">Piscina</label>
+                <select name="tamanhoPiscina" class="form-select" id="tamanhoPiscina">
+                    <option value="">Selecione</option>
+                    <option value="25">25 m</option>
+                    <option value="50">50 m</option>
+                </select>
+            </div>
+            <div class="col-md-4 col-lg-2">
+                <label for="distanciaEstilo" class="form-label">Estilo</label>
+                <select name="distanciaEstilo" class="form-select" id="distanciaEstilo">
+                    <option value="">Selecione</option>
+                    <?php foreach ($estilos as $estilo) { ?>
+                        <option value="<?php echo (explode('*', $estilo))[1] ?>"><?php echo (explode('*', $estilo))[0]  ?></option>
+                    <?php }; ?>
+                </select>
+            </div>
+            <div class="col-md-4 col-lg-2">
+                <input type="submit" class="form-control btn btn-primary" value="Filtrar" id="filtrar">
+            </div>
+        </form>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th style="width: 12%;">Data</th>
+                    <th style="width: 32%;">Torneio</th>
+                    <th style="width: 22%;">Piscina</th>
+                    <th style="width: 12%;">Estilo</th>
+                    <th style="width: 22%;">Tempo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($tempoAtleta as $tempo) { ?>
+                    <tr>
+                        <td><?php echo implode('/',  array_reverse(explode('-', $tempo['dataTorneio']))) ?></td>
+                        <td><?= $tempo['nomeTorneio'] ?></td>
+                        <td><?= $tempo['tamanhoPiscina'] . 'm' ?></td>
+                        <td class="text-start"><?= $tempo['distancia'] . 'm ' . $tempo['nomeEstilo'] ?></td>
+                        <td><?php echo adjustTime($tempo['tempoAtleta']) ?></td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+
+</body>

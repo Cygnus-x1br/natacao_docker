@@ -26,7 +26,7 @@ class Prova extends Model
 
     public function getAllProvas()
     {
-        $prova = "SELECT idprova ,numeroProva, genero, id_torneio,t.nomeTorneio, t.dataTorneio, f.nomeFantasiaFederacao, p.tamanhoPiscina, d.distancia, e.nomeEstilo, cmin.nomeCategoria AS categoriaMinima, cmax.nomeCategoria AS categoriaMaxima FROM tb_prova
+        $prova = "SELECT idprova ,numeroProva, genero, id_torneio, ID_CATEGORIA_MIN, ID_CATEGORIA_MAX, t.nomeTorneio, t.dataTorneio, f.nomeFantasiaFederacao, p.tamanhoPiscina, d.distancia, e.nomeEstilo, cmin.nomeCategoria AS categoriaMinima, cmax.nomeCategoria AS categoriaMaxima FROM tb_prova
 INNER JOIN tb_torneio AS t ON ID_TORNEIO = t.IDTORNEIO
 INNER JOIN tb_federacao AS f ON 
 (SELECT tb_torneio.ID_FEDERACAO FROM tb_torneio WHERE tb_prova.ID_TORNEIO = tb_torneio.IDTORNEIO) = f.IDFEDERACAO

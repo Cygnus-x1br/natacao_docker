@@ -8,7 +8,6 @@ use MF\Model\Container;
 session_start();
 class AtletaController extends Action
 {
-
     public function index_atleta()
     {
         Assets::authenticate();
@@ -32,13 +31,19 @@ class AtletaController extends Action
         $idade = $idade > 19 ? 99 : ($idade < 7 ? 7 : $idade);
         $this->viewData->categoria = $this->test_category($idade);
 
-        $this->viewData->melhores_tempos = $this->melhores_tempos();
+        $this->viewData->melhores_tempos = Tempo::melhores_tempos();
 
         $this->render('index_atleta');
     }
     public function view_atleta()
     {
         Assets::authenticate();
+
+        if (isset($_GET['edit']) && $_GET['edit'] == 'true') {
+            $this->setHtmlData->edit = '';
+        } else {
+            $this->setHtmlData->edit = 'disabled';
+        }
 
         $atleta = Container::getModel('Atleta');
         $atleta->__set('idatleta', $_GET['id']);
@@ -189,6 +194,27 @@ class AtletaController extends Action
 
     public function tempos_atleta()
     {
+        $tempoAtleta = Container::getModel('Tempo');
+        $tempoAtleta->__set('id_atleta', $_SESSION['user_id']);
+        $tempoAtleta_data = $tempoAtleta->getTempo();
+        $this->viewData->tempoAtleta = $tempoAtleta_data;
+
+        $torneio = Container::getModel('Torneio');
+        $torneio_data = $torneio->getAllTorneios();
+        $this->viewData->torneios = $torneio_data;
+
+        $distanciaEstilo = Container::getModel('DistanciaEstilo');
+        $distanciaEstilo_data = $distanciaEstilo->getAllDistanciaEstilo();
+        $this->viewData->distanciaEstilo = $distanciaEstilo_data;
+
+        $categoria = Container::getModel('Categoria');
+        $categoria_data = $categoria->getAllCategorias();
+        $this->viewData->categorias = $categoria_data;
+
+        $provas = Container::getModel('Prova');
+        $provas_data = $provas->getAllProvas();
+        $this->viewData->provas = $provas_data;
+
         $this->render('tempos_atleta');
     }
 
@@ -215,61 +241,6 @@ class AtletaController extends Action
         }
 
         return $melhor_tempo;
-    }
-    public function add_tempo()
-    {
-        Assets::authenticate();
-
-        $tempoAtleta = Container::getModel('Tempo');
-        $tempoAtleta->__set('id_atleta', $_SESSION['user_id']);
-        $tempoAtleta_data = $tempoAtleta->getTempo();
-        $this->viewData->tempoAtleta = $tempoAtleta_data;
-
-        $torneio = Container::getModel('Torneio');
-        $torneio_data = $torneio->getAllTorneios();
-        $this->viewData->torneios = $torneio_data;
-
-        $distanciaEstilo = Container::getModel('DistanciaEstilo');
-        $distanciaEstilo_data = $distanciaEstilo->getAllDistanciaEstilo();
-        $this->viewData->distanciaEstilo = $distanciaEstilo_data;
-
-        $categoria = Container::getModel('Categoria');
-        $categoria_data = $categoria->getAllCategorias();
-        $this->viewData->categorias = $categoria_data;
-
-        $provas = Container::getModel('Prova');
-        $provas_data = $provas->getAllProvas();
-        $this->viewData->provas = $provas_data;
-
-        $this->render('add_tempo');
-    }
-
-    public function save_tempo()
-    {
-        Assets::authenticate();
-
-        $prova = Container::getModel('Prova');
-        $prova->__set('idprova', $_POST['id_prova']);
-        $prova_data = $prova->getProvaMin();
-        // $this->viewData->provas = $provas_data;
-
-        $atleta = Container::getModel('Atleta');
-        $atleta->__set('idatleta', $_SESSION['user_id']);
-        $atleta_data = $atleta->getAtletabyID();
-        // $this->viewData->atleta = $atleta_data;
-
-        if ($atleta_data['sexoAtleta'] != $prova_data['genero']) {
-            header("Location: /error?error=3001");
-            die();
-        }
-
-        $tempoAtleta = Container::getModel('Tempo');
-        $tempoAtleta->__set('id_atleta', $_SESSION['user_id']);
-        $tempoAtleta->__set('id_prova', $_POST['id_prova']);
-        $tempoAtleta->__set('tempoAtleta', '00:' . $_POST['tempoAtleta']);
-        $tempoAtleta->saveTempo();
-
-        header("Location: /index_atleta?id=" . $_SESSION['user_id']);
     }
 
     private function list_equipes()

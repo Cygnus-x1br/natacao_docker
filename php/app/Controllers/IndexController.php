@@ -35,6 +35,10 @@ class IndexController extends Action
             $this->render('index_atleta');
         }
 
+        $torneio = Container::getModel('Torneio');
+        $torneio_data = $torneio->getAllTorneios();
+        $this->viewData->torneios = $torneio_data;
+
         $this->render('index');
     }
 

@@ -83,18 +83,28 @@ class Route extends \MF\Init\Bootstrap
         );
         $routes['tempos_atleta'] = array(
             'route' => '/tempos_atleta',
-            'controller' => 'AtletaController',
+            'controller' => 'TempoController',
             'action' => 'tempos_atleta'
         );
         $routes['add_tempo'] = array(
             'route' => '/add_tempo',
-            'controller' => 'AtletaController',
+            'controller' => 'TempoController',
             'action' => 'add_tempo'
         );
         $routes['save_tempo'] = array(
             'route' => '/save_tempo',
-            'controller' => 'AtletaController',
+            'controller' => 'TempoController',
             'action' => 'save_tempo'
+        );
+        $routes['filtra_tempos'] = array(
+            'route' => '/filtra_tempos',
+            'controller' => 'TempoController',
+            'action' => 'filtra_tempos'
+        );
+        $routes['graficos_tempo'] = array(
+            'route' => '/graficos_tempo',
+            'controller' => 'TempoController',
+            'action' => 'graficos_tempo'
         );
         $routes['list_equipes'] = array(
             'route' => '/list_equipes',

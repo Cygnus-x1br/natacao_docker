@@ -6,7 +6,7 @@ $equipes = $this->viewData->equipes;
 $tempos = $this->viewData->tempos;
 
 $ultimos_tempos = array_splice($tempos, 0, 5);
-$disabled = $this->viewData->display;
+$disabled = $this->setHtmlData->edit;
 
 ?>
 
@@ -165,8 +165,28 @@ $disabled = $this->viewData->display;
                             </div>
                         </div>
                         <hr class="my-4">
+                        <div class="row">
+                            <div class="col-6" style="display:<?php if ($disabled == '') {
+                                                                    echo 'block';
+                                                                } else {
+                                                                    echo 'none';
+                                                                }  ?>">
+                                <button class="w-100 btn btn-lg btn-primary m-1" type="submit">Salvar</button>
+                            </div>
+                            <div class="col-6" style="display:<?php if ($disabled == 'disabled') {
+                                                                    echo 'block';
+                                                                } else {
+                                                                    echo 'none';
+                                                                }  ?>">
 
-                        <a href="index_atleta?id=<?= $atleta['IDATLETA'] ?>" class="w-50 btn btn-primary btn-lg" type="submit">Voltar</a>
+                                <a href="view_atleta?id=<?= $atleta['IDATLETA'] ?>&edit=true" class="w-100 btn btn-primary btn-lg m-1" type="submit">Editar</a>
+
+                            </div>
+                            <dv class="col-6">
+
+                                <a href=" index_atleta?id=<?= $atleta['IDATLETA'] ?>" class="w-100 btn btn-primary btn-lg m-1" type="submit">Voltar</a>
+                            </dv>
+                        </div>
                 </form>
             </div>
         </div>

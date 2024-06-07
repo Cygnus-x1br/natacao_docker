@@ -33,6 +33,9 @@ class ErrorController extends Action
             $this->setHtmlData->error = 'Número de CPF inválido';
             $this->setHtmlData->url = $url;
         } elseif ($_GET['error'] == 3001) {
+            $this->setHtmlData->error = 'Prova incompativel com o genero do atleta';
+            $this->setHtmlData->url = $url;
+        } elseif ($_GET['error'] == 3002) {
             $this->setHtmlData->error = 'Prova incompativel com a categoria do atleta';
             $this->setHtmlData->url = $url;
         } elseif ($_GET['error'] == 9999) {

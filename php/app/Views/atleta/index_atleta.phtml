@@ -5,22 +5,24 @@ $categoria = $this->viewData->categoria;
 $tempoAtleta = $this->viewData->tempoAtleta;
 $melhoresTempos = $this->viewData->melhores_tempos;
 
-foreach ($melhoresTempos as $tempo) {
-    if ($tempo['piscina'] === 25) {
-        $melhoresTempos25[] = $tempo;
-    }
-}
-foreach ($melhoresTempos as $tempo) {
-    if ($tempo['piscina'] === 50) {
-        $melhoresTempos50[] = $tempo;
-    }
-}
+if ($melhoresTempos != null) {
 
-if (count($melhoresTempos25) > 3) {
+    foreach ($melhoresTempos as $tempo25) {
+        if ($tempo25['piscina'] === 25) {
+            $melhoresTempos25[] = $tempo25;
+        }
+    }
+    foreach ($melhoresTempos as $tempo50) {
+        if ($tempo50['piscina'] === 50) {
+            $melhoresTempos50[] = $tempo50;
+        }
+    }
+
     $melhoresTempos25 = array_chunk($melhoresTempos25, 3, true);
-}
-if (count($melhoresTempos50) > 3) {
     $melhoresTempos50 = array_chunk($melhoresTempos50, 3, true);
+} else {
+    $melhoresTempos25 = [];
+    $melhoresTempos50 = [];
 }
 
 function adjustTime($fullTime)
@@ -34,13 +36,26 @@ function adjustTime($fullTime)
 
 <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
     <img src="<?= $atleta['fotoAtleta'] ?>" class="img-foto" alt="">
-    <h1 class="display-4 fw-normal text-body-emphasis"><?= $atleta['nomeAtleta'] ?></h1>
+    <h1 class="display-4 fw-normal text-body-emphasis"><?= $atleta['apelidoAtleta'] . ' ' . $atleta['sobreNomeAtleta'] ?></h1>
     <div class="d-flex justify-content-center align-items-center mb-4">
         <img src="<?= $atleta['logoEquipe'] ?>" style="max-height: 100px; object-fit: contain" class="me-4" alt="">
         <p class="fs-5 text-body-secondary"><?= $atleta['nomeFantasiaEquipe'] ?></p>
     </div>
     <p class="fs-5 text-body-secondary"><?php echo implode('/',  array_reverse(explode('-', $atleta['dataNascAtleta']))) ?> - <?= $categoria['nomeCategoria'] ?></p>
-    <a href="view_atleta?id=<?= $atleta['IDATLETA'] ?>" class="btn btn-lg btn-primary">Ver atleta</a>
+    <div class="row">
+        <div class="col-md-3">
+            <a href="view_atleta?id=<?= $atleta['IDATLETA'] ?>" class="btn btn-lg btn-primary w-100 m-1">Dados</a>
+        </div>
+        <div class="col-md-3">
+            <a href="tempos_atleta?id=<?= $atleta['IDATLETA'] ?>" class="btn btn-lg btn-primary w-100 m-1">Tempos</a>
+        </div>
+        <div class="col-md-3">
+            <a href="view_atleta?id=<?= $atleta['IDATLETA'] ?>" class="btn btn-lg btn-primary w-100 m-1">Treinos</a>
+        </div>
+        <div class="col-md-3">
+            <a href="view_atleta?id=<?= $atleta['IDATLETA'] ?>" class="btn btn-lg btn-primary w-100 m-1">Biomecanica</a>
+        </div>
+    </div>
 </div>
 </header>
 
@@ -48,12 +63,12 @@ function adjustTime($fullTime)
     <div id="carousel50" class="carousel carousel-dark slide">
         <div class="carousel-inner">
             <?php for ($i = 0; $i < count($melhoresTempos50); $i++) {
-                $tempos = ($melhoresTempos50[$i]) ?>
+                $tempos50 = ($melhoresTempos50[$i]) ?>
                 <div class="carousel-item <?php if ($i == 0) {
                                                 echo 'active';
                                             } ?>">
                     <div class=" row row-cols-1 row-cols-md-3 mb-3 text-center">
-                        <?php foreach ($tempos as $tempo) { ?>
+                        <?php foreach ($tempos50 as $tempo) { ?>
                             <div class="col">
                                 <div class="card mb-4 rounded-3 shadow-sm" style="height: 400px;">
                                     <div class="card-header py-3 bg-dark-subtle">
@@ -89,25 +104,25 @@ function adjustTime($fullTime)
 
     <div id="carousel25" class="carousel carousel-dark slide">
         <div class="carousel-inner">
-            <?php for ($i = 0; $i < count($melhoresTempos50); $i++) {
-                $tempos = ($melhoresTempos50[$i]) ?>
+            <?php for ($i = 0; $i < count($melhoresTempos25); $i++) {
+                $tempos25 = ($melhoresTempos25[$i]) ?>
                 <div class="carousel-item <?php if ($i == 0) {
                                                 echo 'active';
                                             } ?>">
-                    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-                        <?php foreach ($melhoresTempos25 as $tempo) { ?>
+                    <div class=" row row-cols-1 row-cols-md-3 mb-3 text-center">
+                        <?php foreach ($tempos25 as $tempo25) { ?>
                             <div class="col">
                                 <div class="card mb-4 rounded-3 shadow-sm" style="height: 400px;">
-                                    <div class="card-header py-3 bg-info-subtle">
-                                        <h4 class="my-0 fw-normal"><?= $tempo['distancia'] . 'm ' . $tempo['estilo'] ?> </h4>
+                                    <div class="card-header py-3 bg-dark-subtle">
+                                        <h4 class="my-0 fw-normal"><?= $tempo25['distancia'] . 'm ' . $tempo25['estilo'] ?> </h4>
                                     </div>
                                     <div class="card-body">
                                         <p>MELHOR TEMPO</p>
-                                        <h1 class="card-title pricing-card-title"><?php echo adjustTime($tempo['tempo']) ?></h1>
+                                        <h1 class="card-title pricing-card-title"><?php echo adjustTime($tempo25['tempo']) ?></h1>
                                         <ul class="list-unstyled mt-3 mb-4">
-                                            <li><?php echo implode('/',  array_reverse(explode('-', $tempo['data']))) ?></li>
-                                            <li><?= $tempo['torneio'] ?></li>
-                                            <li><?= 'Piscina: ' . $tempo['piscina'] . 'm' ?></li>
+                                            <li><?php echo implode('/',  array_reverse(explode('-', $tempo25['data']))) ?></li>
+                                            <li><?= $tempo25['torneio'] ?></li>
+                                            <li><?= 'Piscina: ' . $tempo25['piscina'] . 'm' ?></li>
                                             <li>Local???</li>
                                         </ul>
                                         <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
@@ -115,7 +130,6 @@ function adjustTime($fullTime)
                                 </div>
                             </div>
                         <?php } ?>
-
                     </div>
                 </div>
             <?php } ?>
