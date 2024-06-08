@@ -1,7 +1,8 @@
 {
   "name": "jean/natacao",
   "require": {
-    "php": ">= 7.0"
+    "php": ">= 7.0",
+    "koolreport/core": "^6.5"
   },
   "authors": [
     {

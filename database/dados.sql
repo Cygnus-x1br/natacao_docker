@@ -1394,3 +1394,146 @@ VALUES(
         1,
         1
     );
+-- Indices 200 Medley
+INSERT INTO tb_indices
+VALUES(
+        null,
+        2024,
+        '00:02:52.62',
+        13,
+        'F',
+        'Brasileiro Inverno',
+        21,
+        2
+    ),
+    (
+        null,
+        2024,
+        '00:02:48.67',
+        14,
+        'F',
+        'Brasileiro Inverno',
+        21,
+        2
+    ),
+    (
+        null,
+        2024,
+        '00:02:46.07',
+        15,
+        'F',
+        'Brasileiro Inverno',
+        21,
+        2
+    ),
+    (
+        null,
+        2024,
+        '00:02:43.85',
+        16,
+        'F',
+        'Brasileiro Inverno',
+        21,
+        2
+    ),
+    (
+        null,
+        2024,
+        '00:02:42.09',
+        17,
+        'F',
+        'Brasileiro Inverno',
+        21,
+        2
+    ),
+    (
+        null,
+        2024,
+        '00:02:40.41',
+        18,
+        'F',
+        'Brasileiro Inverno',
+        21,
+        2
+    ),
+    (
+        null,
+        2024,
+        '00:02:40.41',
+        99,
+        'F',
+        'Brasileiro Inverno',
+        21,
+        2
+    );
+INSERT INTO tb_indices
+VALUES(
+        null,
+        2024,
+        '00:02:41.76',
+        13,
+        'M',
+        'Brasileiro Inverno',
+        21,
+        2
+    ),
+    (
+        null,
+        2024,
+        '00:02:32.95',
+        14,
+        'M',
+        'Brasileiro Inverno',
+        21,
+        2
+    ),
+    (
+        null,
+        2024,
+        '00:02:27.46',
+        15,
+        'M',
+        'Brasileiro Inverno',
+        21,
+        2
+    ),
+    (
+        null,
+        2024,
+        '00:02:24.40',
+        16,
+        'M',
+        'Brasileiro Inverno',
+        21,
+        2
+    ),
+    (
+        null,
+        2024,
+        '00:02:21.94',
+        17,
+        'M',
+        'Brasileiro Inverno',
+        21,
+        2
+    ),
+    (
+        null,
+        2024,
+        '00:02:20.16',
+        18,
+        'M',
+        'Brasileiro Inverno',
+        21,
+        2
+    ),
+    (
+        null,
+        2024,
+        '00:02:20.16',
+        99,
+        'M',
+        'Brasileiro Inverno',
+        21,
+        2
+    );

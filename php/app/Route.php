@@ -106,6 +106,11 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'TempoController',
             'action' => 'graficos_tempo'
         );
+        $routes['graficos_tempo_filtrado'] = array(
+            'route' => '/graficos_tempo_filtrado',
+            'controller' => 'TempoController',
+            'action' => 'graficos_tempo_filtrado'
+        );
         $routes['list_equipes'] = array(
             'route' => '/list_equipes',
             'controller' => 'EquipeController',
@@ -201,6 +206,7 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'ProvaController',
             'action' => 'save_prova'
         );
+
         // $routes['view_note'] = array(
         //     'route' => '/view_note',
         //     'controller' => 'IndexController',

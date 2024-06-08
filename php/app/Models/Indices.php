@@ -12,7 +12,7 @@ class Indices extends Model
     private $id_categoria;
     private $generoIndice;
     private $tipoIndice;
-    private $id_distanciaestlo;
+    private $id_distanciaestilo;
     private $id_piscina;
 
     public function __get($atribute)
@@ -50,7 +50,7 @@ class Indices extends Model
     }
     public function getIndicesFiltered()
     {
-        $indices = "SELECT anoIndice, tempoIndice, generoIndice, tipoIndice, ID_CATEGORIA, p.tamanhoPiscina, c.nomeCategoria, d.distancia, e.nomeEstilo FROM tb_indices
+        $indices = "SELECT anoIndice, tempoIndice, generoIndice, tipoIndice, ID_CATEGORIA, ID_DISTANCIAESTILO, p.tamanhoPiscina, c.nomeCategoria, d.distancia, e.nomeEstilo FROM tb_indices
      INNER JOIN tb_categoria AS c ON ID_CATEGORIA = c.IDCATEGORIA
      INNER JOIN tb_distancia AS d ON 
      (SELECT ID_DISTANCIA AS dist FROM tba_distancia_estilo WHERE tb_indices.ID_DISTANCIAESTILO = IDDISTANCIAESTILO) = d.IDDISTANCIA
@@ -70,6 +70,9 @@ class Indices extends Model
         if (!empty($this->__get('id_categoria'))) {
             $indices .= "ID_CATEGORIA = :categoria AND ";
         }
+        if (!empty($this->__get('id_distanciaestilo'))) {
+            $indices .= "ID_DISTANCIAESTILO = :id_distanciaestilo AND ";
+        }
         $indices .= "1 = 1 ";
         $indices .= "ORDER BY generoIndice DESC, ID_DISTANCIAESTILO ASC, anoIndice DESC;";
 
@@ -85,6 +88,9 @@ class Indices extends Model
         }
         if (!empty($this->__get('id_categoria'))) {
             $stmt->bindValue(':categoria', $this->__get('id_categoria'));
+        }
+        if (!empty($this->__get('id_distanciaestilo'))) {
+            $stmt->bindValue(':id_distanciaestilo', $this->__get('id_distanciaestilo'));
         }
 
         $stmt->execute();

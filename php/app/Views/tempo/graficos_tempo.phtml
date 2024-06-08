@@ -5,11 +5,17 @@ $torneios = $this->viewData->torneios;
 $categorias = $this->viewData->categorias;
 $provas = $this->viewData->provas;
 $tempoAtleta = $this->viewData->tempoAtleta;
+$indices = $this->viewData->indices;
+$atleta = $this->viewData->atleta;
 
 $torneiosParticipados = $this->viewData->torneiosParticipados;
 $anos = $this->viewData->anos;
 $estilos = $this->viewData->estilos;
 
+// print_r($atleta);
+// echo '<pre>';
+// print_r($tempoAtleta);
+// echo '</pre>';
 function adjustTime($fullTime)
 {
     $time = explode(':', $fullTime);
@@ -32,7 +38,7 @@ function adjustTime($fullTime)
     </div>
 
     <div class="row p-3 ">
-        <form action="filtra_tempos" method="post" class="row g-3 d-flex align-items-end">
+        <form action="graficos_tempo_filtrado" method="post" class="row g-3 d-flex align-items-end">
             <div class="col-md-4 col-lg-2">
                 <label for="anoTempo" class="form-label">Ano</label>
                 <select name="anoTempo" class="form-select" id="anoTempo">
@@ -74,6 +80,10 @@ function adjustTime($fullTime)
         </form>
     </div>
 
+    <div>
+        <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+    </div>
+
     <div class="table-responsive">
         <table class="table text-center">
             <thead>
@@ -92,7 +102,12 @@ function adjustTime($fullTime)
                         <td><?= $tempo['nomeTorneio'] ?></td>
                         <td><?= $tempo['tamanhoPiscina'] . 'm' ?></td>
                         <td class="text-start"><?= $tempo['distancia'] . 'm ' . $tempo['nomeEstilo'] ?></td>
-                        <td><?php echo adjustTime($tempo['tempoAtleta']) ?></td>
+                        <td class="tempos"><?php echo adjustTime($tempo['tempoAtleta']) ?></td>
+                        <td class="indices" hidden><?php if (!empty($tempo['tempoIndice'])) {
+                                                        echo adjustTime($tempo['tempoIndice']);
+                                                    } else {
+                                                        echo '00:00.00';
+                                                    } ?></td>
                     </tr>
                 <?php } ?>
             </tbody>
@@ -101,5 +116,68 @@ function adjustTime($fullTime)
 
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-</body>
+<script>
+    const ctx = document.getElementById('myChart');
+    let times = document.getElementsByClassName('tempos');
+    let indices = document.getElementsByClassName('indices');
+    let timeArray = [];
+    let labelTempos = [];
+    let indiceArray = [];
+    let labelIndices = [];
+
+    for (let i = 0; i < times.length; i++) {
+        let timeConverted = adjustTime(times[i].innerHTML);
+        labelTempos.push(times[i].innerHTML);
+        timeArray.push(timeConverted);
+        let indiceConverted = adjustTime(indices[i].innerHTML);
+        labelIndices.push(indices[i].innerHTML);
+        indiceArray.push(indiceConverted);
+        console.log(indices[i].innerHTML);
+
+
+        // console.log(indiceArray);
+    }
+
+    function adjustTime(time) {
+        console.log(time);
+        let min = time.split(':')[0];
+        let sec = (time.split(':')[1]).split('.')[0];
+        let ms = (time.split(':')[1].split('.')[1]);
+        const d = new Date(0, 0, 0, 0, min, sec, ms);
+        let convTime = ((d.getTime())) - 2209063000000;
+        return convTime;
+    }
+
+    console.log(timeArray);
+    console.log(indiceArray);
+    new Chart(ctx, {
+        data: {
+            datasets: [{
+                    type: 'line',
+                    label: labelTempos,
+                    data: timeArray,
+                    borderWidth: 1,
+                    order: 1
+                },
+                {
+                    type: 'line',
+                    label: labelIndices,
+                    data: indiceArray,
+                    borderWidth: 1,
+                    order: 2
+                }
+            ],
+            labels: labelTempos
+        },
+
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: false
+                }
+            }
+        }
+    });
+</script>
