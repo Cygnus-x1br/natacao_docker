@@ -377,6 +377,51 @@ INSERT INTO tb_categoria
 VALUES(18, 'Junior 2', 18);
 INSERT INTO tb_categoria
 VALUES(99, 'Senior', 99);
+-- Tabela tipos de provas
+INSERT INTO tba_distancia_estilo
+VALUES(null, 1, 1);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 2, 1);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 3, 1);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 4, 1);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 5, 1);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 6, 1);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 7, 1);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 1, 2);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 2, 2);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 3, 2);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 4, 2);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 1, 3);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 2, 3);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 3, 3);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 4, 3);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 1, 4);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 2, 4);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 3, 4);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 4, 4);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 3, 5);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 4, 5);
+INSERT INTO tba_distancia_estilo
+VALUES(null, 5, 5);
 -- Tabela TEste de dados
 INSERT INTO tb_federacao
 VALUES(
@@ -482,70 +527,6 @@ VALUES(
         null,
         1
     );
--- INSERT INTO tb_torneio
--- VALUES(
---         null,
---         '3o Torneio Regional Petiz a Senior',
---         '2024-05-18',
---         null,
---         1,
---         1,
---         2
---     );
--- INSERT INTO tb_torneio
--- VALUES(
---         null,
---         'Campeonato Brasileiro Interclubes Infantil de Inverno',
---         '2024-06-10',
---         '2024-06-15',
---         3,
---         1,
---         1
---     );
-INSERT INTO tba_distancia_estilo
-VALUES(null, 1, 1);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 2, 1);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 3, 1);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 4, 1);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 5, 1);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 6, 1);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 7, 1);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 1, 2);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 2, 2);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 3, 2);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 4, 2);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 1, 3);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 2, 3);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 3, 3);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 4, 3);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 1, 4);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 2, 4);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 3, 4);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 4, 4);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 3, 5);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 4, 5);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 5, 5);
 --
 -- INSERT INTO tb_prova
 -- VALUES(

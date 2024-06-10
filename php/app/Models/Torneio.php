@@ -10,6 +10,7 @@ class Torneio extends Model
     private $idtorneio;
     private $nomeTorneio;
     private $dataTorneio;
+    private $dataFimTorneio;
     private $id_complexo;
     private $id_piscina;
     private $id_federacao;
@@ -43,10 +44,11 @@ class Torneio extends Model
 
     public function saveTorneio()
     {
-        $torneio = "INSERT INTO tb_torneio(nomeTorneio, dataTorneio, dataFimTorneio, id_complexo, id_piscina, id_federacao) VALUES(:nomeTorneio, :dataTorneio, :id_complexo, :id_piscina, :id_federacao)";
+        $torneio = "INSERT INTO tb_torneio(nomeTorneio, dataTorneio, dataFimTorneio, id_complexo, id_piscina, id_federacao) VALUES(:nomeTorneio, :dataTorneio, :dataFimTorneio, :id_complexo, :id_piscina, :id_federacao)";
         $stmt = $this->db->prepare($torneio);
         $stmt->bindValue(':nomeTorneio', $this->__get('nomeTorneio'));
         $stmt->bindValue(':dataTorneio', $this->__get('dataTorneio'));
+        $stmt->bindValue(':dataFimTorneio', $this->__get('dataFimTorneio'));
         $stmt->bindValue(':id_complexo', $this->__get('id_complexo'));
         $stmt->bindValue(':id_piscina', $this->__get('id_piscina'));
         $stmt->bindValue(':id_federacao', $this->__get('id_federacao'));

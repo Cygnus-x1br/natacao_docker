@@ -20,7 +20,8 @@ $provas = $this->viewData->provas;
     </section>
 
 
-    <?php foreach ($torneios as $torneio) { ?>
+    <?php $countLists = 1;
+    foreach ($torneios as $torneio) { ?>
         <p class="lead"><?php echo $torneio['nomeTorneio'] . ' - ' . implode('/',  array_reverse(explode('-', $torneio['dataTorneio']))) ?></li>
         <table class="table w-75 mx-auto">
             <thead>
@@ -31,19 +32,36 @@ $provas = $this->viewData->provas;
                     <th scope="col">Categorias</th>
                 </tr>
             </thead>
-            <?php foreach ($provas as $prova) { ?>
-                <tbody>
-                    <?php if ($prova['id_torneio'] == $torneio['IDTORNEIO']) { ?>
+            <?php
+            foreach ($provas as $prova) { ?>
+                <?php if ($prova['id_torneio'] == $torneio['IDTORNEIO']) { ?>
+                    <tbody>
                         <tr>
                             <td><?= 'Prova numero ' . $prova['numeroProva'] ?></td>
                             <td><?= $prova['distancia'] . 'm ' . $prova['nomeEstilo'] ?></td>
                             <td><?= $prova['genero'] ?></td>
                             <td><?= $prova['categoriaMinima'] . ' a ' . $prova['categoriaMaxima'] ?></td>
                         </tr>
-                    <?php } ?>
-                </tbody>
+                    </tbody>
+                <?php } ?>
             <?php } ?>
         </table>
         <hr>
-    <?php } ?>
+    <?php $countLists++;
+    } ?>
 </main>
+
+<script>
+    let listas = document.querySelectorAll('table');
+
+
+
+    for (let i = 0; i < listas.length; i++) {
+        let itens = listas[i].querySelectorAll('tbody');
+        for (let j = 0; j < itens.length; j++) {
+            if (j > 4) {
+                itens[j].classList.add('d-none');
+            }
+        }
+    }
+</script>

@@ -23,7 +23,9 @@ class ProvaController extends Action
         $categoria_data = $categoria->getAllCategorias();
         $this->viewData->categorias = $categoria_data;
 
+        $numeroProvas = '5';
         $provas = Container::getModel('Prova');
+        // $provas->__set('numProvasShowed', $numeroProvas);
         $provas_data = $provas->getAllProvas();
         $this->viewData->provas = $provas_data;
 

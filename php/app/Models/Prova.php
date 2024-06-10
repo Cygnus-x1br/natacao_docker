@@ -13,6 +13,8 @@ class Prova extends Model
     private $id_distanciaestilo;
     private $categoria_min;
     private $categoria_max;
+    private $numeroProvasShowed;
+
 
     public function __get($atribute)
     {
@@ -40,13 +42,14 @@ INNER JOIN tb_categoria AS cmax ON ID_CATEGORIA_MAX = cmax.IDCATEGORIA
 ORDER BY t.dataTorneio DESC, numeroProva ASC;";
         $stmt = $this->db->prepare($prova);
         $stmt->execute();
-
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function getProvaMin()
     {
-        $prova = "SELECT * FROM tb_prova WHERE IDPROVA = :idprova";
+        $prova = "SELECT *, t.dataTorneio FROM tb_prova 
+        INNER JOIN tb_torneio AS t ON ID_TORNEIO = t.IDTORNEIO
+        WHERE IDPROVA = :idprova";
         $stmt = $this->db->prepare($prova);
         $stmt->bindValue(':idprova', $this->__get('idprova'));
         $stmt->execute();

@@ -36,6 +36,7 @@ class TorneioController extends Action
         $torneio = Container::getModel('Torneio');
         $torneio->__set('nomeTorneio', $_POST['nomeTorneio']);
         $torneio->__set('dataTorneio', $_POST['dataTorneio']);
+        $torneio->__set('dataFimTorneio', $_POST['dataFimTorneio']);
         $torneio->__set('id_piscina', $_POST['id_piscina']);
         $torneio->__set('id_federacao', $_POST['id_federacao']);
         $torneio->__set('id_complexo', $_POST['id_complexo']);

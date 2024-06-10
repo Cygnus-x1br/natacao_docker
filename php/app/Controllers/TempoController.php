@@ -88,11 +88,11 @@ class TempoController extends Action
             die();
         }
 
-        if ((date('Y') - (explode('-', $atleta_data['dataNascAtleta']))[0]) < $prova_data['ID_CATEGORIA_MIN']) {
+        if (((explode('-', $prova_data['dataTorneio']))[0] - (explode('-', $atleta_data['dataNascAtleta']))[0]) < $prova_data['ID_CATEGORIA_MIN']) {
             header("Location: /error?error=3002&" . $prova_data['ID_CATEGORIA_MIN']);
             die();
         }
-        if ((date('Y') - (explode('-', $atleta_data['dataNascAtleta']))[0]) > $prova_data['ID_CATEGORIA_MAX']) {
+        if (((explode('-', $prova_data['dataTorneio']))[0] - (explode('-', $atleta_data['dataNascAtleta']))[0]) > $prova_data['ID_CATEGORIA_MAX']) {
             header("Location: /error?error=3002&" . $prova_data['ID_CATEGORIA_MAX']);
             die();
         }
