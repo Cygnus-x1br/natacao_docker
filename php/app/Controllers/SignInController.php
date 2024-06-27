@@ -36,7 +36,7 @@ class SignInController extends Action
             $this->setHtmlData->signed = 'enabled';
 
             if ($_SESSION['permissao'] == 2) {
-                header('Location:/');
+                header('Location:index_admin');
             } elseif ($_SESSION['permissao'] == 1) {
                 header('Location:index_atleta?id=' . $_SESSION['user_id']);
             }

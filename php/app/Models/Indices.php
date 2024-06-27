@@ -14,6 +14,15 @@ class Indices extends Model
     private $tipoIndice;
     private $id_distanciaestilo;
     private $id_piscina;
+    private $p1;
+    private $p2;
+    private $i1;
+    private $i2;
+    private $jv1;
+    private $jv2;
+    private $jr1;
+    private $jr2;
+
 
     public function __get($atribute)
     {
@@ -67,14 +76,14 @@ class Indices extends Model
         if (!empty($this->__get('tipoIndice'))) {
             $indices .= "tipoIndice = :tipoIndice AND ";
         }
-        if (!empty($this->__get('id_categoria'))) {
-            $indices .= "ID_CATEGORIA = :categoria AND ";
-        }
         if (!empty($this->__get('id_distanciaestilo'))) {
             $indices .= "ID_DISTANCIAESTILO = :id_distanciaestilo AND ";
         }
+        if (!empty($this->__get('id_categoria'))) {
+            $indices .= "ID_CATEGORIA = :categoria AND ";
+        }
         $indices .= "1 = 1 ";
-        $indices .= "ORDER BY generoIndice DESC, ID_DISTANCIAESTILO ASC, anoIndice DESC;";
+        $indices .= "ORDER BY ID_DISTANCIAESTILO ASC, ID_CATEGORIA ASC,anoIndice DESC, generoIndice DESC;";
 
         $stmt = $this->db->prepare($indices);
         if (!empty($this->__get('anoIndice'))) {
@@ -88,6 +97,105 @@ class Indices extends Model
         }
         if (!empty($this->__get('id_categoria'))) {
             $stmt->bindValue(':categoria', $this->__get('id_categoria'));
+        }
+
+        if (!empty($this->__get('id_distanciaestilo'))) {
+            $stmt->bindValue(':id_distanciaestilo', $this->__get('id_distanciaestilo'));
+        }
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getIndicesFilteredGrafico()
+    {
+        $indices = "SELECT anoIndice, tempoIndice, generoIndice, tipoIndice, ID_CATEGORIA, ID_DISTANCIAESTILO, p.tamanhoPiscina, c.nomeCategoria, d.distancia, e.nomeEstilo FROM tb_indices
+     INNER JOIN tb_categoria AS c ON ID_CATEGORIA = c.IDCATEGORIA
+     INNER JOIN tb_distancia AS d ON 
+     (SELECT ID_DISTANCIA AS dist FROM tba_distancia_estilo WHERE tb_indices.ID_DISTANCIAESTILO = IDDISTANCIAESTILO) = d.IDDISTANCIA
+     INNER JOIN tb_estilo AS e ON 
+     (SELECT ID_ESTILO AS est FROM tba_distancia_estilo WHERE tb_indices.ID_DISTANCIAESTILO = IDDISTANCIAESTILO) = e.IDESTILO
+     INNER JOIN tb_piscina AS p ON ID_PISCINA = p.IDPISCINA
+     WHERE ";
+        if (!empty($this->__get('anoIndice'))) {
+            $indices .= "anoIndice = :anoIndice AND ";
+        }
+        if (!empty($this->__get('generoIndice'))) {
+            $indices .= "generoIndice = :generoIndice AND ";
+        }
+        if (!empty($this->__get('tipoIndice'))) {
+            $indices .= "tipoIndice = :tipoIndice AND ";
+        }
+        if (!empty($this->__get('id_distanciaestilo'))) {
+            $indices .= "ID_DISTANCIAESTILO = :id_distanciaestilo AND ";
+        }
+        if (!empty($this->__get('id_categoria'))) {
+            $indices .= "(ID_CATEGORIA = :categoria ";
+        }
+        if (!empty($this->__get('p1'))) {
+            $indices .= "OR ID_CATEGORIA = :p1 ";
+        }
+        if (!empty($this->__get('p2'))) {
+            $indices .= "OR ID_CATEGORIA = :p2 ";
+        }
+        if (!empty($this->__get('i1'))) {
+            $indices .= "OR ID_CATEGORIA = :i1 ";
+        }
+        if (!empty($this->__get('i2'))) {
+            $indices .= "OR ID_CATEGORIA = :i2 ";
+        }
+        if (!empty($this->__get('jv1'))) {
+            $indices .= "OR ID_CATEGORIA = :jv1 ";
+        }
+        if (!empty($this->__get('jv2'))) {
+            $indices .= "OR ID_CATEGORIA = :jv2 ";
+        }
+        if (!empty($this->__get('jr1'))) {
+            $indices .= "OR ID_CATEGORIA = :jr1 ";
+        }
+        if (!empty($this->__get('jr2'))) {
+            $indices .= "OR ID_CATEGORIA = :jr2 ";
+        }
+        $indices .= ") AND 1 = 1 ";
+        $indices .= "ORDER BY ID_DISTANCIAESTILO ASC, ID_CATEGORIA ASC,anoIndice DESC, generoIndice DESC;";
+
+        $stmt = $this->db->prepare($indices);
+        if (!empty($this->__get('anoIndice'))) {
+            $stmt->bindValue(':anoIndice', $this->__get('anoIndice'));
+        }
+        if (!empty($this->__get('generoIndice'))) {
+            $stmt->bindValue(':generoIndice', $this->__get('generoIndice'));
+        }
+        if (!empty($this->__get('tipoIndice'))) {
+            $stmt->bindValue(':tipoIndice', $this->__get('tipoIndice'));
+        }
+        if (!empty($this->__get('id_categoria'))) {
+            $stmt->bindValue(':categoria', $this->__get('id_categoria'));
+        }
+        if (!empty($this->__get('p1'))) {
+            $stmt->bindValue(':p1', $this->__get('p1'));
+        }
+        if (!empty($this->__get('p2'))) {
+            $stmt->bindValue(':p2', $this->__get('p2'));
+        }
+        if (!empty($this->__get('i1'))) {
+            $stmt->bindValue(':i1', $this->__get('i1'));
+        }
+        if (!empty($this->__get('i2'))) {
+            $stmt->bindValue(':i2', $this->__get('i2'));
+        }
+        if (!empty($this->__get('jv1'))) {
+            $stmt->bindValue(':jv1', $this->__get('jv1'));
+        }
+        if (!empty($this->__get('jv2'))) {
+            $stmt->bindValue(':jv2', $this->__get('jv2'));
+        }
+        if (!empty($this->__get('jr1'))) {
+            $stmt->bindValue(':jr1', $this->__get('jr1'));
+        }
+        if (!empty($this->__get('jr2'))) {
+            $stmt->bindValue(':jr2', $this->__get('jr2'));
         }
         if (!empty($this->__get('id_distanciaestilo'))) {
             $stmt->bindValue(':id_distanciaestilo', $this->__get('id_distanciaestilo'));

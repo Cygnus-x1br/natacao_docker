@@ -6,7 +6,9 @@ namespace App\Controllers;
 use MF\Controller\Action;
 use MF\Model\Container;
 
-session_start();
+session_start([
+    'cookie_lifetime' => 86400,
+]);
 class IndexController extends Action
 {
     public function index()
@@ -34,6 +36,9 @@ class IndexController extends Action
 
             $this->render('index_atleta');
         }
+
+
+
 
         $torneio = Container::getModel('Torneio');
         $torneio_data = $torneio->getAllTorneios();

@@ -1,3 +1,7 @@
+-- Versao 0.1.3.0 (Não criado)
+-- Incluido campo final em tb_prova
+-- Incluido campo recordProvaTorneio em tb_prova
+--
 -- Versao 0.1.2.5
 -- Alterado campo tb_prova.numeroProva de VARCHAR para INT
 --
@@ -140,6 +144,8 @@ CREATE TABLE tb_prova (
 IDPROVA INT PRIMARY KEY AUTO_INCREMENT,
 numeroProva INT NOT NULL,
 genero ENUM('M', 'F') NOT NULL,
+final ENUM('S', 'N'),
+recordProvaTorneio TIME(2) NOT NULL,
 ID_TORNEIO INT,
 ID_DISTANCIAESTILO INT,
 ID_CATEGORIA_MIN INT,
@@ -549,181 +555,6 @@ VALUES(
 --         99
 --     );
 --
-INSERT INTO tb_indices
-VALUES(
-        null,
-        2023,
-        '00:00:30.75',
-        13,
-        'F',
-        'Brasileiro Inverno',
-        2,
-        1
-    );
-INSERT INTO tb_indices
-VALUES(
-        null,
-        2024,
-        '00:00:31.60',
-        13,
-        'F',
-        'Brasileiro Inverno',
-        2,
-        2
-    );
-INSERT INTO tb_indices
-VALUES(
-        null,
-        2024,
-        '00:01:09.04',
-        13,
-        'F',
-        'Brasileiro Inverno',
-        3,
-        2
-    ),
-    (
-        null,
-        2024,
-        '00:01:07.58',
-        14,
-        'F',
-        'Brasileiro Inverno',
-        3,
-        2
-    ),
-    (
-        null,
-        2024,
-        '00:01:06.60',
-        15,
-        'F',
-        'Brasileiro Inverno',
-        3,
-        2
-    ),
-    (
-        null,
-        2024,
-        '00:01:05.77',
-        16,
-        'F',
-        'Brasileiro Inverno',
-        3,
-        2
-    ),
-    (
-        null,
-        2024,
-        '00:01:05.10',
-        17,
-        'F',
-        'Brasileiro Inverno',
-        3,
-        2
-    ),
-    (
-        null,
-        2024,
-        '00:01:04.47',
-        18,
-        'F',
-        'Brasileiro Inverno',
-        3,
-        2
-    ),
-    (
-        null,
-        2024,
-        '00:01:04.47',
-        99,
-        'F',
-        'Brasileiro Inverno',
-        3,
-        2
-    );
-INSERT INTO tb_indices
-VALUES(
-        null,
-        2024,
-        '00:00:28.86',
-        13,
-        'M',
-        'Brasileiro Inverno',
-        2,
-        2
-    );
-INSERT INTO tb_indices
-VALUES(
-        null,
-        2024,
-        '00:01:03.66',
-        13,
-        'M',
-        'Brasileiro Inverno',
-        3,
-        2
-    ),
-    (
-        null,
-        2024,
-        '00:01:00.33',
-        14,
-        'M',
-        'Brasileiro Inverno',
-        3,
-        2
-    ),
-    (
-        null,
-        2024,
-        '00:00:58.26',
-        15,
-        'M',
-        'Brasileiro Inverno',
-        3,
-        2
-    ),
-    (
-        null,
-        2024,
-        '00:00:57.18',
-        16,
-        'M',
-        'Brasileiro Inverno',
-        3,
-        2
-    ),
-    (
-        null,
-        2024,
-        '00:00:56.31',
-        17,
-        'M',
-        'Brasileiro Inverno',
-        3,
-        2
-    ),
-    (
-        null,
-        2024,
-        '00:00:55.68',
-        18,
-        'M',
-        'Brasileiro Inverno',
-        3,
-        2
-    ),
-    (
-        null,
-        2024,
-        '00:00:55.68',
-        99,
-        'M',
-        'Brasileiro Inverno',
-        3,
-        2
-    );
 --
 INSERT INTO tb_users
 VALUES(
@@ -744,15 +575,24 @@ VALUES(
         1
     );
 --
+INSERT INTO tb_users
+VALUES(
+        null,
+        'jean@gmail.com',
+        sha1('aczf0704'),
+        'jean@gmail.com',
+        0,
+        2
+    );
 INSERT INTO tb_complexo(
-nomeComplexo,
-nomeFantasiaComplexo,
-fotoComplexo,
-enderecoComplexo,
-bairroComplexo,
-cidadeComplexo,
-ID_ESTADO
-)
+        nomeComplexo,
+        nomeFantasiaComplexo,
+        fotoComplexo,
+        enderecoComplexo,
+        bairroComplexo,
+        cidadeComplexo,
+        ID_ESTADO
+    )
 VALUES(
         'Complexo Esportivo Lauro Gomes de Almeida',
         'Conjunto Aquatico Leonardo Sperate',
@@ -856,10 +696,10 @@ VALUES(
 -- INNER JOIN tb_federacao as f ON ID_FEDERACAO = f.IDFEDERACAO 
 -- INNER JOIN tb_piscina as p ON ID_PISCINA = p.IDPISCINA;
 --
--- SELECT d.distancia, e.nomeEstilo 
--- FROM tba_distancia_estilo 
--- INNER JOIN tb_distancia AS d ON ID_DISTANCIA = d.IDDISTANCIA 
--- INNER JOIN tb_estilo AS e ON ID_ESTILO = e.IDESTILO;
+SELECT IDDISTANCIAESTILO, d.distancia, e.nomeEstilo 
+FROM tba_distancia_estilo
+    INNER JOIN tb_distancia AS d ON ID_DISTANCIA = d.IDDISTANCIA
+    INNER JOIN tb_estilo AS e ON ID_ESTILO = e.IDESTILO;
 --
 -- SELECT anoIndice, tempoIndice, generoIndice, tipoIndice, p.tamanhoPiscina, c.nomeCategoria, d.distancia, e.nomeEstilo FROM tb_indices
 -- INNER JOIN tb_categoria AS c ON ID_CATEGORIA = c.IDCATEGORIA

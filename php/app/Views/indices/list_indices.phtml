@@ -73,7 +73,7 @@ function adjustTime($fullTime)
         </form>
     </div>
 
-    <div class="table-responsive small">
+    <div class="table-responsive small indices-table">
         <?php foreach ($anos as $ano) { ?>
             <?php if ((array_search($ano, array_column($indices, 'anoIndice'))) !== false) {
             ?>
@@ -99,11 +99,11 @@ function adjustTime($fullTime)
                                         if ($indice['anoIndice'] == $ano && $indice['tipoIndice'] == $tipo && $indice['tamanhoPiscina'] == $piscina) {
                                     ?>
                                             <tbody>
-                                                <tr>
-                                                    <td class="col-sm-3" style="background-color: <?= (($indice['generoIndice']) == 'F' ? 'pink' : 'lightblue') ?>;"> <?= $indice['distancia'] . 'm ' . $indice['nomeEstilo'] ?></td>
-                                                    <td class="col-sm-2" style="background-color: <?= (($indice['generoIndice']) == 'F' ? 'pink' : 'lightblue') ?>;"><?= $indice['generoIndice'] ?></td>
-                                                    <td class="col-sm-3" style="background-color: <?= (($indice['generoIndice']) == 'F' ? 'pink' : 'lightblue') ?>;"><?= $indice['nomeCategoria'] ?></td>
-                                                    <td class="col-sm-4" style="background-color: <?= (($indice['generoIndice']) == 'F' ? 'pink' : 'lightblue') ?>;"><?= adjustTime($indice['tempoIndice']) ?></td>
+                                                <tr class="mb-1">
+                                                    <td class="col-sm-3 p-2" style="background-color: <?= (($indice['generoIndice']) == 'F' ? 'pink' : 'lightblue') ?>;"><?= $indice['distancia'] . 'm ' . $indice['nomeEstilo'] ?></td>
+                                                    <td class="col-sm-2 p-2" style="background-color: <?= (($indice['generoIndice']) == 'F' ? 'pink' : 'lightblue') ?>;"><?= $indice['generoIndice'] ?></td>
+                                                    <td class="col-sm-3 p-2" style="background-color: <?= (($indice['generoIndice']) == 'F' ? 'pink' : 'lightblue') ?>;"><?= $indice['nomeCategoria'] ?></td>
+                                                    <td class="col-sm-3 p-2" style="background-color: <?= (($indice['generoIndice']) == 'F' ? 'pink' : 'lightblue') ?>;"><?= adjustTime($indice['tempoIndice']) ?></td>
                                                 </tr>
                                             </tbody>
                                     <?php }

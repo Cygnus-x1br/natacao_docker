@@ -12,9 +12,11 @@ $torneiosParticipados = $this->viewData->torneiosParticipados;
 $anos = $this->viewData->anos;
 $estilos = $this->viewData->estilos;
 
-// print_r($atleta);
+$indicesJson = json_encode($indices);
+
 // echo '<pre>';
-// print_r($tempoAtleta);
+// // print_r($indices);
+// print_r($indicesJson);
 // echo '</pre>';
 function adjustTime($fullTime)
 {
@@ -29,16 +31,65 @@ function adjustTime($fullTime)
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">Tempos Registrados</h1>
+                <h1 class="fw-light">Gráficos</h1>
+                <p id="subtitle" class="h2"></p>
             </div>
         </div>
     </section>
-    <div class="d-flex justify-content-end mb-5">
-        <a class="btn btn-primary" href="./add_tempo">Incluir Tempo</a>
-    </div>
-
     <div class="row p-3 ">
         <form action="graficos_tempo_filtrado" method="post" class="row g-3 d-flex align-items-end">
+
+            <div class="row">
+                <div class="col-sm-1">
+                    <input class="form-ckeck-input" type="checkbox" name="p1" id="p1-check" value="11">
+                    <label for="p1-check" class="form-label">Petiz 1</label>
+                </div>
+                <div class="col-sm-1">
+                    <input class="form-ckeck-input" type="checkbox" name="p2" id="p2-check" value="12">
+                    <label for="p2-check" class="form-label">Petiz 2</label>
+                </div>
+                <div class="col-sm-1">
+                    <input class="form-ckeck-input" type="checkbox" name="i1" id="i1-check" value="13">
+                    <label for="i1-check" class="form-label">Infantil 1</label>
+                </div>
+                <div class="col-sm-1">
+                    <input class="form-ckeck-input" type="checkbox" name="i2" id="i2-check" value="14">
+                    <label for="i2-check" class="form-label">Infantil 2</label>
+                </div>
+                <div class="col-sm-1">
+                    <input class="form-ckeck-input" type="checkbox" name="jv1" id="jv1-check" value="15">
+                    <label for="jv1-check" class="form-label">Juvenil 1</label>
+                </div>
+                <div class="col-sm-1">
+                    <input class="form-ckeck-input" type="checkbox" name="jv2" id="jv2-check" value="16">
+                    <label for="jv2-check" class="form-label">Juvenil 2</label>
+                </div>
+                <div class="col-sm-1">
+                    <input class="form-ckeck-input" type="checkbox" name="jr1" id="jr1-check" value="17">
+                    <label for="jr1-check" class="form-label">Junior 1</label>
+                </div>
+                <div class="col-sm-2">
+                    <input class="form-ckeck-input" type="checkbox" name="jr2" id="jr2-check" value="18">
+                    <label for="jr2-check" class="form-label">Junior 2 / Absoluto</label>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-2">
+                <label for="distanciaEstilo" class="form-label">Estilo</label>
+                <select name="distanciaEstilo" class="form-select" id="distanciaEstilo">
+                    <option value="">Selecione</option>
+                    <?php foreach ($estilos as $estilo) { ?>
+                        <option value="<?php echo (explode('*', $estilo))[1] ?>"><?php echo (explode('*', $estilo))[0] ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="col-md-4 col-lg-2">
+                <label for="tamanhoPiscina" class="form-label">Piscina</label>
+                <select name="tamanhoPiscina" class="form-select" id="tamanhoPiscina">
+                    <option value="">Selecione</option>
+                    <option value="25">25 m</option>
+                    <option value="50">50 m</option>
+                </select>
+            </div>
             <div class="col-md-4 col-lg-2">
                 <label for="anoTempo" class="form-label">Ano</label>
                 <select name="anoTempo" class="form-select" id="anoTempo">
@@ -57,23 +108,8 @@ function adjustTime($fullTime)
                     <?php }; ?>
                 </select>
             </div>
-            <div class="col-md-4 col-lg-2">
-                <label for="tamanhoPiscina" class="form-label">Piscina</label>
-                <select name="tamanhoPiscina" class="form-select" id="tamanhoPiscina">
-                    <option value="">Selecione</option>
-                    <option value="25">25 m</option>
-                    <option value="50">50 m</option>
-                </select>
-            </div>
-            <div class="col-md-4 col-lg-2">
-                <label for="distanciaEstilo" class="form-label">Estilo</label>
-                <select name="distanciaEstilo" class="form-select" id="distanciaEstilo">
-                    <option value="">Selecione</option>
-                    <?php foreach ($estilos as $estilo) { ?>
-                        <option value="<?php echo (explode('*', $estilo))[1] ?>"><?php echo (explode('*', $estilo))[0]  ?></option>
-                    <?php }; ?>
-                </select>
-            </div>
+
+
             <div class="col-md-4 col-lg-2">
                 <input type="submit" class="form-control btn btn-primary" value="Filtrar" id="filtrar">
             </div>
@@ -81,7 +117,7 @@ function adjustTime($fullTime)
     </div>
 
     <div>
-        <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+        <canvas class="my-4 sm-4" id="myChart"></canvas>
     </div>
 
     <div class="table-responsive">
@@ -96,22 +132,21 @@ function adjustTime($fullTime)
                 </tr>
             </thead>
             <tbody>
+
                 <?php foreach ($tempoAtleta as $tempo) { ?>
                     <tr>
                         <td><?php echo implode('/',  array_reverse(explode('-', $tempo['dataTorneio']))) ?></td>
                         <td><?= $tempo['nomeTorneio'] ?></td>
                         <td><?= $tempo['tamanhoPiscina'] . 'm' ?></td>
-                        <td class="text-start"><?= $tempo['distancia'] . 'm ' . $tempo['nomeEstilo'] ?></td>
-                        <td class="tempos"><?php echo adjustTime($tempo['tempoAtleta']) ?></td>
-                        <td class="indices" hidden><?php if (!empty($tempo['tempoIndice'])) {
-                                                        echo adjustTime($tempo['tempoIndice']);
-                                                    } else {
-                                                        echo '00:00.00';
-                                                    } ?></td>
+                        <td id="estilo" class="text-start"><?= $tempo['distancia'] . 'm ' . $tempo['nomeEstilo'] ?></td>
+                        <td class="tempos"><?php echo $tempo['tempoAtleta'] ?></td>
+                        <td class="labelData" hidden><?= $tempo['dataTorneio'] ?></td>
+
                     </tr>
                 <?php } ?>
             </tbody>
         </table>
+        <p id="indicesArray" hidden><?= $indicesJson ?></p>
     </div>
 
 </main>
@@ -121,61 +156,129 @@ function adjustTime($fullTime)
 <script>
     const ctx = document.getElementById('myChart');
     let times = document.getElementsByClassName('tempos');
-    let indices = document.getElementsByClassName('indices');
+    // let indices = document.getElementsByClassName('indices');
+    // let labelIndices = document.getElementsByClassName('labelIndices');
+    let labelData = document.getElementsByClassName('labelData');
+    let indicesNovo = document.getElementById('indicesArray').innerHTML;
+
+    let subtitle = document.getElementById('subtitle');
+    let distancia = document.getElementById('estilo');
+    subtitle.innerHTML = distancia.innerHTML;
     let timeArray = [];
     let labelTempos = [];
-    let indiceArray = [];
-    let labelIndices = [];
+    let labelIndicesArray = [];
+    let arrays = createArraysFromValues(JSON.parse(indicesNovo));
+
+    console.log(indicesNovo);
 
     for (let i = 0; i < times.length; i++) {
         let timeConverted = adjustTime(times[i].innerHTML);
-        labelTempos.push(times[i].innerHTML);
+        labelTempos.push([times[i].innerHTML, labelData[i].innerHTML]);
         timeArray.push(timeConverted);
-        let indiceConverted = adjustTime(indices[i].innerHTML);
-        labelIndices.push(indices[i].innerHTML);
-        indiceArray.push(indiceConverted);
-        console.log(indices[i].innerHTML);
+    }
+
+    let arrayIndices = [];
+    for (const key in arrays) {
+        for (const i in arrays[key]) {
+            //console.log(arrays[key][i]);
+            let indiceConverted = adjustTime(arrays[key][i]);
+            let arrayIndice = new Array();
+            for (let i = 0; i < timeArray.length; i++) {
+                arrayIndice.push(indiceConverted);
+            }
+            arrayIndices.push(arrayIndice);
+
+        }
+        labelIndicesArray.push(key);
+        // console.log(arrays[key]);
+        console.log(arrayIndices);
+
+    }
 
 
-        // console.log(indiceArray);
+    function createArraysFromValues(json) {
+        const arrays = {};
+
+        for (const key in json) {
+            const value = `${json[key].tipoIndice} - ${json[key].nomeCategoria}`;
+
+            if (!arrays[value]) {
+                arrays[value] = [];
+            }
+
+            arrays[value].push(json[key].tempoIndice);
+        }
+        //console.log(arrays);
+        return arrays;
     }
 
     function adjustTime(time) {
-        console.log(time);
-        let min = time.split(':')[0];
-        let sec = (time.split(':')[1]).split('.')[0];
-        let ms = (time.split(':')[1].split('.')[1]);
-        const d = new Date(0, 0, 0, 0, min, sec, ms);
-        let convTime = ((d.getTime())) - 2209063000000;
+        let h = time.split(':')[0];
+        let min = time.split(':')[1];
+        let sec = (time.split(':')[2]).split('.')[0];
+        let ms = ((time.split(':')[2].split('.')[1]) * 10);
+        const d = new Date(Date.UTC(70, 0, 1, h, min, sec, ms));
+        let convTime = ((d.getTime()));
         return convTime;
     }
 
-    console.log(timeArray);
-    console.log(indiceArray);
+    let maxLabel = 0;
+    if (timeArray.toSorted()[timeArray.length - 1] > arrayIndices[0]) {
+        maxLabel = timeArray.toSorted()[timeArray.length - 1]
+    } else {
+        maxLabel = arrayIndices[0]
+    }
+
+    let datasetsJson = []
+
+    datasetsJson.push({
+        type: 'line',
+        label: 'Tempo',
+        data: timeArray,
+        borderWidth: 1,
+        order: 1
+    });
+    let indiceLabel = 0;
+    for (let arr of arrayIndices) {
+        //console.log(labelIndicesArray);
+        datasetsJson.push({
+            type: 'line',
+            label: labelIndicesArray[indiceLabel],
+            data: arr,
+            borderWidth: 1,
+            order: 1
+        })
+        indiceLabel++;
+    }
+
     new Chart(ctx, {
         data: {
-            datasets: [{
-                    type: 'line',
-                    label: labelTempos,
-                    data: timeArray,
-                    borderWidth: 1,
-                    order: 1
-                },
-                {
-                    type: 'line',
-                    label: labelIndices,
-                    data: indiceArray,
-                    borderWidth: 1,
-                    order: 2
-                }
-            ],
+            datasets: datasetsJson,
             labels: labelTempos
         },
 
         options: {
             scales: {
                 y: {
-                    beginAtZero: false
+                    beginAtZero: false,
+                    suggestedMin: timeArray.toSorted()[0],
+                    suggestedMax: maxLabel,
+                    ticks: {
+                        callback: function(val, index) {
+                            //console.log((val / 1000).toFixed(2));
+                            labelTime = new Date(parseInt(this.getLabelForValue(val)) * 1000);
+                            min = labelTime.getMinutes();
+                            sec = labelTime.getSeconds();
+                            ms = labelTime.getMilliseconds();
+                            min = (min < 10 ? '0' + min : min);
+                            sec = (ms < 60 ? sec : Math.floor(ms / 60));
+                            sec = (sec < 10 ? '0' + sec : sec);
+                            ms = parseInt(((val / 1000).toFixed(2)).toString().split('.')[1]);
+                            ms = (ms < 10 ? '0' + ms : ms);
+                            let label = min + ':' + sec + '.' + ms;
+                            return label;
+                        }
+                    }
                 }
             }
         }

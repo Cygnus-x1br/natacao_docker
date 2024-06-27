@@ -5,7 +5,9 @@ namespace App\Controllers;
 use MF\Controller\Action;
 use MF\Model\Container;
 
-session_start();
+session_start([
+    'cookie_lifetime' => 86400,
+]);
 class ProvaController extends Action
 {
     public function list_provas()

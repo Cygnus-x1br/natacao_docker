@@ -6,7 +6,9 @@ use App\Models\DistanciaEstilo;
 use MF\Controller\Action;
 use MF\Model\Container;
 
-session_start();
+session_start([
+    'cookie_lifetime' => 86400,
+]);
 class TempoController extends Action
 {
     public function tempos_atleta()
@@ -108,6 +110,8 @@ class TempoController extends Action
 
     public function filtra_tempos()
     {
+
+        Assets::authenticate();
         $this->viewData->anos = $this->list_anos($_SESSION['user_id']);
         $this->viewData->torneiosParticipados = $this->list_torneios($_SESSION['user_id']);
         $this->viewData->estilos = $this->list_estilos($_SESSION['user_id']);
@@ -140,7 +144,7 @@ class TempoController extends Action
         $this->render('tempos_atleta');
     }
 
-    public function graficos_tempo()
+    public function create_graph()
     {
         Assets::authenticate();
 
@@ -169,11 +173,13 @@ class TempoController extends Action
         $tempoAtleta_data = $tempoAtleta->getTemposFiltered();
         $this->viewData->tempoAtleta = $tempoAtleta_data;
 
-        $this->render('graficos_tempo');
+        $this->render('create_graph');
     }
 
     public function graficos_tempo_filtrado()
     {
+
+        Assets::authenticate();
         $this->viewData->anos = $this->list_anos($_SESSION['user_id']);
         $this->viewData->torneiosParticipados = $this->list_torneios($_SESSION['user_id']);
         $this->viewData->estilos = $this->list_estilos($_SESSION['user_id']);
@@ -203,7 +209,15 @@ class TempoController extends Action
         $indices->__set('id_distanciaestilo', $_POST['distanciaEstilo']);
         $indices->__set('generoIndice', $atleta_data['sexoAtleta']);
         $indices->__set('id_categoria', date('Y') - (explode('-', $atleta_data['dataNascAtleta']))[0]);
-        $indices_data = $indices->getIndicesFiltered();
+        $indices->__set('p1', $_POST['p1'] ?? '');
+        $indices->__set('p2', $_POST['p2'] ?? '');
+        $indices->__set('i1', $_POST['i1'] ?? '');
+        $indices->__set('i2', $_POST['i2'] ?? '');
+        $indices->__set('jv1', $_POST['jv1'] ?? '');
+        $indices->__set('jv2', $_POST['jv2'] ?? '');
+        $indices->__set('jr1', $_POST['jr1'] ?? '');
+        $indices->__set('jr2', $_POST['jr2'] ?? '');
+        $indices_data = $indices->getIndicesFilteredGrafico();
         $this->viewData->indices = $indices_data;
 
         $tempos = Container::getModel('Tempo');
@@ -226,6 +240,7 @@ class TempoController extends Action
         $tempos->__set('id_atleta', $user_id);
         $tempos_data = $tempos->getTempo();
 
+        $anos = [];
         foreach ($tempos_data as $key => $value) {
             $ano = (explode('-', $value['dataTorneio']))[0];
             $anos[] = $ano;
@@ -238,6 +253,7 @@ class TempoController extends Action
         $torneios->__set('id_atleta', $user_id);
         $torneios_data = $torneios->getTempo();
 
+        $torneio = [];
         foreach ($torneios_data as $key => $value) {
             $torneio[] = $value['nomeTorneio'];
         }
@@ -249,6 +265,7 @@ class TempoController extends Action
         $estilos->__set('id_atleta', $user_id);
         $estilos_data = $estilos->getTempo();
 
+        $estilo = [];
         foreach ($estilos_data as $key => $value) {
             $estilo[] = $value['distancia'] . ' m ' . $value['nomeEstilo'] . '*' . $value['distanciaEstilo'];
             // print_r($estilo);

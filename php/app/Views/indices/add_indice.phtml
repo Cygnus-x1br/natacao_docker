@@ -1,0 +1,101 @@
+<?php
+
+$distanciaEstilo = $this->viewData->distanciaEstilo;
+$torneios = $this->viewData->torneios;
+$categorias = $this->viewData->categorias;
+$provas = $this->viewData->provas;
+$tempoAtleta = $this->viewData->tempoAtleta;
+
+// print_r($provas);
+
+function adjustTime($fullTime)
+{
+    $time = explode(':', $fullTime);
+    (array_shift($time));
+    return implode(':', $time);
+}
+
+?>
+
+<div class="col-md-12">
+    <form action="save_tempo" method="POST" class="needs-validation" enctype="multipart/form-data">
+        <div class="row g-3 d-flex justify-content-between align-items-end">
+            <div class="col-md-4">
+                <label for="nomeTorneio" class="form-label">Torneio</label>
+                <select class="form-select" name="id_torneio" id="nomeTorneio">
+                    <option value="">Selected</option>
+                    <?php foreach ($torneios as $torneio) { ?>
+                        <option value="<?= $torneio['IDTORNEIO'] ?>"><?= $torneio['nomeTorneio'] . ' - ' . $torneio['nomeFantasiaComplexo'] ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="col-sm-4">
+                <label for="prova" class="form-label" id="provaLabel">Prova</label>
+                <select class="form-select torneio0 removeList">
+                    <option value="">Selected</option>
+                </select>
+                <?php foreach ($torneios as $torneio) { ?>
+                    <select class="form-select <?= 'torneio' . $torneio['IDTORNEIO'] ?> removeList d-none">
+                        <option value="">Selected</option>
+                        <?php foreach ($provas as $prova) {
+                            if ($torneio['IDTORNEIO'] == $prova['id_torneio']) { ?>
+                                <option value="<?= $prova['idprova'] ?>"><?= $prova['distancia'] . 'm - ' . $prova['nomeEstilo'] . ' - ' . $prova['genero'] . ' - ' . $prova['categoriaMinima'] . ' a ' . $prova['categoriaMaxima'] ?></option>
+                            <?php } ?>
+                        <?php } ?>
+                    </select>
+                <?php } ?>
+            </div>
+            <div class="col-sm-2">
+                <label for="tempoAtleta" class="form-label">Tempo</label>
+                <input type="text" name="tempoAtleta" class="form-control" id="tempoAtleta">
+            </div>
+            <div class="col-sm-1">
+                <button class="btn btn-primary h-25 w-100" type="submit">Incluir</button>
+            </div>
+        </div>
+        <hr class="my-4">
+    </form>
+    <div class="table-responsive">
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th style="width: 12%;">Data</th>
+                    <th style="width: 22%;">Torneio</th>
+                    <th style="width: 22%;">Piscina</th>
+                    <th style="width: 22%;">Estilo</th>
+                    <th style="width: 22%;">Tempo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($tempoAtleta as $tempo) { ?>
+                    <tr>
+                        <td><?php echo implode('/',  array_reverse(explode('-', $tempo['dataTorneio']))) ?></td>
+                        <td><?= $tempo['nomeTorneio'] ?></td>
+                        <td><?= $tempo['tamanhoPiscina'] . 'm' ?></td>
+                        <td><?= $tempo['distancia'] . 'm ' . $tempo['nomeEstilo'] ?></td>
+                        <td><?php echo adjustTime($tempo['tempoAtleta']) ?></td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+</main>
+
+
+<script>
+    VMasker(document.querySelector('#tempoAtleta')).maskPattern('99:99.99');
+
+    let nomeTorneio = document.getElementById('nomeTorneio');
+    let lists = document.getElementsByClassName('removeList');
+    nomeTorneio.addEventListener('change', function() {
+        for (let i = 0; i < lists.length; i++) {
+            if (lists[i].classList.contains('d-none') === false) {
+                lists[i].classList.add('d-none');
+            }
+        }
+        console.log(document.getElementsByClassName(`torneio${nomeTorneio.value}`))
+        document.getElementsByClassName(`torneio${nomeTorneio.value}`)[0].classList.remove('d-none');
+        document.getElementsByClassName(`torneio${nomeTorneio.value}`)[0].name = 'id_prova';
+    });
+</script>

@@ -5,16 +5,26 @@ namespace App\Controllers;
 use MF\Controller\Action;
 use MF\Model\Container;
 
-session_start();
+session_start([
+    'cookie_lifetime' => 86400,
+]);
 class AtletaController extends Action
 {
     public function index_atleta()
     {
         Assets::authenticate();
+
+        if ($_SESSION['permissao'] == 2) {
+            $_SESSION['user_id'] = $_GET['id'];
+            $_SESSION['atleta_id'] = $_GET['id']; //recuperar dados da tabela de user
+        }
+
+        print_r($_SESSION);
+
         $atleta = Container::getModel('Atleta');
         $atleta->__set('idatleta', $_GET['id']);
         $atleta_data = $atleta->getAtletabyID();
-        // print_r($atleta_data);
+
         if ($_SESSION['nome'] != $atleta_data['emailAtleta'] && $_SESSION['permissao'] != '2') {
             header('Location: /error?error=1002');
             die();
@@ -25,7 +35,6 @@ class AtletaController extends Action
         $tempoAtleta->__set('id_atleta', $_GET['id']);
         $tempoAtleta_data = $tempoAtleta->getTempo();
         $this->viewData->tempoAtleta = $tempoAtleta_data;
-
 
         $idade = date('Y') - (explode('-', $atleta_data['dataNascAtleta']))[0];
         $idade = $idade > 19 ? 99 : ($idade < 7 ? 7 : $idade);
@@ -67,16 +76,7 @@ class AtletaController extends Action
         $this->render('view_atleta');
     }
 
-    public function select_atleta()
-    {
-        Assets::authenticate();
 
-        if ($_SESSION['permissao'] != '2') {
-            header('Location: /index_atleta?id=' . $_SESSION['id']);
-            die();
-        }
-        $this->render('select_atleta');
-    }
 
     public function add_atleta()
     {

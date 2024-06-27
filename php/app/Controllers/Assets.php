@@ -15,6 +15,10 @@ class Assets extends Action
             header('Location: /error?error=1001');
             die();
         }
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /error?error=1001');
+            die();
+        }
     }
     public static function verificaCPF($cpf)
     {
