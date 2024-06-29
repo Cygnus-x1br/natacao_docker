@@ -18,4 +18,9 @@ class FederacaoController extends Action
 
         $this->render('list_federacao');
     }
+
+    public function add_federacao()
+    {
+        $this->render('add_federacao');
+    }
 }

@@ -2,6 +2,7 @@
 
 $equipes = $this->viewData->equipes;
 $categoria = $this->viewData->categoria;
+
 $data = (isset($this->viewData->temporary_data)) ? $this->viewData->temporary_data : array();
 
 ?>
@@ -20,8 +21,6 @@ $data = (isset($this->viewData->temporary_data)) ? $this->viewData->temporary_da
             <form action="save_atleta" method="POST" class="needs-validation" enctype="multipart/form-data">
                 <div class="row g-3">
                     <div class="col-sm-6">
-                        <input type="hidden" name="idUsuario" value="<?= $_SESSION['user_name'] ?>">
-                        <input type="hidden" name="permissaoUsuario" value="<?= $_SESSION['permissao'] ?>">
                         <label for="firstName" class="form-label">Nome</label>
                         <input type="text" class="form-control" id="firstName" name="nomeAtleta" placeholder="Nome" value="" required>
                         <div class="invalid-feedback">

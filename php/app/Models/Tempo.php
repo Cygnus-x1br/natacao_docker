@@ -19,7 +19,6 @@ class Tempo extends Model
     {
         return $this->$atribute;
     }
-
     public function __set($atribute, $value)
     {
         $this->$atribute = $value;
@@ -194,54 +193,4 @@ class Tempo extends Model
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
-
-    // public function getTemposFilteredCronologico()
-    // {
-    //     $tempos = $tempo = "SELECT numeroProva, genero, tempoAtleta, pr.ID_DISTANCIAESTILO AS distanciaEstilo, i.tempoIndice, i.tipoIndice, a.nomeAtleta, a.sobreNomeAtleta, t.nomeTorneio, t.dataTorneio, p.tamanhoPiscina, d.distancia, e.nomeEstilo, cmin.nomeCategoria AS CategoriaMinima, cmax.nomeCategoria AS CategoriaMaxima FROM tb_tempoAtleta
-    //              INNER JOIN tb_prova AS pr ON ID_PROVA = pr.IDPROVA
-    //              INNER JOIN tb_atleta AS a ON ID_ATLETA = a.IDATLETA
-    //              INNER JOIN tb_torneio AS t ON pr.ID_TORNEIO = t.IDTORNEIO
-    //              INNER JOIN tb_distancia AS d ON 
-    //              (SELECT ID_DISTANCIA AS dist FROM tba_distancia_estilo WHERE pr.ID_DISTANCIAESTILO = IDDISTANCIAESTILO) = d.IDDISTANCIA
-    //              INNER JOIN tb_estilo AS e ON 
-    //              (SELECT ID_ESTILO AS est FROM tba_distancia_estilo WHERE pr.ID_DISTANCIAESTILO = IDDISTANCIAESTILO) = e.IDESTILO
-    //              INNER JOIN tb_piscina AS p ON t.ID_PISCINA = p.IDPISCINA
-    //              LEFT JOIN tb_indices AS i ON genero = i.generoIndice AND pr.ID_DISTANCIAESTILO = i.ID_DISTANCIAESTILO AND ID_CATEGORIA = 13 AND t.ID_PISCINA = i.ID_PISCINA
-    //              INNER JOIN tb_categoria AS cmin ON ID_CATEGORIA_MIN = cmin.IDCATEGORIA
-    //              INNER JOIN tb_categoria AS cmax ON ID_CATEGORIA_MAX = cmax.IDCATEGORIA
-    //              WHERE ID_ATLETA = :id_atleta AND ";
-    //     if (!empty($this->__get('anoTempo'))) {
-    //         $tempos .= "t.dataTorneio LIKE :anoTempo AND ";
-    //     }
-    //     if (!empty($this->__get('nomeTorneio'))) {
-    //         $tempos .= "t.nomeTorneio = :nomeTorneio AND ";
-    //     }
-    //     if (!empty($this->__get('tamanhoPiscina'))) {
-    //         $tempos .= "p.tamanhoPiscina = :tamanhoPiscina AND ";
-    //     }
-    //     if (!empty($this->__get('distanciaEstilo'))) {
-    //         $tempos .= "pr.ID_DISTANCIAESTILO = :distanciaEstilo AND ";
-    //     }
-    //     $tempos .= "1 = 1 ";
-    //     $tempos .= "ORDER BY dataTorneio ASC, pr.ID_DISTANCIAESTILO ASC;";
-
-    //     $stmt = $this->db->prepare($tempos);
-    //     $stmt->bindValue(':id_atleta', $this->__get('id_atleta'));
-    //     if (!empty($this->__get('anoTempo'))) {
-    //         $stmt->bindValue(':anoTempo', $this->__get('anoTempo'));
-    //     }
-    //     if (!empty($this->__get('nomeTorneio'))) {
-    //         $stmt->bindValue(':nomeTorneio', $this->__get('nomeTorneio'));
-    //     }
-    //     if (!empty($this->__get('tamanhoPiscina'))) {
-    //         $stmt->bindValue(':tamanhoPiscina', $this->__get('tamanhoPiscina'));
-    //     }
-    //     if (!empty($this->__get('distanciaEstilo'))) {
-    //         $stmt->bindValue(':distanciaEstilo', $this->__get('distanciaEstilo'));
-    //     }
-
-    //     $stmt->execute();
-
-    //     return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-    // }
 }

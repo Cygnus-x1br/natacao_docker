@@ -205,4 +205,20 @@ class Indices extends Model
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public function saveIndice()
+    {
+        $indices = "INSERT INTO tb_indices (anoIndice, tempoIndice, generoIndice, tipoIndice, ID_CATEGORIA, ID_DISTANCIAESTILO, ID_PISCINA) VALUES (:anoIndice, :tempoIndice, :generoIndice, :tipoIndice, :id_categoria, :id_distanciaestilo, :id_piscina)";
+        $stmt = $this->db->prepare($indices);
+        $stmt->bindValue(':anoIndice', $this->__get('anoIndice'));
+        $stmt->bindValue(':tempoIndice', $this->__get('tempoIndice'));
+        $stmt->bindValue(':id_categoria', $this->__get('id_categoria'));
+        $stmt->bindValue(':generoIndice', $this->__get('generoIndice'));
+        $stmt->bindValue(':tipoIndice', $this->__get('tipoIndice'));
+        $stmt->bindValue(':id_distanciaestilo', $this->__get('id_distanciaestilo'));
+        $stmt->bindValue(':id_piscina', $this->__get('id_piscina'));
+        $stmt->execute();
+
+        return $this;
+    }
 }

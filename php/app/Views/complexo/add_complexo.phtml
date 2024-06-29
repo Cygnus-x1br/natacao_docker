@@ -1,6 +1,13 @@
 <?php
 
 ?>
+<style>
+    #drop_zone {
+        border: 5px solid blue;
+        width: 200px;
+        height: 100px;
+    }
+</style>
 
 <div class="container">
     <main>
@@ -28,6 +35,7 @@
                 <h4 class="mb-3"></h4>
                 <form action="save_complexo" class="needs-validation" method="post" enctype="multipart/form-data">
                     <div class="row g-3">
+
                         <div class="col-12">
                             <label for="nomeComplexo" class="form-label">Nome</label>
                             <?php if (isset($_GET['error']) && $_GET['error'] == '1') {

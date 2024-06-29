@@ -58,6 +58,17 @@ class Users extends Model
         return $this;
     }
 
+    public function verificaAllUsers()
+    {
+        $users = "SELECT * FROM tb_users WHERE username=:username OR user_id=:user_id";
+        $stmt = $this->db->prepare($users);
+        $stmt->bindValue(':username', $this->__get('username'));
+        $stmt->bindValue(':user_id', $this->__get('user_id'));
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     public function changeUser()
     {
         $user = "UPDATE tb_users SET username=:username, passwd=:passwd, user_name=:user_name, permission=:permission";

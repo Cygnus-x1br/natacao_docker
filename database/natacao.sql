@@ -1,6 +1,7 @@
 -- Versao 0.1.3.0 (Não criado)
 -- Incluido campo final em tb_prova
 -- Incluido campo recordProvaTorneio em tb_prova
+-- Alterado o campo username para VARCHAR(50) em tb_users
 --
 -- Versao 0.1.2.5
 -- Alterado campo tb_prova.numeroProva de VARCHAR para INT
@@ -49,7 +50,7 @@ ADD CONSTRAINT FK_DISTANCIA_ESTILO FOREIGN KEY(ID_DISTANCIA) REFERENCES tb_dista
 --
 CREATE TABLE tb_users (
 IDUSER INT PRIMARY KEY AUTO_INCREMENT,
-username varchar(20) NOT NULL,
+username varchar(50) NOT NULL,
 passwd varchar(256) NOT NULL,
 user_name varchar(100) NOT NULL,
 user_id INT NOT NULL,

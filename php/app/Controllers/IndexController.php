@@ -13,7 +13,6 @@ class IndexController extends Action
 {
     public function index()
     {
-
         if (isset($_GET['id'])) {
             if (!isset($_SESSION['id'])) {
                 header('Location: /sign_in');
@@ -36,9 +35,6 @@ class IndexController extends Action
 
             $this->render('index_atleta');
         }
-
-
-
 
         $torneio = Container::getModel('Torneio');
         $torneio_data = $torneio->getAllTorneios();

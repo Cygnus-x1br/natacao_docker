@@ -35,6 +35,14 @@ class Atleta extends Model
         $this->$atribute = $value;
     }
 
+    public function getAllAtletas()
+    {
+        $atletas = "SELECT * FROM tb_atleta INNER JOIN tb_equipe AS e ON ID_EQUIPE = e.IDEQUIPE";
+        $stmt = $this->db->prepare($atletas);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
     public function verificaAllAtletas()
     {
         $atletas = "SELECT * FROM tb_atleta WHERE sobreNomeAtleta=:sobreNomeAtleta OR dataNascAtleta=:dataNascAtleta OR cpfAtleta=:cpfAtleta OR numRegistroAtleta=:numRegistroAtleta OR emailAtleta=:emailAtleta";

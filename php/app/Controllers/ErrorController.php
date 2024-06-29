@@ -19,6 +19,12 @@ class ErrorController extends Action
         } elseif ($_GET['error'] == 1002) {
             $this->setHtmlData->error = 'Voce não tem permissao para acessar dados de atletas';
             $this->setHtmlData->url = $url;
+        } elseif ($_GET['error'] == 1003) {
+            $this->setHtmlData->error = 'Digite um nome válido';
+            $this->setHtmlData->url = $url;
+        } elseif ($_GET['error'] == 1004) {
+            $this->setHtmlData->error = 'Digite uma data de nascimento válida';
+            $this->setHtmlData->url = $url;
         } elseif ($_GET['error'] == 2001) {
             $this->setHtmlData->error = 'Usuário já cadastrado com esse nome e data de nascimento';
             $this->setHtmlData->url = $url;
@@ -34,11 +40,17 @@ class ErrorController extends Action
         } elseif ($_GET['error'] == 2005) {
             $this->setHtmlData->error = 'Número de CPF inválido';
             $this->setHtmlData->url = $url;
+        } elseif ($_GET['error'] == 2006) {
+            $this->setHtmlData->error = 'Senha inválida';
+            $this->setHtmlData->url = $url;
         } elseif ($_GET['error'] == 3001) {
             $this->setHtmlData->error = 'Prova incompativel com o genero do atleta';
             $this->setHtmlData->url = $url;
         } elseif ($_GET['error'] == 3002) {
             $this->setHtmlData->error = 'Prova incompativel com a categoria do atleta';
+            $this->setHtmlData->url = $url;
+        } elseif ($_GET['error'] == 9001) {
+            $this->setHtmlData->error = 'Função exclusiva para administradores';
             $this->setHtmlData->url = $url;
         } elseif ($_GET['error'] == 9999) {
             $this->setHtmlData->error = 'Usuário ou senha incorretos';

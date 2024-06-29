@@ -1,7 +1,7 @@
 <?php
 //$location = $this->setHtmlData->referer;
 $atleta = $this->viewData->atleta;
-
+$error = $this->viewData->error ?? '';
 ?>
 <main class="form-signin w-100 m-auto">
     <form method="post" action="/save_user">
@@ -10,17 +10,17 @@ $atleta = $this->viewData->atleta;
         <input type="hidden" name="emailAtleta" value="<?= $atleta['emailAtleta'] ?>">
         <img class="mb-4" src="./images/swim_icon.png" alt="" width="72" height="57">
         <h1 class="h3 mb-3 fw-normal">Cadastro de Senha</h1>
-        <?php if (isset($_GET['login']) && $_GET['login'] == 'erro') { ?>
+        <?php if (isset($error) && $error == '2006') { ?>
             <div class="alert alert-danger">
                 <p>Senha invalida</p>
             </div>
         <?php } ?>
         <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword1" name="passwd" placeholder="senha">
+            <input type="password" class="form-control" id="floatingPassword1" name="passwd" placeholder="senha" required>
             <label for="floatingPassword1">Digite uma senha</label>
         </div>
         <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword2" name="passwd_confirm" placeholder="senha">
+            <input type="password" class="form-control" id="floatingPassword2" name="passwd_confirm" placeholder="senha" required>
             <label for="floatingPassword2">Confirme a sua senha</label>
         </div>
 
