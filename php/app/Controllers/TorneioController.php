@@ -55,4 +55,19 @@ class TorneioController extends Action
         $this->viewData->torneios = $torneios;
         $this->render('list_torneios');
     }
+    public function view_torneio()
+    {
+        $torneio = Container::getModel('Torneio');
+        $torneio->__set('idtorneio', $_GET['id']);
+        $torneios = $torneio->getTorneio();
+        $this->viewData->torneios = $torneios;
+
+        $provas = Container::getModel('Prova');
+        $provas->__set('id_torneio', $_GET['id']);
+        $provas_data = $provas->getProvasTorneio();
+        $this->viewData->provas = $provas_data;
+
+
+        $this->render('view_torneio');
+    }
 }

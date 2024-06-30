@@ -35,7 +35,7 @@ class Torneio extends Model
 
     public function getTorneio()
     {
-        $torneio = "SELECT *, c.nomeFantasiaComplexo, p.tamanhoPiscina, f.nomeFantasiaFederacao FROM tb_torneio INNER JOIN tb_complexo as c ON ID_COMPLEXO=c.ID_COMPLEXO INNER JOIN tb_piscina as p ON IDPISCINA=p.IDPISCINA INNER JOIN tb_federacao as f ON ID_FEDERACAO=f.IDFEDERACAO WHERE idtorneio = :idtorneio";
+        $torneio = "SELECT *, c.nomeFantasiaComplexo, p.tamanhoPiscina, f.nomeFantasiaFederacao, e.siglaEstado FROM tb_torneio INNER JOIN tb_complexo as c ON ID_COMPLEXO=c.IDCOMPLEXO INNER JOIN tb_piscina as p ON IDPISCINA=p.IDPISCINA INNER JOIN tb_federacao as f ON ID_FEDERACAO=f.IDFEDERACAO INNER JOIN tb_estado as e ON c.ID_ESTADO = e.IDESTADO WHERE idtorneio = :idtorneio";
         $stmt = $this->db->prepare($torneio);
         $stmt->bindValue(':idtorneio', $this->__get('idtorneio'));
         $stmt->execute();

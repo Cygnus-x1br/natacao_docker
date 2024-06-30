@@ -40,6 +40,13 @@ class TempoController extends Action
         $tempoAtleta_data = $tempoAtleta->getTemposFiltered();
         $this->viewData->tempoAtleta = $tempoAtleta_data;
 
+        $indicesMundial = Container::getModel('Indices');
+        $indicesMundial->__set('tipoIndice', 'Recorde Mundial');
+        $indice_data = $indicesMundial->getIndicesFiltered();
+
+        $this->viewData->indices_mundial = $indice_data;
+
+
         $this->render('tempos_atleta');
     }
 

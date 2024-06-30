@@ -50,6 +50,7 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'AdminController',
             'action' => 'select_atleta'
         );
+
         $routes['user_admin'] = array(
             'route' => '/user_admin',
             'controller' => 'AdminController',
@@ -69,6 +70,26 @@ class Route extends \MF\Init\Bootstrap
             'route' => '/indice_admin',
             'controller' => 'AdminController',
             'action' => 'indice_admin'
+        );
+        $routes['filtra_indices_tabela'] = array(
+            'route' => '/filtra_indices_tabela',
+            'controller' => 'AdminController',
+            'action' => 'filtra_indices_tabela'
+        );
+        $routes['federacao_admin'] = array(
+            'route' => '/federacao_admin',
+            'controller' => 'AdminController',
+            'action' => 'federacao_admin'
+        );
+        $routes['equipe_admin'] = array(
+            'route' => '/equipe_admin',
+            'controller' => 'AdminController',
+            'action' => 'equipe_admin'
+        );
+        $routes['torneio_admin'] = array(
+            'route' => '/torneio_admin',
+            'controller' => 'AdminController',
+            'action' => 'torneio_admin'
         );
         // User
         $routes['add_atleta'] = array(
@@ -112,6 +133,12 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'AtletaController',
             'action' => 'insert_atleta'
         );
+        $routes['delete_atleta'] = array(
+            'route' => '/delete_atleta',
+            'controller' => 'AtletaController',
+            'action' => 'delete_atleta'
+        );
+
         //Tempos
         $routes['tempos_atleta'] = array(
             'route' => '/tempos_atleta',
@@ -175,11 +202,46 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'EquipeController',
             'action' => 'save_equipe'
         );
+        $routes['update_equipe'] = array(
+            'route' => '/update_equipe',
+            'controller' => 'EquipeController',
+            'action' => 'update_equipe'
+        );
+        $routes['delete_equipe'] = array(
+            'route' => '/delete_equipe',
+            'controller' => 'EquipeController',
+            'action' => 'delete_equipe'
+        );
         // Federacoes
         $routes['list_federacao'] = array(
             'route' => '/list_federacao',
             'controller' => 'FederacaoController',
             'action' => 'list_federacao'
+        );
+        $routes['edit_federacao'] = array(
+            'route' => '/edit_federacao',
+            'controller' => 'FederacaoController',
+            'action' => 'edit_federacao'
+        );
+        $routes['add_federacao'] = array(
+            'route' => '/add_federacao',
+            'controller' => 'FederacaoController',
+            'action' => 'add_federacao'
+        );
+        $routes['save_federacao'] = array(
+            'route' => '/save_federacao',
+            'controller' => 'FederacaoController',
+            'action' => 'save_federacao'
+        );
+        $routes['update_federacao'] = array(
+            'route' => '/update_federacao',
+            'controller' => 'FederacaoController',
+            'action' => 'update_federacao'
+        );
+        $routes['delete_federacao'] = array(
+            'route' => '/delete_federacao',
+            'controller' => 'FederacaoController',
+            'action' => 'delete_federacao'
         );
         // Complexos
         $routes['list_complexos'] = array(
@@ -233,6 +295,11 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'TorneioController',
             'action' => 'list_torneios'
         );
+        $routes['view_torneio'] = array(
+            'route' => '/view_torneio',
+            'controller' => 'TorneioController',
+            'action' => 'view_torneio'
+        );
         // Indices
         $routes['list_indices'] = array(
             'route' => '/list_indices',
@@ -244,11 +311,7 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'IndicesController',
             'action' => 'filtra_indices'
         );
-        $routes['filtra_indices_tabela'] = array(
-            'route' => '/filtra_indices_tabela',
-            'controller' => 'AdminController',
-            'action' => 'filtra_indices_tabela'
-        );
+
         $routes['add_indice'] = array(
             'route' => '/add_indice',
             'controller' => 'IndicesController',

@@ -221,7 +221,7 @@ class Assets extends Action
         }
         return array_unique($tamanhos);
     }
-    
+
     public static function list_todas_piscinas()
     {
         $piscinas = Container::getModel('Piscina');
@@ -234,5 +234,39 @@ class Assets extends Action
         $estilo = Container::getModel('DistanciaEstilo');
         $estilos_data = $estilo->getAllDistanciaEstilo();
         return $estilos_data;
+    }
+
+    public static function count_atletas()
+    {
+        $atletas = Container::getModel('Atleta');
+        $atletas_data = $atletas->getAllAtletas();
+        return count($atletas_data);
+    }
+
+    public static function count_equipes()
+    {
+        $equipes = Container::getModel('Equipe');
+        $equipes_data = $equipes->getAllEquipes();
+        return count($equipes_data);
+    }
+
+    public static function count_complexos()
+    {
+        $complexos = Container::getModel('Complexo');
+        $complexos_data = $complexos->getAllComplexos();
+        return count($complexos_data);
+    }
+
+    public static function count_torneios()
+    {
+        $torneios = Container::getModel('Torneio');
+        $torneios_data = $torneios->getAllTorneios();
+        return count($torneios_data);
+    }
+
+    public static function indice_tecnico($tempo, $id_distanciaestilo)
+    {
+        $indice_tecnico = $tempo . ' ' . $id_distanciaestilo;
+        return $indice_tecnico;
     }
 }

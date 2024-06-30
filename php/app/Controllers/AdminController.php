@@ -14,6 +14,11 @@ class AdminController extends Action
     {
         Assets::admin_authenticate();
 
+        $this->viewData->count_complexos = Assets::count_complexos();
+        $this->viewData->count_equipes = Assets::count_equipes();
+        $this->viewData->count_atletas = Assets::count_atletas();
+        $this->viewData->count_torneios = Assets::count_torneios();
+
         $this->render('index_admin', 'admin_layout');
     }
     public function select_atleta()
@@ -76,14 +81,46 @@ class AdminController extends Action
         $this->viewData->estilos = Assets::list_todos_estilos();
         $this->render('indice_admin', 'admin_layout');
     }
-    
-    public function complexo_admin(){
-        
+
+    public function complexo_admin()
+    {
+        Assets::admin_authenticate();
+
         $piscinas = Container::getModel('Complexo');
         $piscinas_data = $piscinas->getAllComplexos();
         $this->viewData->piscinas = $piscinas_data;
-        
+
         $this->render('complexo_admin', 'admin_layout');
-        
+    }
+
+    public function federacao_admin()
+    {
+        Assets::admin_authenticate();
+
+        $federacao = Container::getModel('Federacao');
+        $federacao_data = $federacao->getAllFederacoes();
+        $this->viewData->federacoes = $federacao_data;
+
+        $this->render('federacao_admin', 'admin_layout');
+    }
+    public function equipe_admin()
+    {
+        Assets::admin_authenticate();
+
+        $equipe = Container::getModel('Equipe');
+        $equipes_data = $equipe->getAllEquipes();
+        $this->viewData->equipes = $equipes_data;
+
+        $this->render('equipe_admin', 'admin_layout');
+    }
+    public function torneio_admin()
+    {
+        Assets::admin_authenticate();
+
+        $torneio = Container::getModel('Torneio');
+        $torneios_data = $torneio->getAllTorneios();
+        $this->viewData->torneios = $torneios_data;
+
+        $this->render('torneio_admin', 'admin_layout');
     }
 }

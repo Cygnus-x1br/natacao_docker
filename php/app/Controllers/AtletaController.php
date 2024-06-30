@@ -19,8 +19,6 @@ class AtletaController extends Action
             $_SESSION['atleta_id'] = $_GET['id']; //recuperar dados da tabela de user
         }
 
-        //print_r($_SESSION);
-
         $atleta = Container::getModel('Atleta');
         $atleta->__set('idatleta', $_GET['id']);
         $atleta_data = $atleta->getAtletabyID();
@@ -188,6 +186,7 @@ class AtletaController extends Action
         $provas_data = $provas->getAllProvas();
         $this->viewData->provas = $provas_data;
 
+
         $this->render('tempos_atleta');
     }
 
@@ -214,6 +213,14 @@ class AtletaController extends Action
         }
 
         return $melhor_tempo;
+    }
+
+    public function delete_atleta()
+    {
+        $atleta = Container::getModel('Atleta');
+        $atleta->__set('idatleta', $_GET['id']);
+        $atleta->deleteAtleta();
+        header('Location: /atleta_admin');
     }
     private function upload_file()
     {

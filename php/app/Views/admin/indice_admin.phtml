@@ -31,17 +31,19 @@ echo '</pre>';
 ?>
 
 
-<main>
-    <div class="py-5 text-center">
-        <h2 class="fw-light">Tabela de Índices</h2>
-        <p class="lead"></p>
-    </div>
+
+<div class="py-5 text-center">
+    <h2 class="fw-light">Tabela de Índices</h2>
+    <p class="lead"></p>
+</div>
 
 
 
-    <div class="row p-3 ">
-        <form action="save_indice" method="POST" class="needs-validation" enctype="multipart/form-data">
-            <div class="row g-3 d-flex justify-content-between align-items-end">
+<div class="row p-3 ">
+
+    <form action="save_indice" method="POST" class="needs-validation" enctype="multipart/form-data">
+        <div class="row">
+            <div class="row d-flex justify-content-around align-items-end">
                 <div class="col-md-2">
                     <label for="anoIndice" class="form-label">Ano Índice</label>
                     <select class="form-select" name="anoIndice" id="anoIndice">
@@ -78,6 +80,8 @@ echo '</pre>';
                         <?php } ?>
                     </select>
                 </div>
+            </div>
+            <div class="row d-flex justify-content-around align-items-end">
                 <div class="col-md-2">
                     <label for="categoriaIndice" class="form-label">Categoria</label>
                     <select class="form-select" name="id_categoria" id="categoriaIndice">
@@ -95,18 +99,19 @@ echo '</pre>';
                         <option value="M">Masculino</option>
                     </select>
                 </div>
-
-                <div class="col-sm-2">
+                <div class="col-md-2">
                     <label for="tempoIndice" class="form-label">Tempo</label>
-                    <input type="text" name="tempoIndice" class="form-control" id="tempoIndice">
+                    <input type="text" name="tempoIndice" class="form-control" placeholder="00:00.00" id="tempoIndice">
                 </div>
-                <div class="col-sm-1">
+                <div class="col-md-2">
                     <button class="btn btn-primary h-25 w-100" type="submit">Incluir</button>
                 </div>
             </div>
-            <hr class="my-4">
-        </form>
-        <form action="filtra_indices_tabela" method="post" class="row g-3 d-flex align-items-end">
+        </div>
+        <hr class="my-4">
+    </form>
+    <form action="filtra_indices_tabela" method="post" class="row g-3 d-flex align-items-end">
+        <div class="d-flex justify-content-around align-items-end">
             <div class="col-md-4 col-lg-2">
                 <label for="anoIndice" class="form-label">Ano</label>
                 <select name="anoIndice" class="form-select" id="anoIndice">
@@ -145,178 +150,179 @@ echo '</pre>';
             <div class="col-md-4 col-lg-2">
                 <input type="submit" class="form-control btn btn-primary" value="Filtrar" id="filtrar">
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
+</div>
 
-    <div class="text-end">
-        <a href="insert_atleta">
-            <i class="bi bi-plus-circle"></i>
-        </a>
-    </div>
-    <div class="table-responsive small">
-        <?php foreach ($anos as $ano) { ?>
-            <?php if ((array_search($ano, array_column($indices, 'anoIndice'))) !== false) { ?>
-                <h2><?= $ano ?></h2>
-                <?php foreach ($tipos as $tipo) { ?>
-                    <?php if ((array_search($tipo, array_column($indices, 'tipoIndice'))) !== false) {
-                    ?>
-                        <h3><?= $tipo ?></h3>
-                        <?php foreach ($piscinas as $piscina) { ?>
-                            <?php if ((array_search($piscina, array_column($indices, 'tamanhoPiscina'))) !== false) {
-                            ?>
-                                <h3 class="lead"><?= 'Tamanho da piscina: ' . $piscina . ' m' ?></h3>
-                                <?php foreach ($generos as $genero) { ?>
-                                    <?php if ((array_search($genero, array_column($indices, 'generoIndice'))) !== false) {
-                                    ?>
-                                        <h3 class="lead"><?= 'Genero: ' . $genero ?></h3>
-                                    <?php } ?>
-
-                                    <table class="table table-sm">
-                                        <thead>
-
-                                            <tr>
-                                                <th class="col-sm-1">Estilo</th>
-                                                <?php foreach ($categorias as $categoria) {
-                                                    if ($categoria['IDCATEGORIA'] > 7) { ?>
-                                                        <th class="col-sm-1" class="text-center"><?= $categoria['nomeCategoria'] ?></th>
-                                                <?php }
-                                                } ?>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php foreach ($estilos as $estilo) { ?>
-                                                <tr class="mb-1">
-                                                    <?php if ((array_search($estilo['IDDISTANCIAESTILO'], array_column($indices, 'ID_DISTANCIAESTILO'))) !== false) { ?>
-                                                        <td style="width: 200px;"><?= $estilo['distancia'] . 'm ' . $estilo['nomeEstilo'] ?></td>
-
-
-                                                        <td><?php
-
-                                                            foreach ($indices as $indice) {
-                                                                if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == 8) {
-                                                                    echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
-                                                                }
-                                                            } ?>
-
-                                                        </td>
-                                                        <td><?php
-
-                                                            foreach ($indices as $indice) {
-                                                                if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == 9) {
-                                                                    echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
-                                                                }
-                                                            } ?>
-
-                                                        </td>
-                                                        <td><?php
-
-                                                            foreach ($indices as $indice) {
-                                                                if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == 10) {
-                                                                    echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
-                                                                }
-                                                            } ?>
-
-                                                        </td>
-                                                        <td><?php
-
-                                                            foreach ($indices as $indice) {
-                                                                if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '11') {
-                                                                    echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
-                                                                }
-                                                            } ?>
-
-                                                        </td>
-                                                        <td><?php
-
-                                                            foreach ($indices as $indice) {
-                                                                if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '12') {
-                                                                    echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
-                                                                }
-                                                            } ?>
-
-                                                        </td>
-                                                        <td><?php
-
-                                                            foreach ($indices as $indice) {
-                                                                if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '13') {
-                                                                    echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
-                                                                }
-                                                            } ?>
-
-                                                        </td>
-                                                        <td><?php
-
-                                                            foreach ($indices as $indice) {
-                                                                if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '14') {
-                                                                    echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
-                                                                }
-                                                            } ?>
-
-                                                        </td>
-                                                        <td><?php
-
-                                                            foreach ($indices as $indice) {
-                                                                if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '15') {
-                                                                    echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
-                                                                }
-                                                            } ?>
-
-                                                        </td>
-                                                        <td><?php
-
-                                                            foreach ($indices as $indice) {
-                                                                if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '16') {
-                                                                    echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
-                                                                }
-                                                            } ?>
-
-                                                        </td>
-                                                        <td><?php
-
-                                                            foreach ($indices as $indice) {
-                                                                if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '17') {
-                                                                    echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
-                                                                }
-                                                            } ?>
-
-                                                        </td>
-                                                        <td><?php
-
-                                                            foreach ($indices as $indice) {
-                                                                if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '18') {
-                                                                    echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
-                                                                }
-                                                            } ?>
-
-                                                        </td>
-                                                        <td><?php
-
-                                                            foreach ($indices as $indice) {
-                                                                if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '99') {
-                                                                    echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
-                                                                }
-                                                            } ?>
-
-                                                        </td>
-
-
-                                                    <?php } ?>
-                                                </tr>
-                                            <?php } ?>
-                                        </tbody>
-                                    </table>
+<div class="text-end">
+    <a href="insert_atleta">
+        <i class="bi bi-plus-circle"></i>
+    </a>
+</div>
+<div class="table-responsive small">
+    <?php foreach ($anos as $ano) { ?>
+        <?php if ((array_search($ano, array_column($indices, 'anoIndice'))) !== false) { ?>
+            <h2><?= $ano ?></h2>
+            <?php foreach ($tipos as $tipo) { ?>
+                <?php if ((array_search($tipo, array_column($indices, 'tipoIndice'))) !== false) {
+                ?>
+                    <h3><?= $tipo ?></h3>
+                    <?php foreach ($piscinas as $piscina) { ?>
+                        <?php if ((array_search($piscina, array_column($indices, 'tamanhoPiscina'))) !== false) {
+                        ?>
+                            <h3 class="lead"><?= 'Tamanho da piscina: ' . $piscina . ' m' ?></h3>
+                            <?php foreach ($generos as $genero) { ?>
+                                <?php if ((array_search($genero, array_column($indices, 'generoIndice'))) !== false) {
+                                ?>
+                                    <h3 class="lead"><?= 'Genero: ' . $genero ?></h3>
                                 <?php } ?>
-            <?php
 
-                            }
+                                <table class="table table-sm">
+                                    <thead>
+
+                                        <tr>
+                                            <th class="col-sm-1">Estilo</th>
+                                            <?php foreach ($categorias as $categoria) {
+                                                if ($categoria['IDCATEGORIA'] > 7) { ?>
+                                                    <th class="col-sm-1" class="text-center"><?= $categoria['nomeCategoria'] ?></th>
+                                            <?php }
+                                            } ?>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($estilos as $estilo) { ?>
+                                            <tr class="mb-1">
+                                                <?php if ((array_search($estilo['IDDISTANCIAESTILO'], array_column($indices, 'ID_DISTANCIAESTILO'))) !== false) { ?>
+                                                    <th scope="row" style="width: 200px;"><?= $estilo['distancia'] . 'm ' . $estilo['nomeEstilo'] ?></th>
+
+
+                                                    <td><?php
+
+                                                        foreach ($indices as $indice) {
+                                                            if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == 8) {
+                                                                echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
+                                                            }
+                                                        } ?>
+
+                                                    </td>
+                                                    <td><?php
+
+                                                        foreach ($indices as $indice) {
+                                                            if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == 9) {
+                                                                echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
+                                                            }
+                                                        } ?>
+
+                                                    </td>
+                                                    <td><?php
+
+                                                        foreach ($indices as $indice) {
+                                                            if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == 10) {
+                                                                echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
+                                                            }
+                                                        } ?>
+
+                                                    </td>
+                                                    <td><?php
+
+                                                        foreach ($indices as $indice) {
+                                                            if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '11') {
+                                                                echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
+                                                            }
+                                                        } ?>
+
+                                                    </td>
+                                                    <td><?php
+
+                                                        foreach ($indices as $indice) {
+                                                            if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '12') {
+                                                                echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
+                                                            }
+                                                        } ?>
+
+                                                    </td>
+                                                    <td><?php
+
+                                                        foreach ($indices as $indice) {
+                                                            if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '13') {
+                                                                echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
+                                                            }
+                                                        } ?>
+
+                                                    </td>
+                                                    <td><?php
+
+                                                        foreach ($indices as $indice) {
+                                                            if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '14') {
+                                                                echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
+                                                            }
+                                                        } ?>
+
+                                                    </td>
+                                                    <td><?php
+
+                                                        foreach ($indices as $indice) {
+                                                            if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '15') {
+                                                                echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
+                                                            }
+                                                        } ?>
+
+                                                    </td>
+                                                    <td><?php
+
+                                                        foreach ($indices as $indice) {
+                                                            if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '16') {
+                                                                echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
+                                                            }
+                                                        } ?>
+
+                                                    </td>
+                                                    <td><?php
+
+                                                        foreach ($indices as $indice) {
+                                                            if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '17') {
+                                                                echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
+                                                            }
+                                                        } ?>
+
+                                                    </td>
+                                                    <td><?php
+
+                                                        foreach ($indices as $indice) {
+                                                            if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '18') {
+                                                                echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
+                                                            }
+                                                        } ?>
+
+                                                    </td>
+                                                    <td><?php
+
+                                                        foreach ($indices as $indice) {
+                                                            if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '99') {
+                                                                echo adjustTime($indice['tempoIndice']) ?? '00:00.00';
+                                                            }
+                                                        } ?>
+
+                                                    </td>
+
+
+                                                <?php } ?>
+                                            </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            <?php } ?>
+        <?php
+
                         }
                     }
                 }
-            } ?>
-            <hr>
-        <?php } ?>
-    </div>
-</main>
+            }
+        } ?>
+        <hr>
+    <?php } ?>
+</div>
+
 <script>
     VMasker(document.querySelector('#tempoIndice')).maskPattern('99:99.99');
 </script>

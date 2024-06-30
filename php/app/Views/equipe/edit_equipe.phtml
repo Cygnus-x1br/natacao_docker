@@ -20,26 +20,25 @@ $disabled = (isset($this->setHtmlData->edit) ? $this->setHtmlData->edit : 'disab
                 </div>
             </div>
             <div class="col-md-7 col-lg-8">
-                <h4 class="mb-3"></h4>
-                <form action="edit_equipe" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+                <form action="update_equipe" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
                     <div class="row g-3">
                         <div class="col-12">
                             <input type="hidden" name="idequipe" value="<?= $equipe['IDEQUIPE'] ?>">
                             <label for="firstName" class="form-label">Nome</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="Nome" name="nomeEquipe" value="<?= $equipe['nomeEquipe'] ?>" <?= $disabled ?>>
+                            <input type="text" class="form-control" id="firstName" placeholder="Nome" name="nomeEquipe" value="<?= $equipe['nomeEquipe'] ?>">
                             <div class="invalid-feedback">
                                 Valid first name is required.
                             </div>
                         </div>
                         <div class="col-12">
                             <label for="nickname" class="form-label">Sigla</label>
-                            <input type="text" class="form-control" id="nickname" placeholder="Apelido" name="nomeFantasiaEquipe" value="<?= $equipe['nomeFantasiaEquipe'] ?>" <?= $disabled ?>>
+                            <input type="text" class="form-control" id="nickname" placeholder="Apelido" name="nomeFantasiaEquipe" value="<?= $equipe['nomeFantasiaEquipe'] ?>">
                         </div>
                     </div>
 
                     <div class="col-12">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="you@example.com" name="emailEquipe" value="<?= $equipe['emailEquipe'] ?>" <?= $disabled ?>>
+                        <input type="email" class="form-control" id="email" placeholder="you@example.com" name="emailEquipe" value="<?= $equipe['emailEquipe'] ?>">
                         <div class="invalid-feedback">
                             Please enter a valid email address.
                         </div>
@@ -47,7 +46,7 @@ $disabled = (isset($this->setHtmlData->edit) ? $this->setHtmlData->edit : 'disab
 
                     <div class="col-12">
                         <label for="address" class="form-label">Site</label>
-                        <input type="text" class="form-control" id="address" placeholder="www.example.com" name="siteEquipe" value="<?= $equipe['siteEquipe'] ?>" <?= $disabled ?>>
+                        <input type="text" class="form-control" id="address" placeholder="www.example.com" name="siteEquipe" value="<?= $equipe['siteEquipe'] ?>">
                         <div class="invalid-feedback">
                             Please enter your shipping address.
                         </div>
@@ -55,28 +54,28 @@ $disabled = (isset($this->setHtmlData->edit) ? $this->setHtmlData->edit : 'disab
                     <div class="row g-3">
                         <div class="col-6">
                             <label for="facebook" class="form-label" name>Facebook <span class="text-body-secondary">(Opcional)</span></label>
-                            <input type="text" class="form-control" id="facebook" name="facebookEquipe" placeholder="Link facebook" value="<?= $equipe['facebookEquipe'] ?>" <?= $disabled ?>>
+                            <input type="text" class="form-control" id="facebook" name="facebookEquipe" placeholder="Link facebook" value="<?= $equipe['facebookEquipe'] ?>">
                         </div>
                         <div class="col-6">
                             <label for="instagram" class="form-label">Instagram <span class="text-body-secondary">(Opcional)</span></label>
-                            <input type="text" class="form-control" id="instagram" name="instagramEquipe" placeholder="Link Instagram" value="<?= $equipe['instagramEquipe'] ?>" <?= $disabled ?>>
+                            <input type="text" class="form-control" id="instagram" name="instagramEquipe" placeholder="Link Instagram" value="<?= $equipe['instagramEquipe'] ?>">
                         </div>
                     </div>
 
                     <div class="col-md-5">
                         <label for="telefone" class="form-label">Telefone<span class="text-body-secondary">(Opcional)</span></label>
-                        <input type="text" class="form-control" id="telefone" name="telefoneEquipe" placeholder="" value="<?= $equipe['telefoneEquipe'] ?>" <?= $disabled ?>>
+                        <input type="text" class="form-control" id="telefone" name="telefoneEquipe" placeholder="" value="<?= $equipe['telefoneEquipe'] ?>">
                     </div>
                     <div class="row gy-3">
                         <div class="col-md-6">
                             <label for="logoEquipe" class="form-label">Logotipo</label>
-                            <input type="file" class="form-control" id="logoEquipe" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="logoEquipe" accept="image/jpeg,.gif,.png" value="<?= $equipe['logoEquipe'] ?>" <?= $disabled ?>>
+                            <input type="file" class="form-control" id="logoEquipe" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="logoEquipe" accept="image/jpeg,.gif,.png" value="<?= $equipe['logoEquipe'] ?>">
                             <input type="hidden" name="logoAntiga" value="<?= $equipe['logoEquipe'] ?>">
-                            <!-- <input type="text" class="form-control" id="logoEquipe" placeholder="" value="<?= $equipe['logoEquipe'] ?>" <?= $disabled ?>> -->
+                            <!-- <input type="text" class="form-control" id="logoEquipe" placeholder="" value="<?= $equipe['logoEquipe'] ?>"> -->
                         </div>
                         <div class="col-md-6">
                             <label for="federacao" class="form-label">Federação</label>
-                            <select name="id_federacao" class="form-select" id="federacao" <?= $disabled ?>>
+                            <select name="id_federacao" class="form-select" id="federacao">
                                 <option value="">Selecione</option>
                                 <?php foreach ($federacoes as $federacao) { ?>
                                     <option value="<?= $federacao['IDFEDERACAO'] ?>" <?php if ($federacao['IDFEDERACAO'] == $equipe['ID_FEDERACAO']) {
@@ -88,11 +87,10 @@ $disabled = (isset($this->setHtmlData->edit) ? $this->setHtmlData->edit : 'disab
                     </div>
                     <hr class="my-4">
                     <div class="grid column-gap-0">
-                        <?php if ($disabled == '') { ?>
-                            <button class="w-25 btn btn-primary btn-lg" type="submit">Edit</button>
-                            <!-- <a class="w-25 btn btn-primary btn-lg" href="/view_equipe?idequipe=<?= $equipe['IDEQUIPE'] ?>&edit=true">Editar</a> -->
-                        <?php } ?>
-                        <a class="w-25 btn btn-secondary btn-lg" href="/list_equipes">Voltar</a>
+
+                        <button class="w-25 btn btn-primary btn-lg" type="submit">Edit</button>
+
+                        <a class="w-25 btn btn-secondary btn-lg" href="/equipe_admin">Voltar</a>
                     </div>
                 </form>
             </div>

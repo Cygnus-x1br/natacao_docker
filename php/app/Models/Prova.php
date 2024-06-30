@@ -56,6 +56,28 @@ ORDER BY t.dataTorneio DESC, numeroProva ASC;";
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
+    public function getProvasTorneio()
+    {
+        $prova = "SELECT idprova ,numeroProva, genero, id_torneio, ID_CATEGORIA_MIN, ID_CATEGORIA_MAX, t.nomeTorneio, t.dataTorneio, f.nomeFantasiaFederacao, p.tamanhoPiscina, d.distancia, e.nomeEstilo, cmin.nomeCategoria AS categoriaMinima, cmax.nomeCategoria AS categoriaMaxima FROM tb_prova
+        INNER JOIN tb_torneio AS t ON ID_TORNEIO = t.IDTORNEIO
+        INNER JOIN tb_federacao AS f ON 
+        (SELECT tb_torneio.ID_FEDERACAO FROM tb_torneio WHERE tb_prova.ID_TORNEIO = tb_torneio.IDTORNEIO) = f.IDFEDERACAO
+        INNER JOIN tb_distancia AS d ON 
+        (SELECT ID_DISTANCIA AS dist FROM tba_distancia_estilo WHERE tb_prova.ID_DISTANCIAESTILO = IDDISTANCIAESTILO) = d.IDDISTANCIA
+        INNER JOIN tb_estilo AS e ON 
+        (SELECT ID_ESTILO AS est FROM tba_distancia_estilo WHERE tb_prova.ID_DISTANCIAESTILO = IDDISTANCIAESTILO) = e.IDESTILO
+        INNER JOIN tb_piscina AS p ON t.ID_PISCINA = p.IDPISCINA
+        INNER JOIN tb_categoria AS cmin ON ID_CATEGORIA_MIN = cmin.IDCATEGORIA
+        INNER JOIN tb_categoria AS cmax ON ID_CATEGORIA_MAX = cmax.IDCATEGORIA
+        WHERE ID_TORNEIO = :id_torneio
+        ORDER BY t.dataTorneio DESC, numeroProva ASC";
+
+        $stmt = $this->db->prepare($prova);
+        $stmt->bindValue(':id_torneio', $this->__get('id_torneio'));
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     public function saveProva()
     {
         $prova = "INSERT INTO tb_prova (IDPROVA, numeroProva, genero, ID_TORNEIO, ID_DISTANCIAESTILO, ID_CATEGORIA_MIN, ID_CATEGORIA_MAX) VALUES (NULL, :numeroProva, :genero, :id_torneio, :id_distanciaestilo, :id_categoria_min, :id_categoria_max)";

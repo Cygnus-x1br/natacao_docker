@@ -26,13 +26,8 @@ $federacoes = $this->viewData->federacoes;
     } ?>
 
     <div class="row g-5">
-        <div class="col-md-5 col-lg-4 order-md-last">
-            <div class="d-flex justify-content-center align-items-center mb-3">
-                <img class="img-logo-border" src="#" class="img-foto-border" alt="" style="display: none;">
-            </div>
 
-        </div>
-        <div class="col-md-7 col-lg-8">
+        <div class="">
             <h4 class="mb-3"></h4>
             <form action="save_torneio" class="needs-validation" method="post" enctype="multipart/form-data">
                 <div class="row g-2">
@@ -62,7 +57,7 @@ $federacoes = $this->viewData->federacoes;
                             <option value="">Selecione</option>
                             <?php foreach ($federacoes as $federacao) { ?>
                                 <option value="<?= $federacao['IDFEDERACAO'] ?>"><?= $federacao['nomeFantasiaFederacao'] . ' - ' . $federacao['nomeFederacao']  ?></option>
-                            <?php }; ?>
+                            <?php } ?>
                         </select>
                     </div>
                 </div>
@@ -74,7 +69,7 @@ $federacoes = $this->viewData->federacoes;
                             <option value="">Selecione</option>
                             <?php foreach ($complexos as $complexo) { ?>
                                 <option value="<?= $complexo['IDCOMPLEXO'] ?>"><?= $complexo['nomeFantasiaComplexo'] ?></option>
-                            <?php }; ?>
+                            <?php } ?>
                         </select>
                     </div>
                     <div class="col-md-4">
@@ -89,7 +84,11 @@ $federacoes = $this->viewData->federacoes;
                 </div>
 
                 <hr class="my-4">
-                <button class="w-100 btn btn-primary btn-lg" type="submit">Incluir</button>
+                <div class="d-flex justify-content-around">
+
+                    <button class="w-25 btn btn-primary btn-lg" type="submit">Incluir</button>
+                    <a href="/list_torneios" class="w-25 btn btn-secondary btn-lg">Voltar</a>
+                </div>
             </form>
         </div>
     </div>

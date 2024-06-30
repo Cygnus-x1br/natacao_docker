@@ -1,0 +1,95 @@
+<?php
+
+$estados = $this->viewData->estados;
+$federacao = $this->viewData->federacao;
+
+?>
+
+<div class="container">
+    <main>
+        <div class="py-5 text-center">
+            <h2>Dados da Federacao</h2>
+            <p class="lead">Alteração dos dados</p>
+        </div>
+
+        <div class="row g-5">
+            <div class="col-md-5 col-lg-4 order-md-last">
+                <div class="d-flex justify-content-center align-items-center mb-3">
+                    <img class="img-logo" src="<?= $federacao['logoFederacao'] ?>" class="img-foto" alt="">
+                </div>
+            </div>
+            <div class="col-md-7 col-lg-8">
+                <h4 class="mb-3"></h4>
+                <form action="update_federacao" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <input type="hidden" name="idfederacao" value="<?= $federacao['IDFEDERACAO'] ?>">
+                            <label for="firstName" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="Nome" name="nomeFederacao" value="<?= $federacao['nomeFederacao'] ?>">
+                            <div class="invalid-feedback">
+                                Valid first name is required.
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label for="nickname" class="form-label">Sigla</label>
+                            <input type="text" class="form-control" id="nickname" placeholder="Apelido" name="nomeFantasiaFederacao" value="<?= $federacao['nomeFantasiaFederacao'] ?>">
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="you@example.com" name="emailFederacao" value="<?= $federacao['emailFederacao'] ?>">
+                        <div class="invalid-feedback">
+                            Please enter a valid email address.
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="address" class="form-label">Site</label>
+                        <input type="text" class="form-control" id="address" placeholder="www.example.com" name="siteFederacao" value="<?= $federacao['siteFederacao'] ?>">
+                        <div class="invalid-feedback">
+                            Please enter your shipping address.
+                        </div>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <label for="facebook" class="form-label" name>Facebook <span class="text-body-secondary">(Opcional)</span></label>
+                            <input type="text" class="form-control" id="facebook" name="facebookFederacao" placeholder="Link facebook" value="<?= $federacao['facebookFederacao'] ?>">
+                        </div>
+                        <div class="col-6">
+                            <label for="instagram" class="form-label">Instagram <span class="text-body-secondary">(Opcional)</span></label>
+                            <input type="text" class="form-control" id="instagram" name="instagramFederacao" placeholder="Link Instagram" value="<?= $federacao['instagramFederacao'] ?>">
+                        </div>
+                    </div>
+
+                    <div class="col-md-5">
+                        <label for="telefone" class="form-label">Telefone<span class="text-body-secondary">(Opcional)</span></label>
+                        <input type="text" class="form-control" id="telefone" name="telefoneFederacao" placeholder="" value="<?= $federacao['telefoneFederacao'] ?>">
+                    </div>
+                    <div class="row gy-3">
+                        <div class="col-md-6">
+                            <label for="logoFederacao" class="form-label">Logotipo</label>
+                            <input type="file" class="form-control" id="logoFederacao" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="logoFederacao" accept="image/jpeg,.gif,.png" value="<?= $federacao['logoFederacao'] ?>">
+                            <input type="hidden" name="logoAntiga" value="<?= $federacao['logoFederacao'] ?>">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="estado" class="form-label">Estado</label>
+                            <select name="id_estado" class="form-select" id="estado">
+                                <option value="">Selecione</option>
+                                <?php foreach ($estados as $estado) { ?>
+                                    <option value="<?= $estado['IDESTADO'] ?>" <?php if ($estado['IDESTADO'] == $federacao['ID_ESTADO']) {
+                                                                                    echo 'selected';
+                                                                                } ?>><?= $estado['nomeEstado'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+                    <hr class="my-4">
+                    <div class="grid column-gap-0">
+                        <button class="w-25 btn btn-primary btn-lg" type="submit">Edit</button>
+                        <a class="w-25 btn btn-secondary btn-lg" href="/federacao_admin">Voltar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>

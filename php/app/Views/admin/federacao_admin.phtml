@@ -1,0 +1,50 @@
+<?php
+
+$federacoes = $this->viewData->federacoes;
+
+// echo '<pre>';
+// print_r($federacoes);
+// echo '</pre>';
+
+?>
+
+
+<div class="py-5 text-center">
+    <h2 class="display-5 my-3">Administração de Federações</h2>
+    <!-- <p class="lead">Alteração dos dados</p> -->
+</div>
+
+<div class="text-end">
+    <a href="/add_federacao">
+        <i class="bi bi-plus-circle" style="font-size: 32px; color: rgba(var(--bs-secondary-color-rgb), 0.5)"></i>
+    </a>
+</div>
+
+<div class="table-responsive">
+    <table class="table text-center">
+        <thead>
+            <tr>
+
+                <th style="width: 12%;"></th>
+                <th style="width: 12%;">ID</th>
+                <th class="text-start" style="width: 22%;">Federaçao</th>
+                <th class="text-start" style="width: 42%;">Nome</th>
+                <th style="width: 12%;">Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($federacoes as $federacao) { ?>
+                <tr>
+                    <td><img src="<?= $federacao['logoFederacao'] ?>" class="img-foto" style="width: 60px; height: 60px; border:0 " alt="Logotipo da <?= $federacao['nomeFederacao'] ?>"></td>
+                    <td><?= $federacao['IDFEDERACAO'] ?></td>
+                    <td class="text-start"><?= $federacao['nomeFantasiaFederacao'] ?></td>
+                    <td class="text-start"><?= $federacao['nomeFederacao'] ?></td>
+
+                    <td><?= $federacao['siglaEstado'] ?></td>
+                    <td><a href="edit_federacao?idfederacao=<?= $federacao['IDFEDERACAO'] ?>" class="btn btn-outline-primary">Editar</a></td>
+                    <td><a href="delete_federacao?idfederacao=<?= $federacao['IDFEDERACAO'] ?>" class="btn btn-outline-primary">Delete</a></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>

@@ -101,24 +101,13 @@ class Equipe extends Model
         return $this;
     }
 
+    public function deleteEquipe()
+    {
+        $equipe = "DELETE FROM tb_equipe WHERE IDEQUIPE = :idequipe";
+        $stmt = $this->db->prepare($equipe);
+        $stmt->bindValue(':idequipe', $this->__get('idequipe'));
+        $stmt->execute();
 
-
-    // public function deleteNote()
-    // {
-    //   $note = "DELETE FROM tb_notes WHERE IDNOTE=:idnote";
-    //   $stmt = $this->db->prepare($note);
-    //   $stmt->bindValue('idnote', $this->__get('idnote'));
-    //   $stmt->execute();
-
-    //   return $this;
-    // }
-
-    // public function getLastTexts()
-    // {
-    //   $notes = "SELECT * FROM tb_notes ORDER BY IDNOTE DESC LIMIT 3";
-    //   $stmt = $this->db->prepare($notes);
-    //   $stmt->execute();
-
-    //   return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-    // }
+        return $this;
+    }
 }

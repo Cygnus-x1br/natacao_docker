@@ -9,6 +9,7 @@ $tempoAtleta = $this->viewData->tempoAtleta;
 $torneiosParticipados = $this->viewData->torneiosParticipados;
 $anos = $this->viewData->anos;
 $estilos = $this->viewData->estilos;
+$indicesMundial = $this->viewData->indices_mundial;
 
 function adjustTime($fullTime)
 {
@@ -17,7 +18,30 @@ function adjustTime($fullTime)
     return implode(':', $time);
 }
 
+function tempoEmSegundos($tempo)
+{
+    $tempoEmSegundos = (explode(':', $tempo)[0] * 60) + explode(':', $tempo)[1];
+    return $tempoEmSegundos;
+}
+function indice_tecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
+{
+    $tempoAtleta = tempoEmSegundos($tempo);
+    $tempoIndice = 0;
+    foreach ($indicesMundial as $indice) {
+
+        if ($indice['ID_DISTANCIAESTILO'] == $id_distanciaestilo && $indice['generoIndice'] == $genero) {
+            // print_r($indice['ID_DISTANCIAESTILO']);
+            $tempo = adjustTime($indice['tempoIndice']);
+            $tempoIndice = tempoEmSegundos($tempo);
+        }
+    }
+    $indice_tecnico = 1000 * pow(($tempoIndice / $tempoAtleta), 3);
+
+    return floor($indice_tecnico);
+}
+//print_r($indicesMundial);
 ?>
+
 
 <main>
     <section class="py-5 text-center container">
@@ -83,6 +107,7 @@ function adjustTime($fullTime)
                     <th style="width: 22%;">Piscina</th>
                     <th style="width: 12%;">Estilo</th>
                     <th style="width: 22%;">Tempo</th>
+                    <th style="width: 22%;">IT</th>
                 </tr>
             </thead>
             <tbody>
@@ -93,6 +118,7 @@ function adjustTime($fullTime)
                         <td><?= $tempo['tamanhoPiscina'] . 'm' ?></td>
                         <td class="text-start"><?= $tempo['distancia'] . 'm ' . $tempo['nomeEstilo'] ?></td>
                         <td><?php echo adjustTime($tempo['tempoAtleta']) ?></td>
+                        <td><?php echo indice_tecnico(adjustTime($tempo['tempoAtleta']), $tempo['distanciaEstilo'], $indicesMundial, $tempo['genero']) ?>
                     </tr>
                 <?php } ?>
             </tbody>

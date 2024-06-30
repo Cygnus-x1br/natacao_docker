@@ -6,8 +6,6 @@ if (count($torneios) > 0) {
     $torneios = array_slice($torneios, 0, 3);
 }
 
-// print_r($torneios);
-
 ?>
 
 
@@ -41,7 +39,7 @@ if (count($torneios) > 0) {
                                 echo $datas; ?></li>
                             <li><?= $torneio['nomeFantasiaFederacao'] ?></li>
                             <li><?= 'Piscina: ' . $torneio['tamanhoPiscina'] . 'm' ?></li>
-                            <li>Local???</li>
+                            <li>Local: <?= $torneio['nomeFantasiaComplexo'] ?></li>
                         </ul>
                         <a href="/sign_in" class="w-100 btn btn-lg btn-outline-primary">Entre</a>
                     </div>

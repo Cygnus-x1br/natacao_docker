@@ -43,7 +43,11 @@ $provas = $this->viewData->provas;
                             <td><?= 'Prova numero ' . $prova['numeroProva'] ?></td>
                             <td><?= $prova['distancia'] . 'm ' . $prova['nomeEstilo'] ?></td>
                             <td><?= $prova['genero'] ?></td>
+                            <td><?php if ($prova['categoriaMinima'] != $prova['categoriaMaxima']) { ?>
                             <td><?= $prova['categoriaMinima'] . ' a ' . $prova['categoriaMaxima'] ?></td>
+                        <?php } else { ?>
+                            <td><?= $prova['categoriaMinima'] ?></td>
+                        <?php } ?>
                         </tr>
                     </tbody>
                 <?php } ?>
@@ -55,14 +59,5 @@ $provas = $this->viewData->provas;
 </main>
 
 <script>
-    // let listas = document.querySelectorAll('table');
 
-    // for (let i = 0; i < listas.length; i++) {
-    //     let itens = listas[i].querySelectorAll('tbody');
-    //     for (let j = 0; j < itens.length; j++) {
-    //         if (j > 4) {
-    //             itens[j].classList.add('d-none');
-    //         }
-    //     }
-    // }
 </script>

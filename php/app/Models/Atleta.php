@@ -179,4 +179,14 @@ class Atleta extends Model
 
         return $this;
     }
+
+    public function deleteAtleta()
+    {
+        $atleta = "DELETE FROM tb_atleta WHERE idatleta = :idatleta";
+        $stmt = $this->db->prepare($atleta);
+        $stmt->bindValue(':idatleta', $this->__get('idatleta'));
+        $stmt->execute();
+
+        return $this;
+    }
 }

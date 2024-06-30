@@ -30,7 +30,7 @@ function adjustTime($fullTime)
         <p class="lead"></p>
     </div>
 
-    <div class="row p-3 ">
+    <div class="row p-3 mb-5">
         <form action="filtra_indices" method="post" class="row g-3 d-flex align-items-end">
             <div class="col-md-4 col-lg-2">
                 <label for="anoIndice" class="form-label">Ano</label>
@@ -38,7 +38,7 @@ function adjustTime($fullTime)
                     <option value="">Selecione</option>
                     <?php foreach ($anos as $ano) { ?>
                         <option value="<?= $ano ?>"><?= $ano ?></option>
-                    <?php }; ?>
+                    <?php } ?>
                 </select>
             </div>
             <div class="col-md-4 col-lg-2">
@@ -47,7 +47,7 @@ function adjustTime($fullTime)
                     <option value="">Selecione</option>
                     <?php foreach ($tipos as $tipo) { ?>
                         <option value="<?= $tipo ?>"><?= $tipo ?></option>
-                    <?php }; ?>
+                    <?php } ?>
                 </select>
             </div>
             <div class="col-md-4 col-lg-2">
@@ -64,7 +64,7 @@ function adjustTime($fullTime)
                     <option value="">Selecione</option>
                     <?php foreach ($categorias as $categoria) { ?>
                         <option value="<?= $categoria['IDCATEGORIA'] ?>"><?= $categoria['nomeCategoria'] ?></option>
-                    <?php }; ?>
+                    <?php } ?>
                 </select>
             </div>
             <div class="col-md-4 col-lg-2">
@@ -73,20 +73,24 @@ function adjustTime($fullTime)
         </form>
     </div>
 
+    <?php $countIndices = 1 ?>
     <div class="table-responsive small indices-table">
         <?php foreach ($anos as $ano) { ?>
             <?php if ((array_search($ano, array_column($indices, 'anoIndice'))) !== false) {
             ?>
-                <h2><?= $ano ?></h2>
+                <h2 class="text-center display-3 mb-3"><?= $ano ?></h2>
                 <?php foreach ($tipos as $tipo) { ?>
                     <?php if ((array_search($tipo, array_column($indices, 'tipoIndice'))) !== false) {
                     ?>
                         <h3><?= $tipo ?></h3>
                         <?php foreach ($piscinas as $piscina) { ?>
-                            <?php if ((array_search($piscina, array_column($indices, 'tamanhoPiscina'))) !== false) {
+                            <?php if ((array_search($piscina, array_column($indices, 'tamanhoPiscina'))) !== false && $tipo != '') {
                             ?>
-                                <h3 class="lead"><?= 'Tamanho da piscina: ' . $piscina . ' m' ?></h3>
-                                <table class="table table-sm">
+                                <div class="d-flex flex-row justify-content-between mb-3">
+                                    <h3 class="lead"><?= 'Tamanho da piscina: ' . $piscina . ' m' ?></h3>
+                                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#indices-<?= $countIndices ?>" aria-expanded="false" aria-controls="collapseExample">Ver mais</button>
+                                </div>
+                                <table class="table table-sm mx-auto collapse" id="indices-<?= $countIndices ?>">
                                     <thead>
                                         <tr>
                                             <th scope="col">Prova</th>
@@ -109,7 +113,8 @@ function adjustTime($fullTime)
                                     <?php }
                                     } ?>
                                 </table>
-            <?php }
+                                <?php $countIndices++ ?>
+            <?php           }
                         }
                     }
                 }
@@ -118,5 +123,6 @@ function adjustTime($fullTime)
         <?php
         }
         ?>
+
     </div>
 </main>
