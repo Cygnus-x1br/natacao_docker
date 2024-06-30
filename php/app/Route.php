@@ -60,6 +60,11 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'AdminController',
             'action' => 'atleta_admin'
         );
+        $routes['complexo_admin'] = array(
+            'route' => '/complexo_admin',
+            'controller' => 'AdminController',
+            'action' => 'complexo_admin'
+        );
         $routes['indice_admin'] = array(
             'route' => '/indice_admin',
             'controller' => 'AdminController',
@@ -201,6 +206,16 @@ class Route extends \MF\Init\Bootstrap
             'route' => '/edit_complexo',
             'controller' => 'ComplexoController',
             'action' => 'edit_complexo'
+        );
+        $routes['update_complexo'] = array(
+            'route' => '/update_complexo',
+            'controller' => 'ComplexoController',
+            'action' => 'update_complexo'
+        );
+        $routes['delete_complexo'] = array(
+            'route' => '/delete_complexo',
+            'controller' => 'ComplexoController',
+            'action' => 'delete_complexo'
         );
         // Torneios
         $routes['add_torneio'] = array(

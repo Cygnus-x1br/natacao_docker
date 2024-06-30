@@ -221,6 +221,13 @@ class Assets extends Action
         }
         return array_unique($tamanhos);
     }
+    
+    public static function list_todas_piscinas()
+    {
+        $piscinas = Container::getModel('Piscina');
+        $piscinas_data = $piscinas->getPiscinas();
+        return $piscinas_data;
+    }
 
     public static function list_todos_estilos()
     {

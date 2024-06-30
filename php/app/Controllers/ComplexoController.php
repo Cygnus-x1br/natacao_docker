@@ -69,7 +69,22 @@ class ComplexoController extends Action
 
         header("Location: /list_complexos");
     }
+    
     public function edit_complexo()
+    {
+        Assets::admin_authenticate();
+        $estado = Container::getModel('Estados');
+        $estado_data = $estado->getAllEstados();
+        $this->viewData->estados = $estado_data;
+
+        $complexo = Container::getModel('Complexo');
+        $complexo->__set('idcomplexo', $_GET['idcomplexo']);
+        $complexo_data = $complexo->getComplexo();
+        $this->viewData->complexo = $complexo_data;
+        
+        $this->render('edit_complexo', 'admin_layout');
+    }    
+    public function update_complexo()
     {
         if ($_POST['nomeComplexo'] == '') {
             header("Location: /add_complexo?error=1");
@@ -94,13 +109,23 @@ class ComplexoController extends Action
         // $complexo->__set('latitudeComplexo', $_POST['latitudeComplexo']);
         // $complexo->__set('longitudeComplexo', $_POST['longitudeComplexo']);
         $complexo->__set('observacaoComplexo', $_POST['observacaoComplexo']);
-        // $equipe->__set('logoEquipe', $_POST['logoEquipe']);
         $complexo->__set('id_estado', $_POST['id_estado']);
         $complexo->__set('idcomplexo', $_POST['idcomplexo']);
 
         $complexo->editComplexo();
 
-        header("Location: /list_complexos");
+        header("Location: /complexo_admin");
+    }
+    
+    public function delete_complexo() {
+        
+        Assets::admin_authenticate();
+        
+        $complexo = Container::getModel('Complexo');
+        $complexo->__set('idcomplexo', $_GET['idcomplexo']);
+        $complexo->deleteComplexo();
+        
+        header('Location: /complexo_admin');
     }
 
     private function upload_file()

@@ -22,6 +22,7 @@ class Indices extends Model
     private $jv2;
     private $jr1;
     private $jr2;
+    private $tamanhoPiscina;
 
 
     public function __get($atribute)
@@ -127,6 +128,9 @@ class Indices extends Model
         if (!empty($this->__get('tipoIndice'))) {
             $indices .= "tipoIndice = :tipoIndice AND ";
         }
+        if (!empty($this->__get('tamanhoPiscina'))) {
+            $indices .= "p.tamanhoPiscina = :tamanhoPiscina AND ";
+        }
         if (!empty($this->__get('id_distanciaestilo'))) {
             $indices .= "ID_DISTANCIAESTILO = :id_distanciaestilo AND ";
         }
@@ -172,6 +176,9 @@ class Indices extends Model
         }
         if (!empty($this->__get('id_categoria'))) {
             $stmt->bindValue(':categoria', $this->__get('id_categoria'));
+        }
+        if (!empty($this->__get('tamanhoPiscina'))) {
+            $stmt->bindValue(':tamanhoPiscina', $this->__get('tamanhoPiscina'));
         }
         if (!empty($this->__get('p1'))) {
             $stmt->bindValue(':p1', $this->__get('p1'));

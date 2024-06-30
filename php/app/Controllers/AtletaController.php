@@ -19,7 +19,7 @@ class AtletaController extends Action
             $_SESSION['atleta_id'] = $_GET['id']; //recuperar dados da tabela de user
         }
 
-        print_r($_SESSION);
+        //print_r($_SESSION);
 
         $atleta = Container::getModel('Atleta');
         $atleta->__set('idatleta', $_GET['id']);

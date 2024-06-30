@@ -7,7 +7,6 @@
   /* object-position: 0 20%; */
 }
 
-
 .img-foto {
   border: 2px solid #000;
   border-radius: 50%;
@@ -19,11 +18,23 @@
   object-position: 0 20%;
 }
 
+.img-big {
+    max-width: 640px;
+    max-height: 480px;
+    width: auto;
+    height: auto;
+    object-image: fill;
+    
+    
+    
+}
+
 .img-logo {
   max-width: 320px;
   max-height: 320px;
   /* width: 240px; */
   height: 240px;
+    
   object-fit: cover;
   object-position: 0 20%;
 }
@@ -47,6 +58,16 @@
     font-weight: 200;
 }
 
+.views-data {
+    font-family: "Montserrat", sans-serif;
+    font-size: 32px;
+    font-weight: 200;
+}
+.views-text {
+    font-family: "Montserrat", sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+}
 
 .bi {
     display: inline-block;

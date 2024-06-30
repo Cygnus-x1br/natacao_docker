@@ -1,0 +1,44 @@
+<?php
+
+$piscinas = $this->viewData->piscinas;
+
+?>
+
+
+<div class="py-5 text-center">
+    <h2 class="display-5 my-3">Administração de Piscinas</h2>
+    <!-- <p class="lead">Alteração dos dados</p> -->
+</div>
+
+<div class="text-end">
+    <a href="/">
+        <i class="bi bi-plus-circle" style="font-size: 32px; color: rgba(var(--bs-secondary-color-rgb), 0.5)"></i>
+    </a>
+</div>
+
+<div class="table-responsive">
+    <table class="table text-center">
+        <thead>
+            <tr>
+                <th style="width: 12%;">ID</th>
+                <th class="text-start" style="width: 32%;">Nome Complexo</th>
+                <th class="text-start" style="width: 22%;">Endereço</th>
+                <th style="width: 12%;">Cidade</th>
+                <th style="width: 12%;">Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($piscinas as $piscina) { ?>
+                <tr>
+                    <td><?= $piscina['IDCOMPLEXO'] ?></td>
+                    <td class="text-start"><?= $piscina['nomeComplexo'] ?></td>
+                    <td class="text-start"><?= $piscina['enderecoComplexo'] ?></td>
+                    <td><?= $piscina['cidadeComplexo'] ?></td>
+                    <td><?= $piscina['siglaEstado'] ?></td>
+                    <td><a href="edit_complexo?idcomplexo=<?= $piscina['IDCOMPLEXO'] ?>" class="btn btn-outline-primary">Editar</a></td>
+                    <td><a href="delete_complexo?idcomplexo=<?= $piscina['IDCOMPLEXO'] ?>" class="btn btn-outline-primary">Delete</a></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>

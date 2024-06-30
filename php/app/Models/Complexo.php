@@ -106,4 +106,14 @@ class Complexo extends Model
 
         return $this;
     }
+    
+    public function deleteComplexo()
+    {
+        $complexo = "DELETE FROM tb_complexo WHERE IDCOMPLEXO = :idcomplexo";
+        $stmt = $this->db->prepare($complexo);
+        $stmt->bindValue(':idcomplexo', $this->__get('idcomplexo'));
+        $stmt->execute();
+        
+        return $this;
+    }
 }

@@ -18,6 +18,7 @@ class GraficosController extends Action
         $this->viewData->anos = Assets::list_anos($_SESSION['user_id']);
         $this->viewData->torneiosParticipados = Assets::list_torneios($_SESSION['user_id']);
         $this->viewData->estilos = Assets::list_estilos($_SESSION['user_id']);
+        $this->viewData->piscinas = Assets::list_todas_piscinas();
 
         $torneio = Container::getModel('Torneio');
         $torneio_data = $torneio->getAllTorneios();
@@ -50,6 +51,7 @@ class GraficosController extends Action
         $this->viewData->anos = Assets::list_anos($_SESSION['user_id']);
         $this->viewData->torneiosParticipados = Assets::list_torneios($_SESSION['user_id']);
         $this->viewData->estilos = Assets::list_estilos($_SESSION['user_id']);
+        $this->viewData->piscinas = Assets::list_todas_piscinas();
 
         $atleta = Container::getModel('Atleta');
         $atleta->__set('idatleta', $_SESSION['user_id']);
@@ -71,11 +73,12 @@ class GraficosController extends Action
         $provas = Container::getModel('Prova');
         $provas_data = $provas->getAllProvas();
         $this->viewData->provas = $provas_data;
-
+                
         $indices = Container::getModel('Indices');
         $indices->__set('id_distanciaestilo', $_POST['distanciaEstilo']);
         $indices->__set('generoIndice', $atleta_data['sexoAtleta']);
         $indices->__set('id_categoria', date('Y') - (explode('-', $atleta_data['dataNascAtleta']))[0]);
+        $indices->__set('tamanhoPiscina', $_POST['tamanhoPiscina']);
         $indices->__set('p1', $_POST['p1'] ?? '');
         $indices->__set('p2', $_POST['p2'] ?? '');
         $indices->__set('i1', $_POST['i1'] ?? '');
