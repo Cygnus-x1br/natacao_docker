@@ -125,8 +125,33 @@ class AtletaController extends Action
     //         echo $atleta;
     //     }
     // }
-
     public function edit_atleta()
+    {
+        Assets::authenticate();
+
+        $atleta = Container::getModel('Atleta');
+        $atleta->__set('idatleta', $_GET['id']);
+        $atleta_data = $atleta->getAtletabyID();
+        if ($_SESSION['nome'] != $atleta_data['emailAtleta'] && $_SESSION['permissao'] != '2') {
+            header('Location: /error?error=1002');
+            die();
+        }
+        $this->viewData->atleta = $atleta_data;
+
+        $idade = date('Y') - (explode('-', $atleta_data['dataNascAtleta']))[0];
+        $idade = $idade > 19 ? 99 : ($idade < 7 ? 7 : $idade);
+        $this->viewData->categoria = Assets::test_category($idade);
+        $this->viewData->equipes = Assets::list_equipes();
+
+        $tempo = Container::getModel('Tempo');
+        $tempo->__set('id_atleta', $_GET['id']);
+        $this->viewData->tempos = $tempo->getTempo();
+        $this->viewData->display = 'disabled';
+
+        $this->render('edit_atleta');
+    }
+
+    public function update_atleta()
     {
         Assets::authenticate();
         // print_r($_POST);

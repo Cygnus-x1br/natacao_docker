@@ -69,7 +69,7 @@ class ComplexoController extends Action
 
         header("Location: /list_complexos");
     }
-    
+
     public function edit_complexo()
     {
         Assets::admin_authenticate();
@@ -81,9 +81,9 @@ class ComplexoController extends Action
         $complexo->__set('idcomplexo', $_GET['idcomplexo']);
         $complexo_data = $complexo->getComplexo();
         $this->viewData->complexo = $complexo_data;
-        
+
         $this->render('edit_complexo', 'admin_layout');
-    }    
+    }
     public function update_complexo()
     {
         if ($_POST['nomeComplexo'] == '') {
@@ -116,15 +116,16 @@ class ComplexoController extends Action
 
         header("Location: /complexo_admin");
     }
-    
-    public function delete_complexo() {
-        
+
+    public function delete_complexo()
+    {
+
         Assets::admin_authenticate();
-        
+
         $complexo = Container::getModel('Complexo');
         $complexo->__set('idcomplexo', $_GET['idcomplexo']);
         $complexo->deleteComplexo();
-        
+
         header('Location: /complexo_admin');
     }
 

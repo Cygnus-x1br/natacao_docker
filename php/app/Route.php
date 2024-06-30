@@ -128,6 +128,11 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'AtletaController',
             'action' => 'edit_atleta'
         );
+        $routes['update_atleta'] = array(
+            'route' => '/update_atleta',
+            'controller' => 'AtletaController',
+            'action' => 'update_atleta'
+        );
         $routes['insert_atleta'] = array(
             'route' => '/insert_atleta',
             'controller' => 'AtletaController',

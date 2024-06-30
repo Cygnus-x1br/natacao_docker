@@ -1,7 +1,8 @@
 -- Versao 0.1.3.0 (Não criado)
 -- Incluido campo final em tb_prova
--- Incluido campo recordProvaTorneio em tb_prova
+-- Incluido campo recordeProvaTorneio em tb_prova
 -- Alterado o campo username para VARCHAR(50) em tb_users
+-- Criada tabela de Recordes
 --
 -- Versao 0.1.2.5
 -- Alterado campo tb_prova.numeroProva de VARCHAR para INT
@@ -146,7 +147,7 @@ IDPROVA INT PRIMARY KEY AUTO_INCREMENT,
 numeroProva INT NOT NULL,
 genero ENUM('M', 'F') NOT NULL,
 final ENUM('S', 'N'),
-recordProvaTorneio TIME(2) NOT NULL,
+recordeProvaTorneio TIME(2) NOT NULL,
 ID_TORNEIO INT,
 ID_DISTANCIAESTILO INT,
 ID_CATEGORIA_MIN INT,
@@ -242,6 +243,24 @@ ALTER TABLE tb_indices
 ADD CONSTRAINT FK_INDICE_PISCINA FOREIGN KEY(ID_PISCINA) REFERENCES tb_piscina(IDPISCINA);
 ALTER TABLE tb_indices
 ADD CONSTRAINT FK_INDICE_CATEGORIA FOREIGN KEY(ID_CATEGORIA) REFERENCES tb_categoria(IDCATEGORIA);
+--
+CREATE TABLE tb_recordes (
+IDRECORDE INT PRIMARY KEY AUTO_INCREMENT,
+dataRecorde DATE NOT NULL,
+nomeRecorde VARCHAR(60) NOT NULL,
+generoRecorde ENUM('M', 'F') NOT NULL,
+tempoRecorde TIME(2) NOT NULL,
+localRecorde VARCHAR(60),
+nacionalidadeRecorde VARCHAR(60),
+ID_CATEGORIA INT NOT NULL,
+ID_DISTANCIAESTILO INT NOT NULL,
+ID_PISCINA INT NOT NULL
+);
+--
+ALTER TABLE tb_recordes
+ADD CONSTRAINT FK_RECORDE_PISCINA FOREIGN KEY(ID_PISCINA) REFERENCES tb_piscina(IDPISCINA);
+ALTER TABLE tb_recordes
+ADD CONSTRAINT FK_RECORDE_CATEGORIA FOREIGN KEY(ID_CATEGORIA) REFERENCES tb_categoria(IDCATEGORIA);
 --
 CREATE TABLE tb_tempoAtleta (
 IDTMPATLETA INT PRIMARY KEY AUTO_INCREMENT,
@@ -429,7 +448,7 @@ INSERT INTO tba_distancia_estilo
 VALUES(null, 4, 5);
 INSERT INTO tba_distancia_estilo
 VALUES(null, 5, 5);
--- Tabela TEste de dados
+-- Tabela Teste de dados
 INSERT INTO tb_federacao
 VALUES(
         null,
@@ -535,28 +554,6 @@ VALUES(
         1
     );
 --
--- INSERT INTO tb_prova
--- VALUES(
---         null,
---         1,
---         'M',
---         1,
---         5,
---         13,
---         99
---     );
--- INSERT INTO tb_prova
--- VALUES(
---         null,
---         1,
---         'F',
---         1,
---         5,
---         13,
---         99
---     );
---
---
 INSERT INTO tb_users
 VALUES(
         null,
@@ -633,7 +630,7 @@ INSERT INTO tb_complexo(
 VALUES(
         'Nova Piscina Olimpica da Bahia',
         'Nova Piscina Olimpica da Bahia',
-        './images/fotos/piscina_Nova Piscina Olimpica da Bahia.jpg',
+        './images/fotos/piscina_NovaPiscinaOlimpicadaBahia.jpg',
         'Av Mario Leal Ferreira',
         'Brotas',
         'Salvador',
@@ -697,10 +694,10 @@ VALUES(
 -- INNER JOIN tb_federacao as f ON ID_FEDERACAO = f.IDFEDERACAO 
 -- INNER JOIN tb_piscina as p ON ID_PISCINA = p.IDPISCINA;
 --
-SELECT IDDISTANCIAESTILO, d.distancia, e.nomeEstilo 
-FROM tba_distancia_estilo
-    INNER JOIN tb_distancia AS d ON ID_DISTANCIA = d.IDDISTANCIA
-    INNER JOIN tb_estilo AS e ON ID_ESTILO = e.IDESTILO;
+-- SELECT IDDISTANCIAESTILO, d.distancia, e.nomeEstilo 
+-- FROM tba_distancia_estilo
+--     INNER JOIN tb_distancia AS d ON ID_DISTANCIA = d.IDDISTANCIA
+--     INNER JOIN tb_estilo AS e ON ID_ESTILO = e.IDESTILO;
 --
 -- SELECT anoIndice, tempoIndice, generoIndice, tipoIndice, p.tamanhoPiscina, c.nomeCategoria, d.distancia, e.nomeEstilo FROM tb_indices
 -- INNER JOIN tb_categoria AS c ON ID_CATEGORIA = c.IDCATEGORIA

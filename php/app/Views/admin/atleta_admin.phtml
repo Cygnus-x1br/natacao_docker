@@ -63,8 +63,8 @@ $atletas = $this->viewData->atletas;
                     </td>
                     <td style="font-size: small;"><?= $atleta['nomeEquipe'] ?></td>
                     <td><?= $atleta['cpfAtleta'] ?></td>
-                    <td><a href="view_atleta?id=<?= $atleta['IDATLETA'] ?>&edit=true" class="btn btn-outline-primary">Editar</a></td>
-                    <td><a href="delete_atleta?id=<?= $atleta['IDATLETA'] ?>&edit=true" class="btn btn-outline-primary">Delete</a></td>
+                    <td><a href="edit_atleta?id=<?= $atleta['IDATLETA'] ?>" class="btn btn-outline-primary">Editar</a></td>
+                    <td><a href="delete_atleta?id=<?= $atleta['IDATLETA'] ?>" class="btn btn-outline-primary">Delete</a></td>
                 </tr>
             <?php } ?>
         </tbody>
