@@ -17,13 +17,13 @@ class ProvaController extends Action
         $torneio_data = $torneio->getAllTorneios();
         $this->viewData->torneios = $torneio_data;
 
-        $distanciaEstilo = Container::getModel('DistanciaEstilo');
-        $distanciaEstilo_data = $distanciaEstilo->getAllDistanciaEstilo();
-        $this->viewData->distanciaEstilo = $distanciaEstilo_data;
+        // $distanciaEstilo = Container::getModel('DistanciaEstilo');
+        // $distanciaEstilo_data = $distanciaEstilo->getAllDistanciaEstilo();
+        $this->viewData->distanciaEstilo = Assets::list_todos_estilos();
 
-        $categoria = Container::getModel('Categoria');
-        $categoria_data = $categoria->getAllCategorias();
-        $this->viewData->categorias = $categoria_data;
+        // $categoria = Container::getModel('Categoria');
+        // $categoria_data = $categoria->getAllCategorias();
+        $this->viewData->categorias = Assets::list_categorias();
 
 
         $provas = Container::getModel('Prova');
@@ -43,13 +43,15 @@ class ProvaController extends Action
         $torneio_data = $torneio->getAllTorneios();
         $this->viewData->torneios = $torneio_data;
 
-        $distanciaEstilo = Container::getModel('DistanciaEstilo');
-        $distanciaEstilo_data = $distanciaEstilo->getAllDistanciaEstilo();
-        $this->viewData->distanciaEstilo = $distanciaEstilo_data;
+        // $distanciaEstilo = Container::getModel('DistanciaEstilo');
+        // $distanciaEstilo_data = $distanciaEstilo->getAllDistanciaEstilo();
+        // $this->viewData->distanciaEstilo = $distanciaEstilo_data;
+        $this->viewData->distanciaEstilo = Assets::list_todos_estilos();
 
-        $categoria = Container::getModel('Categoria');
-        $categoria_data = $categoria->getAllCategorias();
-        $this->viewData->categorias = $categoria_data;
+        // $categoria = Container::getModel('Categoria');
+        // $categoria_data = $categoria->getAllCategorias();
+        // $this->viewData->categorias = $categoria_data;
+        $this->viewData->categorias = Assets::list_categorias();
 
         $provas = Container::getModel('Prova');
         $provas_data = $provas->getAllProvas();

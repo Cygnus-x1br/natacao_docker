@@ -25,31 +25,22 @@ $disabled = (isset($this->setHtmlData->edit) ? $this->setHtmlData->edit : 'disab
                         <div class="col-12">
                             <input type="hidden" name="idequipe" value="<?= $equipe['IDEQUIPE'] ?>">
                             <label for="firstName" class="form-label">Nome</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="Nome" name="nomeEquipe" value="<?= $equipe['nomeEquipe'] ?>">
-                            <div class="invalid-feedback">
-                                Valid first name is required.
-                            </div>
+                            <input type="text" class="form-control" id="firstName" placeholder="Nome" name="nomeEquipe" value="<?= $equipe['nomeEquipe'] ?>" <?php if ($_SESSION['permissao'] != 2) echo 'readonly'; ?>>
                         </div>
                         <div class="col-12">
                             <label for="nickname" class="form-label">Sigla</label>
-                            <input type="text" class="form-control" id="nickname" placeholder="Apelido" name="nomeFantasiaEquipe" value="<?= $equipe['nomeFantasiaEquipe'] ?>">
+                            <input type="text" class="form-control" id="nickname" placeholder="Apelido" name="nomeFantasiaEquipe" value="<?= $equipe['nomeFantasiaEquipe'] ?>" <?php if ($_SESSION['permissao'] != 2) echo 'readonly'; ?>>
                         </div>
                     </div>
 
                     <div class="col-12">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control" id="email" placeholder="you@example.com" name="emailEquipe" value="<?= $equipe['emailEquipe'] ?>">
-                        <div class="invalid-feedback">
-                            Please enter a valid email address.
-                        </div>
                     </div>
 
                     <div class="col-12">
                         <label for="address" class="form-label">Site</label>
                         <input type="text" class="form-control" id="address" placeholder="www.example.com" name="siteEquipe" value="<?= $equipe['siteEquipe'] ?>">
-                        <div class="invalid-feedback">
-                            Please enter your shipping address.
-                        </div>
                     </div>
                     <div class="row g-3">
                         <div class="col-6">
@@ -63,15 +54,14 @@ $disabled = (isset($this->setHtmlData->edit) ? $this->setHtmlData->edit : 'disab
                     </div>
 
                     <div class="col-md-5">
-                        <label for="telefone" class="form-label">Telefone<span class="text-body-secondary">(Opcional)</span></label>
-                        <input type="text" class="form-control" id="telefone" name="telefoneEquipe" placeholder="" value="<?= $equipe['telefoneEquipe'] ?>">
+                        <label for="telefoneEquipe" class="form-label">Telefone<span class="text-body-secondary">(Opcional)</span></label>
+                        <input type="phone" class="form-control" id="telefoneEquipe" name="telefoneEquipe" placeholder="" value="<?= $equipe['telefoneEquipe'] ?>">
                     </div>
                     <div class="row gy-3">
                         <div class="col-md-6">
                             <label for="logoEquipe" class="form-label">Logotipo</label>
                             <input type="file" class="form-control" id="logoEquipe" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="logoEquipe" accept="image/jpeg,.gif,.png" value="<?= $equipe['logoEquipe'] ?>">
                             <input type="hidden" name="logoAntiga" value="<?= $equipe['logoEquipe'] ?>">
-                            <!-- <input type="text" class="form-control" id="logoEquipe" placeholder="" value="<?= $equipe['logoEquipe'] ?>"> -->
                         </div>
                         <div class="col-md-6">
                             <label for="federacao" class="form-label">Federação</label>
@@ -90,10 +80,31 @@ $disabled = (isset($this->setHtmlData->edit) ? $this->setHtmlData->edit : 'disab
 
                         <button class="w-25 btn btn-primary btn-lg" type="submit">Edit</button>
 
-                        <a class="w-25 btn btn-secondary btn-lg" href="/equipe_admin">Voltar</a>
+                        <?php if ($_SESSION['permissao'] == 2) { ?>
+                            <a class="w-25 btn btn-secondary btn-lg" href="/equipe_admin">Voltar</a>
+                        <?php } else { ?>
+                            <a class="w-25 btn btn-secondary btn-lg" href="/list_equipes">Voltar</a>
+                        <?php } ?>
                     </div>
                 </form>
             </div>
         </div>
     </main>
 </div>
+
+<script>
+    let telefone = document.querySelector('#telefoneEquipe');
+
+    telefone.addEventListener('keypress', (event) => {
+        console.log((telefone.value).length);
+
+        if ((telefone.value).length < 16) {
+            VMasker(telefone).maskPattern('(99) 9999 - 99999 ');
+            console.log(telefone.innerHTML);
+        } else {
+            VMasker(telefone).maskPattern('(99) 99999 - 9999 ');
+            console.log(telefone.innerHTML);
+        }
+    });
+    // })
+</script>

@@ -62,18 +62,18 @@ class GraficosController extends Action
         $torneio_data = $torneio->getAllTorneios();
         $this->viewData->torneios = $torneio_data;
 
-        $distanciaEstilo = Container::getModel('DistanciaEstilo');
-        $distanciaEstilo_data = $distanciaEstilo->getAllDistanciaEstilo();
-        $this->viewData->distanciaEstilo = $distanciaEstilo_data;
+        $indicesMundial = Container::getModel('Recordes');
+        $indicesMundial->__set('tipoRecorde', 'Recorde Mundial');
+        $indice_data = $indicesMundial->getRecordesFiltered();
+        $this->viewData->indices_mundial = $indice_data;
 
-        $categoria = Container::getModel('Categoria');
-        $categoria_data = $categoria->getAllCategorias();
-        $this->viewData->categorias = $categoria_data;
+        $this->viewData->distanciaEstilo = Assets::list_todos_estilos();
+        $this->viewData->categorias = Assets::list_categorias();
 
         $provas = Container::getModel('Prova');
         $provas_data = $provas->getAllProvas();
         $this->viewData->provas = $provas_data;
-                
+
         $indices = Container::getModel('Indices');
         $indices->__set('id_distanciaestilo', $_POST['distanciaEstilo']);
         $indices->__set('generoIndice', $atleta_data['sexoAtleta']);

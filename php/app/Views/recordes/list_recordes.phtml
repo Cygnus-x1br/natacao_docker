@@ -1,8 +1,8 @@
 <?php
 
-$indices = $this->viewData->indices;
-$anos = $this->viewData->anosIndice;
-$tipos = $this->viewData->tipoIndice;
+$recordes = $this->viewData->recordes;
+//$anos = $this->viewData->anosIndice;
+//$tipos = $this->viewData->tipoRecorde;
 $categorias = $this->viewData->categorias;
 $piscinas = $this->viewData->piscinas;
 
@@ -26,20 +26,14 @@ $piscinas = $this->viewData->piscinas;
 
 <main>
     <div class="py-5 text-center">
-        <h2 class="fw-light">Tabela de Índices</h2>
+        <h2 class="fw-light">Tabela de Recordes</h2>
         <p class="lead"></p>
     </div>
 
     <div class="row p-3 mb-5">
         <form action="filtra_indices" method="post" class="row g-3 d-flex align-items-end">
             <div class="col-md-4 col-lg-2">
-                <label for="anoIndice" class="form-label">Ano</label>
-                <select name="anoIndice" class="form-select" id="anoIndice">
-                    <option value="">Selecione</option>
-                    <?php foreach ($anos as $ano) { ?>
-                        <option value="<?= $ano ?>"><?= $ano ?></option>
-                    <?php } ?>
-                </select>
+
             </div>
             <div class="col-md-4 col-lg-2">
                 <label for="tipoIndice" class="form-label">Tipo</label>
@@ -76,11 +70,11 @@ $piscinas = $this->viewData->piscinas;
     <?php $countIndices = 1 ?>
     <div class="table-responsive small indices-table">
         <?php foreach ($anos as $ano) { ?>
-            <?php if ((array_search($ano, array_column($indices, 'anoIndice'))) !== false) {
+            <?php if ((array_search($ano, array_column($recordes, 'dataRecorde'))) !== false) {
             ?>
                 <h2 class="text-center display-3 mb-3"><?= $ano ?></h2>
                 <?php foreach ($tipos as $tipo) { ?>
-                    <?php if ((array_search($tipo, array_column($indices, 'tipoIndice'))) !== false) {
+                    <?php if ((array_search($tipo, array_column($recordes, 'tipoRecorde'))) !== false) {
                     ?>
                         <h3><?= $tipo ?></h3>
                         <?php foreach ($piscinas as $piscina) { ?>
@@ -104,10 +98,10 @@ $piscinas = $this->viewData->piscinas;
                                     ?>
                                             <tbody>
                                                 <tr class="mb-1">
-                                                    <td class="col-sm-3 p-2" style="background-color: <?= (($indice['generoIndice']) == 'F' ? 'pink' : 'lightblue') ?>;"><?= $indice['distancia'] . 'm ' . $indice['nomeEstilo'] ?></td>
-                                                    <td class="col-sm-2 p-2" style="background-color: <?= (($indice['generoIndice']) == 'F' ? 'pink' : 'lightblue') ?>;"><?= $indice['generoIndice'] ?></td>
-                                                    <td class="col-sm-3 p-2" style="background-color: <?= (($indice['generoIndice']) == 'F' ? 'pink' : 'lightblue') ?>;"><?= $indice['nomeCategoria'] ?></td>
-                                                    <td class="col-sm-3 p-2" style="background-color: <?= (($indice['generoIndice']) == 'F' ? 'pink' : 'lightblue') ?>;"><?= adjustTime($indice['tempoIndice']) ?></td>
+                                                    <td class="col-sm-3 p-2" style="background-color: <?= (($recorde['generoRecorde']) == 'F' ? 'pink' : 'lightblue') ?>;"><?= $recorde['distancia'] . 'm ' . $recorde['nomeEstilo'] ?></td>
+                                                    <td class="col-sm-2 p-2" style="background-color: <?= (($recorde['generoRecorde']) == 'F' ? 'pink' : 'lightblue') ?>;"><?= $recorde['generoRecorde'] ?></td>
+                                                    <td class="col-sm-3 p-2" style="background-color: <?= (($recorde['generoRecorde']) == 'F' ? 'pink' : 'lightblue') ?>;"><?= $recorde['nomeCategoria'] ?></td>
+                                                    <td class="col-sm-3 p-2" style="background-color: <?= (($recorde['generoRecorde']) == 'F' ? 'pink' : 'lightblue') ?>;"><?= adjustTime($recorde['tempoIndice']) ?></td>
                                                 </tr>
                                             </tbody>
                                     <?php }

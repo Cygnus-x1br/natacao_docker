@@ -45,6 +45,20 @@ ORDER BY t.dataTorneio DESC, numeroProva ASC;";
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function saveProva()
+    {
+        $prova = "INSERT INTO tb_prova (IDPROVA, numeroProva, genero, ID_TORNEIO, ID_DISTANCIAESTILO, ID_CATEGORIA_MIN, ID_CATEGORIA_MAX) VALUES (NULL, :numeroProva, :genero, :id_torneio, :id_distanciaestilo, :id_categoria_min, :id_categoria_max)";
+        $stmt = $this->db->prepare($prova);
+        $stmt->bindValue(':numeroProva', $this->__get('numeroProva'));
+        $stmt->bindValue(':genero', $this->__get('genero'));
+        $stmt->bindValue(':id_torneio', $this->__get('id_torneio'));
+        $stmt->bindValue(':id_distanciaestilo', $this->__get('id_distanciaestilo'));
+        $stmt->bindValue(':id_categoria_min', $this->__get('id_categoria_min'));
+        $stmt->bindValue(':id_categoria_max', $this->__get('id_categoria_max'));
+        $stmt->execute();
+        return $this;
+    }
+
     public function getProvaMin()
     {
         $prova = "SELECT *, t.dataTorneio FROM tb_prova 
@@ -76,19 +90,5 @@ ORDER BY t.dataTorneio DESC, numeroProva ASC;";
         $stmt->bindValue(':id_torneio', $this->__get('id_torneio'));
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-    }
-
-    public function saveProva()
-    {
-        $prova = "INSERT INTO tb_prova (IDPROVA, numeroProva, genero, ID_TORNEIO, ID_DISTANCIAESTILO, ID_CATEGORIA_MIN, ID_CATEGORIA_MAX) VALUES (NULL, :numeroProva, :genero, :id_torneio, :id_distanciaestilo, :id_categoria_min, :id_categoria_max)";
-        $stmt = $this->db->prepare($prova);
-        $stmt->bindValue(':numeroProva', $this->__get('numeroProva'));
-        $stmt->bindValue(':genero', $this->__get('genero'));
-        $stmt->bindValue(':id_torneio', $this->__get('id_torneio'));
-        $stmt->bindValue(':id_distanciaestilo', $this->__get('id_distanciaestilo'));
-        $stmt->bindValue(':id_categoria_min', $this->__get('id_categoria_min'));
-        $stmt->bindValue(':id_categoria_max', $this->__get('id_categoria_max'));
-        $stmt->execute();
-        return $this;
     }
 }

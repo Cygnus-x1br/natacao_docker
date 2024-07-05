@@ -7,35 +7,107 @@ $provas = $this->viewData->provas;
 $tempoAtleta = $this->viewData->tempoAtleta;
 $indices = $this->viewData->indices;
 $atleta = $this->viewData->atleta;
+$indicesMundial = $this->viewData->indices_mundial;
+
+
 
 $torneiosParticipados = $this->viewData->torneiosParticipados;
 $anos = $this->viewData->anos;
 $estilos = $this->viewData->estilos;
 
 $indicesJson = json_encode($indices);
-//
-// echo '<pre>';
-//print_r($indices);
-// print_r($indicesJson);
-// echo '</pre>';
-function adjustTime($fullTime)
+
+function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
 {
-    $time = explode(':', $fullTime);
-    (array_shift($time));
-    return implode(':', $time);
+    $tempoAtleta = tempoEmSegundos($tempo);
+    $tempoIndice = 0;
+    foreach ($indicesMundial as $indice) {
+        if ($indice['ID_DISTANCIAESTILO'] == $id_distanciaestilo && $indice['generoRecorde'] == $genero) {
+            $tempo = adjustTime($indice['tempoRecorde']);
+            $tempoIndice = tempoEmSegundos($tempo);
+        }
+    }
+    $indiceTecnico = 1000 * pow(($tempoIndice / $tempoAtleta), 3);
+
+    return floor($indiceTecnico);
 }
 
+
 ?>
+<style>
+    /* * {
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        outline: 0;
+    } */
+
+    .grafico-circular {
+        width: 10em;
+        margin: 10px;
+        justify-content: space-around;
+    }
+
+    .circulo {
+        fill: none;
+        stroke: #CCCCCC;
+        stroke-width: 4px;
+    }
+
+    .circulo-progresso {
+        fill: none;
+        stroke-width: 4px;
+        animation: progress 1s ease-out forwards;
+        stroke: #22BF66;
+    }
+
+    @keyframes progress {
+        0% {
+            stroke-dasharray: 0 100;
+        }
+    }
+
+    .label {
+        fill: #343F4B;
+        font-size: 0.2em;
+        text-transform: uppercase;
+        text-anchor: middle;
+    }
+
+    .label.percentage {
+        font-size: 0.5em;
+    }
+</style>
 
 <main>
-    <section class="py-5 text-center container">
-        <div class="row py-lg-5">
-            <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">Gráficos</h1>
-                <p id="subtitle" class="h2"></p>
+    <section class="py-5 container">
+        <div class="col-lg-6 col-md-8 mx-auto text-center">
+            <h1 class="fw-light">Gráficos</h1>
+        </div>
+        <div class="d-flex justify-content-around ">
+            <div class="row py-lg-5">
+                <p id="subtitle" class="display-6"></p>
+            </div>
+            <div class="d-flex flex-column align-items-center">
+                <p class="lead">Melhor indice técnico</p>
+                <div class="grafico-circular">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" id="idGraficoCircular">
+                        <path class="circulo" d="M18 2.0845
+                    a 15.9155 15.9155 0 0 1 0 31.831
+                    a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <path id="progresso" class="circulo-progresso" d="M18 2.0845
+                    a 15.9155 15.9155 0 0 1 0 31.831
+                    a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <text x="18" y="20" class="label percentage">
+                            <tspan id="valorPorcentagem"></tspan>
+                        </text>
+                    </svg>
+                </div>
             </div>
         </div>
     </section>
+
     <div class="row p-3 ">
         <form action="graficos_tempo_filtrado" method="post" class="row g-3 d-flex align-items-end">
 
@@ -105,7 +177,7 @@ function adjustTime($fullTime)
                     <option value="">Selecione</option>
                     <?php foreach ($torneiosParticipados as $torneio) { ?>
                         <option value="<?= $torneio ?>"><?= $torneio ?></option>
-                    <?php }; ?>
+                    <?php } ?>
                 </select>
             </div>
 
@@ -141,6 +213,7 @@ function adjustTime($fullTime)
                         <td id="estilo" class="text-start"><?= $tempo['distancia'] . 'm ' . $tempo['nomeEstilo'] ?></td>
                         <td class="tempos"><?php echo $tempo['tempoAtleta'] ?></td>
                         <td class="labelData" hidden><?= $tempo['dataTorneio'] ?></td>
+                        <td class="IT" hidden><?php echo indiceTecnico(adjustTime($tempo['tempoAtleta']), $tempo['distanciaEstilo'], $indicesMundial, $tempo['genero']) ?></td>
 
                     </tr>
                 <?php } ?>
@@ -156,10 +229,9 @@ function adjustTime($fullTime)
 <script>
     const ctx = document.getElementById('myChart');
     let times = document.getElementsByClassName('tempos');
-    // let indices = document.getElementsByClassName('indices');
-    // let labelIndices = document.getElementsByClassName('labelIndices');
     let labelData = document.getElementsByClassName('labelData');
     let indicesNovo = document.getElementById('indicesArray').innerHTML;
+    let indiceTecnico = document.getElementsByClassName('IT');
 
     let subtitle = document.getElementById('subtitle');
     let distancia = document.getElementById('estilo');
@@ -168,8 +240,6 @@ function adjustTime($fullTime)
     let labelTempos = [];
     let labelIndicesArray = [];
     let arrays = createArraysFromValues(JSON.parse(indicesNovo));
-
-    console.log(indicesNovo);
 
     for (let i = 0; i < times.length; i++) {
         let timeConverted = adjustTime(times[i].innerHTML);
@@ -191,10 +261,9 @@ function adjustTime($fullTime)
         }
         labelIndicesArray.push(key);
         // console.log(arrays[key]);
-        console.log(arrayIndices);
+        // console.log(arrayIndices);
 
     }
-
 
     function createArraysFromValues(json) {
         const arrays = {};
@@ -283,4 +352,24 @@ function adjustTime($fullTime)
             }
         }
     });
+
+    let itArray = [];
+    for (let i of indiceTecnico) {
+        itArray.push(i.innerHTML);
+    }
+
+    console.log(itArray.toSorted());
+
+    let melhorIndiceTecnico = itArray.toSorted()[itArray.length - 1];
+
+    function preencherGrafico(valor) {
+        const medidor = document.getElementById("idGraficoCircular").querySelector('svg .circulo-progresso');
+        medidor.style.strokeDasharray = [(valor / 10), 100];
+
+        document.getElementById("valorPorcentagem").innerHTML = valor;
+    }
+
+
+    // console.log(indiceTecnico);
+    preencherGrafico(melhorIndiceTecnico);
 </script>

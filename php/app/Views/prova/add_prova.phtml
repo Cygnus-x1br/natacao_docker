@@ -73,9 +73,13 @@ $provas = $this->viewData->provas;
             </div>
             <hr class="my-4">
         </form>
-        <?php foreach ($torneios as $torneio) { ?>
-            <p class="lead"><?= $torneio['nomeTorneio'] . ' - ' . $torneio['dataTorneio'] ?></li>
-            <table class="table w-75 mx-auto">
+        <?php $countLists = 1;
+        foreach ($torneios as $torneio) { ?>
+            <div class="d-flex justify-content-between">
+                <p class="lead"><?php echo $torneio['nomeTorneio'] . ' - ' . implode('/',  array_reverse(explode('-', $torneio['dataTorneio']))) ?></p>
+                <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#table<?= $countLists ?>" aria-expanded="false" aria-controls="collapseExample">Ver mais</button>
+            </div>
+            <table class="table w-75 mx-auto collapse" id="table<?php echo $countLists ?>">
                 <thead>
                     <tr>
                         <th scope="col">Prova</th>
@@ -98,6 +102,7 @@ $provas = $this->viewData->provas;
                 <?php } ?>
             </table>
             <hr>
+            <?php $countLists++ ?>
         <?php } ?>
     </div>
 </main>

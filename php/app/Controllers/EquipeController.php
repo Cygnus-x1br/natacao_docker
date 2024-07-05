@@ -18,9 +18,10 @@ class EquipeController extends Action
 
         $this->render('list_equipes');
     }
+
+    /** Funções de CRUD */
     public function view_equipe()
     {
-        Assets::authenticate();
 
         if (isset($_GET['edit']) && $_GET['edit'] == 'true') {
             $this->setHtmlData->edit = '';
@@ -43,9 +44,8 @@ class EquipeController extends Action
     {
         Assets::authenticate();
 
-        $federacao = Container::getModel('Federacao');
-        $federacao_data = $federacao->getAllFederacoes();
-        $this->viewData->federacoes = $federacao_data;
+
+        $this->viewData->federacoes = Assets::list_federacoes();
 
         $this->render('add_equipe');
     }
@@ -53,9 +53,7 @@ class EquipeController extends Action
     {
         Assets::authenticate();
 
-        $federacao = Container::getModel('Federacao');
-        $federacao_data = $federacao->getAllFederacoes();
-        $this->viewData->federacoes = $federacao_data;
+        $this->viewData->federacoes = Assets::list_federacoes();
 
         if ($_POST['nomeEquipe'] == '') {
             header("Location: /add_equipe?error=1");
@@ -83,7 +81,7 @@ class EquipeController extends Action
         } elseif ($equipe->verificaCadastro('nomeFantasiaEquipe') != '') {
             header("Location: /add_equipe?error=4");
         } else {
-            $equipe->addEquipe();
+            $equipe->saveEquipe();
 
             header("Location: /list_equipes");
         }
@@ -93,23 +91,25 @@ class EquipeController extends Action
     {
         Assets::authenticate();
 
-        $federacao = Container::getModel('Federacao');
-        $federacao_data = $federacao->getAllFederacoes();
-        $this->viewData->federacoes = $federacao_data;
+        $this->viewData->federacoes = Assets::list_federacoes();
 
         $equipe = Container::getModel('Equipe');
         $equipe->__set('idequipe', $_GET['idequipe']);
         $equipe_data = $equipe->getEquipe();
         $this->viewData->equipe = $equipe_data;
 
-        $this->render('edit_equipe', 'admin_layout');
+        if ($_SESSION['permissao'] == 2) {
+            $layout = 'admin_layout';
+        } else {
+            $layout = 'layout';
+        }
+        $this->render('edit_equipe', $layout);
     }
     public function update_equipe()
     {
         Assets::authenticate();
-        $federacao = Container::getModel('Federacao');
-        $federacao_data = $federacao->getAllFederacoes();
-        $this->viewData->federacoes = $federacao_data;
+
+        $this->viewData->federacoes = Assets::list_federacoes();
 
         if ($_POST['nomeEquipe'] == '') {
             header("Location: /add_equipe?error=1");
@@ -133,9 +133,13 @@ class EquipeController extends Action
         $equipe->__set('instagramEquipe', $_POST['instagramEquipe']);
         $equipe->__set('id_federacao', $_POST['id_federacao']);
         $equipe->__set('idequipe', $_POST['idequipe']);
-        $equipe->editEquipe();
+        $equipe->updateEquipe();
 
-        header("Location: /equipe_admin");
+        if ($_SESSION['permissao'] == 2) {
+            header("Location: /equipe_admin");
+        } else {
+            header("Location: /list_equipes");
+        }
     }
 
     public function delete_equipe()
@@ -147,6 +151,7 @@ class EquipeController extends Action
         header('Location: /equipe_admin');
     }
 
+    /** Funções auxiliares */
     private function upload_file()
     {
         $file = $_FILES['logoEquipe'];

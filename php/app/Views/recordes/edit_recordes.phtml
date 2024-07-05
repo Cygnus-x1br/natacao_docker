@@ -1,0 +1,109 @@
+<?php
+
+$recorde = $this->viewData->recordes;
+$tipos = $this->viewData->tipoRecorde;
+$categorias = $this->viewData->categorias;
+$piscinas = $this->viewData->piscinas;
+$estilos = $this->viewData->estilos;
+$generos = ['F', 'M'];
+
+// print_r($recorde);
+
+?>
+
+<main>
+    <div class="py-5 text-center">
+        <h2 class="fw-light">Tabela de Recordes</h2>
+        <p class="lead"></p>
+    </div>
+    <div class="col-md-12">
+        <form action="update_recorde" method="POST" class="needs-validation" enctype="multipart/form-data">
+            <div class="row">
+                <div class="row d-flex justify-content-between align-items-end mb-3">
+                    <input type="hidden" name="idrecorde" value="<?= $recorde['IDRECORDE'] ?>">
+                    <div class="col-md-2">
+                        <label for="tipoRecorde" class="form-label">Tipo Recorde</label>
+                        <input class="form-select" list="tipoRecorde" name="tipoRecorde" value="<?= $recorde['tipoRecorde'] ?>">
+                        <datalist id="tipoRecorde">
+                            <?php foreach ($tipos as $tipo) { ?>
+                                <option value="<?= $tipo ?>">
+                                <?php } ?>
+                        </datalist>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="dataRecorde" class="form-label">Data Recorde</label>
+                        <input type="date" class="form-control" name="dataRecorde" id="dataRecorde" value="<?= $recorde['dataRecorde'] ?>">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="nomeAtletaRecorde" class="form-label">Atleta</label>
+                        <input type="text" name="nomeAtletaRecorde" class="form-control" placeholder="nome" id="nomeAtletaRecorde" value="<?= $recorde['nomeAtletaRecorde'] ?>">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="estiloRecorde" class="form-label">Estilo</label>
+                        <select class="form-select" name="id_distanciaestilo" id="estiloRecorde">
+                            <option value="">Selected</option>
+                            <?php foreach ($estilos as $estilo) { ?>
+                                <option value="<?= $estilo['IDDISTANCIAESTILO'] ?>" <?php if ($estilo['IDDISTANCIAESTILO'] == $recorde['ID_DISTANCIAESTILO']) echo 'selected' ?>><?= $estilo['distancia'] . 'm ' . $estilo['nomeEstilo'] ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-around align-items-end mb-3">
+                    <div class="col-md-2">
+                        <label for="piscinaRecorde" class="form-label">Piscina</label>
+                        <select class="form-select" name="id_piscina" id="piscinaRecorde">
+                            <option value="">Selected</option>
+                            <?php foreach ($piscinas as $key => $value) { ?>
+                                <option value="<?= $key ?>" <?php if ($value == $recorde['tamanhoPiscina']) echo 'selected' ?>><?= $value . 'm' ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="categoriaRecorde" class="form-label">Categoria</label>
+                        <select class="form-select" name="id_categoria" id="categoriaRecorde">
+                            <option value="">Selected</option>
+                            <?php foreach ($categorias as $categoria) { ?>
+                                <option value="<?= $categoria['IDCATEGORIA'] ?>" <?php if ($categoria['IDCATEGORIA'] == $recorde['ID_CATEGORIA']) echo 'selected' ?>><?= $categoria['nomeCategoria'] ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="generoRecorde" class="form-label">Genero</label>
+                        <select class="form-select" name="generoRecorde" id="generoRecorde">
+                            <option value="">Selected</option>
+                            <option value="F" <?php if ($recorde['generoRecorde'] == 'F') echo 'selected' ?>>Feminino</option>
+                            <option value="M" <?php if ($recorde['generoRecorde'] == 'M') echo 'selected' ?>>Masculino</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="localRecorde" class="form-label">Campeonato/Local</label>
+                        <input type="text" name="localRecorde" class="form-control" placeholder="Local" id="localRecorde" value="<?= $recorde['localRecorde'] ?>">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="nacionalidadeRecorde" class="form-label">Nacionalidade</label>
+                        <input type="text" name="nacionalidadeRecorde" class="form-control" placeholder="País" id="nacionalidadeRecorde" value="<?= $recorde['nacionalidadeRecorde'] ?>">
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center align-items-end">
+                    <div class="col-md-2">
+                        <label for="tempoRecorde" class="form-label">Tempo</label>
+                        <input type="text" name="tempoRecorde" class="form-control" placeholder="00:00.00" id="tempoRecorde" value="<?= adjustTime($recorde['tempoRecorde']) ?>">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="d-flex flex-row justify-content-around">
+                            <button class="btn btn-primary h-25 w-25" type="submit">Alterar</button>
+                            <a href="/recordes_admin" class="btn btn-secondary h-25 w-25" type="submit">Voltar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+        </form>
+
+    </div>
+</main>
+
+
+<script>
+    VMasker(document.querySelector('#tempoAtleta')).maskPattern('99:99.99');
+</script>

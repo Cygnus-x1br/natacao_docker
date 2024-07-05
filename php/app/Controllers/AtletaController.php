@@ -31,7 +31,7 @@ class AtletaController extends Action
 
         $tempoAtleta = Container::getModel('Tempo');
         $tempoAtleta->__set('id_atleta', $_GET['id']);
-        $tempoAtleta_data = $tempoAtleta->getTempo();
+        $tempoAtleta_data = $tempoAtleta->getTempos();
         $this->viewData->tempoAtleta = $tempoAtleta_data;
 
         $idade = date('Y') - (explode('-', $atleta_data['dataNascAtleta']))[0];
@@ -42,6 +42,9 @@ class AtletaController extends Action
 
         $this->render('index_atleta');
     }
+
+    /** Funções de CRUD */
+
     public function view_atleta()
     {
         Assets::authenticate();
@@ -68,7 +71,7 @@ class AtletaController extends Action
 
         $tempo = Container::getModel('Tempo');
         $tempo->__set('id_atleta', $_GET['id']);
-        $this->viewData->tempos = $tempo->getTempo();
+        $this->viewData->tempos = $tempo->getTempos();
         $this->viewData->display = 'disabled';
 
         $this->render('view_atleta');
@@ -85,6 +88,7 @@ class AtletaController extends Action
         $this->render('add_atleta');
     }
 
+    /** Função exportada para a controller User */
     // public function save_atleta()
     // {
     //     if ($_POST['nomeAtleta'] == '') {
@@ -97,8 +101,6 @@ class AtletaController extends Action
     //     if ($_FILES['fotoAtleta']['size'] !== 0) {
     //         $file_save = $this->upload_file();
     //         $atleta->__set('fotoAtleta', $file_save);
-    //         // } else if ($edit == 'edit' && ($_FILES['logoEquipe']['size'] == 0)) {
-    //         //   $equipe->__set('logoEquipe', $_POST['logoEquipe']);
     //     }
     //     $atleta->__set('nomeAtleta', ucwords($_POST['nomeAtleta']));
     //     $atleta->__set('sobreNomeAtleta', ucwords($_POST['sobreNomeAtleta']));
@@ -145,7 +147,7 @@ class AtletaController extends Action
 
         $tempo = Container::getModel('Tempo');
         $tempo->__set('id_atleta', $_GET['id']);
-        $this->viewData->tempos = $tempo->getTempo();
+        $this->viewData->tempos = $tempo->getTempos();
         $this->viewData->display = 'disabled';
 
         $this->render('edit_atleta');
@@ -183,10 +185,20 @@ class AtletaController extends Action
         $atleta->__set('whatsappAtleta', $_POST['whatsappAtleta']);
         $atleta->__set('telefoneAtleta', $_POST['telefoneAtleta']);
         $atleta->__set('id_equipe', $_POST['id_equipe']);
-        $atleta->editAtleta();
+        $atleta->updateAtleta();
 
         header("Location: /index_atleta?id=" . $_POST['idAtleta']);
     }
+
+    public function delete_atleta()
+    {
+        $atleta = Container::getModel('Atleta');
+        $atleta->__set('idatleta', $_GET['id']);
+        $atleta->deleteAtleta();
+        header('Location: /atleta_admin');
+    }
+
+    /** Funções de pesquisa */
 
     public function tempos_atleta()
     {
@@ -240,13 +252,8 @@ class AtletaController extends Action
         return $melhor_tempo;
     }
 
-    public function delete_atleta()
-    {
-        $atleta = Container::getModel('Atleta');
-        $atleta->__set('idatleta', $_GET['id']);
-        $atleta->deleteAtleta();
-        header('Location: /atleta_admin');
-    }
+    /** Funções auxiliares */
+
     private function upload_file()
     {
         $file = $_FILES['fotoAtleta'];

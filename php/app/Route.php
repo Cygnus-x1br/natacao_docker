@@ -91,6 +91,11 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'AdminController',
             'action' => 'torneio_admin'
         );
+        $routes['recordes_admin'] = array(
+            'route' => '/recordes_admin',
+            'controller' => 'AdminController',
+            'action' => 'recordes_admin'
+        );
         // User
         $routes['add_atleta'] = array(
             'route' => '/add_atleta',
@@ -164,6 +169,21 @@ class Route extends \MF\Init\Bootstrap
             'route' => '/filtra_tempos',
             'controller' => 'TempoController',
             'action' => 'filtra_tempos'
+        );
+        $routes['edit_tempo'] = array(
+            'route' => '/edit_tempo',
+            'controller' => 'TempoController',
+            'action' => 'edit_tempo'
+        );
+        $routes['update_tempo'] = array(
+            'route' => '/update_tempo',
+            'controller' => 'TempoController',
+            'action' => 'update_tempo'
+        );
+        $routes['delete_tempo'] = array(
+            'route' => '/delete_tempo',
+            'controller' => 'TempoController',
+            'action' => 'delete_tempo'
         );
         // Gráficos
         $routes['create_graph'] = array(
@@ -316,7 +336,6 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'IndicesController',
             'action' => 'filtra_indices'
         );
-
         $routes['add_indice'] = array(
             'route' => '/add_indice',
             'controller' => 'IndicesController',
@@ -326,6 +345,42 @@ class Route extends \MF\Init\Bootstrap
             'route' => '/save_indice',
             'controller' => 'IndicesController',
             'action' => 'save_indice'
+        );
+        // Recordes
+        $routes['list_recordes'] = array(
+            'route' => '/list_recordes',
+            'controller' => 'RecordesController',
+            'action' => 'list_recordes'
+        );
+        $routes['filtra_recordes'] = array(
+            'route' => '/filtra_recordes',
+            'controller' => 'RecordesController',
+            'action' => 'filtra_recordes'
+        );
+        $routes['add_recordes'] = array(
+            'route' => '/add_recordes',
+            'controller' => 'RecordesController',
+            'action' => 'add_recordes'
+        );
+        $routes['save_recorde'] = array(
+            'route' => '/save_recorde',
+            'controller' => 'RecordesController',
+            'action' => 'save_recorde'
+        );
+        $routes['edit_recorde'] = array(
+            'route' => '/edit_recorde',
+            'controller' => 'RecordesController',
+            'action' => 'edit_recorde'
+        );
+        $routes['update_recorde'] = array(
+            'route' => '/update_recorde',
+            'controller' => 'RecordesController',
+            'action' => 'update_recorde'
+        );
+        $routes['delete_recorde'] = array(
+            'route' => '/delete_recorde',
+            'controller' => 'RecordesController',
+            'action' => 'delete_recorde'
         );
         //Provas
         $routes['list_provas'] = array(

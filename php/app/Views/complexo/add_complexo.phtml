@@ -35,30 +35,24 @@
                 <h4 class="mb-3"></h4>
                 <form action="save_complexo" class="needs-validation" method="post" enctype="multipart/form-data">
                     <div class="row g-3">
-
                         <div class="col-12">
                             <label for="nomeComplexo" class="form-label">Nome</label>
                             <?php if (isset($_GET['error']) && $_GET['error'] == '1') {
                                 echo '<div class="alert alert-danger" role="alert">
-                Campo Obrigatório
-                </div>';
+                                            Campo Obrigatório
+                                        </div>';
                             } ?>
                             <input type="text" class="form-control" id="nomeComplexo" placeholder="Nome" name="nomeComplexo" value="">
-                            <div class="invalid-feedback">
-                                Valid first name is required.
-                            </div>
                         </div>
                         <div class="col-12">
                             <label for="nomeFantasiaComplexo" class="form-label">Nome Fantasia</label>
                             <input type="text" class="form-control" id="nomeFantasiaComplexo" placeholder="Nome Piscina" name="nomeFantasiaComplexo" value="">
                         </div>
                     </div>
-
                     <div class="col-12">
                         <label for="enderecoComplexo" class="form-label">Endereço</label>
                         <input type="text" class="form-control" id="enderecoComplexo" placeholder="Endereço" name="enderecoComplexo" value="">
                     </div>
-
                     <div class="col-12">
                         <label for="bairroComplexo" class="form-label">Bairro</label>
                         <input type="text" class="form-control" id="bairroComplexo" placeholder="Bairro" name="bairroComplexo">
@@ -71,8 +65,8 @@
                         <div class="col-md-6">
                             <?php if (isset($_GET['error']) && $_GET['error'] == '2') {
                                 echo '<div class="alert alert-danger" role="alert">
-                Nome deve ser preenchido
-                </div>';
+                                        Nome deve ser preenchido
+                                    </div>';
                             } ?>
                             <label for="federacao" class="form-label">Estado</label>
                             <select name="id_estado" class="form-select" id="federacao">
@@ -100,3 +94,4 @@
             </div>
         </div>
     </main>
+</div>

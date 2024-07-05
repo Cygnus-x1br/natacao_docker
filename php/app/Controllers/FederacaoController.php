@@ -19,12 +19,12 @@ class FederacaoController extends Action
         $this->render('list_federacao');
     }
 
+    /** Funções de CRUD */
     public function add_federacao()
     {
         Assets::admin_authenticate();
-        $estado = Container::getModel('Estados');
-        $estado_data = $estado->getAllEstados();
-        $this->viewData->estados = $estado_data;
+
+        $this->viewData->estados = Assets::list_estados();
 
         $this->render('add_federacao', 'admin_layout');
     }
@@ -35,7 +35,7 @@ class FederacaoController extends Action
         $federacao = Container::getModel('Federacao');
         if (($_FILES['logoFederacao']['size'] !== 0)) {
             $file_save = $this->upload_file();
-            $$ederacao->__set('logoFederacao', $file_save);
+            $federacao->__set('logoFederacao', $file_save);
         }
         $federacao->__set('nomeFederacao', $_POST['nomeFederacao']);
         $federacao->__set('nomeFantasiaFederacao', $_POST['nomeFantasiaFederacao']);
@@ -52,9 +52,8 @@ class FederacaoController extends Action
     public function edit_federacao()
     {
         Assets::admin_authenticate();
-        $estado = Container::getModel('Estados');
-        $estado_data = $estado->getAllEstados();
-        $this->viewData->estados = $estado_data;
+
+        $this->viewData->estados = Assets::list_estados();
 
         $federacao = Container::getModel('Federacao');
         $federacao->__set('idfederacao', $_GET['idfederacao']);
@@ -86,7 +85,7 @@ class FederacaoController extends Action
         $federacao->__set('id_estado', $_POST['id_estado']);
         $federacao->__set('idfederacao', $_POST['idfederacao']);
 
-        $federacao->editFederacao();
+        $federacao->updateFederacao();
         header('Location: /federacao_admin');
     }
 
@@ -98,6 +97,8 @@ class FederacaoController extends Action
         $federacao->deleteFederacao();
         header('Location: /federacao_admin');
     }
+
+    /** Funções auxiliares */
 
     private function upload_file()
     {

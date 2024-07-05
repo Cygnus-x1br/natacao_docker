@@ -1,3 +1,242 @@
+INSERT INTO tb_federacao
+VALUES(
+        null,
+        'Confederacao Brasileira de Desportos Aquaticos',
+        'CBDA',
+        './images/logos/logoCBDA.png',
+        null,
+        null,
+        null,
+        null,
+        null,
+        24
+    );
+INSERT INTO tb_federacao
+VALUES(
+        null,
+        'Federacao Aquatica Paulista',
+        'FAP',
+        './images/logos/logoFAP.png',
+        null,
+        null,
+        null,
+        null,
+        null,
+        24
+    );
+INSERT INTO tb_federacao
+VALUES(
+        null,
+        'Federacao Aquatica do Rio de Janeiro',
+        'FARJ',
+        './images/logos/logoFARJ.png',
+        null,
+        null,
+        null,
+        null,
+        null,
+        23
+    );
+INSERT INTO tb_federacao
+VALUES(
+        null,
+        'Federacao Aquatica Mineira',
+        'FAM',
+        './images/logos/logoFAM.png',
+        null,
+        null,
+        null,
+        null,
+        null,
+        22
+    );
+INSERT INTO tb_federacao
+VALUES(
+        null,
+        'Federacao Aquatica Capixaba',
+        'FAC',
+        './images/logos/logoFAC.png',
+        null,
+        null,
+        null,
+        null,
+        null,
+        21
+    );
+INSERT INTO tb_equipe
+VALUES(
+        1,
+        'Sem equipe',
+        'Sem equipe',
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1
+    );
+INSERT INTO tb_equipe
+VALUES(
+        null,
+        'Associacao Atletica Sao Caetano',
+        'Natacao Sao Caetano',
+        './images/logos/logoSaoCaetano.png',
+        null,
+        null,
+        null,
+        null,
+        null,
+        1
+    );
+INSERT INTO tb_equipe
+VALUES(
+        null,
+        'Primeiro de Maio Futebol Clube',
+        'Natacao Santo Andre',
+        './images/logos/logoSAndre.png',
+        null,
+        null,
+        null,
+        null,
+        null,
+        1
+    );
+--
+INSERT INTO tb_users
+VALUES(
+        null,
+        'tom@gmail.com',
+        sha1('aczf0704'),
+        'tom@gmail.com',
+        2,
+        1
+    );
+INSERT INTO tb_users
+VALUES(
+        null,
+        'fernando@gmail.com',
+        sha1('fhzf1303'),
+        'fernando@gmail.com',
+        1,
+        1
+    );
+--
+INSERT INTO tb_users
+VALUES(
+        null,
+        'jean@gmail.com',
+        sha1('aczf0704'),
+        'jean@gmail.com',
+        0,
+        2
+    );
+INSERT INTO tb_complexo(
+        nomeComplexo,
+        nomeFantasiaComplexo,
+        fotoComplexo,
+        enderecoComplexo,
+        bairroComplexo,
+        cidadeComplexo,
+        ID_ESTADO
+    )
+VALUES(
+        'Complexo Esportivo Lauro Gomes de Almeida',
+        'Conjunto Aquatico Leonardo Sperate',
+        './images/fotos/piscina_ConjuntoAquaticoLeonardoSperate.jpg',
+        'Rua Walter Thome, 64',
+        'Bairro Olimpico',
+        'Sao Caetano do Sul',
+        24
+    );
+INSERT INTO tb_complexo(
+        nomeComplexo,
+        nomeFantasiaComplexo,
+        fotoComplexo,
+        enderecoComplexo,
+        bairroComplexo,
+        cidadeComplexo,
+        ID_ESTADO
+    )
+VALUES(
+        'Complexo Esportivo Pedro Dell Antonia',
+        'Complexo Esportivo Pedro Dell Antonia',
+        './images/fotos/piscina_ComplexoEsportivoPedroDellAntonia.jpg',
+        'Rua Sao Pedro, 27',
+        'Silveira',
+        'Santo Andre',
+        24
+    );
+INSERT INTO tb_complexo(
+        nomeComplexo,
+        nomeFantasiaComplexo,
+        fotoComplexo,
+        enderecoComplexo,
+        bairroComplexo,
+        cidadeComplexo,
+        ID_ESTADO
+    )
+VALUES(
+        'Nova Piscina Olimpica da Bahia',
+        'Nova Piscina Olimpica da Bahia',
+        './images/fotos/piscina_NovaPiscinaOlimpicadaBahia.jpg',
+        'Av Mario Leal Ferreira',
+        'Brotas',
+        'Salvador',
+        19
+    );
+INSERT INTO tb_atleta(
+        nomeAtleta,
+        sobreNomeAtleta,
+        apelidoAtleta,
+        emailAtleta,
+        dataNascAtleta,
+        cpfAtleta,
+        numRegistroAtleta,
+        sexoAtleta,
+        rgAtleta,
+        fotoAtleta,
+        ID_EQUIPE
+    )
+VALUES(
+        'Fernando',
+        'Fiad',
+        'Mini-Tom',
+        'fernando@gmail.com',
+        '2016-03-13',
+        '111.222.333-44',
+        'FAP123456',
+        'M',
+        '99.888.777-6',
+        './images/fotos/foto_1_Fiad_2016-03-13.jpg',
+        1
+    );
+INSERT INTO tb_atleta(
+        nomeAtleta,
+        sobreNomeAtleta,
+        apelidoAtleta,
+        emailAtleta,
+        dataNascAtleta,
+        cpfAtleta,
+        numRegistroAtleta,
+        sexoAtleta,
+        rgAtleta,
+        fotoAtleta,
+        ID_EQUIPE
+    )
+VALUES(
+        'Antonio',
+        'Fiad',
+        'Tom',
+        'tom@gmail.com',
+        '2011-04-07',
+        '555.666.777-88',
+        '987654',
+        'M',
+        '11.222.333-4',
+        './images/fotos/foto_2_Fiad_2011-04-07.jpg',
+        1
+    );
 INSERT INTO tb_torneio
 VALUES(
         3,
@@ -8,7 +247,15 @@ VALUES(
         2,
         2
     );
-INSERT INTO tb_prova
+INSERT INTO tb_prova (
+        IDPROVA,
+        numeroProva,
+        genero,
+        ID_TORNEIO,
+        ID_DISTANCIAESTILO,
+        ID_CATEGORIA_MIN,
+        ID_CATEGORIA_MAX
+    )
 VALUES(
         null,
         1,
@@ -243,7 +490,15 @@ VALUES(
         12,
         99
     );
-INSERT INTO tb_prova
+INSERT INTO tb_prova (
+        IDPROVA,
+        numeroProva,
+        genero,
+        ID_TORNEIO,
+        ID_DISTANCIAESTILO,
+        ID_CATEGORIA_MIN,
+        ID_CATEGORIA_MAX
+    )
 VALUES(
         null,
         27,
@@ -470,7 +725,15 @@ VALUES(
         1,
         2
     );
-INSERT INTO tb_prova
+INSERT INTO tb_prova (
+        IDPROVA,
+        numeroProva,
+        genero,
+        ID_TORNEIO,
+        ID_DISTANCIAESTILO,
+        ID_CATEGORIA_MIN,
+        ID_CATEGORIA_MAX
+    )
 VALUES(
         null,
         1,
@@ -705,7 +968,15 @@ VALUES(
         12,
         99
     );
-INSERT INTO tb_prova
+INSERT INTO tb_prova (
+        IDPROVA,
+        numeroProva,
+        genero,
+        ID_TORNEIO,
+        ID_DISTANCIAESTILO,
+        ID_CATEGORIA_MIN,
+        ID_CATEGORIA_MAX
+    )
 VALUES(
         null,
         27,
@@ -932,7 +1203,15 @@ VALUES(
         2,
         2
     );
-INSERT INTO tb_prova
+INSERT INTO tb_prova (
+        IDPROVA,
+        numeroProva,
+        genero,
+        ID_TORNEIO,
+        ID_DISTANCIAESTILO,
+        ID_CATEGORIA_MIN,
+        ID_CATEGORIA_MAX
+    )
 VALUES(
         null,
         1,
@@ -1167,7 +1446,15 @@ VALUES(
         12,
         99
     );
-INSERT INTO tb_prova
+INSERT INTO tb_prova (
+        IDPROVA,
+        numeroProva,
+        genero,
+        ID_TORNEIO,
+        ID_DISTANCIAESTILO,
+        ID_CATEGORIA_MIN,
+        ID_CATEGORIA_MAX
+    )
 VALUES(
         null,
         27,
@@ -1394,7 +1681,15 @@ VALUES(
         1,
         1
     );
-INSERT INTO tb_prova
+INSERT INTO tb_prova (
+        IDPROVA,
+        numeroProva,
+        genero,
+        ID_TORNEIO,
+        ID_DISTANCIAESTILO,
+        ID_CATEGORIA_MIN,
+        ID_CATEGORIA_MAX
+    )
 VALUES(
         null,
         1,
@@ -1413,7 +1708,15 @@ VALUES(
         14,
         14
     );
-INSERT INTO tb_prova
+INSERT INTO tb_prova (
+        IDPROVA,
+        numeroProva,
+        genero,
+        ID_TORNEIO,
+        ID_DISTANCIAESTILO,
+        ID_CATEGORIA_MIN,
+        ID_CATEGORIA_MAX
+    )
 VALUES(
         null,
         3,
@@ -1468,7 +1771,15 @@ VALUES(
         14,
         14
     );
-INSERT INTO tb_prova
+INSERT INTO tb_prova (
+        IDPROVA,
+        numeroProva,
+        genero,
+        ID_TORNEIO,
+        ID_DISTANCIAESTILO,
+        ID_CATEGORIA_MIN,
+        ID_CATEGORIA_MAX
+    )
 VALUES(
         null,
         9,
@@ -1506,7 +1817,15 @@ VALUES(
         14
     );
 --
-INSERT INTO tb_prova
+INSERT INTO tb_prova (
+IDPROVA,
+numeroProva,
+genero,
+ID_TORNEIO,
+ID_DISTANCIAESTILO,
+ID_CATEGORIA_MIN,
+ID_CATEGORIA_MAX
+)
 VALUES(
         null,
         15,
@@ -1525,7 +1844,15 @@ VALUES(
         14,
         14
     );
-INSERT INTO tb_prova
+INSERT INTO tb_prova (
+        IDPROVA,
+        numeroProva,
+        genero,
+        ID_TORNEIO,
+        ID_DISTANCIAESTILO,
+        ID_CATEGORIA_MIN,
+        ID_CATEGORIA_MAX
+    )
 VALUES(
         null,
         17,
@@ -1580,7 +1907,15 @@ VALUES(
         14,
         14
     );
-INSERT INTO tb_prova
+INSERT INTO tb_prova (
+        IDPROVA,
+        numeroProva,
+        genero,
+        ID_TORNEIO,
+        ID_DISTANCIAESTILO,
+        ID_CATEGORIA_MIN,
+        ID_CATEGORIA_MAX
+    )
 VALUES(
         null,
         23,
@@ -1600,7 +1935,15 @@ VALUES(
         14
     );
 --
-INSERT INTO tb_prova
+INSERT INTO tb_prova (
+IDPROVA,
+numeroProva,
+genero,
+ID_TORNEIO,
+ID_DISTANCIAESTILO,
+ID_CATEGORIA_MIN,
+ID_CATEGORIA_MAX
+)
 VALUES(
         null,
         26,
@@ -1799,7 +2142,15 @@ VALUES(
         14,
         14
     );
-INSERT INTO tb_prova
+INSERT INTO tb_prova (
+        IDPROVA,
+        numeroProva,
+        genero,
+        ID_TORNEIO,
+        ID_DISTANCIAESTILO,
+        ID_CATEGORIA_MIN,
+        ID_CATEGORIA_MAX
+    )
 VALUES(
         null,
         50,
@@ -1908,3 +2259,13 @@ VALUES(
         14,
         14
     );
+INSERT INTO `tb_tempoAtleta`
+VALUES (1, '00:01:02.57', 'N', 16, 2),
+    (2, '00:02:21.41', 'N', 28, 2),
+    (3, '00:02:47.24', 'N', 20, 2),
+    (4, '00:00:27.66', 'N', 142, 2),
+    (5, '00:01:13.37', 'N', 112, 2),
+    (6, '00:02:38.42', 'N', 120, 2),
+    (7, '00:01:10.74', 'N', 132, 2),
+    (8, '00:01:00.42', 'N', 66, 2),
+    (9, '00:02:18.13', 'N', 78, 2);

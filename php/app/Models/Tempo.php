@@ -14,6 +14,7 @@ class Tempo extends Model
     private $nomeTorneio;
     private $tamanhoPiscina;
     private $distanciaEstilo;
+    private $final;
 
     public function __get($atribute)
     {
@@ -35,7 +36,7 @@ class Tempo extends Model
 
     public function getTempo()
     {
-        $tempo = "SELECT numeroProva, genero, tempoAtleta, pr.ID_DISTANCIAESTILO AS distanciaEstilo, a.nomeAtleta, a.sobreNomeAtleta, t.nomeTorneio, t.dataTorneio, p.tamanhoPiscina, d.distancia, e.nomeEstilo, cmin.nomeCategoria AS CategoriaMinima, cmax.nomeCategoria AS CategoriaMaxima FROM tb_tempoAtleta
+        $tempo = "SELECT IDTMPATLETA, ID_PROVA, final, numeroProva, genero, tempoAtleta, pr.ID_DISTANCIAESTILO AS distanciaEstilo, a.nomeAtleta, a.sobreNomeAtleta, t.nomeTorneio, t.dataTorneio, p.tamanhoPiscina, d.distancia, e.nomeEstilo, cmin.nomeCategoria AS CategoriaMinima, cmax.nomeCategoria AS CategoriaMaxima FROM tb_tempoAtleta
         INNER JOIN tb_prova AS pr ON ID_PROVA = pr.IDPROVA
         INNER JOIN tb_atleta AS a ON ID_ATLETA = a.IDATLETA
         INNER JOIN tb_torneio AS t ON pr.ID_TORNEIO = t.IDTORNEIO
@@ -46,7 +47,64 @@ class Tempo extends Model
         INNER JOIN tb_piscina AS p ON t.ID_PISCINA = p.IDPISCINA
         INNER JOIN tb_categoria AS cmin ON ID_CATEGORIA_MIN = cmin.IDCATEGORIA
         INNER JOIN tb_categoria AS cmax ON ID_CATEGORIA_MAX = cmax.IDCATEGORIA
-        WHERE ID_ATLETA = :id_atleta ORDER BY t.dataTorneio DESC;";
+        WHERE ID_ATLETA = :id_atleta AND IDTMPATLETA = :IDTMPATLETA ORDER BY t.dataTorneio DESC;";
+        $stmt = $this->db->prepare($tempo);
+        $stmt->bindValue(':id_atleta', $this->__get('id_atleta'));
+        $stmt->bindValue(':IDTMPATLETA', $this->__get('idtmpatleta'));
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function saveTempo()
+    {
+        $tempo = "INSERT INTO tb_tempoAtleta (tempoAtleta, id_prova, id_atleta, final) VALUES (:tempoAtleta, :id_prova, :id_atleta, :final);";
+        $stmt = $this->db->prepare($tempo);
+        $stmt->bindValue(':tempoAtleta', $this->__get('tempoAtleta'));
+        $stmt->bindValue(':id_prova', $this->__get('id_prova'));
+        $stmt->bindValue(':id_atleta', $this->__get('id_atleta'));
+        $stmt->bindValue(':final', $this->__get('final'));
+        $stmt->execute();
+
+        return $this;
+    }
+
+    public function updateTempo()
+    {
+        $tempo = "UPDATE tb_tempoAtleta SET tempoAtleta = :tempoAtleta, final = :final WHERE IDTMPATLETA = :IDTMPATLETA;";
+        $stmt = $this->db->prepare($tempo);
+        $stmt->bindValue(':tempoAtleta', $this->__get('tempoAtleta'));
+        $stmt->bindValue(':IDTMPATLETA', $this->__get('idtmpatleta'));
+        $stmt->bindValue(':final', $this->__get('final'));
+        $stmt->execute();
+
+        return $this;
+    }
+
+    public function deleteTempo()
+    {
+        $tempo = "DELETE FROM tb_tempoAtleta WHERE IDTMPATLETA = :idtmpatleta";
+        $stmt = $this->db->prepare($tempo);
+        $stmt->bindValue(':idtmpatleta', $this->__get('idtmpatleta'));
+        $stmt->execute();
+
+        return $this;
+    }
+
+    public function getTempos()
+    {
+        $tempo = "SELECT IDTMPATLETA, ID_PROVA, final, numeroProva, genero, tempoAtleta, pr.ID_DISTANCIAESTILO AS distanciaEstilo, a.nomeAtleta, a.sobreNomeAtleta, t.nomeTorneio, t.dataTorneio, p.tamanhoPiscina, d.distancia, e.nomeEstilo, cmin.nomeCategoria AS CategoriaMinima, cmax.nomeCategoria AS CategoriaMaxima FROM tb_tempoAtleta
+        INNER JOIN tb_prova AS pr ON ID_PROVA = pr.IDPROVA
+        INNER JOIN tb_atleta AS a ON ID_ATLETA = a.IDATLETA
+        INNER JOIN tb_torneio AS t ON pr.ID_TORNEIO = t.IDTORNEIO
+        INNER JOIN tb_distancia AS d ON 
+        (SELECT ID_DISTANCIA AS dist FROM tba_distancia_estilo WHERE pr.ID_DISTANCIAESTILO = IDDISTANCIAESTILO) = d.IDDISTANCIA
+        INNER JOIN tb_estilo AS e ON 
+        (SELECT ID_ESTILO AS est FROM tba_distancia_estilo WHERE pr.ID_DISTANCIAESTILO = IDDISTANCIAESTILO) = e.IDESTILO
+        INNER JOIN tb_piscina AS p ON t.ID_PISCINA = p.IDPISCINA
+        INNER JOIN tb_categoria AS cmin ON ID_CATEGORIA_MIN = cmin.IDCATEGORIA
+        INNER JOIN tb_categoria AS cmax ON ID_CATEGORIA_MAX = cmax.IDCATEGORIA
+        WHERE ID_ATLETA = :id_atleta ORDER BY t.dataTorneio DESC, ID_PROVA DESC, final ASC;";
         $stmt = $this->db->prepare($tempo);
         $stmt->bindValue(':id_atleta', $this->__get('id_atleta'));
         $stmt->execute();
@@ -85,21 +143,9 @@ class Tempo extends Model
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function saveTempo()
-    {
-        $tempo = "INSERT INTO tb_tempoAtleta (tempoAtleta, id_prova, id_atleta) VALUES (:tempoAtleta, :id_prova, :id_atleta)";
-        $stmt = $this->db->prepare($tempo);
-        $stmt->bindValue(':tempoAtleta', $this->__get('tempoAtleta'));
-        $stmt->bindValue(':id_prova', $this->__get('id_prova'));
-        $stmt->bindValue(':id_atleta', $this->__get('id_atleta'));
-        $stmt->execute();
-
-        return $this;
-    }
-
     public function getTemposFiltered()
     {
-        $tempos = $tempo = "SELECT numeroProva, genero, tempoAtleta, pr.ID_DISTANCIAESTILO AS distanciaEstilo, a.nomeAtleta, a.sobreNomeAtleta, t.nomeTorneio, t.dataTorneio, p.tamanhoPiscina, d.distancia, e.nomeEstilo, cmin.nomeCategoria AS CategoriaMinima, cmax.nomeCategoria AS CategoriaMaxima FROM tb_tempoAtleta
+        $tempos = "SELECT IDTMPATLETA, numeroProva, genero, final, tempoAtleta, pr.ID_DISTANCIAESTILO AS distanciaEstilo, a.nomeAtleta, a.sobreNomeAtleta, t.nomeTorneio, t.dataTorneio, p.tamanhoPiscina, d.distancia, e.nomeEstilo, cmin.nomeCategoria AS CategoriaMinima, cmax.nomeCategoria AS CategoriaMaxima FROM tb_tempoAtleta
         INNER JOIN tb_prova AS pr ON ID_PROVA = pr.IDPROVA
         INNER JOIN tb_atleta AS a ON ID_ATLETA = a.IDATLETA
         INNER JOIN tb_torneio AS t ON pr.ID_TORNEIO = t.IDTORNEIO
@@ -112,7 +158,7 @@ class Tempo extends Model
         INNER JOIN tb_categoria AS cmax ON ID_CATEGORIA_MAX = cmax.IDCATEGORIA
         WHERE ID_ATLETA = :id_atleta AND ";
         if (!empty($this->__get('anoTempo'))) {
-            $tempos .= "t.dataTorneio LIKE :anoTempo AND ";
+            $tempos .= "year(t.dataTorneio) = :anoTempo AND ";
         }
         if (!empty($this->__get('nomeTorneio'))) {
             $tempos .= "t.nomeTorneio = :nomeTorneio AND ";
@@ -124,7 +170,7 @@ class Tempo extends Model
             $tempos .= "pr.ID_DISTANCIAESTILO = :distanciaEstilo AND ";
         }
         $tempos .= "1 = 1 ";
-        $tempos .= "ORDER BY dataTorneio DESC, ID_DISTANCIAESTILO ASC;";
+        $tempos .= "ORDER BY dataTorneio DESC, ID_DISTANCIAESTILO ASC, numeroProva DESC, final ASC;";
 
         $stmt = $this->db->prepare($tempos);
         $stmt->bindValue(':id_atleta', $this->__get('id_atleta'));
@@ -145,6 +191,7 @@ class Tempo extends Model
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
     public function getTemposFilteredCronologico()
     {
         $tempos = $tempo = "SELECT numeroProva, genero, tempoAtleta, pr.ID_DISTANCIAESTILO AS distanciaEstilo, a.nomeAtleta, a.sobreNomeAtleta, t.nomeTorneio, t.dataTorneio, p.tamanhoPiscina, d.distancia, e.nomeEstilo, cmin.nomeCategoria AS CategoriaMinima, cmax.nomeCategoria AS CategoriaMaxima FROM tb_tempoAtleta
@@ -172,7 +219,7 @@ class Tempo extends Model
             $tempos .= "pr.ID_DISTANCIAESTILO = :distanciaEstilo AND ";
         }
         $tempos .= "1 = 1 ";
-        $tempos .= "ORDER BY dataTorneio ASC, pr.ID_DISTANCIAESTILO ASC;";
+        $tempos .= "ORDER BY dataTorneio ASC, pr.ID_DISTANCIAESTILO ASC, final DESC;";
 
         $stmt = $this->db->prepare($tempos);
         $stmt->bindValue(':id_atleta', $this->__get('id_atleta'));
@@ -192,5 +239,17 @@ class Tempo extends Model
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function verificaTempo()
+    {
+        $recorde = "SELECT * FROM tb_tempoAtleta WHERE ID_PROVA = :id_prova AND final = :final AND ID_ATLETA = :id_atleta;";
+        $stmt = $this->db->prepare($recorde);
+        $stmt->bindValue(':id_prova', $this->__get('id_prova'));
+        $stmt->bindValue(':id_atleta', $this->__get('id_atleta'));
+        $stmt->bindValue(':final', $this->__get('final'));
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 }

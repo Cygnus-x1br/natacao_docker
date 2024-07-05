@@ -8,11 +8,11 @@ Para inicializar o container do MySQL execute o seguinte comando:
 
 Inicialização com volume local
 
-docker run -d -p 3317:3306 --name mysql_natacao -v /~/projects/natacao/db_data:/var/lib/mysql --rm --network natacao_network -e MYSQL_ALLOW_EMPTY_PASSWORD=True natacao_database
+docker run -d -p 3317:3306 --name mysql_natacao -v /~/projects/natacao/db_data:/var/lib/mysql --rm --network natacao_network -e MYSQL_ALLOW_EMPTY_PASSWORD=True natacao_database:versao
 
 Inicialização com docker volume
 
-docker run -d -p 3317:3306 --name mysql_natacao -v natacao_data_volume:/var/lib/mysql --rm -e MYSQL_ALLOW_EMPTY_PASSWORD=True --network natacao_network natacao_database
+docker run -d -p 3317:3306 --name mysql_natacao -v natacao_data_volume:/var/lib/mysql --rm -e MYSQL_ALLOW_EMPTY_PASSWORD=True --network natacao_network natacao_database:versao
 
 Criação do Dockerfile para o PHP.
 -Utilizando a imagem do PHP 8.2-apache
@@ -29,3 +29,11 @@ Javascript:
 vanilla-masker: (Mascaras para os dados)
 
 https://github.com/vanilla-masker/vanilla-masker
+
+Gráfico Circular
+
+https://gist.github.com/giancore/801b6fecc1fa357d4db3472ffd3f71f7
+
+Gráficos:
+
+

@@ -45,7 +45,7 @@ class Complexo extends Model
 
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
-    public function addComplexo()
+    public function saveComplexo()
     {
         $complexo = "INSERT INTO tb_complexo(nomeComplexo,
             nomeFantasiaComplexo,
@@ -77,7 +77,7 @@ class Complexo extends Model
         return $this;
     }
 
-    public function editComplexo()
+    public function updateComplexo()
     {
         $complexo = "UPDATE tb_complexo 
         SET nomeComplexo = :nomeComplexo,
@@ -106,14 +106,14 @@ class Complexo extends Model
 
         return $this;
     }
-    
+
     public function deleteComplexo()
     {
         $complexo = "DELETE FROM tb_complexo WHERE IDCOMPLEXO = :idcomplexo";
         $stmt = $this->db->prepare($complexo);
         $stmt->bindValue(':idcomplexo', $this->__get('idcomplexo'));
         $stmt->execute();
-        
+
         return $this;
     }
 }

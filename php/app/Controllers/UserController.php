@@ -57,7 +57,7 @@ class UserController extends Action
         $atleta->__set('telefoneAtleta', $_POST['telefoneAtleta']);
         $atleta->__set('id_equipe', $_POST['id_equipe']);
 
-        $atleta->addAtleta();
+        $atleta->saveAtleta();
 
         if (isset($_POST['idUsuario']) && isset($_POST['permissaoUsuario']) && $_POST['permissaoUsuario'] == 2) {
             echo "$atleta->nomeAtleta $atleta->sobreNomeAtleta incluido com sucesso";

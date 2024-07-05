@@ -141,7 +141,7 @@ class Assets extends Action
     {
         $tempos = Container::getModel('Tempo');
         $tempos->__set('id_atleta', $user_id);
-        $tempos_data = $tempos->getTempo();
+        $tempos_data = $tempos->getTempos();
 
         $anos = [];
         foreach ($tempos_data as $key => $value) {
@@ -150,11 +150,17 @@ class Assets extends Action
         }
         return array_unique($anos);
     }
+
+    public static function list_estados()
+    {
+        $estado = Container::getModel('Estados');
+        return $estado->getAllEstados();
+    }
     public static function list_torneios($user_id)
     {
         $torneios = Container::getModel('Tempo');
         $torneios->__set('id_atleta', $user_id);
-        $torneios_data = $torneios->getTempo();
+        $torneios_data = $torneios->getTempos();
 
         $torneio = [];
         foreach ($torneios_data as $key => $value) {
@@ -166,13 +172,19 @@ class Assets extends Action
     {
         $estilos = Container::getModel('Tempo');
         $estilos->__set('id_atleta', $user_id);
-        $estilos_data = $estilos->getTempo();
+        $estilos_data = $estilos->getTempos();
 
         $estilo = [];
         foreach ($estilos_data as $key => $value) {
             $estilo[] = $value['distancia'] . ' m ' . $value['nomeEstilo'] . '*' . $value['distanciaEstilo'];
         }
         return array_unique($estilo);
+    }
+
+    public static function list_federacoes()
+    {
+        $federacao = Container::getModel('Federacao');
+        return $federacao->getAllFederacoes();
     }
 
     public static function list_equipes()
@@ -206,6 +218,19 @@ class Assets extends Action
         }
         return array_unique($tipoIndice);
     }
+    public static function list_tipos_recorde()
+    {
+        $tipoRecorde = [];
+        $recordes = Container::getModel('Recordes');
+        $recordes_data = $recordes->getRecordesSorted();
+        foreach ($recordes_data as $key => $value) {
+            //print_r($recordes_data);
+            $tipoRecorde[] = $value['tipoRecorde'];
+        }
+        $tiposDeRecorde = array_unique($tipoRecorde) ?? [];
+
+        return $tiposDeRecorde;
+    }
     public static function list_categorias()
     {
         $categorias = Container::getModel('Categoria');
@@ -236,6 +261,8 @@ class Assets extends Action
         return $estilos_data;
     }
 
+
+
     public static function count_atletas()
     {
         $atletas = Container::getModel('Atleta');
@@ -262,11 +289,5 @@ class Assets extends Action
         $torneios = Container::getModel('Torneio');
         $torneios_data = $torneios->getAllTorneios();
         return count($torneios_data);
-    }
-
-    public static function indice_tecnico($tempo, $id_distanciaestilo)
-    {
-        $indice_tecnico = $tempo . ' ' . $id_distanciaestilo;
-        return $indice_tecnico;
     }
 }

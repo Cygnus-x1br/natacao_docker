@@ -10,12 +10,12 @@ $generos = ['F', 'M'];
 $array_indice = [];
 
 
-function adjustTime($fullTime)
-{
-    $time = explode(':', $fullTime);
-    (array_shift($time));
-    return implode(':', $time);
-}
+// function adjustTime($fullTime)
+// {
+//     $time = explode(':', $fullTime);
+//     (array_shift($time));
+//     return implode(':', $time);
+// }
 
 echo "<pre>";
 //print_r($array_indice);
@@ -154,11 +154,11 @@ echo '</pre>';
     </form>
 </div>
 
-<div class="text-end">
+<!-- <div class="text-end">
     <a href="insert_atleta">
         <i class="bi bi-plus-circle"></i>
     </a>
-</div>
+</div> -->
 <div class="table-responsive small">
     <?php foreach ($anos as $ano) { ?>
         <?php if ((array_search($ano, array_column($indices, 'anoIndice'))) !== false) { ?>
@@ -189,6 +189,7 @@ echo '</pre>';
                                             } ?>
                                         </tr>
                                     </thead>
+                                    //TODO Ajustar a tabela para não mostrar valores vazios
                                     <tbody>
                                         <?php foreach ($estilos as $estilo) { ?>
                                             <tr class="mb-1">

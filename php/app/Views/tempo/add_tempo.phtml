@@ -8,12 +8,6 @@ $tempoAtleta = $this->viewData->tempoAtleta;
 
 // print_r($provas);
 
-function adjustTime($fullTime)
-{
-    $time = explode(':', $fullTime);
-    (array_shift($time));
-    return implode(':', $time);
-}
 
 ?>
 
@@ -54,6 +48,12 @@ function adjustTime($fullTime)
                         </select>
                     <?php } ?>
                 </div>
+                <div class="col-sm-1">
+                    <div class="form-check form-switch">
+                        <label class="form-check-label" for="flexSwitchCheckChecked">Final</label>
+                        <input class="form-check-input" name="final" value="S" type="checkbox" role="switch" id="flexSwitchCheckChecked">
+                    </div>
+                </div>
                 <div class="col-sm-2">
                     <label for="tempoAtleta" class="form-label">Tempo</label>
                     <input type="text" name="tempoAtleta" class="form-control" id="tempoAtleta">
@@ -81,7 +81,7 @@ function adjustTime($fullTime)
                             <td><?php echo implode('/',  array_reverse(explode('-', $tempo['dataTorneio']))) ?></td>
                             <td><?= $tempo['nomeTorneio'] ?></td>
                             <td><?= $tempo['tamanhoPiscina'] . 'm' ?></td>
-                            <td><?= $tempo['distancia'] . 'm ' . $tempo['nomeEstilo'] ?></td>
+                            <td><?= $tempo['distancia'] . 'm ' . $tempo['nomeEstilo'] ?><?php if ($tempo['final'] == 'S') { ?><span class="badge text-bg-secondary ms-2">Final</span> <?php } ?> </td>
                             <td><?php echo adjustTime($tempo['tempoAtleta']) ?></td>
                         </tr>
                     <?php } ?>

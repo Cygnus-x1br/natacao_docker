@@ -1,0 +1,188 @@
+<?php
+
+$recordes = $this->viewData->recordes;
+// $anos = $this->viewData->anosIndice;
+$tipos = $this->viewData->tipoRecorde;
+$categorias = $this->viewData->categorias;
+$piscinas = $this->viewData->piscinas;
+$estilos = $this->viewData->estilos;
+$generos = ['F', 'M'];
+$array_recordes = [];
+
+echo "<pre>";
+//print_r($tipos);
+// print_r($recordes);
+// print_r($anos);
+//print_r($tipos);
+// print_r($piscinas);
+// echo '<br>';
+// var_dump(array_search('2024', array_column($indices, 'anoIndice')));
+//print_r($estilos);
+//print_r($estilos['distancia'] . 'm ' . $estilos['nomeEstilo']);
+echo '</pre>';
+?>
+
+
+
+<div class="py-5 text-center">
+    <h2 class="fw-light">Tabela de Recordes</h2>
+    <p class="lead"></p>
+</div>
+
+
+
+<div class="row p-3 ">
+
+    <form action="save_recorde" method="POST" class="needs-validation" enctype="multipart/form-data">
+        <div class="row">
+            <div class="row d-flex justify-content-between align-items-end mb-3">
+                <div class="col-md-2">
+                    <label for="tipoRecorde" class="form-label">Tipo Recorde</label>
+                    <input class="form-select" list="tipoRecorde" name="tipoRecorde">
+                    <datalist id="tipoRecorde">
+                        <?php foreach ($tipos as $tipo) { ?>
+                            <option value="<?= $tipo ?>">
+                            <?php } ?>
+                    </datalist>
+                </div>
+                <div class="col-md-2">
+                    <label for="dataRecorde" class="form-label">Data Recorde</label>
+                    <input type="date" class="form-control" name="dataRecorde" id="dataRecorde">
+                </div>
+                <div class="col-md-6">
+                    <label for="nomeAtletaRecorde" class="form-label">Atleta</label>
+                    <input type="text" name="nomeAtletaRecorde" class="form-control" placeholder="nome" id="nomeAtletaRecorde">
+                </div>
+                <div class="col-md-2">
+                    <label for="estiloRecorde" class="form-label">Estilo</label>
+                    <select class="form-select" name="id_distanciaestilo" id="estiloRecorde">
+                        <option value="">Selected</option>
+                        <?php foreach ($estilos as $estilo) { ?>
+                            <option value="<?= $estilo['IDDISTANCIAESTILO'] ?>"><?= $estilo['distancia'] . 'm ' . $estilo['nomeEstilo'] ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-around align-items-end mb-3">
+                <div class="col-md-2">
+                    <label for="piscinaRecorde" class="form-label">Piscina</label>
+                    <select class="form-select" name="id_piscina" id="piscinaRecorde">
+                        <option value="">Selected</option>
+                        <?php foreach ($piscinas as $key => $value) { ?>
+                            <option value="<?= $key ?>"><?= $value . 'm' ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="categoriaRecorde" class="form-label">Categoria</label>
+                    <select class="form-select" name="id_categoria" id="categoriaRecorde">
+                        <option value="">Selected</option>
+                        <?php foreach ($categorias as $categoria) { ?>
+                            <option value="<?= $categoria['IDCATEGORIA'] ?>"><?= $categoria['nomeCategoria'] ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="generoRecorde" class="form-label">Genero</label>
+                    <select class="form-select" name="generoRecorde" id="generoRecorde">
+                        <option value="">Selected</option>
+                        <option value="F">Feminino</option>
+                        <option value="M">Masculino</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="localRecorde" class="form-label">Campeonato/Local</label>
+                    <input type="text" name="localRecorde" class="form-control" placeholder="Local" id="localRecorde">
+                </div>
+                <div class="col-md-2">
+                    <label for="nacionalidadeRecorde" class="form-label">Nacionalidade</label>
+                    <input type="text" name="nacionalidadeRecorde" class="form-control" placeholder="País" id="nacionalidadeRecorde">
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center align-items-end">
+                <div class="col-md-2">
+                    <label for="tempoRecorde" class="form-label">Tempo</label>
+                    <input type="text" name="tempoRecorde" class="form-control" placeholder="00:00.00" id="tempoRecorde">
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary h-25 w-100" type="submit">Incluir</button>
+                </div>
+            </div>
+        </div>
+        <hr class="my-4">
+    </form>
+</div>
+
+
+<div class="table-responsive small">
+    <?php foreach ($tipos as $tipo) { ?>
+        <?php if ((array_search($tipo, array_column($recordes, 'tipoRecorde'))) !== false) {
+        ?>
+            <h3><?= $tipo ?></h3>
+
+            <?php foreach ($generos as $genero) { ?>
+                <?php if ((array_search($genero, array_column($recordes, 'generoRecorde'))) !== false) {
+                ?>
+                    <h3 class="lead"><?= 'Genero: ' . $genero ?></h3>
+                <?php } ?>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Estilo</th>
+                            <th scope=" col">Atleta</th>
+                            <th scope="col">Tempo</th>
+                            <th scope=" col">Data</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($estilos as $estilo) { ?>
+                            <tr class="mb-1">
+                                <?php if ((array_search($estilo['IDDISTANCIAESTILO'], array_column($recordes, 'ID_DISTANCIAESTILO'))) !== false) { ?>
+                                    <th scope="row" style="width: 200px;"><?= $estilo['distancia'] . 'm ' . $estilo['nomeEstilo'] ?></th>
+                                    <?php
+                                    foreach ($recordes as $recorde) {
+                                        if ($recorde['tipoRecorde'] == $tipo && $recorde['generoRecorde'] == $genero && $recorde['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO']) { ?>
+                                            <td scope="col"><?= $recorde['nomeAtletaRecorde'] ?></td>
+                                            <td scope="col"><?= adjustTime($recorde['tempoRecorde']) ?></td>
+                                            <td scope="col"><?= convertDate($recorde['dataRecorde']) ?></td>
+                                            <td scope="col" class="text-end">
+                                                <a href="edit_recorde?id=<?= $recorde['IDRECORDE'] ?>" class="btn btn-outline-primary me-1">Editar</a>
+                                                <a href="delete_recorde?id=<?= $recorde['IDRECORDE'] ?>" class="btn btn-danger">Delete</a>
+
+                                            </td>
+                                        <?php } ?>
+                                    <?php } ?>
+
+                                    </td>
+                            </tr>
+                        <?php } ?>
+                    <?php } ?>
+                    </tbody>
+
+                </table>
+            <?php } ?>
+    <?php
+
+        }
+    }
+
+
+    ?>
+    <hr>
+
+</div>
+
+
+<script>
+    VMasker(document.querySelector('#tempoRecorde')).maskPattern('99:99.99');
+
+    let table = document.getElementsByTagName('td')
+    for (let t of table) {
+        console.log(t);
+        if (t.innerHtml == ' ') {
+            t.innerHtml = 0;
+        }
+    };
+</script>

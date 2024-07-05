@@ -1,0 +1,58 @@
+<?php
+
+$distanciaEstilo = $this->viewData->distanciaEstilo;
+$torneios = $this->viewData->torneios;
+$categorias = $this->viewData->categorias;
+$provas = $this->viewData->provas;
+$tempoAtleta = $this->viewData->tempoAtleta;
+
+// function adjustTime($fullTime)
+// {
+//     $time = explode(':', $fullTime);
+//     (array_shift($time));
+//     return implode(':', $time);
+// }
+
+// print_r($tempoAtleta);
+?>
+
+<main>
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Registrar Tempo</h1>
+            </div>
+        </div>
+    </section>
+
+    <div class="col-md-12">
+        <form action="update_tempo" method="POST" class="needs-validation" enctype="multipart/form-data">
+            <div class="row g-3 d-flex justify-content-between align-items-end">
+                <input type="hidden" name="idtmpatleta" value="<?= $tempoAtleta['IDTMPATLETA'] ?>">
+                <div class="col-md-4">
+                    <label for="nomeTorneio" class="form-label">Torneio</label>
+                    <input type="text" value="<?= $tempoAtleta['nomeTorneio'] ?>" name="nomeTorneio" class="form-control" id="nomeTorneio" disabled>
+                </div>
+                <div class="col-sm-3">
+                    <label for="prova" class="form-label" id="provaLabel">Prova</label>
+                    <input type="text" name="nomeTorneio" class="form-control" id="nomeTorneio" value="<?= $tempoAtleta['distancia'] . 'm - ' . $tempoAtleta['nomeEstilo'] . ' - ' . $tempoAtleta['genero'] . ' - ' . $tempoAtleta['CategoriaMinima'] . ' a ' . $tempoAtleta['CategoriaMaxima'] ?>" disabled>
+                </div>
+                <div class="col-sm-1">
+                    <div class="form-check form-switch">
+                        <label class="form-check-label" for="flexSwitchCheckChecked">Final</label>
+                        <input class="form-check-input" name="final" value="S" type="checkbox" role="switch" id="flexSwitchCheckChecked" <?php if ($tempoAtleta['final'] == 'S') echo 'checked' ?>>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label for="tempoAtleta" class="form-label">Tempo</label>
+                    <input type="text" name="tempoAtleta" class="form-control" id="tempoAtleta" value="<?php echo adjustTime($tempoAtleta['tempoAtleta']) ?>" placeholder="00:00">
+                </div>
+                <div class="col-sm-1">
+                    <button class="btn btn-primary h-25 w-100" type="submit">Editar</button>
+                </div>
+                <div class="col-sm-1">
+                    <a href="tempos_atleta" class="btn btn-secondary h-25 w-100" type="submit">Voltar</a>
+                </div>
+            </div>
+            <hr class="my-4">
+        </form>

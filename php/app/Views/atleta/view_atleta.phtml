@@ -8,6 +8,10 @@ $tempos = $this->viewData->tempos;
 $ultimos_tempos = array_splice($tempos, 0, 5);
 $disabled = $this->setHtmlData->edit;
 
+// echo '<pre>';
+// print_r($tempos);
+// echo '</pre>';
+
 ?>
 
 <div class="container">
@@ -30,9 +34,9 @@ $disabled = $this->setHtmlData->edit;
                             <div>
                                 <h6 class="my-0"><a href="#" class="text-decoration-none"><?= $tempo['nomeTorneio'] ?></a></h6>
                                 <small class="text-body-secondary"><?= $tempo['dataTorneio'] ?></small>
-                                <h6 class="text-body-secondary"><?= $tempo['distancia'] . 'm ' . $tempo['nomeEstilo'] ?></h6>
+                                <h6 class="text-body-secondary"><?= $tempo['distancia'] . 'm ' . $tempo['nomeEstilo'] ?><?php if ($tempo['final'] == 'S') { ?><span class="badge text-bg-secondary ms-2">Final</span><?php } ?></h6>
                             </div>
-                            <span class="text-body-secondary"><?= $tempo['tempoAtleta'] ?></span>
+                            <span class="text-body-secondary"><?= adjustTime($tempo['tempoAtleta']) ?></span>
                         </li>
                     <?php } ?>
                 </ul>
@@ -184,7 +188,7 @@ $disabled = $this->setHtmlData->edit;
                             </div>
                             <dv class="col-6">
 
-                                <a href=" index_atleta?id=<?= $atleta['IDATLETA'] ?>" class="w-100 btn btn-primary btn-lg m-1" type="submit">Voltar</a>
+                                <a href=" index_atleta?id=<?= $atleta['IDATLETA'] ?>" class="w-100 btn btn-secondary btn-lg m-1" type="submit">Voltar</a>
                             </dv>
                         </div>
                 </form>

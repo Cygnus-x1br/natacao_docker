@@ -44,16 +44,7 @@ class Equipe extends Model
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function verificaCadastro($verifyData)
-    {
-        $equipe = "SELECT $verifyData FROM tb_equipe WHERE $verifyData=:$verifyData";
-        $stmt = $this->db->prepare($equipe);
-        $stmt->bindValue(":" . $verifyData, $this->__get($verifyData));
-        $stmt->execute();
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
-    }
-
-    public function addEquipe()
+    public function saveEquipe()
     {
         $equipe = "INSERT INTO tb_equipe(nomeEquipe, nomeFantasiaEquipe, logoEquipe, siteEquipe, emailEquipe, telefoneEquipe, facebookEquipe, instagramEquipe, ID_FEDERACAO)
          VALUES(:nomeEquipe, :nomeFantasiaEquipe, :logoEquipe, :siteEquipe, :emailEquipe, :telefoneEquipe, :facebookEquipe, :instagramEquipe, :id_federacao)";
@@ -71,8 +62,7 @@ class Equipe extends Model
 
         return $this;
     }
-
-    public function editEquipe()
+    public function updateEquipe()
     {
         $equipe = "UPDATE tb_equipe
     SET nomeEquipe = :nomeEquipe,
@@ -109,5 +99,14 @@ class Equipe extends Model
         $stmt->execute();
 
         return $this;
+    }
+
+    public function verificaCadastro($verifyData)
+    {
+        $equipe = "SELECT $verifyData FROM tb_equipe WHERE $verifyData=:$verifyData";
+        $stmt = $this->db->prepare($equipe);
+        $stmt->bindValue(":" . $verifyData, $this->__get($verifyData));
+        $stmt->execute();
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 }

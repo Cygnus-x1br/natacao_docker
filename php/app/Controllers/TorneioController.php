@@ -21,9 +21,9 @@ class TorneioController extends Action
         $piscinas = $piscina->getPiscinas();
         $this->viewData->piscinas = $piscinas;
 
-        $federacao = Container::getModel('Federacao');
-        $federacoes = $federacao->getAllFederacoes();
-        $this->viewData->federacoes = $federacoes;
+        // $federacao = Container::getModel('Federacao');
+        // $federacoes = $federacao->getAllFederacoes();
+        $this->viewData->federacoes = Assets::list_federacoes();
 
         $complexo = Container::getModel('Complexo');
         $complexos = $complexo->getAllComplexos();

@@ -39,7 +39,6 @@ class Federacao extends Model
     public function getFederacao()
     {
         $federacao = "SELECT *, e.nomeEstado AS nomeEstado, e.siglaEstado AS siglaEstado FROM tb_federacao INNER JOIN tb_estado AS e ON ID_ESTADO = e.IDESTADO WHERE IDFEDERACAO = :idfederacao ORDER BY nomeFederacao DESC";
-
         $stmt = $this->db->prepare($federacao);
         $stmt->bindValue(':idfederacao', $this->__get('idfederacao'));
         $stmt->execute();
@@ -64,11 +63,10 @@ class Federacao extends Model
 
         return $this;
     }
-    public function editFederacao()
+    public function updateFederacao()
     {
         // print_r($_POST);
         $federacao = "UPDATE tb_federacao SET nomeFederacao = :nomeFederacao, nomeFantasiaFederacao = :nomeFantasiaFederacao, logoFederacao = :logoFederacao, siteFederacao = :siteFederacao, emailFederacao = :emailFederacao, telefoneFederacao = :telefoneFederacao, facebookFederacao = :facebookFederacao, instagramFederacao = :instagramFederacao, ID_ESTADO = :ID_ESTADO WHERE IDFEDERACAO = :idfederacao";
-
         $stmt = $this->db->prepare($federacao);
         $stmt->bindValue(':idfederacao', $this->__get('idfederacao'));
         $stmt->bindValue(':nomeFederacao', $this->__get('nomeFederacao'));

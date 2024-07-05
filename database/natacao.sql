@@ -1,5 +1,5 @@
 -- Versao 0.1.3.0 (Não criado)
--- Incluido campo final em tb_prova
+-- Incluido campo final em tb_tempo
 -- Incluido campo recordeProvaTorneio em tb_prova
 -- Alterado o campo username para VARCHAR(50) em tb_users
 -- Criada tabela de Recordes
@@ -146,11 +146,10 @@ CREATE TABLE tb_prova (
 IDPROVA INT PRIMARY KEY AUTO_INCREMENT,
 numeroProva INT NOT NULL,
 genero ENUM('M', 'F') NOT NULL,
-final ENUM('S', 'N'),
-recordeProvaTorneio TIME(2) NOT NULL,
+recordeProvaTorneio TIME(2),
 ID_TORNEIO INT,
-ID_DISTANCIAESTILO INT,
-ID_CATEGORIA_MIN INT,
+ID_DISTANCIAESTILO INT NOT NULL,
+ID_CATEGORIA_MIN INT NOT NULL,
 ID_CATEGORIA_MAX INT
 );
 --
@@ -164,9 +163,11 @@ ADD CONSTRAINT FK_PROVA_TORNEIO FOREIGN KEY(ID_TORNEIO) REFERENCES tb_torneio(ID
 -- ADD CONSTRAINT FK_PROVA_DISTANCIAESTILO FOREIGN KEY(ID_DISTANCIAESTILO) REFERENCES tba_distancia_estilo(IDDISTANCIAESTILO);
 -- 
 CREATE TABLE tb_provaUsuario (
-    IDPROVAATLETA INT PRIMARY KEY AUTO_INCREMENT,
-    numeroProvaAtleta VARCHAR(5) NOT NULL,
-    generoProvaAtleta ENUM('M', 'F') NOT NULL,
+    IDPROVAUSUARIO INT PRIMARY KEY AUTO_INCREMENT,
+    numeroProvaUsuario VARCHAR(5) NOT NULL,
+    generoProvaUsuario ENUM('M', 'F') NOT NULL,
+    finalUsuario ENUM('S', 'N'),
+    recordeProvaTorneioUsuario TIME(2),
     ID_TORNEIOUSUARIO INT,
     ID_DISTANCIAESTILO INT,
     ID_CATEGORIA_MIN INT,
@@ -246,8 +247,9 @@ ADD CONSTRAINT FK_INDICE_CATEGORIA FOREIGN KEY(ID_CATEGORIA) REFERENCES tb_categ
 --
 CREATE TABLE tb_recordes (
 IDRECORDE INT PRIMARY KEY AUTO_INCREMENT,
+tipoRecorde VARCHAR(30) NOT NULL,
 dataRecorde DATE NOT NULL,
-nomeRecorde VARCHAR(60) NOT NULL,
+nomeAtletaRecorde VARCHAR(60),
 generoRecorde ENUM('M', 'F') NOT NULL,
 tempoRecorde TIME(2) NOT NULL,
 localRecorde VARCHAR(60),
@@ -265,6 +267,7 @@ ADD CONSTRAINT FK_RECORDE_CATEGORIA FOREIGN KEY(ID_CATEGORIA) REFERENCES tb_cate
 CREATE TABLE tb_tempoAtleta (
 IDTMPATLETA INT PRIMARY KEY AUTO_INCREMENT,
 tempoAtleta TIME(2) NOT NULL,
+final ENUM('S', 'N'),
 ID_PROVA INT NOT NULL,
 ID_ATLETA INT NOT NULL
 );
@@ -449,245 +452,6 @@ VALUES(null, 4, 5);
 INSERT INTO tba_distancia_estilo
 VALUES(null, 5, 5);
 -- Tabela Teste de dados
-INSERT INTO tb_federacao
-VALUES(
-        null,
-        'Confederacao Brasileira de Desportos Aquaticos',
-        'CBDA',
-        './images/logos/logoCBDA.png',
-        null,
-        null,
-        null,
-        null,
-        null,
-        24
-    );
-INSERT INTO tb_federacao
-VALUES(
-        null,
-        'Federacao Aquatica Paulista',
-        'FAP',
-        './images/logos/logoFAP.png',
-        null,
-        null,
-        null,
-        null,
-        null,
-        24
-    );
-INSERT INTO tb_federacao
-VALUES(
-        null,
-        'Federacao Aquatica do Rio de Janeiro',
-        'FARJ',
-        './images/logos/logoFARJ.png',
-        null,
-        null,
-        null,
-        null,
-        null,
-        23
-    );
-INSERT INTO tb_federacao
-VALUES(
-        null,
-        'Federacao Aquatica Mineira',
-        'FAM',
-        './images/logos/logoFAM.png',
-        null,
-        null,
-        null,
-        null,
-        null,
-        22
-    );
-INSERT INTO tb_federacao
-VALUES(
-        null,
-        'Federacao Aquatica Capixaba',
-        'FAC',
-        './images/logos/logoFAC.png',
-        null,
-        null,
-        null,
-        null,
-        null,
-        21
-    );
-INSERT INTO tb_equipe
-VALUES(
-        1,
-        'Sem equipe',
-        'Sem equipe',
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        1
-    );
-INSERT INTO tb_equipe
-VALUES(
-        null,
-        'Associacao Atletica Sao Caetano',
-        'Natacao Sao Caetano',
-        './images/logos/logoSaoCaetano.png',
-        null,
-        null,
-        null,
-        null,
-        null,
-        1
-    );
-INSERT INTO tb_equipe
-VALUES(
-        null,
-        'Primeiro de Maio Futebol Clube',
-        'Natacao Santo Andre',
-        './images/logos/logoSAndre.png',
-        null,
-        null,
-        null,
-        null,
-        null,
-        1
-    );
---
-INSERT INTO tb_users
-VALUES(
-        null,
-        'tom@gmail.com',
-        sha1('aczf0704'),
-        'tom@gmail.com',
-        2,
-        1
-    );
-INSERT INTO tb_users
-VALUES(
-        null,
-        'fernando@gmail.com',
-        sha1('fhzf1303'),
-        'fernando@gmail.com',
-        1,
-        1
-    );
---
-INSERT INTO tb_users
-VALUES(
-        null,
-        'jean@gmail.com',
-        sha1('aczf0704'),
-        'jean@gmail.com',
-        0,
-        2
-    );
-INSERT INTO tb_complexo(
-        nomeComplexo,
-        nomeFantasiaComplexo,
-        fotoComplexo,
-        enderecoComplexo,
-        bairroComplexo,
-        cidadeComplexo,
-        ID_ESTADO
-    )
-VALUES(
-        'Complexo Esportivo Lauro Gomes de Almeida',
-        'Conjunto Aquatico Leonardo Sperate',
-        './images/fotos/piscina_ConjuntoAquaticoLeonardoSperate.jpg',
-        'Rua Walter Thome, 64',
-        'Bairro Olimpico',
-        'Sao Caetano do Sul',
-        24
-    );
-INSERT INTO tb_complexo(
-        nomeComplexo,
-        nomeFantasiaComplexo,
-        fotoComplexo,
-        enderecoComplexo,
-        bairroComplexo,
-        cidadeComplexo,
-        ID_ESTADO
-    )
-VALUES(
-        'Complexo Esportivo Pedro Dell Antonia',
-        'Complexo Esportivo Pedro Dell Antonia',
-        './images/fotos/piscina_ComplexoEsportivoPedroDellAntonia.jpg',
-        'Rua Sao Pedro, 27',
-        'Silveira',
-        'Santo Andre',
-        24
-    );
-INSERT INTO tb_complexo(
-        nomeComplexo,
-        nomeFantasiaComplexo,
-        fotoComplexo,
-        enderecoComplexo,
-        bairroComplexo,
-        cidadeComplexo,
-        ID_ESTADO
-    )
-VALUES(
-        'Nova Piscina Olimpica da Bahia',
-        'Nova Piscina Olimpica da Bahia',
-        './images/fotos/piscina_NovaPiscinaOlimpicadaBahia.jpg',
-        'Av Mario Leal Ferreira',
-        'Brotas',
-        'Salvador',
-        19
-    );
-INSERT INTO tb_atleta(
-        nomeAtleta,
-        sobreNomeAtleta,
-        apelidoAtleta,
-        emailAtleta,
-        dataNascAtleta,
-        cpfAtleta,
-        numRegistroAtleta,
-        sexoAtleta,
-        rgAtleta,
-        fotoAtleta,
-        ID_EQUIPE
-    )
-VALUES(
-        'Fernando',
-        'Fiad',
-        'Mini-Tom',
-        'fernando@gmail.com',
-        '2016-03-13',
-        '111.222.333-44',
-        'FAP123456',
-        'M',
-        '99.888.777-6',
-        './images/fotos/foto_1_Fiad_2016-03-13.jpg',
-        1
-    );
-INSERT INTO tb_atleta(
-        nomeAtleta,
-        sobreNomeAtleta,
-        apelidoAtleta,
-        emailAtleta,
-        dataNascAtleta,
-        cpfAtleta,
-        numRegistroAtleta,
-        sexoAtleta,
-        rgAtleta,
-        fotoAtleta,
-        ID_EQUIPE
-    )
-VALUES(
-        'Antonio',
-        'Fiad',
-        'Tom',
-        'tom@gmail.com',
-        '2011-04-07',
-        '555.666.777-88',
-        '987654',
-        'M',
-        '11.222.333-4',
-        './images/fotos/foto_2_Fiad_2011-04-07.jpg',
-        1
-    );
 -- Querrys
 -- SELECT nomeTorneio, f.nomeFantasiaFederacao, p.tamanhoPiscina 
 -- FROM tb_torneio 

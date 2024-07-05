@@ -7,10 +7,9 @@ VALUES(
         'F',
         'Brasileiro Inverno',
         2,
-        --50L
-        1 --25m
+        1
     );
---50L-F
+-- 50L-F
 INSERT INTO tb_indices
 VALUES(
         null,
@@ -1603,7 +1602,7 @@ VALUES(
         '00:01:07.98',
         13,
         'F',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         3,
         2
     ),
@@ -1613,7 +1612,7 @@ VALUES(
         '00:01:06.98',
         14,
         'F',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         3,
         2
     ),
@@ -1623,7 +1622,7 @@ VALUES(
         '00:01:06.04',
         15,
         'F',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         3,
         2
     ),
@@ -1633,7 +1632,7 @@ VALUES(
         '00:01:05.36',
         16,
         'F',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         3,
         2
     ),
@@ -1643,7 +1642,7 @@ VALUES(
         '00:01:04.72',
         17,
         'F',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         3,
         2
     ),
@@ -1653,7 +1652,7 @@ VALUES(
         '00:01:04.10',
         18,
         'F',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         3,
         2
     ),
@@ -1663,7 +1662,7 @@ VALUES(
         '00:01:04.10',
         99,
         'F',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         3,
         2
     );
@@ -1675,7 +1674,7 @@ VALUES(
         '00:01:01.67',
         13,
         'M',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         3,
         2
     ),
@@ -1685,7 +1684,7 @@ VALUES(
         '00:00:58.71',
         14,
         'M',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         3,
         2
     ),
@@ -1695,7 +1694,7 @@ VALUES(
         '00:00:57.60',
         15,
         'M',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         3,
         2
     ),
@@ -1705,7 +1704,7 @@ VALUES(
         '00:00:56.57',
         16,
         'M',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         3,
         2
     ),
@@ -1715,7 +1714,7 @@ VALUES(
         '00:00:55.93',
         17,
         'M',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         3,
         2
     ),
@@ -1725,7 +1724,7 @@ VALUES(
         '00:00:55.31',
         18,
         'M',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         3,
         2
     ),
@@ -1735,7 +1734,7 @@ VALUES(
         '00:00:55.31',
         99,
         'M',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         3,
         2
     );
@@ -1747,7 +1746,7 @@ VALUES(
         '00:02:28.54',
         13,
         'F',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         4,
         2
     ),
@@ -1757,7 +1756,7 @@ VALUES(
         '00:02:26.35',
         14,
         'F',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         4,
         2
     ),
@@ -1767,7 +1766,7 @@ VALUES(
         '00:02:24.29',
         15,
         'F',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         4,
         2
     ),
@@ -1777,7 +1776,7 @@ VALUES(
         '00:02:22.82',
         16,
         'F',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         4,
         2
     ),
@@ -1787,7 +1786,7 @@ VALUES(
         '00:02:21.40',
         17,
         'F',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         4,
         2
     ),
@@ -1797,7 +1796,7 @@ VALUES(
         '00:02:20.05',
         18,
         'F',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         4,
         2
     ),
@@ -1807,7 +1806,7 @@ VALUES(
         '00:02:20.05',
         99,
         'F',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         4,
         2
     );
@@ -1819,7 +1818,7 @@ VALUES(
         '00:02:17.30',
         13,
         'M',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         4,
         2
     ),
@@ -1829,7 +1828,7 @@ VALUES(
         '00:02:09.38',
         14,
         'M',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         4,
         2
     ),
@@ -1839,7 +1838,7 @@ VALUES(
         '00:02:06.84',
         15,
         'M',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         4,
         2
     ),
@@ -1849,7 +1848,7 @@ VALUES(
         '00:02:04.49',
         16,
         'M',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         4,
         2
     ),
@@ -1859,7 +1858,7 @@ VALUES(
         '00:02:03.02',
         17,
         'M',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         4,
         2
     ),
@@ -1869,7 +1868,7 @@ VALUES(
         '00:02:01.61',
         18,
         'M',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         4,
         2
     ),
@@ -1879,7 +1878,7 @@ VALUES(
         '00:02:01.61',
         99,
         'M',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         4,
         2
     );
@@ -1891,7 +1890,7 @@ VALUES(
         '00:05:10.89',
         13,
         'F',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         5,
         2
     ),
@@ -1901,7 +1900,7 @@ VALUES(
         '00:05:06.31',
         14,
         'F',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         5,
         2
     ),
@@ -1911,7 +1910,7 @@ VALUES(
         '00:05:02.00',
         15,
         'F',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         5,
         2
     ),
@@ -1921,7 +1920,7 @@ VALUES(
         '00:04:58.92',
         16,
         'F',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         5,
         2
     ),
@@ -1931,7 +1930,7 @@ VALUES(
         '00:04:55.96',
         17,
         'F',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         5,
         2
     ),
@@ -1941,7 +1940,7 @@ VALUES(
         '00:04:53.11',
         18,
         'F',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         5,
         2
     ),
@@ -1951,7 +1950,7 @@ VALUES(
         '00:04:53.11',
         99,
         'F',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         5,
         2
     );
@@ -1963,7 +1962,7 @@ VALUES(
         '00:04:49.34',
         13,
         'M',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         5,
         2
     ),
@@ -1973,7 +1972,7 @@ VALUES(
         '00:04:35.44',
         14,
         'M',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         5,
         2
     ),
@@ -1983,7 +1982,7 @@ VALUES(
         '00:04:30.24',
         15,
         'M',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         5,
         2
     ),
@@ -1993,7 +1992,7 @@ VALUES(
         '00:04:25.42',
         16,
         'M',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         5,
         2
     ),
@@ -2003,7 +2002,7 @@ VALUES(
         '00:04:22.38',
         17,
         'M',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         5,
         2
     ),
@@ -2013,7 +2012,7 @@ VALUES(
         '00:04:19.48',
         18,
         'M',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         5,
         2
     ),
@@ -2023,7 +2022,7 @@ VALUES(
         '00:04:19.48',
         99,
         'M',
-        'Brasileiro Verao',
+        'Brasileiro Verão',
         5,
         2
     );

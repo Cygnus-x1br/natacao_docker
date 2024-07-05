@@ -6,7 +6,6 @@ $tempoAtleta = $this->viewData->tempoAtleta;
 $melhoresTempos = $this->viewData->melhores_tempos;
 
 if ($melhoresTempos != null) {
-
     foreach ($melhoresTempos as $tempo25) {
         if ($tempo25['piscina'] === 25) {
             $melhoresTempos25[] = $tempo25;
@@ -17,7 +16,6 @@ if ($melhoresTempos != null) {
             $melhoresTempos50[] = $tempo50;
         }
     }
-
     $melhoresTempos25 = array_chunk($melhoresTempos25, 3, true);
     $melhoresTempos50 = array_chunk($melhoresTempos50, 3, true);
 } else {
@@ -25,12 +23,12 @@ if ($melhoresTempos != null) {
     $melhoresTempos50 = [];
 }
 
-function adjustTime($fullTime)
-{
-    $time = explode(':', $fullTime);
-    (array_shift($time));
-    return implode(':', $time);
-}
+// function adjustTime($fullTime)
+// {
+//     $time = explode(':', $fullTime);
+//     (array_shift($time));
+//     return implode(':', $time);
+// }
 
 ?>
 

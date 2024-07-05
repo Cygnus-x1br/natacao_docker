@@ -52,6 +52,9 @@ class ErrorController extends Action
         } elseif ($_GET['error'] == 9001) {
             $this->setHtmlData->error = 'Função exclusiva para administradores';
             $this->setHtmlData->url = $url;
+        } elseif ($_GET['error'] == 4001) {
+            $this->setHtmlData->error = 'Tempo já cadastrado';
+            $this->setHtmlData->url = $url;
         } elseif ($_GET['error'] == 9999) {
             $this->setHtmlData->error = 'Usuário ou senha incorretos';
             $this->setHtmlData->url = $url;

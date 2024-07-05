@@ -115,8 +115,8 @@ $federacoes = $this->viewData->federacoes;
                     </div>
 
                     <div class="col-md-5">
-                        <label for="telefone" class="form-label">Telefone<span class="text-body-secondary">(Opcional)</span></label>
-                        <input type="text" class="form-control" id="telefone" placeholder="" name="telefoneEquipe">
+                        <label for="telefoneEquipe" class="form-label">Telefone<span class="text-body-secondary">(Opcional)</span></label>
+                        <input type="text" class="form-control" id="telefoneEquipe" placeholder="" name="telefoneEquipe">
                     </div>
                     <div class="row gy-3">
                         <div class="col-md-6">
@@ -148,3 +148,20 @@ $federacoes = $this->viewData->federacoes;
             </div>
         </div>
     </main>
+
+    <script>
+        let telefone = document.querySelector('#telefoneEquipe');
+
+        telefone.addEventListener('keypress', (event) => {
+            console.log((telefone.value).length);
+
+            if ((telefone.value).length < 16) {
+                VMasker(telefone).maskPattern('(99) 9999 - 99999 ');
+                console.log(telefone.innerHTML);
+            } else {
+                VMasker(telefone).maskPattern('(99) 99999 - 9999 ');
+                console.log(telefone.innerHTML);
+            }
+        });
+        // })
+    </script>

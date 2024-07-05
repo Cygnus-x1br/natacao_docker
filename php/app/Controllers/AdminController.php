@@ -64,6 +64,21 @@ class AdminController extends Action
 
         $this->render('indice_admin', 'admin_layout');
     }
+    public function recordes_admin()
+    {
+        Assets::admin_authenticate();
+
+        $recordes = Container::getModel('Recordes');
+        $recordes_data = $recordes->getRecordesFiltered();
+        $this->viewData->recordes = $recordes_data;
+
+        $this->viewData->tipoRecorde = Assets::list_tipos_recorde();
+        $this->viewData->categorias = Assets::list_categorias();
+        $this->viewData->piscinas = Assets::list_piscinas();
+        $this->viewData->estilos = Assets::list_todos_estilos();
+
+        $this->render('recordes_admin', 'admin_layout');
+    }
     public function filtra_indices_tabela()
     {
         $indices = Container::getModel('Indices');

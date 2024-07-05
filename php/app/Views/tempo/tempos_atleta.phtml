@@ -1,47 +1,78 @@
 <?php
 
+$anos = $this->viewData->anos;
+$estilos = $this->viewData->estilos;
 $distanciaEstilo = $this->viewData->distanciaEstilo;
 $torneios = $this->viewData->torneios;
 $categorias = $this->viewData->categorias;
 $provas = $this->viewData->provas;
-$tempoAtleta = $this->viewData->tempoAtleta;
-
-$torneiosParticipados = $this->viewData->torneiosParticipados;
-$anos = $this->viewData->anos;
-$estilos = $this->viewData->estilos;
 $indicesMundial = $this->viewData->indices_mundial;
 
-function adjustTime($fullTime)
-{
-    $time = explode(':', $fullTime);
-    (array_shift($time));
-    return implode(':', $time);
-}
+$tempoAtleta = $this->viewData->tempoAtleta;
+$torneiosParticipados = $this->viewData->torneiosParticipados;
 
-function tempoEmSegundos($tempo)
-{
-    $tempoEmSegundos = (explode(':', $tempo)[0] * 60) + explode(':', $tempo)[1];
-    return $tempoEmSegundos;
-}
-function indice_tecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
+function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
 {
     $tempoAtleta = tempoEmSegundos($tempo);
     $tempoIndice = 0;
     foreach ($indicesMundial as $indice) {
-
-        if ($indice['ID_DISTANCIAESTILO'] == $id_distanciaestilo && $indice['generoIndice'] == $genero) {
-            // print_r($indice['ID_DISTANCIAESTILO']);
-            $tempo = adjustTime($indice['tempoIndice']);
+        if ($indice['ID_DISTANCIAESTILO'] == $id_distanciaestilo && $indice['generoRecorde'] == $genero) {
+            $tempo = adjustTime($indice['tempoRecorde']);
             $tempoIndice = tempoEmSegundos($tempo);
         }
     }
-    $indice_tecnico = 1000 * pow(($tempoIndice / $tempoAtleta), 3);
+    $indiceTecnico = 1000 * pow(($tempoIndice / $tempoAtleta), 3);
 
-    return floor($indice_tecnico);
+    return floor($indiceTecnico);
 }
-//print_r($indicesMundial);
+
 ?>
 
+<style>
+    /* * {
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        outline: 0;
+    } */
+
+    .grafico-circular {
+        width: 10em;
+        margin: 10px;
+        justify-content: space-around;
+    }
+
+    .circulo {
+        fill: none;
+        stroke: #CCCCCC;
+        stroke-width: 4px;
+    }
+
+    .circulo-progresso {
+        fill: none;
+        stroke-width: 4px;
+        animation: progress 1s ease-out forwards;
+        stroke: #22BF66;
+    }
+
+    @keyframes progress {
+        0% {
+            stroke-dasharray: 0 100;
+        }
+    }
+
+    .label {
+        fill: #343F4B;
+        font-size: 0.2em;
+        text-transform: uppercase;
+        text-anchor: middle;
+    }
+
+    .label.percentage {
+        font-size: 0.5em;
+    }
+</style>
 
 <main>
     <section class="py-5 text-center container">
@@ -63,7 +94,7 @@ function indice_tecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
                     <option value="">Selecione</option>
                     <?php foreach ($anos as $ano) { ?>
                         <option value="<?= $ano ?>"><?= $ano ?></option>
-                    <?php }; ?>
+                    <?php } ?>
                 </select>
             </div>
             <div class="col-md-4 col-lg-2">
@@ -72,7 +103,7 @@ function indice_tecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
                     <option value="">Selecione</option>
                     <?php foreach ($torneiosParticipados as $torneio) { ?>
                         <option value="<?= $torneio ?>"><?= $torneio ?></option>
-                    <?php }; ?>
+                    <?php } ?>
                 </select>
             </div>
             <div class="col-md-4 col-lg-2">
@@ -89,7 +120,7 @@ function indice_tecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
                     <option value="">Selecione</option>
                     <?php foreach ($estilos as $estilo) { ?>
                         <option value="<?php echo (explode('*', $estilo))[1] ?>"><?php echo (explode('*', $estilo))[0]  ?></option>
-                    <?php }; ?>
+                    <?php } ?>
                 </select>
             </div>
             <div class="col-md-4 col-lg-2">
@@ -98,31 +129,64 @@ function indice_tecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
         </form>
     </div>
 
-    <div class="table-responsive">
-        <table class="table text-center">
-            <thead>
-                <tr>
-                    <th style="width: 12%;">Data</th>
-                    <th style="width: 32%;">Torneio</th>
-                    <th style="width: 22%;">Piscina</th>
-                    <th style="width: 12%;">Estilo</th>
-                    <th style="width: 22%;">Tempo</th>
-                    <th style="width: 22%;">IT</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($tempoAtleta as $tempo) { ?>
+    <div class="d-flex">
+
+
+        <div class="table-responsive">
+            <table class="table text-center">
+                <thead>
                     <tr>
-                        <td><?php echo implode('/',  array_reverse(explode('-', $tempo['dataTorneio']))) ?></td>
-                        <td><?= $tempo['nomeTorneio'] ?></td>
-                        <td><?= $tempo['tamanhoPiscina'] . 'm' ?></td>
-                        <td class="text-start"><?= $tempo['distancia'] . 'm ' . $tempo['nomeEstilo'] ?></td>
-                        <td><?php echo adjustTime($tempo['tempoAtleta']) ?></td>
-                        <td><?php echo indice_tecnico(adjustTime($tempo['tempoAtleta']), $tempo['distanciaEstilo'], $indicesMundial, $tempo['genero']) ?>
+                        <th style="width: 12%;">Data</th>
+                        <th style="width: 32%;">Torneio</th>
+                        <th style="width: 12%;">Piscina</th>
+                        <th style="width: 25%;">Estilo</th>
+                        <th style="width: 16%;">Tempo</th>
+                        <th style="width: 12%;">IT</th>
+                        <th></th>
                     </tr>
-                <?php } ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php foreach ($tempoAtleta as $tempo) { ?>
+                        <tr>
+                            <td><?php echo implode('/',  array_reverse(explode('-', $tempo['dataTorneio']))) ?></td>
+                            <td><?= $tempo['nomeTorneio'] ?></td>
+                            <td><?= $tempo['tamanhoPiscina'] . 'm' ?></td>
+                            <td class="text-start"><?= $tempo['distancia'] . 'm ' . $tempo['nomeEstilo'] ?><?php if ($tempo['final'] == 'S') { ?><span class="badge text-bg-secondary ms-2">Final</span> <?php } ?> </td>
+                            <td><?php echo adjustTime($tempo['tempoAtleta']) ?></td>
+                            <td><?php echo indiceTecnico(adjustTime($tempo['tempoAtleta']), $tempo['distanciaEstilo'], $indicesMundial, $tempo['genero']) ?></td>
+                            <td><a href="edit_tempo?id=<?= $tempo['IDTMPATLETA'] ?>" class="btn btn-outline-primary">Editar</a></td>
+                            <td><a href="delete_tempo?id=<?= $tempo['IDTMPATLETA'] ?>" class="btn btn-danger h-25 w-100" type="submit">Deletar</a></td>
+                        </tr>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex flex-column justify-content-end">
+            <div class="grafico-circular">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" id="idGraficoCircular">
+                    <path class="circulo" d="M18 2.0845
+                    a 15.9155 15.9155 0 0 1 0 31.831
+                    a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path id="progresso" class="circulo-progresso" d="M18 2.0845
+                    a 15.9155 15.9155 0 0 1 0 31.831
+                    a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <text x="18" y="20" class="label percentage">
+                        <tspan id="valorPorcentagem"></tspan>
+                    </text>
+                </svg>
+            </div>
+        </div>
     </div>
 
 </main>
+<script>
+    function preencherGrafico(valor) {
+        const medidor = document.getElementById("idGraficoCircular").querySelector('svg .circulo-progresso');
+        medidor.style.strokeDasharray = [valor, 100];
+
+        document.getElementById("valorPorcentagem").innerHTML = valor + "%";
+    }
+
+    preencherGrafico(30);
+</script>

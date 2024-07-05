@@ -18,11 +18,12 @@ class ComplexoController extends Action
 
         $this->render('list_complexos');
     }
+
+    /** Funções de CRUD */
     public function view_complexo()
     {
-        $estado = Container::getModel('Estados');
-        $estado_data = $estado->getAllEstados();
-        $this->viewData->estados = $estado_data;
+
+        $this->viewData->estados = Assets::list_estados();
 
         $complexo = Container::getModel('Complexo');
         $complexo->__set('idcomplexo', $_GET['idcomplexo']);
@@ -34,14 +35,16 @@ class ComplexoController extends Action
 
     public function add_complexo()
     {
-        $estado = Container::getModel('Estados');
-        $estado_data = $estado->getAllEstados();
-        $this->viewData->estados = $estado_data;
+        Assets::authenticate();
+
+        $this->viewData->estados = Assets::list_estados();
 
         $this->render('add_complexo');
     }
     public function save_complexo()
     {
+        Assets::authenticate();
+
         if ($_POST['nomeComplexo'] == '') {
             header("Location: /add_complexo?error=1");
         } elseif ($_POST['id_estado'] == '') {
@@ -62,10 +65,9 @@ class ComplexoController extends Action
         // $complexo->__set('latitudeComplexo', $_POST['latitudeComplexo']);
         // $complexo->__set('longitudeComplexo', $_POST['longitudeComplexo']);
         $complexo->__set('observacaoComplexo', $_POST['observacaoComplexo']);
-        // $equipe->__set('logoEquipe', $_POST['logoEquipe']);
         $complexo->__set('id_estado', $_POST['id_estado']);
 
-        $complexo->addComplexo();
+        $complexo->saveComplexo();
 
         header("Location: /list_complexos");
     }
@@ -73,9 +75,8 @@ class ComplexoController extends Action
     public function edit_complexo()
     {
         Assets::admin_authenticate();
-        $estado = Container::getModel('Estados');
-        $estado_data = $estado->getAllEstados();
-        $this->viewData->estados = $estado_data;
+
+        $this->viewData->estados = Assets::list_estados();
 
         $complexo = Container::getModel('Complexo');
         $complexo->__set('idcomplexo', $_GET['idcomplexo']);
@@ -112,14 +113,13 @@ class ComplexoController extends Action
         $complexo->__set('id_estado', $_POST['id_estado']);
         $complexo->__set('idcomplexo', $_POST['idcomplexo']);
 
-        $complexo->editComplexo();
+        $complexo->updateComplexo();
 
         header("Location: /complexo_admin");
     }
 
     public function delete_complexo()
     {
-
         Assets::admin_authenticate();
 
         $complexo = Container::getModel('Complexo');
@@ -128,6 +128,8 @@ class ComplexoController extends Action
 
         header('Location: /complexo_admin');
     }
+
+    /** Funções auxiliares */
 
     private function upload_file()
     {
