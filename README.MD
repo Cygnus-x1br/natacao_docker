@@ -30,10 +30,10 @@ vanilla-masker: (Mascaras para os dados)
 
 https://github.com/vanilla-masker/vanilla-masker
 
-Gráfico Circular
+Gráfico Circular:
 
 https://gist.github.com/giancore/801b6fecc1fa357d4db3472ffd3f71f7
 
 Gráficos:
 
-
+https://www.chartjs.org/docs/latest/charts/mixed.html

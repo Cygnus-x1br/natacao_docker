@@ -36,7 +36,7 @@ $piscinas = $this->viewData->piscinas;
                     <td><?= $piscina['cidadeComplexo'] ?></td>
                     <td><?= $piscina['siglaEstado'] ?></td>
                     <td><a href="edit_complexo?idcomplexo=<?= $piscina['IDCOMPLEXO'] ?>" class="btn btn-outline-primary">Editar</a></td>
-                    <td><a href="delete_complexo?idcomplexo=<?= $piscina['IDCOMPLEXO'] ?>" class="btn btn-outline-primary">Delete</a></td>
+                    <td><a href="delete_complexo?idcomplexo=<?= $piscina['IDCOMPLEXO'] ?>" class="btn btn-danger">Delete</a></td>
                 </tr>
             <?php } ?>
         </tbody>

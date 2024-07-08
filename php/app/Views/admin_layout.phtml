@@ -41,6 +41,22 @@ require_once './assets/php/common.php';
                 </a>
 
                 <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+                    <ul class="navbar-nav flex-row d-md-none">
+                        <!-- <li class="nav-item text-nowrap">
+                            <button class="nav-link px-3 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSearch" aria-controls="navbarSearch" aria-expanded="false" aria-label="Toggle search">
+                                <svg class="bi">
+                                    <use xlink:href="#search" />
+                                </svg>
+                            </button>
+                        </li> -->
+                        <li class="nav-item text-nowrap">
+                            <button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                                <svg class="bi">
+                                    <use xlink:href="#list" />
+                                </svg>
+                            </button>
+                        </li>
+                    </ul>
                     <?php if (isset($_SESSION['id']) && $_SESSION['permissao'] == 2) { ?>
                         <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/select_atleta">Dados Atleta</a>
                     <?php } elseif (isset($_SESSION['id']) && $_SESSION['permissao'] == 1) { ?>
@@ -71,16 +87,17 @@ require_once './assets/php/common.php';
                     </ul>
                     <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">Agenda</a>
                     <?php if (isset($_SESSION['id']) && $_SESSION['permissao'] == 2) { ?>
-                        <a class="me-3 py-2 btn btn-primary text-decoration-none" href="./index_admin">Admin</a>
+                        <a class="me-3 py-2 btn btn-primary text-decoration-none" style="max-height: 40px" href="./index_admin">Admin</a>
                     <?php } ?>
                     <?php if (!isset($_SESSION['id'])) { ?>
-                        <a class="py-2 btn btn-primary text-decoration-none" href="./sign_in">Entrar</a>
+                        <a class="py-2 btn btn-primary text-decoration-none" style="max-height: 40px" href="./sign_in">Entrar</a>
                     <?php } else { ?>
-                        <a class="py-2 btn btn-primary text-decoration-none" href="./log_out">Sair</a>
+                        <a class="py-2 btn btn-primary text-decoration-none" style="max-height: 40px" href="./log_out">Sair</a>
                     <?php } ?>
 
                 </nav>
             </div>
+
         </header>
 
         <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -118,6 +135,9 @@ require_once './assets/php/common.php';
             <symbol id="list" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
             </symbol>
+            <symbol id="person" viewBox="0 0 16 16">
+                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+            </symbol>
             <symbol id="people" viewBox="0 0 16 16">
                 <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8Zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816ZM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z" />
             </symbol>
@@ -135,6 +155,17 @@ require_once './assets/php/common.php';
                 <path d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022zm2.004.45a7 7 0 0 0-.985-.299l.219-.976q.576.129 1.126.342zm1.37.71a7 7 0 0 0-.439-.27l.493-.87a8 8 0 0 1 .979.654l-.615.789a7 7 0 0 0-.418-.302zm1.834 1.79a7 7 0 0 0-.653-.796l.724-.69q.406.429.747.91zm.744 1.352a7 7 0 0 0-.214-.468l.893-.45a8 8 0 0 1 .45 1.088l-.95.313a7 7 0 0 0-.179-.483m.53 2.507a7 7 0 0 0-.1-1.025l.985-.17q.1.58.116 1.17zm-.131 1.538q.05-.254.081-.51l.993.123a8 8 0 0 1-.23 1.155l-.964-.267q.069-.247.12-.501m-.952 2.379q.276-.436.486-.908l.914.405q-.24.54-.555 1.038zm-.964 1.205q.183-.183.35-.378l.758.653a8 8 0 0 1-.401.432z" />
                 <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0z" />
                 <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5" />
+            </symbol>
+            <symbol id="stopwatch" viewBox="0 0 16 16">
+                <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5z" />
+                <path d="M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64l.012-.013.354-.354-.354-.353a.5.5 0 0 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5M8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3" />
+            </symbol>
+            <symbol id="water" viewBox="0 0 16 16">
+                <path d="M.036 3.314a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 3.964a.5.5 0 0 1-.278-.65m0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 6.964a.5.5 0 0 1-.278-.65m0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 9.964a.5.5 0 0 1-.278-.65m0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.757-.703a.5.5 0 0 1-.278-.65" />
+            </symbol>
+            <symbol id="flag" viewBox="0 0 16 16">
+                <path d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12 12 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A20 20 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a20 20 0 0 0 1.349-.476l.019-.007.004-.002h.001M14 1.221c-.22.078-.48.167-.766.255-.81.252-1.872.523-2.734.523-.886 0-1.592-.286-2.203-.534l-.008-.003C7.662 1.21 7.139 1 6.5 1c-.669 0-1.606.229-2.415.478A21 21 0 0 0 3 1.845v6.433c.22-.078.48-.167.766-.255C4.576 7.77 5.638 7.5 6.5 7.5c.847 0 1.548.28 2.158.525l.028.01C9.32 8.29 9.86 8.5 10.5 8.5c.668 0 1.606-.229 2.415-.478A21 21 0 0 0 14 7.655V1.222z" />
+
             </symbol>
 
         </svg>
@@ -157,45 +188,38 @@ require_once './assets/php/common.php';
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link d-flex align-items-center gap-2" href="#">
+                                    <a class="nav-link d-flex align-items-center gap-2" href="user_admin">
                                         <svg class="bi">
-                                            <use xlink:href="#file-earmark" />
+                                            <use xlink:href="#person" />
                                         </svg>
-                                        Orders
+                                        Administrar Usuários
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link d-flex align-items-center gap-2" href="#">
+                                    <a class="nav-link d-flex align-items-center gap-2" href="atleta_admin">
                                         <svg class="bi">
-                                            <use xlink:href="#cart" />
+                                            <use xlink:href="#person" />
                                         </svg>
-                                        Products
+                                        Administrar Atletas
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link d-flex align-items-center gap-2" href="#">
+                                    <a class="nav-link d-flex align-items-center gap-2" href="indice_admin">
                                         <svg class="bi">
-                                            <use xlink:href="#people" />
+                                            <use xlink:href="#stopwatch" />
                                         </svg>
-                                        Customers
+                                        Cadastrar Indices
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link d-flex align-items-center gap-2" href="#">
+                                    <a class="nav-link d-flex align-items-center gap-2" href="recordes_admin">
                                         <svg class="bi">
-                                            <use xlink:href="#graph-up" />
+                                            <use xlink:href="#stopwatch" />
                                         </svg>
-                                        Reports
+                                        Cadastrar Recordes
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link d-flex align-items-center gap-2" href="#">
-                                        <svg class="bi">
-                                            <use xlink:href="#puzzle" />
-                                        </svg>
-                                        Integrations
-                                    </a>
-                                </li>
+
                             </ul>
 
                             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
@@ -208,43 +232,11 @@ require_once './assets/php/common.php';
                             </h6>
                             <ul class="nav flex-column mb-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link d-flex align-items-center gap-2" href="indice_admin">
-                                        <svg class="bi">
-                                            <use xlink:href="#clock-history" />
-                                        </svg>
-                                        Cadastrar Indices
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link d-flex align-items-center gap-2" href="recordes_admin">
-                                        <svg class="bi">
-                                            <use xlink:href="#clock-history" />
-                                        </svg>
-                                        Cadastrar Recordes
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link d-flex align-items-center gap-2" href="equipe_admin">
+                                    <a class="nav-link d-flex align-items-center gap-2" href="#">
                                         <svg class="bi">
                                             <use xlink:href="#file-earmark-text" />
                                         </svg>
-                                        Administrar Equipes
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link d-flex align-items-center gap-2" href="federacao_admin">
-                                        <svg class="bi">
-                                            <use xlink:href="#file-earmark-text" />
-                                        </svg>
-                                        Administrar Federações
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link d-flex align-items-center gap-2" href="complexo_admin">
-                                        <svg class="bi">
-                                            <use xlink:href="#file-earmark-text" />
-                                        </svg>
-                                        Administrar Piscinas
+                                        Cadastrar Provas
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -256,29 +248,33 @@ require_once './assets/php/common.php';
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link d-flex align-items-center gap-2" href="#">
+                                    <a class="nav-link d-flex align-items-center gap-2" href="complexo_admin">
                                         <svg class="bi">
-                                            <use xlink:href="#file-earmark-text" />
+                                            <use xlink:href="#water" />
                                         </svg>
-                                        Cadastrar Provas
+                                        Administrar Piscinas
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link d-flex align-items-center gap-2" href="user_admin">
+                                    <a class="nav-link d-flex align-items-center gap-2" href="equipe_admin">
                                         <svg class="bi">
-                                            <use xlink:href="#file-earmark-text" />
+                                            <use xlink:href="#people" />
                                         </svg>
-                                        Administrar Usuários
+                                        Administrar Equipes
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link d-flex align-items-center gap-2" href="atleta_admin">
+                                    <a class="nav-link d-flex align-items-center gap-2" href="federacao_admin">
                                         <svg class="bi">
-                                            <use xlink:href="#file-earmark-text" />
+                                            <use xlink:href="#flag" />
                                         </svg>
-                                        Administrar Atletas
+                                        Administrar Federações
                                     </a>
                                 </li>
+
+
+
+
                             </ul>
                             <hr class="my-3">
                             <ul class="nav flex-column mb-auto">

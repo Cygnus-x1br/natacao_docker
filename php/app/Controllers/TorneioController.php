@@ -45,7 +45,11 @@ class TorneioController extends Action
 
         $torneio->saveTorneio();
 
-        header('Location: /list_torneios');
+        if ($_SESSION['permissao'] == 2) {
+            header('Location: /torneio_admin');
+        } else {
+            header('Location: /list_torneios');
+        }
     }
 
     public function list_torneios()
@@ -69,5 +73,13 @@ class TorneioController extends Action
 
 
         $this->render('view_torneio');
+    }
+
+    public function delete_torneio()
+    {
+        $torneio = Container::getModel('Torneio');
+        $torneio->__set('idtorneio', $_GET['id']);
+        $torneio->deleteTorneio();
+        header('Location: /torneio_admin');
     }
 }

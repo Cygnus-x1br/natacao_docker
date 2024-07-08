@@ -1,6 +1,37 @@
 #Versao 0.0.1
 
 FROM ubuntu:22.04
+
+ENV APACHE_DOCUMENT_ROOT /var/www/html/
+
+RUN apt-get update 
+RUN apt-get upgrade -y
+RUN apt-get install -y apache2 \
+    libfreetype-dev \
+    # libjpeg62-turbo-dev \
+    libpng-dev \
+    php8.1-common \
+    php8.1-mysql \
+    # php8.1-xml \
+    # php8.1-xmlrpc \
+    php8.1-curl \
+    # php8.1-gd \
+    # php8.1-imagick \
+    # php8.1-cli \
+    # php8.1-fpm \
+    # php8.1-dev \
+    # php8.1-imap \
+    php8.1-mbstring \
+    # php8.1-soap \
+    # php8.1-zip \
+    # php8.1-redis \
+    # php8.1-intl \
+    vim  
+
+
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
 WORKDIR /var/www/html/public/
 # COPY . .
 EXPOSE 80
@@ -8,36 +39,7 @@ EXPOSE 80
 RUN chown -R www-data:www-data /var/www
 # RUN chown -R www-data:www-data /var/www
 
-# COPY ./apache2.conf /etc/apache2
+COPY ./apache2.conf /etc/apache2
 
-ENV APACHE_DOCUMENT_ROOT /var/www/html/
-
-RUN apt-get update 
-RUN apt-get upgrade -y
-RUN apt-get install -y apache2 \
-  # libfreetype-dev \
-  # libjpeg62-turbo-dev \
-  # libpng-dev \
-  vim
-php8.1-common \
-  php8.1-mysql \
-  php8.1-xml \
-  php8.1-xmlrpc \
-  php8.1-curl \
-  php8.1-gd \
-  php8.1-imagick \
-  php8.1-cli \
-  php8.1-fpm \
-  php8.1-dev \
-  php8.1-imap \
-  php8.1-mbstring \
-  php8.1-soap \
-  php8.1-zip \
-  php8.1-redis \
-  php8.1-intl 
-
-
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
-RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
 # RUN docker-php-ext-install pdo pdo_mysql 

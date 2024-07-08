@@ -42,7 +42,7 @@ $federacoes = $this->viewData->federacoes;
 
                     <td><?= $federacao['siglaEstado'] ?></td>
                     <td><a href="edit_federacao?idfederacao=<?= $federacao['IDFEDERACAO'] ?>" class="btn btn-outline-primary">Editar</a></td>
-                    <td><a href="delete_federacao?idfederacao=<?= $federacao['IDFEDERACAO'] ?>" class="btn btn-outline-primary">Delete</a></td>
+                    <td><a href="delete_federacao?idfederacao=<?= $federacao['IDFEDERACAO'] ?>" class="btn btn-danger">Delete</a></td>
                 </tr>
             <?php } ?>
         </tbody>

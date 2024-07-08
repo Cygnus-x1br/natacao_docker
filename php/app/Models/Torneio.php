@@ -55,4 +55,13 @@ class Torneio extends Model
         $stmt->execute();
         return $this;
     }
+
+    public function deleteTorneio()
+    {
+        $torneio = "DELETE FROM tb_torneio WHERE IDTORNEIO = :idtorneio";
+        $stmt = $this->db->prepare($torneio);
+        $stmt->bindValue(':idtorneio', $this->__get('idtorneio'));
+        $stmt->execute();
+        return $this;
+    }
 }

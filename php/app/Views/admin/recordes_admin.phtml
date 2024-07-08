@@ -9,30 +9,14 @@ $estilos = $this->viewData->estilos;
 $generos = ['F', 'M'];
 $array_recordes = [];
 
-echo "<pre>";
-//print_r($tipos);
-// print_r($recordes);
-// print_r($anos);
-//print_r($tipos);
-// print_r($piscinas);
-// echo '<br>';
-// var_dump(array_search('2024', array_column($indices, 'anoIndice')));
-//print_r($estilos);
-//print_r($estilos['distancia'] . 'm ' . $estilos['nomeEstilo']);
-echo '</pre>';
+
 ?>
-
-
 
 <div class="py-5 text-center">
     <h2 class="fw-light">Tabela de Recordes</h2>
     <p class="lead"></p>
 </div>
-
-
-
 <div class="row p-3 ">
-
     <form action="save_recorde" method="POST" class="needs-validation" enctype="multipart/form-data">
         <div class="row">
             <div class="row d-flex justify-content-between align-items-end mb-3">
@@ -113,13 +97,11 @@ echo '</pre>';
     </form>
 </div>
 
-
 <div class="table-responsive small">
     <?php foreach ($tipos as $tipo) { ?>
         <?php if ((array_search($tipo, array_column($recordes, 'tipoRecorde'))) !== false) {
         ?>
             <h3><?= $tipo ?></h3>
-
             <?php foreach ($generos as $genero) { ?>
                 <?php if ((array_search($genero, array_column($recordes, 'generoRecorde'))) !== false) {
                 ?>
@@ -150,11 +132,9 @@ echo '</pre>';
                                             <td scope="col" class="text-end">
                                                 <a href="edit_recorde?id=<?= $recorde['IDRECORDE'] ?>" class="btn btn-outline-primary me-1">Editar</a>
                                                 <a href="delete_recorde?id=<?= $recorde['IDRECORDE'] ?>" class="btn btn-danger">Delete</a>
-
                                             </td>
                                         <?php } ?>
                                     <?php } ?>
-
                                     </td>
                             </tr>
                         <?php } ?>
@@ -164,16 +144,11 @@ echo '</pre>';
                 </table>
             <?php } ?>
     <?php
-
         }
     }
-
-
     ?>
     <hr>
-
 </div>
-
 
 <script>
     VMasker(document.querySelector('#tempoRecorde')).maskPattern('99:99.99');

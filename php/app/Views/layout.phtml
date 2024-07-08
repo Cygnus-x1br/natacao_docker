@@ -68,12 +68,12 @@ require_once './assets/php/common.php';
                     </ul>
                     <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">Agenda</a>
                     <?php if (isset($_SESSION['id']) && $_SESSION['permissao'] == 2) { ?>
-                        <a class="me-3 py-2 btn btn-primary text-decoration-none" href="./index_admin">Admin</a>
+                        <a class="me-3 py-2 btn btn-primary text-decoration-none" style="max-height: 40px" href="./index_admin">Admin</a>
                     <?php } ?>
                     <?php if (!isset($_SESSION['id'])) { ?>
-                        <a class="py-2 btn btn-primary text-decoration-none" href="./sign_in">Entrar</a>
+                        <a class="py-2 btn btn-primary text-decoration-none" style="max-height: 40px" href="./sign_in">Entrar</a>
                     <?php } else { ?>
-                        <a class="py-2 btn btn-primary text-decoration-none" href="./log_out">Sair</a>
+                        <a class="py-2 btn btn-primary text-decoration-none" style="max-height: 40px" href="./log_out">Sair</a>
                     <?php } ?>
 
                 </nav>

@@ -2,15 +2,10 @@
 
 $torneios = $this->viewData->torneios;
 
-echo '<pre>';
-// echo print_r($torneios);
-echo '</pre>';
-
 ?>
 
 <div class="py-5 text-center">
     <h2 class="display-5 my-3">Administração de Torneios</h2>
-    <!-- <p class="lead">Alteração dos dados</p> -->
 </div>
 
 <div class="text-end">
@@ -40,8 +35,9 @@ echo '</pre>';
                     <td class="text-start"><?php echo implode('/',  array_reverse(explode('-', $torneio['dataTorneio']))) ?></td>
                     <td><?= $torneio['nomeFantasiaComplexo'] ?></td>
                     <td><?= $torneio['tamanhoPiscina'] . 'm' ?></td>
+                    <!-- //TODO: Implementar a função de editar -->
                     <td><a href="" class="btn btn-outline-primary">Editar</a></td>
-                    <td><a href="" class="btn btn-outline-primary">Delete</a></td>
+                    <td><a href="delete_torneio?id=<?= $torneio['IDTORNEIO'] ?>" class="btn btn-danger">Delete</a></td>
                 </tr>
             <?php } ?>
         </tbody>

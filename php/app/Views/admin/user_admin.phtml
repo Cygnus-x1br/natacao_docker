@@ -2,10 +2,6 @@
 
 $users = $this->viewData->users;
 
-// echo '<pre>';
-// print_r($users);
-// echo '</pre>';
-
 ?>
 
 <div class="py-5 text-center">
@@ -13,6 +9,7 @@ $users = $this->viewData->users;
     <!-- <p class="lead">Alteração dos dados</p> -->
 </div>
 
+<!-- //TODO: implementar a função de adicionar -->
 <div class="text-end">
     <a href="/">
         <i class="bi bi-plus-circle" style="font-size: 32px; color: rgba(var(--bs-secondary-color-rgb), 0.5)"></i>
@@ -38,6 +35,7 @@ $users = $this->viewData->users;
                     <td class="text-start"><?= $user['user_name'] ?></td>
                     <td><?= $user['user_id'] ?></td>
                     <td><?= $user['permission'] ?></td>
+                    <!-- //TODO: implementar a função de editar e deletar -->
                     <td><a href="" class="btn btn-outline-primary">Editar</a></td>
                 </tr>
             <?php } ?>

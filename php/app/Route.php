@@ -325,6 +325,11 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'TorneioController',
             'action' => 'view_torneio'
         );
+        $routes['delete_torneio'] = array(
+            'route' => '/delete_torneio',
+            'controller' => 'TorneioController',
+            'action' => 'delete_torneio'
+        );
         // Indices
         $routes['list_indices'] = array(
             'route' => '/list_indices',

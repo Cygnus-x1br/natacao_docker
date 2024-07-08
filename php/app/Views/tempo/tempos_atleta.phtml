@@ -162,31 +162,4 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
                 </tbody>
             </table>
         </div>
-        <div class="d-flex flex-column justify-content-end">
-            <div class="grafico-circular">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" id="idGraficoCircular">
-                    <path class="circulo" d="M18 2.0845
-                    a 15.9155 15.9155 0 0 1 0 31.831
-                    a 15.9155 15.9155 0 0 1 0 -31.831" />
-                    <path id="progresso" class="circulo-progresso" d="M18 2.0845
-                    a 15.9155 15.9155 0 0 1 0 31.831
-                    a 15.9155 15.9155 0 0 1 0 -31.831" />
-                    <text x="18" y="20" class="label percentage">
-                        <tspan id="valorPorcentagem"></tspan>
-                    </text>
-                </svg>
-            </div>
-        </div>
-    </div>
-
 </main>
-<script>
-    function preencherGrafico(valor) {
-        const medidor = document.getElementById("idGraficoCircular").querySelector('svg .circulo-progresso');
-        medidor.style.strokeDasharray = [valor, 100];
-
-        document.getElementById("valorPorcentagem").innerHTML = valor + "%";
-    }
-
-    preencherGrafico(30);
-</script>
