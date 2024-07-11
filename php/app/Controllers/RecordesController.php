@@ -11,7 +11,7 @@ session_start([
 
 class RecordesController extends Action
 {
-    public function list_recordes()
+    public function list_recordes():void
     {
         $recordes = Container::getModel('Recordes');
         $recordes_data = $recordes->getRecordesFiltered();
@@ -24,7 +24,7 @@ class RecordesController extends Action
         $this->render('list_recordes');
     }
 
-    public function filtra_recordes()
+    public function filtra_recordes():void
     {
         $recordes = Container::getModel('Recordes');
         $recordes->__set('anoRecorde', $_POST['anoRecorde']);
@@ -40,7 +40,7 @@ class RecordesController extends Action
         $this->viewData->piscinas = Assets::list_piscinas();
         $this->render('list_recordes');
     }
-    public function filtra_recordes_grafico()
+    public function filtra_recordes_grafico():void
     {
         $recordes = Container::getModel('Recordes');
         $recordes->__set('anoRecorde', $_POST['anoRecorde']);
@@ -56,7 +56,7 @@ class RecordesController extends Action
         $this->viewData->piscinas = Assets::list_piscinas();
         $this->render('list_recordes');
     }
-    public function filtra_recordes_tabela()
+    public function filtra_recordes_tabela():void
     {
         $indices = Container::getModel('Recordes');
         $indices->__set('dataRecorde', $_POST['dataRecorde']);
@@ -73,27 +73,17 @@ class RecordesController extends Action
         $this->render('recorde_admin');
     }
 
-    public function add_recordes()
+    public function add_recordes():void
     {
-        Assets::authenticate();
+        Assets::admin_authenticate();
 
         $tempoAtleta = Container::getModel('Tempo');
         $tempoAtleta->__set('id_atleta', $_SESSION['user_id']);
         $tempoAtleta_data = $tempoAtleta->getTempo();
         $this->viewData->tempoAtleta = $tempoAtleta_data;
 
-        $torneio = Container::getModel('Torneio');
-        $torneio_data = $torneio->getAllTorneios();
-        $this->viewData->torneios = $torneio_data;
-
-        // $distanciaEstilo = Container::getModel('DistanciaEstilo');
-        // $distanciaEstilo_data = $distanciaEstilo->getAllDistanciaEstilo();
-        // $this->viewData->distanciaEstilo = $distanciaEstilo_data;
+        $this->viewData->torneios = Assets::list_torneios();
         $this->viewData->distanciaEstilo = Assets::list_todos_estilos();
-
-        // $categoria = Container::getModel('Categoria');
-        // $categoria_data = $categoria->getAllCategorias();
-        // $this->viewData->categorias = $categoria_data;
         $this->viewData->categorias = Assets::list_categorias();
 
         $provas = Container::getModel('Prova');
@@ -103,9 +93,9 @@ class RecordesController extends Action
         $this->render('add_recordes');
     }
 
-    public function edit_recorde()
+    public function edit_recorde():void
     {
-        Assets::authenticate();
+        Assets::admin_authenticate();
 
         $recorde = Container::getModel('Recordes');
         $recorde->__set('idrecorde', $_GET['id']);
@@ -119,7 +109,7 @@ class RecordesController extends Action
 
         $this->render('edit_recordes', 'admin_layout');
     }
-    public function save_recorde()
+    public function save_recorde():void
     {
         $recordes = Container::getModel('Recordes');
         $recordes->__set('dataRecorde', $_POST['dataRecorde']);
@@ -162,7 +152,7 @@ class RecordesController extends Action
         header('Location: /recordes_admin');
     }
 
-    public function delete_recorde()
+    public function delete_recorde():void
     {
         $recordes = Container::getModel('Recordes');
         $recordes->__set('idrecorde', $_GET['id']);

@@ -7,7 +7,7 @@ use MF\Model\Container;
 
 class Tempo
 {
-    public static function melhores_tempos()
+    public static function melhores_tempos():array
     {
         $tempoAtleta = Container::getModel('Tempo');
         $tempoAtleta->__set('id_atleta', $_SESSION['user_id']);
@@ -28,7 +28,6 @@ class Tempo
                 $melhor_tempo[] = ['data' => $tempo['dataTorneio'], 'torneio' => $tempo['nomeTorneio'], 'tempo' => $tempo['tempoAtleta'], 'distancia' => $tempo['distancia'], 'estilo' => $tempo['nomeEstilo'], 'piscina' => $tempo['tamanhoPiscina']];;
             }
         }
-
         return $melhor_tempo;
     }
 }

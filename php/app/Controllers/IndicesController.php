@@ -11,7 +11,7 @@ session_start([
 
 class IndicesController extends Action
 {
-    public function list_indices()
+    public function list_indices():void
     {
         $indices = Container::getModel('Indices');
         $indices_data = $indices->getIndicesFiltered();
@@ -25,7 +25,7 @@ class IndicesController extends Action
         $this->render('list_indices');
     }
 
-    public function filtra_indices()
+    public function filtra_indices():void
     {
         $indices = Container::getModel('Indices');
         $indices->__set('anoIndice', $_POST['anoIndice']);
@@ -41,7 +41,7 @@ class IndicesController extends Action
         $this->viewData->piscinas = Assets::list_piscinas();
         $this->render('list_indices');
     }
-    public function filtra_indices_grafico()
+    public function filtra_indices_grafico():void
     {
         $indices = Container::getModel('Indices');
         $indices->__set('anoIndice', $_POST['anoIndice']);
@@ -57,7 +57,7 @@ class IndicesController extends Action
         $this->viewData->piscinas = Assets::list_piscinas();
         $this->render('list_indices');
     }
-    public function filtra_indices_tabela()
+    public function filtra_indices_tabela():void
     {
         $indices = Container::getModel('Indices');
         $indices->__set('anoIndice', $_POST['anoIndice']);
@@ -74,7 +74,7 @@ class IndicesController extends Action
         $this->render('indice_admin');
     }
 
-    public function add_indice()
+    public function add_indice():void
     {
         Assets::authenticate();
 
@@ -82,18 +82,10 @@ class IndicesController extends Action
         $tempoAtleta->__set('id_atleta', $_SESSION['user_id']);
         $tempoAtleta_data = $tempoAtleta->getTempo();
         $this->viewData->tempoAtleta = $tempoAtleta_data;
-
-        $torneio = Container::getModel('Torneio');
-        $torneio_data = $torneio->getAllTorneios();
-        $this->viewData->torneios = $torneio_data;
-
-        $distanciaEstilo = Container::getModel('DistanciaEstilo');
-        $distanciaEstilo_data = $distanciaEstilo->getAllDistanciaEstilo();
-        $this->viewData->distanciaEstilo = $distanciaEstilo_data;
-
-        $categoria = Container::getModel('Categoria');
-        $categoria_data = $categoria->getAllCategorias();
-        $this->viewData->categorias = $categoria_data;
+        
+        $this->viewData->torneios = Assets::list_torneios();
+        $this->viewData->distanciaEstilo = Assets::list_todos_estilos();
+        $this->viewData->categorias = Assets::list_categorias();
 
         $provas = Container::getModel('Prova');
         $provas_data = $provas->getAllProvas();
@@ -101,7 +93,7 @@ class IndicesController extends Action
 
         $this->render('add_indice');
     }
-    public function save_indice()
+    public function save_indice():void
     {
         $indices = Container::getModel('Indices');
         $indices->__set('anoIndice', $_POST['anoIndice']);
@@ -112,8 +104,13 @@ class IndicesController extends Action
         $indices->__set('id_distanciaestilo', $_POST['id_distanciaestilo']);
         $indices->__set('id_piscina', $_POST['id_piscina']);
 
-        print_r($_POST);
-        $indices->saveIndice();
-        header('Location: /indice_admin');
+        $testaInclusao = $indices->verificaIndice();
+        if ($testaInclusao != '') {
+            header('Location: /error?error=4001');
+        } else {
+            $indices->saveIndice();
+            header('Location: /indice_admin');
+        }
+       
     }
 }

@@ -3,16 +3,16 @@ Options All -Indexes
 # Error Document 403 http://notes.jmarc.com.br/error
 
 <IfModule mod_rewrite.c>
-#   RewriteEngine on
-#   RewriteCond %{REQUEST_FILENAME} !-f
-#   RewriteCond %{REQUEST_FILENAME} !-d
-#   RewriteRule ^(.*)$ index.php/$1 [L]
+   RewriteEngine on
+   RewriteCond %{REQUEST_FILENAME} !-f
+   RewriteCond %{REQUEST_FILENAME} !-d
+   RewriteRule ^(.*)$ index.php/$1 [L]
 
-  RewriteEngine On
-RewriteRule ^index\.php$ - [L]
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-f [OR]
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-d
-RewriteRule ^(.*)$ /index.php [L]   
+#RewriteEngine On
+#RewriteRule ^index\.php$ - [L]
+#RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-f [OR]
+#RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-d
+#RewriteRule ^(.*)$ index.php [L]   
 </IfModule>
 
 # <IfModule mod_rewrite.c>

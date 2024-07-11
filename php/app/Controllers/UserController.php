@@ -10,7 +10,7 @@ session_start([
 ]);
 class UserController extends Action
 {
-    public function add_atleta()
+    public function add_atleta():void
     {
         $idade = 0;
         $this->viewData->equipes = Assets::list_equipes();
@@ -20,7 +20,6 @@ class UserController extends Action
 
     public function save_atleta()
     {
-
         if ($_POST['nomeAtleta'] == '') {
             header("Location: /error?error=1003");
         } elseif ($_POST['dataNascAtleta'] == '') {
@@ -63,7 +62,6 @@ class UserController extends Action
             echo "$atleta->nomeAtleta $atleta->sobreNomeAtleta incluido com sucesso";
             header("Location: /atleta_admin");
         }
-        // echo $atleta->emailAtleta;
         $this->create_user($atleta->emailAtleta);
     }
 
@@ -97,6 +95,58 @@ class UserController extends Action
 
             $user->login($_POST['emailAtleta'], $_POST['passwd']);
             header("Location: /sign_in");
+        }
+    }
+    
+    public function edit_user()
+    {
+        Assets::admin_authenticate();
+        $user = Container::getModel('Users');
+        $user->__set('iduser', $_GET['id']);
+        $this->viewData->user = $user->getUser();
+        
+        if($_SESSION['permissao'] != 2) {
+            header('Location: /error?error=1002');
+            die();
+        }
+        $atleta = Container::getModel('Atleta');
+        $this->viewData->atletas = $atleta->getAllAtletas();
+        $this->viewData->equipes = Assets::list_equipes();
+        $this->viewData->categoria = Assets::list_categorias();
+        
+        $this->render('edit_user', 'admin_layout');
+    }
+
+    public function update_user()
+    {
+//        if ($_POST['passwd'] == '' || $_POST['passwd_confirm'] == '' || $_POST['passwd'] != $_POST['passwd_confirm']) {
+//            echo 'Erro';
+//            $this->create_user($_POST['emailAtleta'], '2006');
+//        } else {
+            $user = Container::getModel('Users');
+            $user->__set('iduser', $_POST['iduser']);
+            $user->__set('user_id', $_POST['user_id']);
+            $user->__set('username', $_POST['username']);
+//            $user->__set('passwd', $_POST['passwd']);
+            $user->__set('user_name', $_POST['user_name']);
+            $user->__set('permission', $_POST['permission']);
+            $user->updateUser();
+
+//            $user->login($_POST['emailAtleta'], $_POST['passwd']);
+//            header("Location: /sign_in");
+            header("Location: /user_admin");
+       
+    }
+    
+    public function delete_user()
+    {
+        Assets::admin_authenticate();
+        if($_SESSION['permissao'] == 2) {
+            $user = Container::getModel('Users');
+            $user->__set('iduser', $_GET['id']);
+            $user->deleteUser();
+            
+            header("Location: user_admin");
         }
     }
 

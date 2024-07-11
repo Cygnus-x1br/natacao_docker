@@ -10,7 +10,7 @@ session_start([
 ]);
 class ErrorController extends Action
 {
-    public function error()
+    public function error():void
     {
         $url = $_SERVER['HTTP_REFERER'] ?? '/';
         if ($_GET['error'] == 1001) {

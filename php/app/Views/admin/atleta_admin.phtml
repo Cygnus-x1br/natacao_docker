@@ -1,11 +1,5 @@
 <?php
-
 $atletas = $this->viewData->atletas;
-
-// echo '<pre>';
-// print_r($atletas);
-// echo '</pre>';
-
 ?>
 
 <div class="py-5 text-center">
@@ -14,7 +8,7 @@ $atletas = $this->viewData->atletas;
 </div>
 
 <div class="text-end">
-    <a href="insert_atleta">
+    <a href="/insert_atleta">
         <i class="bi bi-plus-circle" style="font-size: 32px; color: rgba(var(--bs-secondary-color-rgb), 0.5)"></i>
     </a>
 </div>
@@ -63,8 +57,8 @@ $atletas = $this->viewData->atletas;
                     </td>
                     <td style="font-size: small;"><?= $atleta['nomeEquipe'] ?></td>
                     <td><?= $atleta['cpfAtleta'] ?></td>
-                    <td><a href="edit_atleta?id=<?= $atleta['IDATLETA'] ?>" class="btn btn-outline-primary">Editar</a></td>
-                    <td><a href="delete_atleta?id=<?= $atleta['IDATLETA'] ?>" class="btn btn-danger">Delete</a></td>
+                    <td><a href="/edit_atleta?id=<?= $atleta['IDATLETA'] ?>" class="btn btn-outline-primary">Editar</a></td>
+                    <td><a href="/delete_atleta?id=<?= $atleta['IDATLETA'] ?>" class="btn btn-danger">Delete</a></td>
                 </tr>
             <?php } ?>
         </tbody>

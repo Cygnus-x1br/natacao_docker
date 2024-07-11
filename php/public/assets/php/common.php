@@ -18,3 +18,5 @@ function tempoEmSegundos($tempo)
   $tempoEmSegundos = (explode(':', $tempo)[0] * 60) + explode(':', $tempo)[1];
   return $tempoEmSegundos;
 }
+
+

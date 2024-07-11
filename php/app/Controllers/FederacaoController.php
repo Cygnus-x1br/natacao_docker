@@ -10,7 +10,7 @@ session_start([
 ]);
 class FederacaoController extends Action
 {
-    public function list_federacao()
+    public function list_federacao():void
     {
         $federacao = Container::getModel('Federacao');
         $federacao_data = $federacao->getAllFederacoes();
@@ -20,39 +20,32 @@ class FederacaoController extends Action
     }
 
     /** Funções de CRUD */
-    public function add_federacao()
+    public function add_federacao():void
     {
         Assets::admin_authenticate();
-
         $this->viewData->estados = Assets::list_estados();
 
         $this->render('add_federacao', 'admin_layout');
     }
 
-    public function save_federacao()
+    public function save_federacao():void
     {
         Assets::admin_authenticate();
+ 
         $federacao = Container::getModel('Federacao');
         if (($_FILES['logoFederacao']['size'] !== 0)) {
             $file_save = $this->upload_file();
             $federacao->__set('logoFederacao', $file_save);
         }
-        $federacao->__set('nomeFederacao', $_POST['nomeFederacao']);
-        $federacao->__set('nomeFantasiaFederacao', $_POST['nomeFantasiaFederacao']);
-        $federacao->__set('siteFederacao', $_POST['siteFederacao']);
-        $federacao->__set('emailFederacao', $_POST['emailFederacao']);
-        $federacao->__set('telefoneFederacao', $_POST['telefoneFederacao']);
-        $federacao->__set('facebookFederacao', $_POST['facebookFederacao']);
-        $federacao->__set('instagramFederacao', $_POST['instagramFederacao']);
-        $federacao->__set('id_estado', $_POST['id_estado']);
+        $this->setSaveAndUpdateFederacao($federacao);
         $federacao->addFederacao();
+ 
         header('Location: /federacao_admin');
     }
 
-    public function edit_federacao()
+    public function edit_federacao():void
     {
         Assets::admin_authenticate();
-
         $this->viewData->estados = Assets::list_estados();
 
         $federacao = Container::getModel('Federacao');
@@ -63,18 +56,42 @@ class FederacaoController extends Action
         $this->render('edit_federacao', 'admin_layout');
     }
 
-    public function update_federacao()
+    public function update_federacao():void
     {
         Assets::admin_authenticate();
 
         $federacao = Container::getModel('Federacao');
-
         if (($_FILES['logoFederacao']['size'] !== 0)) {
             $file_save = $this->upload_file();
             $federacao->__set('logoFederacao', $file_save);
-        } elseif ($_FILES['logoFederacao']['size'] === 0) {
+        } else {
             $federacao->__set('logoFederacao', $_POST['logoAntiga']);
         }
+        $this->setSaveAndUpdateFederacao($federacao);
+        $federacao->__set('idfederacao', $_POST['idfederacao']);
+        $federacao->updateFederacao();
+
+        header('Location: /federacao_admin');
+    }
+
+    public function delete_federacao():void
+    {
+        Assets::admin_authenticate();
+        $federacao = Container::getModel('Federacao');
+        $federacao->__set('idfederacao', $_GET['idfederacao']);
+        $federacao->deleteFederacao();
+  
+        header('Location: /federacao_admin');
+    }
+
+    /** Funções auxiliares */
+
+    /**
+     * @param mixed $federacao
+     * @return void
+     */
+    public function setSaveAndUpdateFederacao(mixed $federacao): void
+    {
         $federacao->__set('nomeFederacao', $_POST['nomeFederacao']);
         $federacao->__set('nomeFantasiaFederacao', $_POST['nomeFantasiaFederacao']);
         $federacao->__set('siteFederacao', $_POST['siteFederacao']);
@@ -83,24 +100,8 @@ class FederacaoController extends Action
         $federacao->__set('facebookFederacao', $_POST['facebookFederacao']);
         $federacao->__set('instagramFederacao', $_POST['instagramFederacao']);
         $federacao->__set('id_estado', $_POST['id_estado']);
-        $federacao->__set('idfederacao', $_POST['idfederacao']);
-
-        $federacao->updateFederacao();
-        header('Location: /federacao_admin');
     }
-
-    public function delete_federacao()
-    {
-        Assets::admin_authenticate();
-        $federacao = Container::getModel('Federacao');
-        $federacao->__set('idfederacao', $_GET['idfederacao']);
-        $federacao->deleteFederacao();
-        header('Location: /federacao_admin');
-    }
-
-    /** Funções auxiliares */
-
-    private function upload_file()
+    private function upload_file():string
     {
         $file = $_FILES['logoFederacao'];
         $ext = explode('.', $file['name']);

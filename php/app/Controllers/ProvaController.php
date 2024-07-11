@@ -10,21 +10,11 @@ session_start([
 ]);
 class ProvaController extends Action
 {
-    public function list_provas()
+    public function list_provas():void
     {
-
-        $torneio = Container::getModel('Torneio');
-        $torneio_data = $torneio->getAllTorneios();
-        $this->viewData->torneios = $torneio_data;
-
-        // $distanciaEstilo = Container::getModel('DistanciaEstilo');
-        // $distanciaEstilo_data = $distanciaEstilo->getAllDistanciaEstilo();
+        $this->viewData->torneios = Assets::list_torneios();
         $this->viewData->distanciaEstilo = Assets::list_todos_estilos();
-
-        // $categoria = Container::getModel('Categoria');
-        // $categoria_data = $categoria->getAllCategorias();
         $this->viewData->categorias = Assets::list_categorias();
-
 
         $provas = Container::getModel('Prova');
         $provas_data = $provas->getAllProvas();
@@ -32,25 +22,14 @@ class ProvaController extends Action
 
         $this->render('list_provas');
     }
-    public function add_prova()
+    public function add_prova():void
     {
         if (!isset($_SESSION['id'])) {
             header('Location: /error?error=1001');
             die();
         }
-
-        $torneio = Container::getModel('Torneio');
-        $torneio_data = $torneio->getAllTorneios();
-        $this->viewData->torneios = $torneio_data;
-
-        // $distanciaEstilo = Container::getModel('DistanciaEstilo');
-        // $distanciaEstilo_data = $distanciaEstilo->getAllDistanciaEstilo();
-        // $this->viewData->distanciaEstilo = $distanciaEstilo_data;
+        $this->viewData->torneios = Assets::list_torneios();
         $this->viewData->distanciaEstilo = Assets::list_todos_estilos();
-
-        // $categoria = Container::getModel('Categoria');
-        // $categoria_data = $categoria->getAllCategorias();
-        // $this->viewData->categorias = $categoria_data;
         $this->viewData->categorias = Assets::list_categorias();
 
         $provas = Container::getModel('Prova');
@@ -60,7 +39,7 @@ class ProvaController extends Action
         $this->render('add_prova');
     }
 
-    public function save_prova()
+    public function save_prova():void
     {
         $prova = Container::getModel('Prova');
         $prova->__set('numeroProva', $_POST['numeroProva']);

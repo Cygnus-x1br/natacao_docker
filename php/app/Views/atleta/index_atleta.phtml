@@ -4,8 +4,10 @@ $atleta = $this->viewData->atleta;
 $categoria = $this->viewData->categoria;
 $tempoAtleta = $this->viewData->tempoAtleta;
 $melhoresTempos = $this->viewData->melhores_tempos;
-
+            
 if ($melhoresTempos != null) {
+    $melhoresTempos25 = [];
+    $melhoresTempos50 = [];
     foreach ($melhoresTempos as $tempo25) {
         if ($tempo25['piscina'] === 25) {
             $melhoresTempos25[] = $tempo25;
@@ -23,13 +25,6 @@ if ($melhoresTempos != null) {
     $melhoresTempos50 = [];
 }
 
-// function adjustTime($fullTime)
-// {
-//     $time = explode(':', $fullTime);
-//     (array_shift($time));
-//     return implode(':', $time);
-// }
-
 ?>
 
 <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
@@ -42,22 +37,23 @@ if ($melhoresTempos != null) {
     <p class="fs-5 text-body-secondary"><?php echo implode('/',  array_reverse(explode('-', $atleta['dataNascAtleta']))) ?> - <?= $categoria['nomeCategoria'] ?></p>
     <div class="row">
         <div class="col-md-3">
-            <a href="view_atleta?id=<?= $atleta['IDATLETA'] ?>" class="btn btn-lg btn-primary w-100 m-1">Dados</a>
+            <a href="/view_atleta?id=<?= $atleta['IDATLETA'] ?>" class="btn btn-lg btn-primary w-100 m-1">Dados</a>
         </div>
         <div class="col-md-3">
-            <a href="tempos_atleta?id=<?= $atleta['IDATLETA'] ?>" class="btn btn-lg btn-primary w-100 m-1">Tempos</a>
+            <a href="/tempos_atleta?id=<?= $atleta['IDATLETA'] ?>" class="btn btn-lg btn-primary w-100 m-1">Tempos</a>
         </div>
         <div class="col-md-3">
-            <a href="view_atleta?id=<?= $atleta['IDATLETA'] ?>" class="btn btn-lg btn-primary w-100 m-1">Treinos</a>
+            <a href="/view_atleta?id=<?= $atleta['IDATLETA'] ?>" class="btn btn-lg btn-primary w-100 m-1">Treinos</a>
         </div>
         <div class="col-md-3">
-            <a href="view_atleta?id=<?= $atleta['IDATLETA'] ?>" class="btn btn-lg btn-primary w-100 m-1">Biomecanica</a>
+            <a href="/view_atleta?id=<?= $atleta['IDATLETA'] ?>" class="btn btn-lg btn-primary w-100 m-1">Biomecanica</a>
         </div>
     </div>
 </div>
 </header>
 
 <main>
+    <?php if(count($melhoresTempos50) > 0) { ?>
     <div id="carousel50" class="carousel carousel-dark slide">
         <div class="carousel-inner">
             <?php for ($i = 0; $i < count($melhoresTempos50); $i++) {
@@ -65,7 +61,7 @@ if ($melhoresTempos != null) {
                 <div class="carousel-item <?php if ($i == 0) {
                                                 echo 'active';
                                             } ?>">
-                    <div class=" row row-cols-1 row-cols-md-3 mb-3 text-center">
+                    <div class=" row row-cols-1 row-cols-md-3 mb-3 text-center ms-5 me-5">
                         <?php foreach ($tempos50 as $tempo) { ?>
                             <div class="col">
                                 <div class="card mb-4 rounded-3 shadow-sm" style="height: 400px;">
@@ -90,7 +86,7 @@ if ($melhoresTempos != null) {
                 </div>
             <?php } ?>
         </div>
-        <button class="carousel-control-prev" type="button" style="justify-content: start;" data-bs-target="#carousel50" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" style="justify-content: start; " data-bs-target="#carousel50" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
@@ -99,7 +95,9 @@ if ($melhoresTempos != null) {
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+    <?php } ?>
 
+    <?php if(count($melhoresTempos25) > 0) { ?>
     <div id="carousel25" class="carousel carousel-dark slide">
         <div class="carousel-inner">
             <?php for ($i = 0; $i < count($melhoresTempos25); $i++) {
@@ -107,7 +105,7 @@ if ($melhoresTempos != null) {
                 <div class="carousel-item <?php if ($i == 0) {
                                                 echo 'active';
                                             } ?>">
-                    <div class=" row row-cols-1 row-cols-md-3 mb-3 text-center">
+                    <div class=" row row-cols-1 row-cols-md-3 mb-3 text-center ms-5 me-5">
                         <?php foreach ($tempos25 as $tempo25) { ?>
                             <div class="col">
                                 <div class="card mb-4 rounded-3 shadow-sm" style="height: 400px;">
@@ -141,6 +139,7 @@ if ($melhoresTempos != null) {
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+    <?php } ?>
 
     <h2 class="display-6 text-center mb-4">Últimas Provas</h2>
 

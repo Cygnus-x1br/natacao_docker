@@ -81,3 +81,14 @@ $estados = $this->viewData->estados;
             </div>
         </div>
     </main>
+    <script>
+        let telefone = document.querySelector('#telefoneFederacao');
+        telefone.addEventListener('keypress', (event) => {
+            if ((telefone.value).length < 16) {
+                VMasker(telefone).maskPattern('(99) 9999 - 99999 ');
+            } else {
+                VMasker(telefone).maskPattern('(99) 99999 - 9999 ');
+            }
+        });
+        
+    </script>

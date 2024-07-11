@@ -10,7 +10,7 @@ session_start([
 ]);
 class AdminController extends Action
 {
-    public function index_admin()
+    public function index_admin():void
     {
         Assets::admin_authenticate();
 
@@ -21,14 +21,14 @@ class AdminController extends Action
 
         $this->render('index_admin', 'admin_layout');
     }
-    public function select_atleta()
+    public function select_atleta():void
     {
         Assets::admin_authenticate();
 
         $this->render('select_atleta', 'admin_layout');
     }
 
-    public function user_admin()
+    public function user_admin():void
     {
         Assets::admin_authenticate();
 
@@ -38,7 +38,7 @@ class AdminController extends Action
 
         $this->render('user_admin', 'admin_layout');
     }
-    public function atleta_admin()
+    public function atleta_admin():void
     {
         Assets::admin_authenticate();
 
@@ -48,7 +48,7 @@ class AdminController extends Action
 
         $this->render('atleta_admin', 'admin_layout');
     }
-    public function indice_admin()
+    public function indice_admin():void
     {
         Assets::admin_authenticate();
 
@@ -64,7 +64,7 @@ class AdminController extends Action
 
         $this->render('indice_admin', 'admin_layout');
     }
-    public function recordes_admin()
+    public function recordes_admin():void
     {
         Assets::admin_authenticate();
 
@@ -79,7 +79,7 @@ class AdminController extends Action
 
         $this->render('recordes_admin', 'admin_layout');
     }
-    public function filtra_indices_tabela()
+    public function filtra_indices_tabela():void
     {
         $indices = Container::getModel('Indices');
         $indices->__set('anoIndice', $_POST['anoIndice']);
@@ -97,45 +97,29 @@ class AdminController extends Action
         $this->render('indice_admin', 'admin_layout');
     }
 
-    public function complexo_admin()
+    public function complexo_admin():void
     {
         Assets::admin_authenticate();
-
-        $piscinas = Container::getModel('Complexo');
-        $piscinas_data = $piscinas->getAllComplexos();
-        $this->viewData->piscinas = $piscinas_data;
-
+        $this->viewData->piscinas = Assets::list_complexos();
         $this->render('complexo_admin', 'admin_layout');
     }
 
-    public function federacao_admin()
+    public function federacao_admin():void
     {
         Assets::admin_authenticate();
-
-        $federacao = Container::getModel('Federacao');
-        $federacao_data = $federacao->getAllFederacoes();
-        $this->viewData->federacoes = $federacao_data;
-
+        $this->viewData->federacoes = Assets::list_federacoes();
         $this->render('federacao_admin', 'admin_layout');
     }
-    public function equipe_admin()
+    public function equipe_admin():void
     {
         Assets::admin_authenticate();
-
-        $equipe = Container::getModel('Equipe');
-        $equipes_data = $equipe->getAllEquipes();
-        $this->viewData->equipes = $equipes_data;
-
+        $this->viewData->equipes = Assets::list_equipes();
         $this->render('equipe_admin', 'admin_layout');
     }
-    public function torneio_admin()
+    public function torneio_admin():void
     {
         Assets::admin_authenticate();
-
-        $torneio = Container::getModel('Torneio');
-        $torneios_data = $torneio->getAllTorneios();
-        $this->viewData->torneios = $torneios_data;
-
+        $this->viewData->torneios = Assets::list_torneios();
         $this->render('torneio_admin', 'admin_layout');
     }
 }

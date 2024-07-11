@@ -78,24 +78,7 @@ class Atleta extends Model
                      :whatsappAtleta,
                        :id_equipe)";
         $stmt = $this->db->prepare($atleta);
-        $stmt->bindValue(':nomeAtleta', $this->__get('nomeAtleta'));
-        $stmt->bindValue(':sobreNomeAtleta', $this->__get('sobreNomeAtleta'));
-        $stmt->bindValue(':apelidoAtleta', $this->__get('apelidoAtleta'));
-        $stmt->bindValue(':emailAtleta', $this->__get('emailAtleta'));
-        $stmt->bindValue(':dataNascAtleta', $this->__get('dataNascAtleta'));
-        $stmt->bindValue(':cpfAtleta', $this->__get('cpfAtleta'));
-        $stmt->bindValue(':numRegistroAtleta', $this->__get('numRegistroAtleta'));
-        $stmt->bindValue(':sexoAtleta', $this->__get('sexoAtleta'));
-        $stmt->bindValue(':rgAtleta', $this->__get('rgAtleta'));
-        $stmt->bindValue(':fotoAtleta', $this->__get('fotoAtleta'));
-        $stmt->bindValue(':instagramAtleta', $this->__get('instagramAtleta'));
-        $stmt->bindValue(':facebookAtleta', $this->__get('facebookAtleta'));
-        $stmt->bindValue(':telefoneAtleta', $this->__get('telefoneAtleta'));
-        $stmt->bindValue(':whatsappAtleta', $this->__get('whatsappAtleta'));
-        $stmt->bindValue(':id_equipe', $this->__get('id_equipe'));
-        $stmt->execute();
-
-        return $this;
+        return $this->extracted($stmt);
     }
     public function updateAtleta()
     {
@@ -118,24 +101,7 @@ class Atleta extends Model
          WHERE idatleta = :idatleta";
         $stmt = $this->db->prepare($atleta);
         $stmt->bindValue(':idatleta', $this->__get('idatleta'));
-        $stmt->bindValue(':nomeAtleta', $this->__get('nomeAtleta'));
-        $stmt->bindValue(':sobreNomeAtleta', $this->__get('sobreNomeAtleta'));
-        $stmt->bindValue(':apelidoAtleta', $this->__get('apelidoAtleta'));
-        $stmt->bindValue(':emailAtleta', $this->__get('emailAtleta'));
-        $stmt->bindValue(':dataNascAtleta', $this->__get('dataNascAtleta'));
-        $stmt->bindValue(':cpfAtleta', $this->__get('cpfAtleta'));
-        $stmt->bindValue(':numRegistroAtleta', $this->__get('numRegistroAtleta'));
-        $stmt->bindValue(':sexoAtleta', $this->__get('sexoAtleta'));
-        $stmt->bindValue(':rgAtleta', $this->__get('rgAtleta'));
-        $stmt->bindValue(':fotoAtleta', $this->__get('fotoAtleta'));
-        $stmt->bindValue(':instagramAtleta', $this->__get('instagramAtleta'));
-        $stmt->bindValue(':facebookAtleta', $this->__get('facebookAtleta'));
-        $stmt->bindValue(':telefoneAtleta', $this->__get('telefoneAtleta'));
-        $stmt->bindValue(':whatsappAtleta', $this->__get('whatsappAtleta'));
-        $stmt->bindValue(':id_equipe', $this->__get('id_equipe'));
-        $stmt->execute();
-
-        return $this;
+        return $this->extracted($stmt);
     }
 
     public function deleteAtleta()
@@ -188,5 +154,31 @@ class Atleta extends Model
         $stmt->execute();
 
         return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * @param false|\PDOStatement $stmt
+     * @return $this
+     */
+    public function extracted(false|\PDOStatement $stmt): Atleta
+    {
+        $stmt->bindValue(':nomeAtleta', $this->__get('nomeAtleta'));
+        $stmt->bindValue(':sobreNomeAtleta', $this->__get('sobreNomeAtleta'));
+        $stmt->bindValue(':apelidoAtleta', $this->__get('apelidoAtleta'));
+        $stmt->bindValue(':emailAtleta', $this->__get('emailAtleta'));
+        $stmt->bindValue(':dataNascAtleta', $this->__get('dataNascAtleta'));
+        $stmt->bindValue(':cpfAtleta', $this->__get('cpfAtleta'));
+        $stmt->bindValue(':numRegistroAtleta', $this->__get('numRegistroAtleta'));
+        $stmt->bindValue(':sexoAtleta', $this->__get('sexoAtleta'));
+        $stmt->bindValue(':rgAtleta', $this->__get('rgAtleta'));
+        $stmt->bindValue(':fotoAtleta', $this->__get('fotoAtleta'));
+        $stmt->bindValue(':instagramAtleta', $this->__get('instagramAtleta'));
+        $stmt->bindValue(':facebookAtleta', $this->__get('facebookAtleta'));
+        $stmt->bindValue(':telefoneAtleta', $this->__get('telefoneAtleta'));
+        $stmt->bindValue(':whatsappAtleta', $this->__get('whatsappAtleta'));
+        $stmt->bindValue(':id_equipe', $this->__get('id_equipe'));
+        $stmt->execute();
+
+        return $this;
     }
 }

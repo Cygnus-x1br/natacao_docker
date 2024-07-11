@@ -11,26 +11,10 @@ session_start([
 ]);
 class GraficosController extends Action
 {
-    public function create_graph()
+    public function create_graph():void
     {
         Assets::authenticate();
-
-        $this->viewData->anos = Assets::list_anos($_SESSION['user_id']);
-        $this->viewData->torneiosParticipados = Assets::list_torneios($_SESSION['user_id']);
-        $this->viewData->estilos = Assets::list_estilos($_SESSION['user_id']);
-        $this->viewData->piscinas = Assets::list_todas_piscinas();
-
-        $torneio = Container::getModel('Torneio');
-        $torneio_data = $torneio->getAllTorneios();
-        $this->viewData->torneios = $torneio_data;
-
-        $distanciaEstilo = Container::getModel('DistanciaEstilo');
-        $distanciaEstilo_data = $distanciaEstilo->getAllDistanciaEstilo();
-        $this->viewData->distanciaEstilo = $distanciaEstilo_data;
-
-        $categoria = Container::getModel('Categoria');
-        $categoria_data = $categoria->getAllCategorias();
-        $this->viewData->categorias = $categoria_data;
+        $this->listDataFromModels();
 
         $provas = Container::getModel('Prova');
         $provas_data = $provas->getAllProvas();
@@ -44,40 +28,32 @@ class GraficosController extends Action
         $this->render('create_graph');
     }
 
-    public function graficos_tempo_filtrado()
+    public function graficos_tempo_filtrado():void
     {
-
         Assets::authenticate();
-        $this->viewData->anos = Assets::list_anos($_SESSION['user_id']);
-        $this->viewData->torneiosParticipados = Assets::list_torneios($_SESSION['user_id']);
-        $this->viewData->estilos = Assets::list_estilos($_SESSION['user_id']);
-        $this->viewData->piscinas = Assets::list_todas_piscinas();
+        $this->listDataFromModels();
 
         $atleta = Container::getModel('Atleta');
         $atleta->__set('idatleta', $_SESSION['user_id']);
         $atleta_data = $atleta->getAtletabyID();
         $this->viewData->atleta = $atleta_data;
-
-        $torneio = Container::getModel('Torneio');
-        $torneio_data = $torneio->getAllTorneios();
-        $this->viewData->torneios = $torneio_data;
-
+        
         $indicesMundial = Container::getModel('Recordes');
         $indicesMundial->__set('tipoRecorde', 'Recorde Mundial');
         $indice_data = $indicesMundial->getRecordesFiltered();
         $this->viewData->indices_mundial = $indice_data;
 
-        $this->viewData->distanciaEstilo = Assets::list_todos_estilos();
-        $this->viewData->categorias = Assets::list_categorias();
-
         $provas = Container::getModel('Prova');
         $provas_data = $provas->getAllProvas();
         $this->viewData->provas = $provas_data;
 
+        
+        $categoria = date('Y') - (explode('-', $atleta_data['dataNascAtleta']))[0];
+        
         $indices = Container::getModel('Indices');
         $indices->__set('id_distanciaestilo', $_POST['distanciaEstilo']);
         $indices->__set('generoIndice', $atleta_data['sexoAtleta']);
-        $indices->__set('id_categoria', date('Y') - (explode('-', $atleta_data['dataNascAtleta']))[0]);
+        $indices->__set('id_categoria', Assets::adjustCategory($categoria));
         $indices->__set('tamanhoPiscina', $_POST['tamanhoPiscina']);
         $indices->__set('p1', $_POST['p1'] ?? '');
         $indices->__set('p2', $_POST['p2'] ?? '');
@@ -100,5 +76,19 @@ class GraficosController extends Action
         $this->viewData->tempoAtleta = $tempoAtleta_data;
 
         $this->render('graficos_tempo');
+    }
+
+    /**
+     * @return void
+     */
+    public function listDataFromModels(): void
+    {
+        $this->viewData->anos = Assets::list_anos($_SESSION['user_id']);
+        $this->viewData->torneiosParticipados = Assets::list_torneios_atleta($_SESSION['user_id']);
+        $this->viewData->estilos = Assets::list_estilos($_SESSION['user_id']);
+        $this->viewData->piscinas = Assets::list_todas_piscinas();
+        $this->viewData->torneios = Assets::list_torneios();
+        $this->viewData->distanciaEstilo = Assets::list_todos_estilos();
+        $this->viewData->categorias = Assets::list_categorias();
     }
 }

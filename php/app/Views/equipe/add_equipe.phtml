@@ -151,17 +151,11 @@ $federacoes = $this->viewData->federacoes;
 
     <script>
         let telefone = document.querySelector('#telefoneEquipe');
-
         telefone.addEventListener('keypress', (event) => {
-            console.log((telefone.value).length);
-
             if ((telefone.value).length < 16) {
                 VMasker(telefone).maskPattern('(99) 9999 - 99999 ');
-                console.log(telefone.innerHTML);
             } else {
                 VMasker(telefone).maskPattern('(99) 99999 - 9999 ');
-                console.log(telefone.innerHTML);
             }
         });
-        // })
     </script>

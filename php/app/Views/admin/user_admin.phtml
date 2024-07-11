@@ -36,7 +36,8 @@ $users = $this->viewData->users;
                     <td><?= $user['user_id'] ?></td>
                     <td><?= $user['permission'] ?></td>
                     <!-- //TODO: implementar a função de editar e deletar -->
-                    <td><a href="" class="btn btn-outline-primary">Editar</a></td>
+                    <td><a href="/edit_user?id=<?= $user['IDUSER'] ?>" class="btn btn-outline-primary">Editar</a></td>
+                    <td><a href="/delete_user?id=<?= $user['IDUSER'] ?>" class="btn btn-danger">Delete</a></td>
                 </tr>
             <?php } ?>
         </tbody>

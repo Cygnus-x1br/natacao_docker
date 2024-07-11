@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Controllers;
 
 use MF\Controller\Action;
@@ -11,16 +10,12 @@ session_start([
 ]);
 class IndexController extends Action
 {
-    public function index()
+    public function index():void
     {
-        $torneio = Container::getModel('Torneio');
-        $torneio_data = $torneio->getAllTorneios();
-        $this->viewData->torneios = $torneio_data;
-
+        $this->viewData->torneios = Assets::list_torneios();
         $this->render('index');
     }
-
-    public function register()
+    public function register():void
     {
         $this->render('register', 'sign_in_layout');
     }

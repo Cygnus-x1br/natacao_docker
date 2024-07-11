@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/php/vendor/MF/Controller" />
+      <excludeFolder url="file://$MODULE_DIR$/php/vendor/MF/Init" />
+      <excludeFolder url="file://$MODULE_DIR$/php/vendor/MF/Model" />
+      <excludeFolder url="file://$MODULE_DIR$/php/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/php/vendor/koolreport/core" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="bootstrap-icons" level="application" />
+    <orderEntry type="library" name="@docsearch" level="application" />
+  </component>
+</module>

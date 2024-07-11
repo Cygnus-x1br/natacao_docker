@@ -1,4 +1,4 @@
--- Versao 0.1.3.0 (Não criado)
+-- Versao 0.1.3.0
 -- Incluido campo final em tb_tempo
 -- Incluido campo recordeProvaTorneio em tb_prova
 -- Alterado o campo username para VARCHAR(50) em tb_users
@@ -292,165 +292,166 @@ ADD CONSTRAINT FK_METAATLETA_PISCINA FOREIGN KEY(ID_PISCINA) REFERENCES tb_pisci
 --
 -- Insercao de dados nas tabelas fixas
 -- Tabla Estados
-INSERT INTO tb_estado
-VALUES(null, 'Acre', 'AC');
-INSERT INTO tb_estado
-VALUES(null, 'Amapa', 'AP');
-INSERT INTO tb_estado
-VALUES(null, 'Amazonas', 'AM');
-INSERT INTO tb_estado
-VALUES(null, 'Rondonia', 'RO');
-INSERT INTO tb_estado
-VALUES(null, 'Roraima', 'RR');
-INSERT INTO tb_estado
-VALUES(null, 'Para', 'PA');
-INSERT INTO tb_estado
-VALUES(null, 'Tocantins', 'TO');
-INSERT INTO tb_estado
-VALUES(null, 'Goias', 'GO');
-INSERT INTO tb_estado
-VALUES(null, 'Distrito Federal', 'DF');
-INSERT INTO tb_estado
-VALUES(null, 'Mato Grosso', 'MT');
-INSERT INTO tb_estado
-VALUES(null, 'Mato Grosso do Sul', 'MS');
-INSERT INTO tb_estado
-VALUES(null, 'Maranhão', 'MA');
-INSERT INTO tb_estado
-VALUES(null, 'Piaui', 'PI');
-INSERT INTO tb_estado
-VALUES(null, 'Ceara', 'CE');
-INSERT INTO tb_estado
-VALUES(null, 'Rio Grande do Norte', 'RN');
-INSERT INTO tb_estado
-VALUES(null, 'Pernambuco', 'PE');
-INSERT INTO tb_estado
-VALUES(null, 'Alagoas', 'AL');
-INSERT INTO tb_estado
-VALUES(null, 'Sergipe', 'SE');
-INSERT INTO tb_estado
-VALUES(null, 'Bahia', 'BA');
-INSERT INTO tb_estado
-VALUES(null, 'Paraiba', 'PB');
-INSERT INTO tb_estado
-VALUES(null, 'Espirito Santo', 'ES');
-INSERT INTO tb_estado
-VALUES(null, 'Minas Gerais', 'MG');
-INSERT INTO tb_estado
-VALUES(null, 'Rio de Janeiro', 'RJ');
-INSERT INTO tb_estado
-VALUES(null, 'Sao Paulo', 'SP');
-INSERT INTO tb_estado
-VALUES(null, 'Parana', 'PR');
-INSERT INTO tb_estado
-VALUES(null, 'Santa Catarina', 'SC');
-INSERT INTO tb_estado
-VALUES(null, 'Rio Grande do Sul', 'RS');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Acre', 'AC');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Amapa', 'AP');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Amazonas', 'AM');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Rondonia', 'RO');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Roraima', 'RR');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Para', 'PA');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Tocantins', 'TO');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Goias', 'GO');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Distrito Federal', 'DF');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Mato Grosso', 'MT');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Mato Grosso do Sul', 'MS');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Maranhão', 'MA');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Piaui', 'PI');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Ceara', 'CE');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Rio Grande do Norte', 'RN');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Pernambuco', 'PE');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Alagoas', 'AL');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Sergipe', 'SE');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Bahia', 'BA');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Paraiba', 'PB');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Espirito Santo', 'ES');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Minas Gerais', 'MG');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Rio de Janeiro', 'RJ');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Sao Paulo', 'SP');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Parana', 'PR');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Santa Catarina', 'SC');
+-- INSERT INTO tb_estado
+-- VALUES(null, 'Rio Grande do Sul', 'RS');
 -- Tabela tamanho piscina
-INSERT INTO tb_piscina
-VALUES(null, 25);
-INSERT INTO tb_piscina
-VALUES(null, 50);
-INSERT INTO tb_piscina
-VALUES(null, 00);
+-- INSERT INTO tb_piscina
+-- VALUES(null, 25);
+-- INSERT INTO tb_piscina
+-- VALUES(null, 50);
+-- INSERT INTO tb_piscina
+-- VALUES(null, 00);
 -- Tabela Estilos
-INSERT INTO tb_estilo
-VALUES(null, 'Livre');
-INSERT INTO tb_estilo
-VALUES(null, 'Borboleta');
-INSERT INTO tb_estilo
-VALUES(null, 'Costas');
-INSERT INTO tb_estilo
-VALUES(null, 'Peito');
-INSERT INTO tb_estilo
-VALUES(null, 'Medley');
+-- INSERT INTO tb_estilo
+-- VALUES(null, 'Livre');
+-- INSERT INTO tb_estilo
+-- VALUES(null, 'Borboleta');
+-- INSERT INTO tb_estilo
+-- VALUES(null, 'Costas');
+-- INSERT INTO tb_estilo
+-- VALUES(null, 'Peito');
+-- INSERT INTO tb_estilo
+-- VALUES(null, 'Medley');
 -- Tabela Distancias Provas
-INSERT INTO tb_distancia
-VALUES(null, 25);
-INSERT INTO tb_distancia
-VALUES(null, 50);
-INSERT INTO tb_distancia
-VALUES(null, 100);
-INSERT INTO tb_distancia
-VALUES(null, 200);
-INSERT INTO tb_distancia
-VALUES(null, 400);
-INSERT INTO tb_distancia
-VALUES(null, 800);
-INSERT INTO tb_distancia
-VALUES(null, 1500);
+-- INSERT INTO tb_distancia
+-- VALUES(null, 25);
+-- INSERT INTO tb_distancia
+-- VALUES(null, 50);
+-- INSERT INTO tb_distancia
+-- VALUES(null, 100);
+-- INSERT INTO tb_distancia
+-- VALUES(null, 200);
+-- INSERT INTO tb_distancia
+-- VALUES(null, 400);
+-- INSERT INTO tb_distancia
+-- VALUES(null, 800);
+-- INSERT INTO tb_distancia
+-- VALUES(null, 1500);
 -- Tabela Categorias
-INSERT INTO tb_categoria
-VALUES(7, 'Pre-Mirim', 7);
-INSERT INTO tb_categoria
-VALUES(8, 'Pre-Mirim', 8);
-INSERT INTO tb_categoria
-VALUES(9, 'Mirim 1', 9);
-INSERT INTO tb_categoria
-VALUES(10, 'Mirim 2', 10);
-INSERT INTO tb_categoria
-VALUES(11, 'Petiz 1', 11);
-INSERT INTO tb_categoria
-VALUES(12, 'Petiz 2', 12);
-INSERT INTO tb_categoria
-VALUES(13, 'Infantil 1', 13);
-INSERT INTO tb_categoria
-VALUES(14, 'Infantil 2', 14);
-INSERT INTO tb_categoria
-VALUES(15, 'Juvenil 1', 15);
-INSERT INTO tb_categoria
-VALUES(16, 'Juvenil 2', 16);
-INSERT INTO tb_categoria
-VALUES(17, 'Junior 1', 17);
-INSERT INTO tb_categoria
-VALUES(18, 'Junior 2', 18);
-INSERT INTO tb_categoria
-VALUES(99, 'Senior', 99);
+-- INSERT INTO tb_categoria
+-- VALUES(7, 'Pre-Mirim', 7);
+-- INSERT INTO tb_categoria
+-- VALUES(8, 'Pre-Mirim', 8);
+-- INSERT INTO tb_categoria
+-- VALUES(9, 'Mirim 1', 9);
+-- INSERT INTO tb_categoria
+-- VALUES(10, 'Mirim 2', 10);
+-- INSERT INTO tb_categoria
+-- VALUES(11, 'Petiz 1', 11);
+-- INSERT INTO tb_categoria
+-- VALUES(12, 'Petiz 2', 12);
+-- INSERT INTO tb_categoria
+-- VALUES(13, 'Infantil 1', 13);
+-- INSERT INTO tb_categoria
+-- VALUES(14, 'Infantil 2', 14);
+-- INSERT INTO tb_categoria
+-- VALUES(15, 'Juvenil 1', 15);
+-- INSERT INTO tb_categoria
+-- VALUES(16, 'Juvenil 2', 16);
+-- INSERT INTO tb_categoria
+-- VALUES(17, 'Junior 1', 17);
+-- INSERT INTO tb_categoria
+-- VALUES(18, 'Junior 2', 18);
+-- INSERT INTO tb_categoria
+-- VALUES(99, 'Senior', 99);
 -- Tabela tipos de provas
-INSERT INTO tba_distancia_estilo
-VALUES(null, 1, 1);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 2, 1);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 3, 1);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 4, 1);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 5, 1);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 6, 1);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 7, 1);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 1, 2);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 2, 2);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 3, 2);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 4, 2);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 1, 3);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 2, 3);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 3, 3);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 4, 3);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 1, 4);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 2, 4);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 3, 4);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 4, 4);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 3, 5);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 4, 5);
-INSERT INTO tba_distancia_estilo
-VALUES(null, 5, 5);
+-- INSERT INTO tba_distancia_estilo
+-- VALUES(null, 1, 1);
+-- INSERT INTO tba_distancia_estilo
+-- VALUES(null, 2, 1);
+-- INSERT INTO tba_distancia_estilo
+-- VALUES(null, 3, 1);
+-- INSERT INTO tba_distancia_estilo
+-- VALUES(null, 4, 1);
+-- INSERT INTO tba_distancia_estilo
+-- VALUES(null, 5, 1);
+-- INSERT INTO tba_distancia_estilo
+-- VALUES(null, 6, 1);
+-- INSERT INTO tba_distancia_estilo
+-- VALUES(null, 7, 1);
+-- INSERT INTO tba_distancia_estilo
+-- VALUES(null, 1, 2);
+-- INSERT INTO tba_distancia_estilo
+-- VALUES(null, 2, 2);
+-- INSERT INTO tba_distancia_estilo
+-- VALUES(null, 3, 2);
+-- INSERT INTO tba_distancia_estilo
+-- VALUES(null, 4, 2);
+-- INSERT INTO tba_distancia_estilo
+-- VALUES(null, 1, 3);
+-- INSERT INTO tba_distancia_estilo
+-- VALUES(null, 2, 3);
+-- INSERT INTO tba_distancia_estilo
+-- VALUES(null, 3, 3);
+-- INSERT INTO tba_distancia_estilo
+-- VALUES(null, 4, 3);
+-- INSERT INTO tba_distancia_estilo
+-- VALUES(null, 1, 4);
+-- INSERT INTO tba_distancia_estilo
+-- VALUES(null, 2, 4);
+-- INSERT INTO tba_distancia_estilo
+-- VALUES(null, 3, 4);
+-- INSERT INTO tba_distancia_estilo
+-- VALUES(null, 4, 4);
+-- INSERT INTO tba_distancia_estilo
+-- VALUES(null, 3, 5);
+-- INSERT INTO tba_distancia_estilo
+-- VALUES(null, 4, 5);
+-- INSERT INTO tba_distancia_estilo
+-- VALUES(null, 5, 5);
+-- 
 -- Tabela Teste de dados
 -- Querrys
 -- SELECT nomeTorneio, f.nomeFantasiaFederacao, p.tamanhoPiscina 

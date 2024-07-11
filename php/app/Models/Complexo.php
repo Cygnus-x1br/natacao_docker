@@ -9,7 +9,7 @@ class Complexo extends Model
     private $idcomplexo;
     private $nomeComplexo;
     private $nomeFantasiaComplexo;
-    private $fotocomplexo;
+    private $fotoComplexo;
     private $enderecoComplexo;
     private $bairroComplexo;
     private $cepComplexo;
@@ -28,7 +28,7 @@ class Complexo extends Model
         $this->$atribute = $value;
     }
 
-    public function getAllComplexos()
+    public function getAllComplexos():array
     {
         $complexo = "SELECT *, e.nomeEstado, e.siglaEstado FROM tb_complexo INNER JOIN tb_estado AS e ON ID_ESTADO = e.IDESTADO ORDER BY IDCOMPLEXO DESC";
         $stmt = $this->db->prepare($complexo);
@@ -36,7 +36,7 @@ class Complexo extends Model
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
-    public function getComplexo()
+    public function getComplexo():array
     {
         $complexo = "SELECT *, e.nomeEstado, e.siglaEstado FROM tb_complexo INNER JOIN tb_estado AS e ON ID_ESTADO = e.IDESTADO WHERE IDCOMPLEXO = :idcomplexo ORDER BY IDCOMPLEXO DESC";
         $stmt = $this->db->prepare($complexo);
@@ -45,7 +45,7 @@ class Complexo extends Model
 
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
-    public function saveComplexo()
+    public function saveComplexo():object
     {
         $complexo = "INSERT INTO tb_complexo(nomeComplexo,
             nomeFantasiaComplexo,
@@ -77,7 +77,7 @@ class Complexo extends Model
         return $this;
     }
 
-    public function updateComplexo()
+    public function updateComplexo():object
     {
         $complexo = "UPDATE tb_complexo 
         SET nomeComplexo = :nomeComplexo,
@@ -107,7 +107,7 @@ class Complexo extends Model
         return $this;
     }
 
-    public function deleteComplexo()
+    public function deleteComplexo():object
     {
         $complexo = "DELETE FROM tb_complexo WHERE IDCOMPLEXO = :idcomplexo";
         $stmt = $this->db->prepare($complexo);

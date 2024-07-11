@@ -40,7 +40,7 @@ class Users extends Model
         $stmt->bindValue(':iduser', $this->__get('iduser'));
         $stmt->execute();
 
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
     public function saveUser()
@@ -69,12 +69,14 @@ class Users extends Model
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function changeUser()
+    public function updateUser()
     {
-        $user = "UPDATE tb_users SET username=:username, passwd=:passwd, user_name=:user_name, permission=:permission";
+        $user = "UPDATE tb_users SET username=:username, user_name=:user_name, permission=:permission, user_id=:user_id WHERE IDUSER = :iduser";
         $stmt = $this->db->prepare($user);
+        $stmt->bindValue(':iduser', $this->__get('iduser'));
+        $stmt->bindValue(':user_id', $this->__get('user_id'));
         $stmt->bindValue(':username', $this->__get('username'));
-        $stmt->bindValue(':passwd', sha1($this->__get('passwd')));
+//        $stmt->bindValue(':passwd', sha1($this->__get('passwd')));
         $stmt->bindValue(':user_name', $this->__get('user_name'));
         $stmt->bindValue(':permission', $this->__get('permission'));
         $stmt->execute();
@@ -100,15 +102,15 @@ class Users extends Model
         $stmt->bindValue(':passwd', sha1($this->__get('passwd')));
         $stmt->execute();
         $user_authenticated = $stmt->fetch(\PDO::FETCH_ASSOC);
-
-        if ($user_authenticated['username'] && $user_authenticated['IDUSER']) {
+       
+        if (isset($user_authenticated['username']) && isset($user_authenticated['IDUSER']) ) {
             $this->__set('iduser', $user_authenticated['IDUSER']);
             $this->__set('username', $user_authenticated['username']);
             $this->__set('user_name', $user_authenticated['user_name']);
             $this->__set('user_id', $user_authenticated['user_id']);
             $this->__set('permission', $user_authenticated['permission']);
-        }
-
+        } 
+            
         return $this;
     }
 }

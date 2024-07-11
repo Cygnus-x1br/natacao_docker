@@ -10,7 +10,7 @@ session_start([
 ]);
 class ComplexoController extends Action
 {
-    public function list_complexos()
+    public function list_complexos():void
     {
         $complexos = Container::getModel('Complexo');
         $complexos_data = $complexos->getAllComplexos();
@@ -20,9 +20,8 @@ class ComplexoController extends Action
     }
 
     /** Funções de CRUD */
-    public function view_complexo()
+    public function view_complexo():void
     {
-
         $this->viewData->estados = Assets::list_estados();
 
         $complexo = Container::getModel('Complexo');
@@ -33,15 +32,14 @@ class ComplexoController extends Action
         $this->render('view_complexo');
     }
 
-    public function add_complexo()
+    public function add_complexo():void
     {
         Assets::authenticate();
-
         $this->viewData->estados = Assets::list_estados();
 
         $this->render('add_complexo');
     }
-    public function save_complexo()
+    public function save_complexo():void
     {
         Assets::authenticate();
 
@@ -56,26 +54,15 @@ class ComplexoController extends Action
             $file_save = $this->upload_file();
             $complexo->__set('fotoComplexo', $file_save);
         }
-        $complexo->__set('nomeComplexo', $_POST['nomeComplexo']);
-        $complexo->__set('nomeFantasiaComplexo', $_POST['nomeFantasiaComplexo']);
-        $complexo->__set('enderecoComplexo', $_POST['enderecoComplexo']);
-        $complexo->__set('bairroComplexo', $_POST['bairroComplexo']);
-        // $complexo->__set('cepComplexo', $_POST['cepComplexo']);
-        $complexo->__set('cidadeComplexo', $_POST['cidadeComplexo']);
-        // $complexo->__set('latitudeComplexo', $_POST['latitudeComplexo']);
-        // $complexo->__set('longitudeComplexo', $_POST['longitudeComplexo']);
-        $complexo->__set('observacaoComplexo', $_POST['observacaoComplexo']);
-        $complexo->__set('id_estado', $_POST['id_estado']);
-
+        $this->setSaveAndUpdateComplexo($complexo);
         $complexo->saveComplexo();
 
         header("Location: /list_complexos");
     }
 
-    public function edit_complexo()
+    public function edit_complexo():void
     {
         Assets::admin_authenticate();
-
         $this->viewData->estados = Assets::list_estados();
 
         $complexo = Container::getModel('Complexo');
@@ -85,7 +72,7 @@ class ComplexoController extends Action
 
         $this->render('edit_complexo', 'admin_layout');
     }
-    public function update_complexo()
+    public function update_complexo():void
     {
         if ($_POST['nomeComplexo'] == '') {
             header("Location: /add_complexo?error=1");
@@ -97,28 +84,17 @@ class ComplexoController extends Action
         if (($_FILES['fotoComplexo']['size'] !== 0)) {
             $file_save = $this->upload_file();
             $complexo->__set('fotoComplexo', $file_save);
-        } elseif ($_FILES['fotoComplexo']['size'] === 0) {
+        } else {
             $complexo->__set('fotoComplexo', $_POST['fotoAntiga']);
         }
-
-        $complexo->__set('nomeComplexo', $_POST['nomeComplexo']);
-        $complexo->__set('nomeFantasiaComplexo', $_POST['nomeFantasiaComplexo']);
-        $complexo->__set('enderecoComplexo', $_POST['enderecoComplexo']);
-        $complexo->__set('bairroComplexo', $_POST['bairroComplexo']);
-        // $complexo->__set('cepComplexo', $_POST['cepComplexo']);
-        $complexo->__set('cidadeComplexo', $_POST['cidadeComplexo']);
-        // $complexo->__set('latitudeComplexo', $_POST['latitudeComplexo']);
-        // $complexo->__set('longitudeComplexo', $_POST['longitudeComplexo']);
-        $complexo->__set('observacaoComplexo', $_POST['observacaoComplexo']);
-        $complexo->__set('id_estado', $_POST['id_estado']);
+        $this->setSaveAndUpdateComplexo($complexo);
         $complexo->__set('idcomplexo', $_POST['idcomplexo']);
-
         $complexo->updateComplexo();
 
         header("Location: /complexo_admin");
     }
 
-    public function delete_complexo()
+    public function delete_complexo():void
     {
         Assets::admin_authenticate();
 
@@ -131,7 +107,25 @@ class ComplexoController extends Action
 
     /** Funções auxiliares */
 
-    private function upload_file()
+    /**
+     * @param mixed $complexo
+     * @return void
+     */
+    public function setSaveAndUpdateComplexo(mixed $complexo): void
+    {
+        $complexo->__set('nomeComplexo', $_POST['nomeComplexo']);
+        $complexo->__set('nomeFantasiaComplexo', $_POST['nomeFantasiaComplexo']);
+        $complexo->__set('enderecoComplexo', $_POST['enderecoComplexo']);
+        $complexo->__set('bairroComplexo', $_POST['bairroComplexo']);
+        // $complexo->__set('cepComplexo', $_POST['cepComplexo']);
+        $complexo->__set('cidadeComplexo', $_POST['cidadeComplexo']);
+        // $complexo->__set('latitudeComplexo', $_POST['latitudeComplexo']);
+        // $complexo->__set('longitudeComplexo', $_POST['longitudeComplexo']);
+        $complexo->__set('observacaoComplexo', $_POST['observacaoComplexo']);
+        $complexo->__set('id_estado', $_POST['id_estado']);
+    }
+
+    private function upload_file():string
     {
         $file = $_FILES['fotoComplexo'];
         $ext = explode('.', $file['name']);
@@ -157,4 +151,5 @@ class ComplexoController extends Action
             return '';
         }
     }
+   
 }

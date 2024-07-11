@@ -154,4 +154,18 @@ $data = (isset($this->viewData->temporary_data)) ? $this->viewData->temporary_da
 </div>
 <script>
     VMasker(document.querySelector('#cpfAtleta')).maskPattern('999.999.999-99');
+
+    let telefoneAtleta = maskTelNumber(document.querySelector('#telefoneAtleta'));
+    let whatsappAtleta = maskTelNumber(document.querySelector('#whatsappAtleta'));
+
+    function maskTelNumber(tel) {
+        tel.addEventListener('keypress', (event) => {
+            if ((tel.value).length < 16) {
+                VMasker(tel).maskPattern('(99) 9999 - 99999 ');
+            } else {
+                VMasker(tel).maskPattern('(99) 99999 - 9999 ');
+            }
+        });
+    }
+   
 </script>

@@ -9,8 +9,6 @@ $indices = $this->viewData->indices;
 $atleta = $this->viewData->atleta;
 $indicesMundial = $this->viewData->indices_mundial;
 
-
-
 $torneiosParticipados = $this->viewData->torneiosParticipados;
 $anos = $this->viewData->anos;
 $estilos = $this->viewData->estilos;
@@ -35,14 +33,7 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
 
 ?>
 <style>
-    /* * {
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        box-sizing: border-box;
-        padding: 0;
-        margin: 0;
-        outline: 0;
-    } */
-
+    
     .grafico-circular {
         width: 10em;
         margin: 10px;
@@ -109,7 +100,7 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
     </section>
 
     <div class="row p-3 ">
-        <form action="graficos_tempo_filtrado" method="post" class="row g-3 d-flex align-items-end">
+        <form action="/graficos_tempo_filtrado" method="post" class="row g-3 d-flex align-items-end">
 
             <div class="row">
                 <div class="col-sm-1">
@@ -212,7 +203,7 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
                         <td><?= $tempo['tamanhoPiscina'] . 'm' ?></td>
                         <td id="estilo" class="text-start"><?= $tempo['distancia'] . 'm ' . $tempo['nomeEstilo'] ?></td>
                         <td class="tempos"><?php echo $tempo['tempoAtleta'] ?></td>
-                        <td class="labelData" hidden><?= $tempo['dataTorneio'] ?></td>
+                        <td class="labelData" hidden><?= convertDate($tempo['dataTorneio']) ?></td>
                         <td class="IT" hidden><?php echo indiceTecnico(adjustTime($tempo['tempoAtleta']), $tempo['distanciaEstilo'], $indicesMundial, $tempo['genero']) ?></td>
 
                     </tr>
@@ -277,7 +268,7 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
 
             arrays[value].push(json[key].tempoIndice);
         }
-        //console.log(arrays);
+        
         return arrays;
     }
 
@@ -309,7 +300,6 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
     });
     let indiceLabel = 0;
     for (let arr of arrayIndices) {
-        //console.log(labelIndicesArray);
         datasetsJson.push({
             type: 'line',
             label: labelIndicesArray[indiceLabel],
@@ -334,7 +324,7 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
                     suggestedMax: maxLabel,
                     ticks: {
                         callback: function(val, index) {
-                            //console.log((val / 1000).toFixed(2));
+                           
                             labelTime = new Date(parseInt(this.getLabelForValue(val)) * 1000);
                             min = labelTime.getMinutes();
                             sec = labelTime.getSeconds();
@@ -358,8 +348,6 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
         itArray.push(i.innerHTML);
     }
 
-    console.log(itArray.toSorted());
-
     let melhorIndiceTecnico = itArray.toSorted()[itArray.length - 1];
 
     function preencherGrafico(valor) {
@@ -369,7 +357,5 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
         document.getElementById("valorPorcentagem").innerHTML = valor;
     }
 
-
-    // console.log(indiceTecnico);
     preencherGrafico(melhorIndiceTecnico);
 </script>

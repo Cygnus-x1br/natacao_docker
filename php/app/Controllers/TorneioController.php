@@ -10,30 +10,21 @@ session_start([
 ]);
 class TorneioController extends Action
 {
-    public function add_torneio()
+    public function add_torneio():void
     {
         if (!isset($_SESSION['id'])) {
             header('Location: /error?error=1001');
             die();
         }
-
-        $piscina = Container::getModel('Piscina');
-        $piscinas = $piscina->getPiscinas();
-        $this->viewData->piscinas = $piscinas;
-
-        // $federacao = Container::getModel('Federacao');
-        // $federacoes = $federacao->getAllFederacoes();
+       
+        $this->viewData->piscinas = Assets::list_todas_piscinas();
         $this->viewData->federacoes = Assets::list_federacoes();
-
-        $complexo = Container::getModel('Complexo');
-        $complexos = $complexo->getAllComplexos();
-        $this->viewData->complexos = $complexos;
-
+        $this->viewData->complexos = Assets::list_complexos();
 
         $this->render('add_torneio');
     }
 
-    public function save_torneio()
+    public function save_torneio():void
     {
         $torneio = Container::getModel('Torneio');
         $torneio->__set('nomeTorneio', $_POST['nomeTorneio']);
@@ -52,14 +43,12 @@ class TorneioController extends Action
         }
     }
 
-    public function list_torneios()
+    public function list_torneios():void
     {
-        $torneio = Container::getModel('Torneio');
-        $torneios = $torneio->getAllTorneios();
-        $this->viewData->torneios = $torneios;
+        $this->viewData->torneios = Assets::list_torneios();
         $this->render('list_torneios');
     }
-    public function view_torneio()
+    public function view_torneio():void
     {
         $torneio = Container::getModel('Torneio');
         $torneio->__set('idtorneio', $_GET['id']);
@@ -71,11 +60,10 @@ class TorneioController extends Action
         $provas_data = $provas->getProvasTorneio();
         $this->viewData->provas = $provas_data;
 
-
         $this->render('view_torneio');
     }
 
-    public function delete_torneio()
+    public function delete_torneio():void
     {
         $torneio = Container::getModel('Torneio');
         $torneio->__set('idtorneio', $_GET['id']);

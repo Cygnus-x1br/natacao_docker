@@ -22,6 +22,7 @@ class Indices extends Model
     private $jv2;
     private $jr1;
     private $jr2;
+    private $abs;
     private $tamanhoPiscina;
 
 
@@ -227,5 +228,20 @@ class Indices extends Model
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function verificaIndice()
+    {
+        $recorde = "SELECT * FROM tb_indices WHERE anoIndice = :anoIndice AND generoIndice = :generoIndice AND tipoIndice = :tipoIndice AND ID_CATEGORIA = :id_categoria AND ID_DISTANCIAESTILO = :id_distanciaestilo AND ID_PISCINA = :id_piscina";
+        $stmt = $this->db->prepare($recorde);
+        $stmt->bindValue(':anoIndice', $this->__get('anoIndice'));
+        $stmt->bindValue(':generoIndice', $this->__get('generoIndice'));
+        $stmt->bindValue(':tipoIndice', $this->__get('tipoIndice'));
+        $stmt->bindValue(':id_categoria', $this->__get('id_categoria'));
+        $stmt->bindValue(':id_distanciaestilo', $this->__get('id_distanciaestilo'));
+        $stmt->bindValue(':id_piscina', $this->__get('id_piscina'));
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 }

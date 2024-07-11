@@ -10,7 +10,7 @@ session_start([
 ]);
 class EquipeController extends Action
 {
-    public function list_equipes()
+    public function list_equipes():void
     {
         $equipes = Container::getModel('Equipe');
         $equipes_data = $equipes->getAllEquipes();
@@ -20,9 +20,8 @@ class EquipeController extends Action
     }
 
     /** Funções de CRUD */
-    public function view_equipe()
+    public function view_equipe():void
     {
-
         if (isset($_GET['edit']) && $_GET['edit'] == 'true') {
             $this->setHtmlData->edit = '';
         } else {
@@ -40,19 +39,16 @@ class EquipeController extends Action
         $this->render('view_equipe');
     }
 
-    public function add_equipe()
+    public function add_equipe():void
     {
         Assets::authenticate();
-
-
         $this->viewData->federacoes = Assets::list_federacoes();
 
         $this->render('add_equipe');
     }
-    public function save_equipe()
+    public function save_equipe():void
     {
         Assets::authenticate();
-
         $this->viewData->federacoes = Assets::list_federacoes();
 
         if ($_POST['nomeEquipe'] == '') {
@@ -66,15 +62,7 @@ class EquipeController extends Action
             $file_save = $this->upload_file();
             $equipe->__set('logoEquipe', $file_save);
         }
-        $equipe->__set('nomeEquipe', $_POST['nomeEquipe']);
-        $equipe->__set('nomeFantasiaEquipe', $_POST['nomeFantasiaEquipe']);
-        $equipe->__set('siteEquipe', $_POST['siteEquipe']);
-        $equipe->__set('emailEquipe', $_POST['emailEquipe']);
-        $equipe->__set('telefoneEquipe', $_POST['telefoneEquipe']);
-        $equipe->__set('facebookEquipe', $_POST['facebookEquipe']);
-        $equipe->__set('instagramEquipe', $_POST['instagramEquipe']);
-        $equipe->__set('id_federacao', $_POST['id_federacao']);
-
+        $this->setSaveAndUpdateEquipes($equipe);
 
         if ($equipe->verificaCadastro('nomeEquipe') != '') {
             header("Location: /add_equipe?error=3");
@@ -82,15 +70,13 @@ class EquipeController extends Action
             header("Location: /add_equipe?error=4");
         } else {
             $equipe->saveEquipe();
-
             header("Location: /list_equipes");
         }
     }
 
-    public function edit_equipe()
+    public function edit_equipe():void
     {
         Assets::authenticate();
-
         $this->viewData->federacoes = Assets::list_federacoes();
 
         $equipe = Container::getModel('Equipe');
@@ -105,10 +91,9 @@ class EquipeController extends Action
         }
         $this->render('edit_equipe', $layout);
     }
-    public function update_equipe()
+    public function update_equipe():void
     {
         Assets::authenticate();
-
         $this->viewData->federacoes = Assets::list_federacoes();
 
         if ($_POST['nomeEquipe'] == '') {
@@ -121,17 +106,10 @@ class EquipeController extends Action
         if (($_FILES['logoEquipe']['size'] !== 0)) {
             $file_save = $this->upload_file();
             $equipe->__set('logoEquipe', $file_save);
-        } elseif ($_FILES['logoEquipe']['size'] === 0) {
+        } else {
             $equipe->__set('logoEquipe', $_POST['logoAntiga']);
         }
-        $equipe->__set('nomeEquipe', $_POST['nomeEquipe']);
-        $equipe->__set('nomeFantasiaEquipe', $_POST['nomeFantasiaEquipe']);
-        $equipe->__set('siteEquipe', $_POST['siteEquipe']);
-        $equipe->__set('emailEquipe', $_POST['emailEquipe']);
-        $equipe->__set('telefoneEquipe', $_POST['telefoneEquipe']);
-        $equipe->__set('facebookEquipe', $_POST['facebookEquipe']);
-        $equipe->__set('instagramEquipe', $_POST['instagramEquipe']);
-        $equipe->__set('id_federacao', $_POST['id_federacao']);
+        $this->setSaveAndUpdateEquipes($equipe);
         $equipe->__set('idequipe', $_POST['idequipe']);
         $equipe->updateEquipe();
 
@@ -142,7 +120,7 @@ class EquipeController extends Action
         }
     }
 
-    public function delete_equipe()
+    public function delete_equipe():void
     {
         Assets::admin_authenticate();
         $equipe = Container::getModel('Equipe');
@@ -152,7 +130,23 @@ class EquipeController extends Action
     }
 
     /** Funções auxiliares */
-    private function upload_file()
+
+    /**
+     * @param mixed $equipe
+     * @return void
+     */
+    public function setSaveAndUpdateEquipes(mixed $equipe): void
+    {
+        $equipe->__set('nomeEquipe', $_POST['nomeEquipe']);
+        $equipe->__set('nomeFantasiaEquipe', $_POST['nomeFantasiaEquipe']);
+        $equipe->__set('siteEquipe', $_POST['siteEquipe']);
+        $equipe->__set('emailEquipe', $_POST['emailEquipe']);
+        $equipe->__set('telefoneEquipe', $_POST['telefoneEquipe']);
+        $equipe->__set('facebookEquipe', $_POST['facebookEquipe']);
+        $equipe->__set('instagramEquipe', $_POST['instagramEquipe']);
+        $equipe->__set('id_federacao', $_POST['id_federacao']);
+    }
+    private function upload_file():string
     {
         $file = $_FILES['logoEquipe'];
         $ext = explode('.', $file['name']);
