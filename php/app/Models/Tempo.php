@@ -25,7 +25,7 @@ class Tempo extends Model
         $this->$atribute = $value;
     }
 
-    public function getAllTempo():array
+    public function getAllTempo(): array
     {
         $tempo = "SELECT * FROM tb_tempoAtleta ORDER BY ID_PROVA ASC";
         $stmt = $this->db->prepare($tempo);
@@ -34,7 +34,7 @@ class Tempo extends Model
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function getTempo():array
+    public function getTempo(): array
     {
         $tempo = "SELECT IDTMPATLETA, ID_PROVA, final, numeroProva, genero, tempoAtleta, pr.ID_DISTANCIAESTILO AS distanciaEstilo, a.nomeAtleta, a.sobreNomeAtleta, t.nomeTorneio, t.dataTorneio, p.tamanhoPiscina, d.distancia, e.nomeEstilo, cmin.nomeCategoria AS CategoriaMinima, cmax.nomeCategoria AS CategoriaMaxima FROM tb_tempoAtleta
         INNER JOIN tb_prova AS pr ON ID_PROVA = pr.IDPROVA
@@ -56,7 +56,7 @@ class Tempo extends Model
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function saveTempo():object
+    public function saveTempo(): object
     {
         $tempo = "INSERT INTO tb_tempoAtleta (tempoAtleta, id_prova, id_atleta, final) VALUES (:tempoAtleta, :id_prova, :id_atleta, :final);";
         $stmt = $this->db->prepare($tempo);
@@ -69,7 +69,7 @@ class Tempo extends Model
         return $this;
     }
 
-    public function updateTempo():object
+    public function updateTempo(): object
     {
         $tempo = "UPDATE tb_tempoAtleta SET tempoAtleta = :tempoAtleta, final = :final WHERE IDTMPATLETA = :IDTMPATLETA;";
         $stmt = $this->db->prepare($tempo);
@@ -81,7 +81,7 @@ class Tempo extends Model
         return $this;
     }
 
-    public function deleteTempo():object
+    public function deleteTempo(): object
     {
         $tempo = "DELETE FROM tb_tempoAtleta WHERE IDTMPATLETA = :idtmpatleta";
         $stmt = $this->db->prepare($tempo);
@@ -90,7 +90,7 @@ class Tempo extends Model
 
         return $this;
     }
-    public function deleteTemposAtleta():object
+    public function deleteTemposAtleta(): object
     {
         $tempo = "DELETE FROM tb_tempoAtleta WHERE ID_ATLETA = :id_atleta";
         $stmt = $this->db->prepare($tempo);
@@ -100,7 +100,7 @@ class Tempo extends Model
         return $this;
     }
 
-    public function getTempos():array
+    public function getTempos(): array
     {
         $tempo = "SELECT IDTMPATLETA, ID_PROVA, final, numeroProva, genero, tempoAtleta, pr.ID_DISTANCIAESTILO AS distanciaEstilo, a.nomeAtleta, a.sobreNomeAtleta, t.nomeTorneio, t.dataTorneio, p.tamanhoPiscina, d.distancia, e.nomeEstilo, cmin.nomeCategoria AS CategoriaMinima, cmax.nomeCategoria AS CategoriaMaxima FROM tb_tempoAtleta
         INNER JOIN tb_prova AS pr ON ID_PROVA = pr.IDPROVA
@@ -121,7 +121,7 @@ class Tempo extends Model
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function getMelhorTempo():array
+    public function getMelhorTempo(): array
     {
         $tempo = "SELECT ID_PROVA, numeroProva, genero, tempoAtleta, pr.ID_DISTANCIAESTILO, a.nomeAtleta, a.sobreNomeAtleta, t.nomeTorneio, t.dataTorneio, p.tamanhoPiscina, d.distancia, e.nomeEstilo, cmin.nomeCategoria AS CategoriaMinima, cmax.nomeCategoria AS CategoriaMaxima FROM tb_tempoAtleta
         INNER JOIN tb_prova AS pr ON ID_PROVA = pr.IDPROVA
@@ -142,7 +142,7 @@ class Tempo extends Model
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function getTempoSimpl():array
+    public function getTempoSimpl(): array
     {
         $tempo = "SELECT tempoAtleta FROM tb_tempoAtleta WHERE ID_ATLETA = :id_atleta";
         $stmt = $this->db->prepare($tempo);
@@ -152,7 +152,7 @@ class Tempo extends Model
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function getTemposFiltered():array
+    public function getTemposFiltered(): array
     {
         $tempos = "SELECT IDTMPATLETA, numeroProva, genero, final, tempoAtleta, pr.ID_DISTANCIAESTILO AS distanciaEstilo, a.nomeAtleta, a.sobreNomeAtleta, t.nomeTorneio, t.dataTorneio, p.tamanhoPiscina, d.distancia, e.nomeEstilo, cmin.nomeCategoria AS CategoriaMinima, cmax.nomeCategoria AS CategoriaMaxima FROM tb_tempoAtleta
         INNER JOIN tb_prova AS pr ON ID_PROVA = pr.IDPROVA
@@ -201,7 +201,7 @@ class Tempo extends Model
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function getTemposFilteredCronologico():array
+    public function getTemposFilteredCronologico(): array
     {
         $tempos = $tempo = "SELECT numeroProva, genero, tempoAtleta, pr.ID_DISTANCIAESTILO AS distanciaEstilo, a.nomeAtleta, a.sobreNomeAtleta, t.nomeTorneio, t.dataTorneio, p.tamanhoPiscina, d.distancia, e.nomeEstilo, cmin.nomeCategoria AS CategoriaMinima, cmax.nomeCategoria AS CategoriaMaxima FROM tb_tempoAtleta
                  INNER JOIN tb_prova AS pr ON ID_PROVA = pr.IDPROVA
@@ -216,7 +216,7 @@ class Tempo extends Model
                  INNER JOIN tb_categoria AS cmax ON ID_CATEGORIA_MAX = cmax.IDCATEGORIA
                  WHERE ID_ATLETA = :id_atleta AND ";
         if (!empty($this->__get('anoTempo'))) {
-            $tempos .= "t.dataTorneio LIKE :anoTempo AND ";
+            $tempos .= "year(t.dataTorneio) LIKE :anoTempo AND ";
         }
         if (!empty($this->__get('nomeTorneio'))) {
             $tempos .= "t.nomeTorneio = :nomeTorneio AND ";
@@ -250,7 +250,7 @@ class Tempo extends Model
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function verificaTempo():mixed
+    public function verificaTempo(): mixed
     {
         $recorde = "SELECT * FROM tb_tempoAtleta WHERE ID_PROVA = :id_prova AND final = :final AND ID_ATLETA = :id_atleta;";
         $stmt = $this->db->prepare($recorde);

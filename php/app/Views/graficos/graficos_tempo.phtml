@@ -33,7 +33,6 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
 
 ?>
 <style>
-    
     .grafico-circular {
         width: 10em;
         margin: 10px;
@@ -137,7 +136,7 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
                 </div>
             </div>
             <div class="col-md-4 col-lg-2">
-                <label for="distanciaEstilo" class="form-label">Estilo</label>
+                <label for="distanciaEstilo" class="form-label" required>Estilo</label>
                 <select name="distanciaEstilo" class="form-select" id="distanciaEstilo">
                     <option value="">Selecione</option>
                     <?php foreach ($estilos as $estilo) { ?>
@@ -146,7 +145,7 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
                 </select>
             </div>
             <div class="col-md-4 col-lg-2">
-                <label for="tamanhoPiscina" class="form-label">Piscina</label>
+                <label for="tamanhoPiscina" class="form-label" required>Piscina</label>
                 <select name="tamanhoPiscina" class="form-select" id="tamanhoPiscina">
                     <option value="">Selecione</option>
                     <option value="25">25 m</option>
@@ -159,7 +158,7 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
                     <option value="">Selecione</option>
                     <?php foreach ($anos as $ano) { ?>
                         <option value="<?= $ano ?>"><?= $ano ?></option>
-                    <?php }; ?>
+                    <?php } ?>
                 </select>
             </div>
             <div class="col-md-4 col-lg-2">
@@ -268,7 +267,7 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
 
             arrays[value].push(json[key].tempoIndice);
         }
-        
+
         return arrays;
     }
 
@@ -324,7 +323,7 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
                     suggestedMax: maxLabel,
                     ticks: {
                         callback: function(val, index) {
-                           
+
                             labelTime = new Date(parseInt(this.getLabelForValue(val)) * 1000);
                             min = labelTime.getMinutes();
                             sec = labelTime.getSeconds();
