@@ -17,9 +17,9 @@ class TorneioController extends Action
             die();
         }
        
-        $this->viewData->piscinas = Assets::list_todas_piscinas();
-        $this->viewData->federacoes = Assets::list_federacoes();
-        $this->viewData->complexos = Assets::list_complexos();
+        $this->viewData->piscinas = GenerateLists::list_todas_piscinas();
+        $this->viewData->federacoes = GenerateLists::list_federacoes();
+        $this->viewData->complexos = GenerateLists::list_complexos();
 
         $this->render('add_torneio');
     }
@@ -45,7 +45,7 @@ class TorneioController extends Action
 
     public function list_torneios():void
     {
-        $this->viewData->torneios = Assets::list_torneios();
+        $this->viewData->torneios = GenerateLists::list_torneios();
         $this->render('list_torneios');
     }
     public function view_torneio():void

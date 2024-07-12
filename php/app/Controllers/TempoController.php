@@ -15,12 +15,12 @@ class TempoController extends Action
     {
         Assets::authenticate();
 
-        $this->viewData->anos = Assets::list_anos($_SESSION['user_id']);
-        $this->viewData->torneiosParticipados = Assets::list_torneios_atleta($_SESSION['user_id']);
-        $this->viewData->estilos = Assets::list_estilos($_SESSION['user_id']);
-        $this->viewData->torneios = Assets::list_torneios();
-        $this->viewData->distanciaEstilo = Assets::list_todos_estilos();
-        $this->viewData->categorias = Assets::list_categorias();
+        $this->viewData->anos = GenerateLists::list_anos($_SESSION['user_id']);
+        $this->viewData->torneiosParticipados = GenerateLists::list_torneios_atleta($_SESSION['user_id']);
+        $this->viewData->estilos = GenerateLists::list_estilos($_SESSION['user_id']);
+        $this->viewData->torneios = GenerateLists::list_torneios();
+        $this->viewData->distanciaEstilo = GenerateLists::list_todos_estilos();
+        $this->viewData->categorias = GenerateLists::list_categorias();
 
         $provas = Container::getModel('Prova');
         $provas_data = $provas->getAllProvas();
@@ -48,9 +48,9 @@ class TempoController extends Action
         $tempoAtleta_data = $tempoAtleta->getTempos();
         $this->viewData->tempoAtleta = $tempoAtleta_data;
         
-        $this->viewData->torneios = Assets::list_torneios();
-        $this->viewData->distanciaEstilo = Assets::list_todos_estilos();
-        $this->viewData->categorias = Assets::list_categorias();
+        $this->viewData->torneios = GenerateLists::list_torneios();
+        $this->viewData->distanciaEstilo = GenerateLists::list_todos_estilos();
+        $this->viewData->categorias = GenerateLists::list_categorias();
         
         $provas = Container::getModel('Prova');
         $provas_data = $provas->getAllProvas();
@@ -110,9 +110,9 @@ class TempoController extends Action
         $tempoAtleta_data = $tempoAtleta->getTempo();
         $this->viewData->tempoAtleta = $tempoAtleta_data;
 
-        $this->viewData->torneios = Assets::list_torneios();
-        $this->viewData->distanciaEstilo = Assets::list_todos_estilos();
-        $this->viewData->categorias = Assets::list_categorias();
+        $this->viewData->torneios = GenerateLists::list_torneios();
+        $this->viewData->distanciaEstilo = GenerateLists::list_todos_estilos();
+        $this->viewData->categorias = GenerateLists::list_categorias();
 
         $provas = Container::getModel('Prova');
         $provas_data = $provas->getAllProvas();
@@ -146,12 +146,12 @@ class TempoController extends Action
     public function filtra_tempos():void
     {
         Assets::authenticate();
-        $this->viewData->anos = Assets::list_anos($_SESSION['user_id']);
-        $this->viewData->torneiosParticipados = Assets::list_torneios_atleta($_SESSION['user_id']);
-        $this->viewData->estilos = Assets::list_estilos($_SESSION['user_id']);
-        $this->viewData->torneios = Assets::list_torneios();
-        $this->viewData->distanciaEstilo = Assets::list_todos_estilos();
-        $this->viewData->categorias = Assets::list_categorias();
+        $this->viewData->anos = GenerateLists::list_anos($_SESSION['user_id']);
+        $this->viewData->torneiosParticipados = GenerateLists::list_torneios_atleta($_SESSION['user_id']);
+        $this->viewData->estilos = GenerateLists::list_estilos($_SESSION['user_id']);
+        $this->viewData->torneios = GenerateLists::list_torneios();
+        $this->viewData->distanciaEstilo = GenerateLists::list_todos_estilos();
+        $this->viewData->categorias = GenerateLists::list_categorias();
 
         $indicesMundial = Container::getModel('Recordes');
         $indicesMundial->__set('tipoRecorde', 'Recorde Mundial');

@@ -12,7 +12,7 @@ class IndexController extends Action
 {
     public function index():void
     {
-        $this->viewData->torneios = Assets::list_torneios();
+        $this->viewData->torneios = GenerateLists::list_torneios();
         $this->render('index');
     }
     public function register():void

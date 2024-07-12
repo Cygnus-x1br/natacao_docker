@@ -17,9 +17,9 @@ class RecordesController extends Action
         $recordes_data = $recordes->getRecordesFiltered();
         $this->viewData->recordes = $recordes_data;
 
-        $this->viewData->tipoRecorde = Assets::list_tipos_recorde();
-        $this->viewData->categorias = Assets::list_categorias();
-        $this->viewData->piscinas = Assets::list_piscinas();
+        $this->viewData->tipoRecorde = GenerateLists::list_tipos_recorde();
+        $this->viewData->categorias = GenerateLists::list_categorias();
+        $this->viewData->piscinas = GenerateLists::list_piscinas();
 
         $this->render('list_recordes');
     }
@@ -34,10 +34,10 @@ class RecordesController extends Action
         $recordes_data = $recordes->getRecordesFiltered();
         $this->viewData->recordes = $recordes_data;
 
-        $this->viewData->anosIndice = Assets::list_anos_indices();
-        $this->viewData->tipoRecorde = Assets::list_tipos_recorde();
-        $this->viewData->categorias = Assets::list_categorias();
-        $this->viewData->piscinas = Assets::list_piscinas();
+        $this->viewData->anosIndice = GenerateLists::list_anos_indices();
+        $this->viewData->tipoRecorde = GenerateLists::list_tipos_recorde();
+        $this->viewData->categorias = GenerateLists::list_categorias();
+        $this->viewData->piscinas = GenerateLists::list_piscinas();
         $this->render('list_recordes');
     }
     public function filtra_recordes_grafico():void
@@ -50,10 +50,10 @@ class RecordesController extends Action
         $recordes_data = $recordes->getRecordesFilteredGrafico();
         $this->viewData->recordes = $recordes_data;
 
-        $this->viewData->anosIndice = Assets::list_anos_indices();
-        $this->viewData->tipoRecorde = Assets::list_tipos_recorde();
-        $this->viewData->categorias = Assets::list_categorias();
-        $this->viewData->piscinas = Assets::list_piscinas();
+        $this->viewData->anosIndice = GenerateLists::list_anos_indices();
+        $this->viewData->tipoRecorde = GenerateLists::list_tipos_recorde();
+        $this->viewData->categorias = GenerateLists::list_categorias();
+        $this->viewData->piscinas = GenerateLists::list_piscinas();
         $this->render('list_recordes');
     }
     public function filtra_recordes_tabela():void
@@ -66,10 +66,10 @@ class RecordesController extends Action
         $indices_data = $indices->getRecordesFiltered();
         $this->viewData->indices = $indices_data;
 
-        $this->viewData->anosIndice = Assets::list_anos_indices();
-        $this->viewData->tipoRecorde = Assets::list_tipos_recorde();
-        $this->viewData->categorias = Assets::list_categorias();
-        $this->viewData->piscinas = Assets::list_piscinas();
+        $this->viewData->anosIndice = GenerateLists::list_anos_indices();
+        $this->viewData->tipoRecorde = GenerateLists::list_tipos_recorde();
+        $this->viewData->categorias = GenerateLists::list_categorias();
+        $this->viewData->piscinas = GenerateLists::list_piscinas();
         $this->render('recorde_admin');
     }
 
@@ -82,9 +82,9 @@ class RecordesController extends Action
         $tempoAtleta_data = $tempoAtleta->getTempo();
         $this->viewData->tempoAtleta = $tempoAtleta_data;
 
-        $this->viewData->torneios = Assets::list_torneios();
-        $this->viewData->distanciaEstilo = Assets::list_todos_estilos();
-        $this->viewData->categorias = Assets::list_categorias();
+        $this->viewData->torneios = GenerateLists::list_torneios();
+        $this->viewData->distanciaEstilo = GenerateLists::list_todos_estilos();
+        $this->viewData->categorias = GenerateLists::list_categorias();
 
         $provas = Container::getModel('Prova');
         $provas_data = $provas->getAllProvas();
@@ -102,10 +102,10 @@ class RecordesController extends Action
         $recorde_data = $recorde->getRecorde();
         $this->viewData->recordes = $recorde_data;
 
-        $this->viewData->tipoRecorde = Assets::list_tipos_recorde();
-        $this->viewData->categorias = Assets::list_categorias();
-        $this->viewData->piscinas = Assets::list_piscinas();
-        $this->viewData->estilos = Assets::list_todos_estilos();
+        $this->viewData->tipoRecorde = GenerateLists::list_tipos_recorde();
+        $this->viewData->categorias = GenerateLists::list_categorias();
+        $this->viewData->piscinas = GenerateLists::list_piscinas();
+        $this->viewData->estilos = GenerateLists::list_todos_estilos();
 
         $this->render('edit_recordes', 'admin_layout');
     }

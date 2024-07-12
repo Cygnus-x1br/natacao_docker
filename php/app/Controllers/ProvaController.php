@@ -12,9 +12,9 @@ class ProvaController extends Action
 {
     public function list_provas():void
     {
-        $this->viewData->torneios = Assets::list_torneios();
-        $this->viewData->distanciaEstilo = Assets::list_todos_estilos();
-        $this->viewData->categorias = Assets::list_categorias();
+        $this->viewData->torneios = GenerateLists::list_torneios();
+        $this->viewData->distanciaEstilo = GenerateLists::list_todos_estilos();
+        $this->viewData->categorias = GenerateLists::list_categorias();
 
         $provas = Container::getModel('Prova');
         $provas_data = $provas->getAllProvas();
@@ -28,9 +28,9 @@ class ProvaController extends Action
             header('Location: /error?error=1001');
             die();
         }
-        $this->viewData->torneios = Assets::list_torneios();
-        $this->viewData->distanciaEstilo = Assets::list_todos_estilos();
-        $this->viewData->categorias = Assets::list_categorias();
+        $this->viewData->torneios = GenerateLists::list_torneios();
+        $this->viewData->distanciaEstilo = GenerateLists::list_todos_estilos();
+        $this->viewData->categorias = GenerateLists::list_categorias();
 
         $provas = Container::getModel('Prova');
         $provas_data = $provas->getAllProvas();

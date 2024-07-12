@@ -13,12 +13,12 @@ class UserController extends Action
     public function add_atleta():void
     {
         $idade = 0;
-        $this->viewData->equipes = Assets::list_equipes();
+        $this->viewData->equipes = GenerateLists::list_equipes();
         $this->viewData->categoria = Assets::test_category($idade);
         $this->render('add_atleta');
     }
 
-    public function save_atleta()
+    public function save_atleta():void
     {
         if ($_POST['nomeAtleta'] == '') {
             header("Location: /error?error=1003");
@@ -59,13 +59,15 @@ class UserController extends Action
         $atleta->saveAtleta();
 
         if (isset($_POST['idUsuario']) && isset($_POST['permissaoUsuario']) && $_POST['permissaoUsuario'] == 2) {
-            echo "$atleta->nomeAtleta $atleta->sobreNomeAtleta incluido com sucesso";
+//            echo "$atleta->nomeAtleta $atleta->sobreNomeAtleta incluído com sucesso";
+            
             header("Location: /atleta_admin");
+            
         }
         $this->create_user($atleta->emailAtleta);
     }
 
-    private function create_user($emailAtleta, $error = null)
+    private function create_user(string $emailAtleta, string $error = null):void
     {
         if ($error != null) {
             $this->viewData->error = $error;
@@ -79,7 +81,7 @@ class UserController extends Action
         $this->render('create_user', 'sign_in_layout');
     }
 
-    public function save_user()
+    public function save_user():void
     {
         if ($_POST['passwd'] == '' || $_POST['passwd_confirm'] == '' || $_POST['passwd'] != $_POST['passwd_confirm']) {
             echo 'Erro';
@@ -98,7 +100,7 @@ class UserController extends Action
         }
     }
     
-    public function edit_user()
+    public function edit_user():void
     {
         Assets::admin_authenticate();
         $user = Container::getModel('Users');
@@ -111,13 +113,13 @@ class UserController extends Action
         }
         $atleta = Container::getModel('Atleta');
         $this->viewData->atletas = $atleta->getAllAtletas();
-        $this->viewData->equipes = Assets::list_equipes();
-        $this->viewData->categoria = Assets::list_categorias();
+        $this->viewData->equipes = GenerateLists::list_equipes();
+        $this->viewData->categoria = GenerateLists::list_categorias();
         
         $this->render('edit_user', 'admin_layout');
     }
 
-    public function update_user()
+    public function update_user():void
     {
 //        if ($_POST['passwd'] == '' || $_POST['passwd_confirm'] == '' || $_POST['passwd'] != $_POST['passwd_confirm']) {
 //            echo 'Erro';
@@ -138,7 +140,7 @@ class UserController extends Action
        
     }
     
-    public function delete_user()
+    public function delete_user():void
     {
         Assets::admin_authenticate();
         if($_SESSION['permissao'] == 2) {

@@ -67,7 +67,7 @@ class AtletaController extends Action
         $idade = date('Y') - (explode('-', $atleta_data['dataNascAtleta']))[0];
         $idade = $idade > 19 ? 99 : ($idade < 7 ? 7 : $idade);
         $this->viewData->categoria = Assets::test_category($idade);
-        $this->viewData->equipes = Assets::list_equipes();
+        $this->viewData->equipes = GenerateLists::list_equipes();
 
         $tempo = Container::getModel('Tempo');
         $tempo->__set('id_atleta', $_GET['id']);
@@ -83,7 +83,7 @@ class AtletaController extends Action
             header('Location: /error?error=1001');
         }
         $idade = 0;
-        $this->viewData->equipes = Assets::list_equipes();
+        $this->viewData->equipes = GenerateLists::list_equipes();
         $this->viewData->categoria = Assets::test_category($idade);
         $this->render('add_atleta');
     }
@@ -143,7 +143,7 @@ class AtletaController extends Action
         $idade = date('Y') - (explode('-', $atleta_data['dataNascAtleta']))[0];
         $idade = $idade > 19 ? 99 : ($idade < 7 ? 7 : $idade);
         $this->viewData->categoria = Assets::test_category($idade);
-        $this->viewData->equipes = Assets::list_equipes();
+        $this->viewData->equipes = GenerateLists::list_equipes();
 
         $tempo = Container::getModel('Tempo');
         $tempo->__set('id_atleta', $_GET['id']);
@@ -214,8 +214,8 @@ class AtletaController extends Action
         $torneio_data = $torneio->getAllTorneios();
         $this->viewData->torneios = $torneio_data;
 
-        $this->viewData->distanciaEstilo = Assets::list_todos_estilos();
-        $this->viewData->categorias = Assets::list_categorias();
+        $this->viewData->distanciaEstilo = GenerateLists::list_todos_estilos();
+        $this->viewData->categorias = GenerateLists::list_categorias();
 
         $provas = Container::getModel('Prova');
         $provas_data = $provas->getAllProvas();

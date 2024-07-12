@@ -23,7 +23,7 @@ class FederacaoController extends Action
     public function add_federacao():void
     {
         Assets::admin_authenticate();
-        $this->viewData->estados = Assets::list_estados();
+        $this->viewData->estados = GenerateLists::list_estados();
 
         $this->render('add_federacao', 'admin_layout');
     }
@@ -46,7 +46,7 @@ class FederacaoController extends Action
     public function edit_federacao():void
     {
         Assets::admin_authenticate();
-        $this->viewData->estados = Assets::list_estados();
+        $this->viewData->estados = GenerateLists::list_estados();
 
         $federacao = Container::getModel('Federacao');
         $federacao->__set('idfederacao', $_GET['idfederacao']);

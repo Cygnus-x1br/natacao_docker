@@ -42,14 +42,14 @@ class EquipeController extends Action
     public function add_equipe():void
     {
         Assets::authenticate();
-        $this->viewData->federacoes = Assets::list_federacoes();
+        $this->viewData->federacoes = GenerateLists::list_federacoes();
 
         $this->render('add_equipe');
     }
     public function save_equipe():void
     {
         Assets::authenticate();
-        $this->viewData->federacoes = Assets::list_federacoes();
+        $this->viewData->federacoes = GenerateLists::list_federacoes();
 
         if ($_POST['nomeEquipe'] == '') {
             header("Location: /add_equipe?error=1");
@@ -77,7 +77,7 @@ class EquipeController extends Action
     public function edit_equipe():void
     {
         Assets::authenticate();
-        $this->viewData->federacoes = Assets::list_federacoes();
+        $this->viewData->federacoes = GenerateLists::list_federacoes();
 
         $equipe = Container::getModel('Equipe');
         $equipe->__set('idequipe', $_GET['idequipe']);
@@ -94,7 +94,7 @@ class EquipeController extends Action
     public function update_equipe():void
     {
         Assets::authenticate();
-        $this->viewData->federacoes = Assets::list_federacoes();
+        $this->viewData->federacoes = GenerateLists::list_federacoes();
 
         if ($_POST['nomeEquipe'] == '') {
             header("Location: /add_equipe?error=1");

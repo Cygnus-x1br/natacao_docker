@@ -56,11 +56,11 @@ class AdminController extends Action
         $indices_data = $indices->getIndicesFiltered();
         $this->viewData->indices = $indices_data;
 
-        $this->viewData->anosIndice = Assets::list_anos_indices();
-        $this->viewData->tipoIndice = Assets::list_tipos();
-        $this->viewData->categorias = Assets::list_categorias();
-        $this->viewData->piscinas = Assets::list_piscinas();
-        $this->viewData->estilos = Assets::list_todos_estilos();
+        $this->viewData->anosIndice = GenerateLists::list_anos_indices();
+        $this->viewData->tipoIndice = GenerateLists::list_tipos();
+        $this->viewData->categorias = GenerateLists::list_categorias();
+        $this->viewData->piscinas = GenerateLists::list_piscinas();
+        $this->viewData->estilos = GenerateLists::list_todos_estilos();
 
         $this->render('indice_admin', 'admin_layout');
     }
@@ -72,10 +72,10 @@ class AdminController extends Action
         $recordes_data = $recordes->getRecordesFiltered();
         $this->viewData->recordes = $recordes_data;
 
-        $this->viewData->tipoRecorde = Assets::list_tipos_recorde();
-        $this->viewData->categorias = Assets::list_categorias();
-        $this->viewData->piscinas = Assets::list_piscinas();
-        $this->viewData->estilos = Assets::list_todos_estilos();
+        $this->viewData->tipoRecorde = GenerateLists::list_tipos_recorde();
+        $this->viewData->categorias = GenerateLists::list_categorias();
+        $this->viewData->piscinas = GenerateLists::list_piscinas();
+        $this->viewData->estilos = GenerateLists::list_todos_estilos();
 
         $this->render('recordes_admin', 'admin_layout');
     }
@@ -89,37 +89,37 @@ class AdminController extends Action
         $indices_data = $indices->getIndicesFiltered();
         $this->viewData->indices = $indices_data;
 
-        $this->viewData->anosIndice = Assets::list_anos_indices();
-        $this->viewData->tipoIndice = Assets::list_tipos();
-        $this->viewData->categorias = Assets::list_categorias();
-        $this->viewData->piscinas = Assets::list_piscinas();
-        $this->viewData->estilos = Assets::list_todos_estilos();
+        $this->viewData->anosIndice = GenerateLists::list_anos_indices();
+        $this->viewData->tipoIndice = GenerateLists::list_tipos();
+        $this->viewData->categorias = GenerateLists::list_categorias();
+        $this->viewData->piscinas = GenerateLists::list_piscinas();
+        $this->viewData->estilos = GenerateLists::list_todos_estilos();
         $this->render('indice_admin', 'admin_layout');
     }
 
     public function complexo_admin():void
     {
         Assets::admin_authenticate();
-        $this->viewData->piscinas = Assets::list_complexos();
+        $this->viewData->piscinas = GenerateLists::list_complexos();
         $this->render('complexo_admin', 'admin_layout');
     }
 
     public function federacao_admin():void
     {
         Assets::admin_authenticate();
-        $this->viewData->federacoes = Assets::list_federacoes();
+        $this->viewData->federacoes = GenerateLists::list_federacoes();
         $this->render('federacao_admin', 'admin_layout');
     }
     public function equipe_admin():void
     {
         Assets::admin_authenticate();
-        $this->viewData->equipes = Assets::list_equipes();
+        $this->viewData->equipes = GenerateLists::list_equipes();
         $this->render('equipe_admin', 'admin_layout');
     }
     public function torneio_admin():void
     {
         Assets::admin_authenticate();
-        $this->viewData->torneios = Assets::list_torneios();
+        $this->viewData->torneios = GenerateLists::list_torneios();
         $this->render('torneio_admin', 'admin_layout');
     }
 }

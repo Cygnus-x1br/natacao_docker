@@ -83,12 +83,12 @@ class GraficosController extends Action
      */
     public function listDataFromModels(): void
     {
-        $this->viewData->anos = Assets::list_anos($_SESSION['user_id']);
-        $this->viewData->torneiosParticipados = Assets::list_torneios_atleta($_SESSION['user_id']);
-        $this->viewData->estilos = Assets::list_estilos($_SESSION['user_id']);
-        $this->viewData->piscinas = Assets::list_todas_piscinas();
-        $this->viewData->torneios = Assets::list_torneios();
-        $this->viewData->distanciaEstilo = Assets::list_todos_estilos();
-        $this->viewData->categorias = Assets::list_categorias();
+        $this->viewData->anos = GenerateLists::list_anos($_SESSION['user_id']);
+        $this->viewData->torneiosParticipados = GenerateLists::list_torneios_atleta($_SESSION['user_id']);
+        $this->viewData->estilos = GenerateLists::list_estilos($_SESSION['user_id']);
+        $this->viewData->piscinas = GenerateLists::list_todas_piscinas();
+        $this->viewData->torneios = GenerateLists::list_torneios();
+        $this->viewData->distanciaEstilo = GenerateLists::list_todos_estilos();
+        $this->viewData->categorias = GenerateLists::list_categorias();
     }
 }

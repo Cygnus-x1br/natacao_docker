@@ -17,10 +17,10 @@ class IndicesController extends Action
         $indices_data = $indices->getIndicesFiltered();
         $this->viewData->indices = $indices_data;
 
-        $this->viewData->anosIndice = Assets::list_anos_indices();
-        $this->viewData->tipoIndice = Assets::list_tipos();
-        $this->viewData->categorias = Assets::list_categorias();
-        $this->viewData->piscinas = Assets::list_piscinas();
+        $this->viewData->anosIndice = GenerateLists::list_anos_indices();
+        $this->viewData->tipoIndice = GenerateLists::list_tipos();
+        $this->viewData->categorias = GenerateLists::list_categorias();
+        $this->viewData->piscinas = GenerateLists::list_piscinas();
 
         $this->render('list_indices');
     }
@@ -35,10 +35,10 @@ class IndicesController extends Action
         $indices_data = $indices->getIndicesFiltered();
         $this->viewData->indices = $indices_data;
 
-        $this->viewData->anosIndice = Assets::list_anos_indices();
-        $this->viewData->tipoIndice = Assets::list_tipos();
-        $this->viewData->categorias = Assets::list_categorias();
-        $this->viewData->piscinas = Assets::list_piscinas();
+        $this->viewData->anosIndice = GenerateLists::list_anos_indices();
+        $this->viewData->tipoIndice = GenerateLists::list_tipos();
+        $this->viewData->categorias = GenerateLists::list_categorias();
+        $this->viewData->piscinas = GenerateLists::list_piscinas();
         $this->render('list_indices');
     }
     public function filtra_indices_grafico():void
@@ -51,10 +51,10 @@ class IndicesController extends Action
         $indices_data = $indices->getIndicesFilteredGrafico();
         $this->viewData->indices = $indices_data;
 
-        $this->viewData->anosIndice = Assets::list_anos_indices();
-        $this->viewData->tipoIndice = Assets::list_tipos();
-        $this->viewData->categorias = Assets::list_categorias();
-        $this->viewData->piscinas = Assets::list_piscinas();
+        $this->viewData->anosIndice = GenerateLists::list_anos_indices();
+        $this->viewData->tipoIndice = GenerateLists::list_tipos();
+        $this->viewData->categorias = GenerateLists::list_categorias();
+        $this->viewData->piscinas = GenerateLists::list_piscinas();
         $this->render('list_indices');
     }
     public function filtra_indices_tabela():void
@@ -67,10 +67,10 @@ class IndicesController extends Action
         $indices_data = $indices->getIndicesFiltered();
         $this->viewData->indices = $indices_data;
 
-        $this->viewData->anosIndice = Assets::list_anos_indices();
-        $this->viewData->tipoIndice = Assets::list_tipos();
-        $this->viewData->categorias = Assets::list_categorias();
-        $this->viewData->piscinas = Assets::list_piscinas();
+        $this->viewData->anosIndice = GenerateLists::list_anos_indices();
+        $this->viewData->tipoIndice = GenerateLists::list_tipos();
+        $this->viewData->categorias = GenerateLists::list_categorias();
+        $this->viewData->piscinas = GenerateLists::list_piscinas();
         $this->render('indice_admin');
     }
 
@@ -83,9 +83,9 @@ class IndicesController extends Action
         $tempoAtleta_data = $tempoAtleta->getTempo();
         $this->viewData->tempoAtleta = $tempoAtleta_data;
         
-        $this->viewData->torneios = Assets::list_torneios();
-        $this->viewData->distanciaEstilo = Assets::list_todos_estilos();
-        $this->viewData->categorias = Assets::list_categorias();
+        $this->viewData->torneios = GenerateLists::list_torneios();
+        $this->viewData->distanciaEstilo = GenerateLists::list_todos_estilos();
+        $this->viewData->categorias = GenerateLists::list_categorias();
 
         $provas = Container::getModel('Prova');
         $provas_data = $provas->getAllProvas();

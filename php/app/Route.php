@@ -50,7 +50,6 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'AdminController',
             'action' => 'select_atleta'
         );
-
         $routes['user_admin'] = array(
             'route' => '/user_admin',
             'controller' => 'AdminController',

@@ -22,7 +22,7 @@ class ComplexoController extends Action
     /** Funções de CRUD */
     public function view_complexo():void
     {
-        $this->viewData->estados = Assets::list_estados();
+        $this->viewData->estados = GenerateLists::list_estados();
 
         $complexo = Container::getModel('Complexo');
         $complexo->__set('idcomplexo', $_GET['idcomplexo']);
@@ -35,7 +35,7 @@ class ComplexoController extends Action
     public function add_complexo():void
     {
         Assets::authenticate();
-        $this->viewData->estados = Assets::list_estados();
+        $this->viewData->estados = GenerateLists::list_estados();
 
         $this->render('add_complexo');
     }
@@ -63,7 +63,7 @@ class ComplexoController extends Action
     public function edit_complexo():void
     {
         Assets::admin_authenticate();
-        $this->viewData->estados = Assets::list_estados();
+        $this->viewData->estados = GenerateLists::list_estados();
 
         $complexo = Container::getModel('Complexo');
         $complexo->__set('idcomplexo', $_GET['idcomplexo']);
@@ -100,8 +100,12 @@ class ComplexoController extends Action
 
         $complexo = Container::getModel('Complexo');
         $complexo->__set('idcomplexo', $_GET['idcomplexo']);
-        $complexo->deleteComplexo();
-
+        try {
+            $complexo->deleteComplexo();
+        } catch (\PDOException $Exception) {
+            throw new MyException($Exception);
+        }
+        
         header('Location: /complexo_admin');
     }
 
