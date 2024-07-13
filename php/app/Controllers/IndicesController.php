@@ -111,6 +111,30 @@ class IndicesController extends Action
             $indices->saveIndice();
             header('Location: /indice_admin');
         }
+    }
+    public function edit_indice():void
+    {
+        $indices = Container::getModel('Indices');
+        $indices->__set('idindice', $_POST['idindice']);
+        $indices->__set('anoIndice', $_POST['anoIndice']);
+        $indices->__set('tempoIndice', '00:' . $_POST['tempoIndice']);
+        $indices->__set('id_categoria', $_POST['id_categoria']);
+        $indices->__set('generoIndice', $_POST['generoIndice']);
+        $indices->__set('tipoIndice', $_POST['tipoIndice']);
+        $indices->__set('id_distanciaestilo', $_POST['id_distanciaestilo']);
+        $indices->__set('id_piscina', $_POST['id_piscina']);
        
+        $indices->updateIndice();
+        header('Location: /indice_admin');
+          
+    }
+    public function delete_indice():void
+    {
+        $indices = Container::getModel('Indices');
+        $indices->__set('idindice', $_GET['id']);
+        
+        $indices->deleteIndice();
+        header('Location: /indice_admin');
+
     }
 }

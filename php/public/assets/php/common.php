@@ -19,4 +19,17 @@ function tempoEmSegundos($tempo)
   return $tempoEmSegundos;
 }
 
+function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
+{
+    $tempoAtleta = tempoEmSegundos($tempo);
+    $tempoIndice = 0;
+    foreach ($indicesMundial as $indice) {
+        if ($indice['ID_DISTANCIAESTILO'] == $id_distanciaestilo && $indice['generoRecorde'] == $genero) {
+            $tempo = adjustTime($indice['tempoRecorde']);
+            $tempoIndice = tempoEmSegundos($tempo);
+        }
+    }
+    $indiceTecnico = 1000 * pow(($tempoIndice / $tempoAtleta), 3);
 
+    return floor($indiceTecnico);
+}

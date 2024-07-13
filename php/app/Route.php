@@ -70,6 +70,21 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'AdminController',
             'action' => 'indice_admin'
         );
+        $routes['view_indice'] = array(
+            'route' => '/view_indice',
+            'controller' => 'AdminController',
+            'action' => 'view_indice'
+        );
+        $routes['edit_indice'] = array(
+            'route' => '/edit_indice',
+            'controller' => 'IndicesController',
+            'action' => 'edit_indice'
+        );
+        $routes['delete_indice'] = array(
+            'route' => '/delete_indice',
+            'controller' => 'IndicesController',
+            'action' => 'delete_indice'
+        );
         $routes['filtra_indices_tabela'] = array(
             'route' => '/filtra_indices_tabela',
             'controller' => 'AdminController',

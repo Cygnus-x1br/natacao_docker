@@ -36,7 +36,7 @@ $disabled = $this->setHtmlData->edit;
                                 <small class="text-body-secondary"><?= convertDate($tempo['dataTorneio']) ?></small>
                                 <h6 class="text-body-secondary"><?= $tempo['distancia'] . 'm ' . $tempo['nomeEstilo'] ?><?php if ($tempo['final'] == 'S') { ?><span class="badge text-bg-secondary ms-2">Final</span><?php } ?></h6>
                             </div>
-                            <span class="text-body-secondary"><?= adjustTime($tempo['tempoAtleta']) ?></span>
+                            <span class="text-body-secondary align-self-center fw-semibold"><?= adjustTime($tempo['tempoAtleta']) ?></span>
                         </li>
                     <?php } ?>
                 </ul>

@@ -30,9 +30,17 @@ $estilos = $this->viewData->estilos;
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">Tempos Registrados</h1>
+                <h1 class="fw-light">Gerador de Gráficos</h1>
             </div>
         </div>
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <ul>
+                    
+                <li class="lead">Selecione um estilo e o tamanho da piscina para verificar seu gráfico de evolução de tempos.</li>
+                <li class="lead">Selecione as categorias para comparar seus tempos com os indices das categorias selecionadas.</li>
+                </ul>
+                
+            </div>
     </section>
     <!-- <div class="d-flex justify-content-end mb-5">
         <a class="btn btn-primary" href="./add_tempo">Incluir Tempo</a>
@@ -42,40 +50,43 @@ $estilos = $this->viewData->estilos;
     <div class="row p-3 ">
         <form action="graficos_tempo_filtrado" method="post" class="row g-3 d-flex align-items-end">
             <div class="row">
-                <div class="col-sm-1">
+                <div class="col-md-2 col-lg-1">
                     <input class="form-ckeck-input" type="checkbox" name="p1" id="p1-check" value="11">
                     <label for="p1-check" class="form-label">Petiz 1</label>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-md-2 col-lg-1">
                     <input class="form-ckeck-input" type="checkbox" name="p2" id="p2-check" value="12">
                     <label for="p2-check" class="form-label">Petiz 2</label>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-md-2 col-lg-1">
                     <input class="form-ckeck-input" type="checkbox" name="i1" id="i1-check" value="13">
                     <label for="i1-check" class="form-label">Infantil 1</label>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-md-2 col-lg-1">
                     <input class="form-ckeck-input" type="checkbox" name="i2" id="i2-check" value="14">
                     <label for="i2-check" class="form-label">Infantil 2</label>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-md-2 col-lg-1">
                     <input class="form-ckeck-input" type="checkbox" name="jv1" id="jv1-check" value="15">
                     <label for="jv1-check" class="form-label">Juvenil 1</label>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-md-2 col-lg-1">
                     <input class="form-ckeck-input" type="checkbox" name="jv2" id="jv2-check" value="16">
                     <label for="jv2-check" class="form-label">Juvenil 2</label>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-md-2 col-lg-1">
                     <input class="form-ckeck-input" type="checkbox" name="jr1" id="jr1-check" value="17">
                     <label for="jr1-check" class="form-label">Junior 1</label>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-md-4 col-lg-2">
                     <input class="form-ckeck-input" type="checkbox" name="jr2" id="jr2-check" value="18">
                     <label for="jr2-check" class="form-label">Junior 2 / Absoluto</label>
                 </div>
             </div>
-            <div class="col-md-4 col-lg-2">
+            
+<!--            <div class="d-flex justify-content-around align-items-end">-->
+                
+            <div class="col-md-4 col-lg-3">
                 <label for="distanciaEstilo" class="form-label">Estilo</label>
                 <select name="distanciaEstilo" class="form-select" id="distanciaEstilo">
                     <option value="">Selecione</option>
@@ -84,7 +95,7 @@ $estilos = $this->viewData->estilos;
                     <?php }; ?>
                 </select>
             </div>
-            <div class="col-md-4 col-lg-2">
+            <div class="col-md-4 col-lg-3">
                 <label for="tamanhoPiscina" class="form-label">Piscina</label>
                 <select name="tamanhoPiscina" class="form-select" id="tamanhoPiscina">
                     <option value="">Selecione</option>
@@ -92,7 +103,7 @@ $estilos = $this->viewData->estilos;
                     <option value="50">50 m</option>
                 </select>
             </div>
-            <div class="col-md-4 col-lg-2">
+            <div class="col-md-4 col-lg-3">
                 <label for="anoTempo" class="form-label">Ano</label>
                 <select name="anoTempo" class="form-select" id="anoTempo">
                     <option value="">Selecione</option>
@@ -101,7 +112,7 @@ $estilos = $this->viewData->estilos;
                     <?php }; ?>
                 </select>
             </div>
-            <div class="col-md-4 col-lg-2">
+            <div class="col-md-4 col-lg-3 d-none">
                 <label for="nomeTorneio" class="form-label">Torneio</label>
                 <select name="nomeTorneio" class="form-select" id="nomeTorneio">
                     <option value="">Selecione</option>
@@ -111,7 +122,23 @@ $estilos = $this->viewData->estilos;
                 </select>
             </div>
             <div class="col-md-4 col-lg-2">
-                <input type="submit" class="form-control btn btn-primary" value="Filtrar" id="filtrar">
+                <input type="submit" class="form-control btn btn-primary" value="Gerar Gráfico" id="filtrar">
             </div>
+<!--            </div>-->
         </form>
+        <div class="row mt-5">
+            <?php if(isset($_GET['error']) && $_GET['error'] == 1) {
+                echo '<div class="alert alert-danger" role="alert" id="alerta">Selecione o estilo para gerar o gráfico</div>';
+            } ?>
+        </div>
     </div>
+    <script>
+        let alerta = document.getElementById('alerta');
+        let selectEstilo = document.getElementById('distanciaEstilo');
+        
+        selectEstilo.addEventListener('click', ()=> {
+            if(!alerta.classList.contains('d-none')) {
+                alerta.classList.add('d-none');
+            }
+        })
+    </script>

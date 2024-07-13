@@ -31,6 +31,9 @@ class GraficosController extends Action
     public function graficos_tempo_filtrado():void
     {
         Assets::authenticate();
+        if($_POST['distanciaEstilo'] == ''){
+            header('Location: create_graph?error=1');
+        }
         $this->listDataFromModels();
 
         $atleta = Container::getModel('Atleta');

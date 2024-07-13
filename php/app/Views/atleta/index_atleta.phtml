@@ -25,6 +25,7 @@ if ($melhoresTempos != null) {
     $melhoresTempos50 = [];
 }
 
+
 ?>
 
 <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
@@ -64,7 +65,7 @@ if ($melhoresTempos != null) {
                     <div class=" row row-cols-1 row-cols-md-3 mb-3 text-center ms-5 me-5">
                         <?php foreach ($tempos50 as $tempo) { ?>
                             <div class="col">
-                                <div class="card mb-4 rounded-3 shadow-sm" style="height: 400px;">
+                                <div class="card mb-4 rounded-3 shadow-sm" style="height: auto; min-width: 180px">
                                     <div class="card-header py-3 bg-dark-subtle">
                                         <h4 class="my-0 fw-normal"><?= $tempo['distancia'] . 'm ' . $tempo['estilo'] ?> </h4>
                                     </div>
@@ -73,11 +74,22 @@ if ($melhoresTempos != null) {
                                         <h1 class="card-title pricing-card-title"><?php echo adjustTime($tempo['tempo']) ?></h1>
                                         <ul class="list-unstyled mt-3 mb-4">
                                             <li><?php echo implode('/',  array_reverse(explode('-', $tempo['data']))) ?></li>
+                                            <hr class="ms-5 me-5">
                                             <li><?= $tempo['torneio'] ?></li>
+                                            <hr class="ms-5 me-5">
                                             <li><?= 'Piscina: ' . $tempo['piscina'] . 'm' ?></li>
-                                            <li>Local???</li>
+                                            <hr class="ms-5 me-5">
+                                            <li><?= 'Local: ' . $tempo['complexo'] ?></li>
+                                            <hr class="ms-5 me-5">
+                                            <li ><?= $tempo['cidade'] ?></li>
                                         </ul>
-                                        <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+                                        <form action="graficos_tempo_filtrado" method="post">
+                                            <input type="hidden" name="tamanhoPiscina" value="<?= $tempo['piscina'] ?>">
+                                            <input type="hidden" name="distanciaEstilo" value="<?= $tempo['distanciaestilo'] ?>">
+                                            <input type="hidden" name="nomeTorneio" value="">
+                                            <input type="hidden" name="anoTempo" value="">
+                                            <button type="submit" class="w-100 btn btn-lg btn-outline-primary">Veja o gráfico</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +120,7 @@ if ($melhoresTempos != null) {
                     <div class=" row row-cols-1 row-cols-md-3 mb-3 text-center ms-5 me-5">
                         <?php foreach ($tempos25 as $tempo25) { ?>
                             <div class="col">
-                                <div class="card mb-4 rounded-3 shadow-sm" style="height: 400px;">
+                                <div class="card mb-4 rounded-3 shadow-sm" style="height: auto;">
                                     <div class="card-header py-3 bg-dark-subtle">
                                         <h4 class="my-0 fw-normal"><?= $tempo25['distancia'] . 'm ' . $tempo25['estilo'] ?> </h4>
                                     </div>
@@ -117,11 +129,21 @@ if ($melhoresTempos != null) {
                                         <h1 class="card-title pricing-card-title"><?php echo adjustTime($tempo25['tempo']) ?></h1>
                                         <ul class="list-unstyled mt-3 mb-4">
                                             <li><?php echo implode('/',  array_reverse(explode('-', $tempo25['data']))) ?></li>
+                                            <hr class="ms-5 me-5">
                                             <li><?= $tempo25['torneio'] ?></li>
+                                            <hr class="ms-5 me-5">
                                             <li><?= 'Piscina: ' . $tempo25['piscina'] . 'm' ?></li>
-                                            <li>Local???</li>
+                                            <hr class="ms-5 me-5">
+                                            <li><?= 'Local: ' . $tempo25['complexo'] ?></li>
+                                            <li><?= $tempo25['cidade'] ?></li>
                                         </ul>
-                                        <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+                                        <form action="graficos_tempo_filtrado" method="post">
+                                            <input type="hidden" name="tamanhoPiscina" value="<?= $tempo25['piscina'] ?>">
+                                            <input type="hidden" name="distanciaEstilo" value="<?= $tempo25['distanciaestilo'] ?>">
+                                            <input type="hidden" name="nomeTorneio" value="">
+                                            <input type="hidden" name="anoTempo" value="">
+                                            <button type="submit" class="w-100 btn btn-lg btn-outline-primary">Veja o gráfico</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

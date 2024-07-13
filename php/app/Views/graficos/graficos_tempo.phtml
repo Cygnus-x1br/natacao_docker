@@ -15,20 +15,20 @@ $estilos = $this->viewData->estilos;
 
 $indicesJson = json_encode($indices);
 
-function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
-{
-    $tempoAtleta = tempoEmSegundos($tempo);
-    $tempoIndice = 0;
-    foreach ($indicesMundial as $indice) {
-        if ($indice['ID_DISTANCIAESTILO'] == $id_distanciaestilo && $indice['generoRecorde'] == $genero) {
-            $tempo = adjustTime($indice['tempoRecorde']);
-            $tempoIndice = tempoEmSegundos($tempo);
-        }
-    }
-    $indiceTecnico = 1000 * pow(($tempoIndice / $tempoAtleta), 3);
-
-    return floor($indiceTecnico);
-}
+//function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
+//{
+//    $tempoAtleta = tempoEmSegundos($tempo);
+//    $tempoIndice = 0;
+//    foreach ($indicesMundial as $indice) {
+//        if ($indice['ID_DISTANCIAESTILO'] == $id_distanciaestilo && $indice['generoRecorde'] == $genero) {
+//            $tempo = adjustTime($indice['tempoRecorde']);
+//            $tempoIndice = tempoEmSegundos($tempo);
+//        }
+//    }
+//    $indiceTecnico = 1000 * pow(($tempoIndice / $tempoAtleta), 3);
+//
+//    return floor($indiceTecnico);
+//}
 
 
 ?>
@@ -75,12 +75,12 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
         <div class="col-lg-6 col-md-8 mx-auto text-center">
             <h1 class="fw-light">Gráficos</h1>
         </div>
-        <div class="d-flex justify-content-around ">
+        <div class="d-flex justify-content-around align-items-center">
             <div class="row py-lg-5">
                 <p id="subtitle" class="display-6"></p>
             </div>
             <div class="d-flex flex-column align-items-center">
-                <p class="lead">Melhor indice técnico</p>
+                <p class="lead">Melhor Índice Técnico</p>
                 <div class="grafico-circular">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" id="idGraficoCircular">
                         <path class="circulo" d="M18 2.0845
@@ -135,7 +135,7 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
                     <label for="jr2-check" class="form-label">Junior 2 / Absoluto</label>
                 </div>
             </div>
-            <div class="col-md-4 col-lg-2">
+            <div class="col-md-4 col-lg-3">
                 <label for="distanciaEstilo" class="form-label" required>Estilo</label>
                 <select name="distanciaEstilo" class="form-select" id="distanciaEstilo">
                     <option value="">Selecione</option>
@@ -144,7 +144,7 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
                     <?php } ?>
                 </select>
             </div>
-            <div class="col-md-4 col-lg-2">
+            <div class="col-md-4 col-lg-3">
                 <label for="tamanhoPiscina" class="form-label" required>Piscina</label>
                 <select name="tamanhoPiscina" class="form-select" id="tamanhoPiscina">
                     <option value="">Selecione</option>
@@ -152,7 +152,7 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
                     <option value="50">50 m</option>
                 </select>
             </div>
-            <div class="col-md-4 col-lg-2">
+            <div class="col-md-4 col-lg-3">
                 <label for="anoTempo" class="form-label">Ano</label>
                 <select name="anoTempo" class="form-select" id="anoTempo">
                     <option value="">Selecione</option>
@@ -161,7 +161,7 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
                     <?php } ?>
                 </select>
             </div>
-            <div class="col-md-4 col-lg-2">
+            <div class="col-md-4 col-lg-2 d-none">
                 <label for="nomeTorneio" class="form-label">Torneio</label>
                 <select name="nomeTorneio" class="form-select" id="nomeTorneio">
                     <option value="">Selecione</option>
@@ -173,7 +173,7 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
 
 
             <div class="col-md-4 col-lg-2">
-                <input type="submit" class="form-control btn btn-primary" value="Filtrar" id="filtrar">
+                <input type="submit" class="form-control btn btn-primary" value="Gerar Gráfico" id="filtrar">
             </div>
         </form>
     </div>
@@ -295,7 +295,7 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
         label: 'Tempo',
         data: timeArray,
         borderWidth: 3,
-        order: 1
+        order: 1,
     });
     let indiceLabel = 0;
     for (let arr of arrayIndices) {
@@ -314,7 +314,7 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
             datasets: datasetsJson,
             labels: labelTempos
         },
-
+        
         options: {
             scales: {
                 y: {
@@ -323,7 +323,6 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
                     suggestedMax: maxLabel,
                     ticks: {
                         callback: function(val, index) {
-
                             labelTime = new Date(parseInt(this.getLabelForValue(val)) * 1000);
                             min = labelTime.getMinutes();
                             sec = labelTime.getSeconds();
@@ -338,7 +337,18 @@ function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
                         }
                     }
                 }
+            },
+            plugins: {
+                legend: {
+                    display:true,
+                    position: 'bottom',
+                    align: 'start',
+                    labels: {
+                        padding: 40
+                    }
+                }
             }
+            
         }
     });
 

@@ -1,0 +1,147 @@
+<?php
+$indice = $this->viewData->indice;
+$anos = $this->viewData->anosIndice;
+$tipos = $this->viewData->tipoIndice;
+$categorias = $this->viewData->categorias;
+$piscinas = $this->viewData->piscinas;
+$estilos = $this->viewData->estilos;
+$generos = ['F', 'M'];
+$array_indice = [];
+
+$countIndices = 1;
+$countPiscinas = 1;
+$countTipos = 1;
+
+?>
+<div class="py-5 text-center">
+    <h2 class="fw-light">Editar Índice</h2>
+    <p class="lead"></p>
+</div>
+
+<form action="edit_indice" method="POST" class="needs-validation" enctype="multipart/form-data">
+    <div class="row">
+        <input type="hidden" name="idindice" value="<?= $indice['IDINDICE'] ?>"
+        <div class="row d-flex justify-content-between align-items-end">
+            <div class="col-md-2">
+                <label for="anoIndice" class="form-label">Ano Índice</label>
+                <select class="form-select" name="anoIndice" id="anoIndice">
+                    <option value="">Selected</option>
+                    <?php foreach ($anos as $ano) { ?>
+                        <option value="<?= $ano ?>" <?php echo ($ano == $indice['anoIndice']) ? 'selected' : '' ?>><?= $ano ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="nomeTorneio" class="form-label">Tipo Índice</label>
+                <input class="form-select" list="tipoIndice" name="tipoIndice" value="<?= $indice['tipoIndice'] ?>">
+                <datalist id="tipoIndice" >
+                    <?php foreach ($tipos as $tipo) { ?>
+                    <option value="<?= $tipo ?>">
+                        <?php } ?>
+                </datalist>
+            </div>
+            <div class="col-md-4">
+                <label for="estiloIndice" class="form-label">Estilo</label>
+                <select class="form-select" name="id_distanciaestilo" id="estiloIndice">
+                    <option value="">Selected</option>
+                    <?php foreach ($estilos as $estilo) { ?>
+                        <option value="<?= $estilo['IDDISTANCIAESTILO'] ?>" <?php echo ($estilo['IDDISTANCIAESTILO'] == $indice['ID_DISTANCIAESTILO']) ? 'selected' : '' ?>><?= $estilo['distancia'] . 'm ' . $estilo['nomeEstilo'] ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="piscinaIndice" class="form-label">Piscina</label>
+                <select class="form-select" name="id_piscina" id="piscinaIndice">
+                    <option value="">Selected</option>
+                    <?php foreach ($piscinas as $key => $value) { ?>
+                        <option value="<?= $key ?>" <?php echo ($value == $indice['tamanhoPiscina']) ? 'selected' : '' ?>><?= $value . 'm' ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-between align-items-end mb-3">
+            <div class="col-md-3">
+                <label for="categoriaIndice" class="form-label">Categoria</label>
+                <select class="form-select" name="id_categoria" id="categoriaIndice">
+                    <option value="">Selected</option>
+                    <?php foreach ($categorias as $categoria) { ?>
+                        <option value="<?= $categoria['IDCATEGORIA'] ?>" <?php echo ($categoria['IDCATEGORIA'] == $indice['ID_CATEGORIA']) ? 'selected' : '' ?>><?= $categoria['nomeCategoria'] ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="generoIndice" class="form-label">Genero</label>
+                <select class="form-select" name="generoIndice" id="generoIndice">
+                    <option value="">Selected</option>
+                    <option value="F" <?php echo ($indice['generoIndice'] == 'F') ? 'selected' : '' ?>>Feminino</option>
+                    <option value="M" <?php echo ($indice['generoIndice'] == 'M') ? 'selected' : '' ?>>Masculino</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="tempoIndice" class="form-label">Tempo</label>
+                <input type="text" name="tempoIndice" class="form-control" placeholder="00:00.00" id="tempoIndice" value="<?= adjustTime($indice['tempoIndice']) ?>">
+            </div>
+        </div>
+        <div class="row">
+            <div class="d-flex justify-content-around">
+                <button class="btn btn-outline-primary w-25" type="submit">Alterar</button>
+                <button type="button" class="btn btn-danger modalSelectBtn w-25" data-bs-toggle="modal" data-bs-target="#exampleModal" value="<?= $indice['IDINDICE'] ?>">
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+    <hr class="my-4">
+</form>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <span><input type="checkbox" id="confirmDelete" class="form-check-input"></span>
+                Confirma exclusão do torneio?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="#" id="deleteBtn" class="btn btn-danger disabled">Confirmar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    VMasker(document.querySelector('#tempoIndice')).maskPattern('99:99.99');
+    let table = document.getElementsByTagName('td')
+    for (let t of table) {
+        console.log(t);
+        if (t.innerHtml == ' ') {
+            t.innerHtml = 0;
+        }
+    }
+
+    let buttons = document.getElementsByClassName('modalSelectBtn');
+    let enableDelete = document.getElementById('confirmDelete');
+    let deleteBtn = document.getElementById('deleteBtn');
+    let hrefDeleteLink = ""
+
+    for(let btn of buttons){
+        btn.addEventListener('click', (e)=>{
+            deleteBtn.classList.add('disabled');
+            enableDelete.checked = false;
+            hrefDeleteLink = "/delete_indice?id=" + btn.value;
+            deleteBtn.href = hrefDeleteLink;
+        })
+    }
+    enableDelete.addEventListener('change', (e)=> {
+        if(enableDelete.checked === true) {
+            deleteBtn.classList.remove('disabled');
+        } else {
+            deleteBtn.classList.add('disabled');
+        }
+    })
+</script>
+

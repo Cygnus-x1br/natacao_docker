@@ -35,6 +35,7 @@ $provas = $this->viewData->provas;
                 <p class=""><?= $torneio['enderecoComplexo'] ?></p>
                 <p class=""><?= $torneio['bairroComplexo'] ?></p>
                 <p class=""><?= $torneio['cidadeComplexo'] ?> - <?= $torneio['siglaEstado'] ?></p>
+                <a href="/list_torneios" class="btn btn-success">Voltar</a>
             </div>
         </div>
 
@@ -65,10 +66,7 @@ $provas = $this->viewData->provas;
             <?php } ?>
 
         </table>
-
-        <div>
-            <a href="/list_torneios" class="btn btn-success">Voltar</a>
-        </div>
+        
 
     </main>
 </div>

@@ -18,14 +18,14 @@ class Tempo
         foreach ($tempoAtleta_data as $tempo) {
             if ($filtra_prova != $tempo['ID_DISTANCIAESTILO'] && $tempo['tamanhoPiscina'] == 25) {
                 $filtra_prova = $tempo['ID_DISTANCIAESTILO'];
-                $melhor_tempo[] = ['data' => $tempo['dataTorneio'], 'torneio' => $tempo['nomeTorneio'], 'tempo' => $tempo['tempoAtleta'], 'distancia' => $tempo['distancia'], 'estilo' => $tempo['nomeEstilo'], 'piscina' => $tempo['tamanhoPiscina']];;
+                $melhor_tempo[] = ['data' => $tempo['dataTorneio'], 'torneio' => $tempo['nomeTorneio'], 'tempo' => $tempo['tempoAtleta'], 'distancia' => $tempo['distancia'], 'estilo' => $tempo['nomeEstilo'], 'piscina' => $tempo['tamanhoPiscina'], 'complexo' => $tempo['nomeComplexo'], 'cidade' => $tempo['cidadeComplexo'], 'distanciaestilo' => $tempo['ID_DISTANCIAESTILO']];;
             }
         }
 
         foreach ($tempoAtleta_data as $tempo) {
             if ($filtra_prova != $tempo['ID_DISTANCIAESTILO'] && $tempo['tamanhoPiscina'] == 50) {
                 $filtra_prova = $tempo['ID_DISTANCIAESTILO'];
-                $melhor_tempo[] = ['data' => $tempo['dataTorneio'], 'torneio' => $tempo['nomeTorneio'], 'tempo' => $tempo['tempoAtleta'], 'distancia' => $tempo['distancia'], 'estilo' => $tempo['nomeEstilo'], 'piscina' => $tempo['tamanhoPiscina']];;
+                $melhor_tempo[] = ['data' => $tempo['dataTorneio'], 'torneio' => $tempo['nomeTorneio'], 'tempo' => $tempo['tempoAtleta'], 'distancia' => $tempo['distancia'], 'estilo' => $tempo['nomeEstilo'], 'piscina' => $tempo['tamanhoPiscina'], 'complexo' => $tempo['nomeComplexo'], 'cidade' => $tempo['cidadeComplexo'], 'distanciaestilo' => $tempo['ID_DISTANCIAESTILO']];;
             }
         }
         return $melhor_tempo;

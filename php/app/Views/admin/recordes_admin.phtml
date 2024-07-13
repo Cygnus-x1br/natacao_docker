@@ -9,6 +9,7 @@ $estilos = $this->viewData->estilos;
 $generos = ['F', 'M'];
 $array_recordes = [];
 
+//print_r($recordes);
 
 ?>
 
@@ -131,33 +132,72 @@ $array_recordes = [];
                                             <td scope="col"><?= convertDate($recorde['dataRecorde']) ?></td>
                                             <td scope="col" class="text-end">
                                                 <a href="edit_recorde?id=<?= $recorde['IDRECORDE'] ?>" class="btn btn-outline-primary me-1">Editar</a>
-                                                <a href="delete_recorde?id=<?= $recorde['IDRECORDE'] ?>" class="btn btn-danger">Delete</a>
+                                                <button type="button" class="btn btn-danger modalSelectBtn" data-bs-toggle="modal" data-bs-target="#exampleModal" value="<?= $recorde['IDRECORDE'] ?>">
+                                                    Delete
+                                                </button>
                                             </td>
                                         <?php } ?>
                                     <?php } ?>
-                                    </td>
                             </tr>
                         <?php } ?>
                     <?php } ?>
                     </tbody>
-
                 </table>
             <?php } ?>
-    <?php
+            <?php
+            }
         }
-    }
     ?>
     <hr>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <span><input type="checkbox" id="confirmDelete" class="form-check-input"></span>
+                Confirma exclusão do torneio?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="#" id="deleteBtn" class="btn btn-danger disabled">Confirmar</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
     VMasker(document.querySelector('#tempoRecorde')).maskPattern('99:99.99');
-
     let table = document.getElementsByTagName('td')
     for (let t of table) {
         console.log(t);
         if (t.innerHtml == ' ') {
             t.innerHtml = 0;
         }
-    };
+    }
+    
+    let buttons = document.getElementsByClassName('modalSelectBtn');
+    let enableDelete = document.getElementById('confirmDelete');
+    let deleteBtn = document.getElementById('deleteBtn');
+    let hrefDeleteLink = ""
+
+    for(let btn of buttons){
+        btn.addEventListener('click', (e)=>{
+            deleteBtn.classList.add('disabled');
+            enableDelete.checked = false;
+            hrefDeleteLink = "/delete_recorde?id=" + btn.value;
+            deleteBtn.href = hrefDeleteLink;
+        })
+    }
+    enableDelete.addEventListener('change', (e)=> {
+        if(enableDelete.checked === true) {
+            deleteBtn.classList.remove('disabled');
+        } else {
+            deleteBtn.classList.add('disabled');
+        }
+    })
 </script>
