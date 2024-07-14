@@ -10,7 +10,7 @@ session_start([
 ]);
 class ProvaController extends Action
 {
-    public function list_provas():void
+    public function list_provas(): void
     {
         $this->viewData->torneios = GenerateLists::list_torneios();
         $this->viewData->distanciaEstilo = GenerateLists::list_todos_estilos();
@@ -22,7 +22,7 @@ class ProvaController extends Action
 
         $this->render('list_provas');
     }
-    public function add_prova():void
+    public function add_prova(): void
     {
         if (!isset($_SESSION['id'])) {
             header('Location: /error?error=1001');
@@ -38,8 +38,25 @@ class ProvaController extends Action
 
         $this->render('add_prova');
     }
+    public function edit_prova(): void
+    {
+        if (!isset($_SESSION['id'])) {
+            header('Location: /error?error=1001');
+            die();
+        }
+        $this->viewData->torneios = GenerateLists::list_torneios();
+        $this->viewData->distanciaEstilo = GenerateLists::list_todos_estilos();
+        $this->viewData->categorias = GenerateLists::list_categorias();
 
-    public function save_prova():void
+        $prova = Container::getModel('Prova');
+        $prova->__set('idprova', $_GET['id']);
+        $prova_data = $prova->getProva();
+        $this->viewData->prova = $prova_data;
+
+        $this->render('edit_prova', 'admin_layout');
+    }
+
+    public function save_prova(): void
     {
         $prova = Container::getModel('Prova');
         $prova->__set('numeroProva', $_POST['numeroProva']);
@@ -50,5 +67,26 @@ class ProvaController extends Action
         $prova->__set('id_categoria_max', $_POST['id_categoria_max']);
         $prova->saveProva();
         header('Location: /add_prova');
+    }
+    public function update_prova(): void
+    {
+        $prova = Container::getModel('Prova');
+        $prova->__set('idprova', $_POST['idprova']);
+        $prova->__set('numeroProva', $_POST['numeroProva']);
+        $prova->__set('genero', $_POST['genero']);
+        $prova->__set('id_torneio', $_POST['id_torneio']);
+        $prova->__set('id_distanciaestilo', $_POST['id_distanciaestilo']);
+        $prova->__set('id_categoria_min', $_POST['id_categoria_min']);
+        $prova->__set('id_categoria_max', $_POST['id_categoria_max']);
+        $prova->updateProva();
+        header('Location: /prova_admin');
+    }
+
+    public function delete_prova(): void
+    {
+        $prova = Container::getModel('Prova');
+        $prova->__set('idprova', $_GET['id']);
+        $prova->deleteProva();
+        header('Location: /prova_admin');
     }
 }

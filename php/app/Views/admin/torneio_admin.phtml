@@ -35,8 +35,7 @@ $torneios = $this->viewData->torneios;
                     <td class="text-start"><?php echo implode('/',  array_reverse(explode('-', $torneio['dataTorneio']))) ?></td>
                     <td><?= $torneio['nomeFantasiaComplexo'] ?></td>
                     <td><?= $torneio['tamanhoPiscina'] . 'm' ?></td>
-                    <!-- //TODO: Implementar a função de editar -->
-                    <td><a href="" class="btn btn-outline-primary">Editar</a></td>
+                    <td><a href="/edit_torneio?id=<?= $torneio['IDTORNEIO'] ?>" class="btn btn-outline-primary">Editar</a></td>
                     <td><button type="button" class="btn btn-danger modalSelectBtn" data-bs-toggle="modal" data-bs-target="#exampleModal" value="<?= $torneio['IDTORNEIO'] ?>">
                             Delete
                         </button></td>
@@ -70,16 +69,16 @@ $torneios = $this->viewData->torneios;
     let deleteBtn = document.getElementById('deleteBtn');
     let hrefDeleteLink = ""
 
-    for(let btn of buttons){
-        btn.addEventListener('click', (e)=>{
+    for (let btn of buttons) {
+        btn.addEventListener('click', (e) => {
             deleteBtn.classList.add('disabled');
             enableDelete.checked = false;
             hrefDeleteLink = "/delete_torneio?id=" + btn.value;
             deleteBtn.href = hrefDeleteLink;
         })
     }
-    enableDelete.addEventListener('change', (e)=> {
-        if(enableDelete.checked === true) {
+    enableDelete.addEventListener('change', (e) => {
+        if (enableDelete.checked === true) {
             deleteBtn.classList.remove('disabled');
         } else {
             deleteBtn.classList.add('disabled');

@@ -10,7 +10,7 @@ session_start([
 ]);
 class AdminController extends Action
 {
-    public function index_admin():void
+    public function index_admin(): void
     {
         Assets::admin_authenticate();
 
@@ -21,14 +21,14 @@ class AdminController extends Action
 
         $this->render('index_admin', 'admin_layout');
     }
-    public function select_atleta():void
+    public function select_atleta(): void
     {
         Assets::admin_authenticate();
 
         $this->render('select_atleta', 'admin_layout');
     }
 
-    public function user_admin():void
+    public function user_admin(): void
     {
         Assets::admin_authenticate();
 
@@ -38,7 +38,7 @@ class AdminController extends Action
 
         $this->render('user_admin', 'admin_layout');
     }
-    public function atleta_admin():void
+    public function atleta_admin(): void
     {
         Assets::admin_authenticate();
 
@@ -48,7 +48,7 @@ class AdminController extends Action
 
         $this->render('atleta_admin', 'admin_layout');
     }
-    public function indice_admin():void
+    public function indice_admin(): void
     {
         Assets::admin_authenticate();
 
@@ -65,7 +65,7 @@ class AdminController extends Action
         $this->render('indice_admin', 'admin_layout');
     }
 
-    public function view_indice():void
+    public function view_indice(): void
     {
         Assets::admin_authenticate();
 
@@ -82,7 +82,7 @@ class AdminController extends Action
 
         $this->render('view_indice', 'admin_layout');
     }
-    public function recordes_admin():void
+    public function recordes_admin(): void
     {
         Assets::admin_authenticate();
 
@@ -97,7 +97,7 @@ class AdminController extends Action
 
         $this->render('recordes_admin', 'admin_layout');
     }
-    public function filtra_indices_tabela():void
+    public function filtra_indices_tabela(): void
     {
         $indices = Container::getModel('Indices');
         $indices->__set('anoIndice', $_POST['anoIndice']);
@@ -115,29 +115,42 @@ class AdminController extends Action
         $this->render('indice_admin', 'admin_layout');
     }
 
-    public function complexo_admin():void
+    public function complexo_admin(): void
     {
         Assets::admin_authenticate();
         $this->viewData->piscinas = GenerateLists::list_complexos();
         $this->render('complexo_admin', 'admin_layout');
     }
 
-    public function federacao_admin():void
+    public function federacao_admin(): void
     {
         Assets::admin_authenticate();
         $this->viewData->federacoes = GenerateLists::list_federacoes();
         $this->render('federacao_admin', 'admin_layout');
     }
-    public function equipe_admin():void
+    public function equipe_admin(): void
     {
         Assets::admin_authenticate();
         $this->viewData->equipes = GenerateLists::list_equipes();
         $this->render('equipe_admin', 'admin_layout');
     }
-    public function torneio_admin():void
+    public function torneio_admin(): void
     {
         Assets::admin_authenticate();
         $this->viewData->torneios = GenerateLists::list_torneios();
         $this->render('torneio_admin', 'admin_layout');
+    }
+    public function prova_admin(): void
+    {
+        Assets::admin_authenticate();
+        $this->viewData->torneios = GenerateLists::list_torneios();
+
+        if (isset($_POST['idtorneio'])) {
+            $prova = Container::getModel('Prova');
+            $prova->__set('id_torneio', $_POST['idtorneio'] ?? '');
+            $provas = $prova->getProvasTorneio();
+            $this->viewData->provas = $provas;
+        }
+        $this->render('prova_admin', 'admin_layout');
     }
 }

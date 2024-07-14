@@ -1,0 +1,118 @@
+<?php
+
+$torneios = $this->viewData->torneios;
+
+if (isset($this->viewData->provas)) {
+    $provas = $this->viewData->provas;
+} else {
+    $provas = [];
+}
+
+// print_r($provas);
+
+?>
+
+
+<div class="py-3 text-center">
+    <h2 class="display-5 mb-3">Administração de Torneios</h2>
+</div>
+
+<div class="text-end">
+    <a href="/add_prova">
+        <i class="bi bi-plus-circle" style="font-size: 32px; color: rgba(var(--bs-secondary-color-rgb), 0.5)"></i>
+    </a>
+</div>
+<main>
+    <form action="/prova_admin" method="post">
+        <div class="d-flex flex-row justify-content-around align-items-end mb-5">
+            <div class="">
+                <label for="selectTorneio" class="form-label">Torneio</label>
+                <select class="form-select" aria-label="Default select example" id="selectTorneio" name="idtorneio">
+                    <option selected>Selecione</option>
+                    <?php
+                    foreach ($torneios as $torneio) { ?>
+                        <option value="<?= $torneio['IDTORNEIO'] ?>"><?= $torneio['nomeTorneio'] ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Selecionar</button>
+        </div>
+    </form>
+    <h3 class="display-6 text-center mb-3"><?php if (!empty($provas)) {
+                                                echo 'Provas do torneio ' . $provas[0]['nomeTorneio'];
+                                            } ?></h3>
+
+    <table class="table w-75 mx-auto" id="table">
+        <thead>
+            <tr>
+                <th>Prova</th>
+                <th>Estilo</th>
+                <th>Genero</th>
+                <th>Categorias</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <?php
+        foreach ($provas as $prova) { ?>
+            <tbody>
+                <tr>
+                    <td><?= 'Prova numero ' . $prova['numeroProva'] ?></td>
+                    <td><?= $prova['distancia'] . 'm ' . $prova['nomeEstilo'] ?></td>
+                    <td><?= $prova['genero'] ?></td>
+                    <?php if ($prova['categoriaMinima'] != $prova['categoriaMaxima']) { ?>
+                        <td><?= $prova['categoriaMinima'] . ' a ' . $prova['categoriaMaxima'] ?></td>
+                    <?php } else { ?>
+                        <td><?= $prova['categoriaMinima'] ?></td>
+                    <?php } ?>
+                    <td><a href="/edit_prova?id=<?= $prova['idprova'] ?>" class="btn btn-outline-primary">Editar</a></td>
+                    <td><button type="button" class="btn btn-danger modalSelectBtn" data-bs-toggle="modal" data-bs-target="#exampleModal" value="<?= $prova['idprova'] ?>">
+                            Delete
+                        </button></td>
+                </tr>
+            </tbody>
+        <?php } ?>
+
+    </table>
+</main>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <span><input type="checkbox" id="confirmDelete" class="form-check-input"></span>
+                Confirma exclusão da prova?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="#" id="deleteBtn" class="btn btn-danger disabled">Confirmar</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let buttons = document.getElementsByClassName('modalSelectBtn');
+    let enableDelete = document.getElementById('confirmDelete');
+    let deleteBtn = document.getElementById('deleteBtn');
+    let hrefDeleteLink = ""
+
+    for (let btn of buttons) {
+        btn.addEventListener('click', (e) => {
+            deleteBtn.classList.add('disabled');
+            enableDelete.checked = false;
+            hrefDeleteLink = "/delete_prova?id=" + btn.value;
+            deleteBtn.href = hrefDeleteLink;
+        })
+    }
+    enableDelete.addEventListener('change', (e) => {
+        if (enableDelete.checked === true) {
+            deleteBtn.classList.remove('disabled');
+        } else {
+            deleteBtn.classList.add('disabled');
+        }
+    })
+</script>

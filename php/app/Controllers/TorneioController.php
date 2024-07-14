@@ -10,21 +10,38 @@ session_start([
 ]);
 class TorneioController extends Action
 {
-    public function add_torneio():void
+    public function add_torneio(): void
     {
         if (!isset($_SESSION['id'])) {
             header('Location: /error?error=1001');
             die();
         }
-       
+
         $this->viewData->piscinas = GenerateLists::list_todas_piscinas();
         $this->viewData->federacoes = GenerateLists::list_federacoes();
         $this->viewData->complexos = GenerateLists::list_complexos();
 
         $this->render('add_torneio');
     }
+    public function edit_torneio(): void
+    {
+        if (!isset($_SESSION['id'])) {
+            header('Location: /error?error=1001');
+            die();
+        }
 
-    public function save_torneio():void
+        $torneio = Container::getModel('Torneio');
+        $torneio->__set('idtorneio', $_GET['id']);
+        $torneio_data = $torneio->getTorneio();
+        $this->viewData->torneio = $torneio_data;
+        $this->viewData->piscinas = GenerateLists::list_todas_piscinas();
+        $this->viewData->federacoes = GenerateLists::list_federacoes();
+        $this->viewData->complexos = GenerateLists::list_complexos();
+
+        $this->render('edit_torneio');
+    }
+
+    public function save_torneio(): void
     {
         $torneio = Container::getModel('Torneio');
         $torneio->__set('nomeTorneio', $_POST['nomeTorneio']);
@@ -43,12 +60,32 @@ class TorneioController extends Action
         }
     }
 
-    public function list_torneios():void
+    public function update_torneio(): void
+    {
+        $torneio = Container::getModel('Torneio');
+        $torneio->__set('idtorneio', $_POST['idtorneio']);
+        $torneio->__set('nomeTorneio', $_POST['nomeTorneio']);
+        $torneio->__set('dataTorneio', $_POST['dataTorneio']);
+        $torneio->__set('dataFimTorneio', $_POST['dataFimTorneio']);
+        $torneio->__set('id_piscina', $_POST['id_piscina']);
+        $torneio->__set('id_federacao', $_POST['id_federacao']);
+        $torneio->__set('id_complexo', $_POST['id_complexo']);
+
+        $torneio->updateTorneio();
+
+        if ($_SESSION['permissao'] == 2) {
+            header('Location: /torneio_admin');
+        } else {
+            header('Location: /list_torneios');
+        }
+    }
+
+    public function list_torneios(): void
     {
         $this->viewData->torneios = GenerateLists::list_torneios();
         $this->render('list_torneios');
     }
-    public function view_torneio():void
+    public function view_torneio(): void
     {
         $torneio = Container::getModel('Torneio');
         $torneio->__set('idtorneio', $_GET['id']);
@@ -63,7 +100,7 @@ class TorneioController extends Action
         $this->render('view_torneio');
     }
 
-    public function delete_torneio():void
+    public function delete_torneio(): void
     {
         $torneio = Container::getModel('Torneio');
         $torneio->__set('idtorneio', $_GET['id']);

@@ -1,0 +1,83 @@
+<?php
+
+$distanciaEstilo = $this->viewData->distanciaEstilo;
+$torneios = $this->viewData->torneios;
+$categorias = $this->viewData->categorias;
+$prova = $this->viewData->prova;
+
+print_r($prova);
+
+?>
+
+
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Editar Prova</h1>
+        </div>
+    </div>
+</section>
+
+<div class="col-md-12">
+    <form action="update_prova" method="POST" class="needs-validation" enctype="multipart/form-data">
+        <div class="row g-3 d-flex justify-content-between align-items-end">
+            <input type="hidden" name="idprova" value="<?= $prova['idprova'] ?>">
+            <div class="col-sm-12">
+                <label for="nomeTorneio" class="form-label">Torneio</label>
+                <select class="form-select" name="id_torneio" id="nomeTorneio">
+                    <option value="">Selected</option>
+                    <?php foreach ($torneios as $torneio) { ?>
+                        <option value="<?= $torneio['IDTORNEIO'] ?>" <?= ($torneio['IDTORNEIO'] == $prova['id_torneio']) ? 'selected' : '' ?>><?= $torneio['nomeTorneio'] . ' - ' . $torneio['nomeFantasiaComplexo'] ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="col-md-1">
+                <label for="numeroProva" class="form-label">No da Prova</label>
+                <input type="text" class="form-control" id="numeroProva" name="numeroProva" placeholder="Nome" value="<?= $prova['numeroProva'] ?>">
+            </div>
+            <div class="col-md-3">
+                <label for="distanciaEstilo" class="form-label">Estilo</label>
+                <select class="form-select" name="id_distanciaestilo" id="distanciaEstilo">
+                    <option value="">Selected</option>
+                    <?php foreach ($distanciaEstilo as $de) { ?>
+                        <option value="<?= $de['IDDISTANCIAESTILO'] ?>" <?= ($de['IDDISTANCIAESTILO'] == $prova['id_distanciaestilo']) ? 'selected' : '' ?>><?= $de['distancia'] . 'm - ' . $de['nomeEstilo'] ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="genero" class="form-label">Genero</label>
+                <select class="form-select" name="genero" id="genero">
+                    <option value="">Selected</option>
+                    <option value="F" <?= ($prova['genero'] == 'F') ? 'selected' : '' ?>>Feminino</option>
+                    <option value="M" <?= ($prova['genero'] == 'M') ? 'selected' : '' ?>>Masculino</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="categoriaMinima" class="form-label">Categoria Minima</label>
+                <select class="form-select" name="id_categoria_min" id="categoriaMinima">
+                    <option value="">Selected</option>
+                    <?php foreach ($categorias as $categoria) { ?>
+                        <option value="<?= $categoria['IDCATEGORIA'] ?>" <?= ($categoria['nomeCategoria'] == $prova['categoriaMinima']) ? 'selected' : '' ?>><?= $categoria['nomeCategoria'] ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="categoriaMaxima" class="form-label">Categoria Maxima</label>
+                <select class="form-select" name="id_categoria_max" id="categoriaMaxima">
+                    <option value="">Selected</option>
+                    <?php foreach ($categorias as $categoria) { ?>
+                        <option value="<?= $categoria['IDCATEGORIA'] ?>" <?= ($categoria['nomeCategoria'] == $prova['categoriaMaxima']) ? 'selected' : '' ?>><?= $categoria['nomeCategoria'] ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="d-flex justify-content-around mt-3">
+                <button class="btn btn-primary w-25" type="submit">Alterar</button>
+                <a href="/prova_admin" class="btn btn-secondary w-25">Voltar</a>
+            </div>
+        </div>
+        <hr class="my-4">
+    </form>
+
+</div>

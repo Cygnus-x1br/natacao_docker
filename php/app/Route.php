@@ -105,6 +105,11 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'AdminController',
             'action' => 'torneio_admin'
         );
+        $routes['prova_admin'] = array(
+            'route' => '/prova_admin',
+            'controller' => 'AdminController',
+            'action' => 'prova_admin'
+        );
         $routes['recordes_admin'] = array(
             'route' => '/recordes_admin',
             'controller' => 'AdminController',
@@ -344,6 +349,16 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'TorneioController',
             'action' => 'save_torneio'
         );
+        $routes['edit_torneio'] = array(
+            'route' => '/edit_torneio',
+            'controller' => 'TorneioController',
+            'action' => 'edit_torneio'
+        );
+        $routes['update_torneio'] = array(
+            'route' => '/update_torneio',
+            'controller' => 'TorneioController',
+            'action' => 'update_torneio'
+        );
         $routes['list_torneios'] = array(
             'route' => '/list_torneios',
             'controller' => 'TorneioController',
@@ -431,6 +446,21 @@ class Route extends \MF\Init\Bootstrap
             'route' => '/save_prova',
             'controller' => 'ProvaController',
             'action' => 'save_prova'
+        );
+        $routes['edit_prova'] = array(
+            'route' => '/edit_prova',
+            'controller' => 'ProvaController',
+            'action' => 'edit_prova'
+        );
+        $routes['update_prova'] = array(
+            'route' => '/update_prova',
+            'controller' => 'ProvaController',
+            'action' => 'update_prova'
+        );
+        $routes['delete_prova'] = array(
+            'route' => '/delete_prova',
+            'controller' => 'ProvaController',
+            'action' => 'delete_prova'
         );
 
 

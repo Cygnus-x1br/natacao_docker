@@ -55,6 +55,20 @@ class Torneio extends Model
         $stmt->execute();
         return $this;
     }
+    public function updateTorneio()
+    {
+        $torneio = "UPDATE tb_torneio SET nomeTorneio = :nomeTorneio, dataTorneio = :dataTorneio, dataFimTorneio = :dataFimTorneio, id_complexo = :id_complexo, id_piscina = :id_piscina, id_federacao = :id_federacao WHERE idtorneio = :idtorneio";
+        $stmt = $this->db->prepare($torneio);
+        $stmt->bindValue(':idtorneio', $this->__get('idtorneio'));
+        $stmt->bindValue(':nomeTorneio', $this->__get('nomeTorneio'));
+        $stmt->bindValue(':dataTorneio', $this->__get('dataTorneio'));
+        $stmt->bindValue(':dataFimTorneio', $this->__get('dataFimTorneio'));
+        $stmt->bindValue(':id_complexo', $this->__get('id_complexo'));
+        $stmt->bindValue(':id_piscina', $this->__get('id_piscina'));
+        $stmt->bindValue(':id_federacao', $this->__get('id_federacao'));
+        $stmt->execute();
+        return $this;
+    }
 
     public function deleteTorneio()
     {
