@@ -1,17 +1,9 @@
 <?php
-
 $federacoes = $this->viewData->federacoes;
-
-// echo '<pre>';
-// print_r($federacoes);
-// echo '</pre>';
-
 ?>
-
 
 <div class="py-5 text-center">
     <h2 class="display-5 my-3">Administração de Federações</h2>
-    <!-- <p class="lead">Alteração dos dados</p> -->
 </div>
 
 <div class="text-end">
@@ -24,7 +16,6 @@ $federacoes = $this->viewData->federacoes;
     <table class="table text-center">
         <thead>
             <tr>
-
                 <th style="width: 12%;"></th>
                 <th style="width: 12%;">ID</th>
                 <th class="text-start" style="width: 22%;">Federaçao</th>
@@ -41,10 +32,55 @@ $federacoes = $this->viewData->federacoes;
                     <td class="text-start"><?= $federacao['nomeFederacao'] ?></td>
 
                     <td><?= $federacao['siglaEstado'] ?></td>
-                    <td><a href="edit_federacao?idfederacao=<?= $federacao['IDFEDERACAO'] ?>" class="btn btn-outline-primary">Editar</a></td>
-                    <td><a href="delete_federacao?idfederacao=<?= $federacao['IDFEDERACAO'] ?>" class="btn btn-danger">Delete</a></td>
+                    <td><a href="/edit_federacao?idfederacao=<?= $federacao['IDFEDERACAO'] ?>" class="btn btn-outline-primary">Editar</a></td>
+                    <td><button type="button" class="btn btn-danger modalSelectBtn" data-bs-toggle="modal" data-bs-target="#exampleModal" value="<?= $federacao['IDFEDERACAO'] ?>">
+                            Delete
+                        </button></td>
                 </tr>
             <?php } ?>
         </tbody>
     </table>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <span><input type="checkbox" id="confirmDelete" class="form-check-input"></span>
+                Confirma exclusão da federação?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="#" id="deleteBtn" class="btn btn-danger disabled">Confirmar</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let buttons = document.getElementsByClassName('modalSelectBtn');
+    let enableDelete = document.getElementById('confirmDelete');
+    let deleteBtn = document.getElementById('deleteBtn');
+    let hrefDeleteLink = ""
+
+    deleteBtn.classList.add('disabled');
+
+    for(let btn of buttons){
+        btn.addEventListener('click', (e)=>{
+            deleteBtn.classList.add('disabled');
+            enableDelete.checked = false;
+            hrefDeleteLink = "delete_federacao?idfederacao=" + btn.value;
+            deleteBtn.href = hrefDeleteLink;
+        })
+    }
+    enableDelete.addEventListener('change', (e)=> {
+        if(enableDelete.checked === true) {
+            deleteBtn.classList.remove('disabled');
+        } else {
+            deleteBtn.classList.add('disabled');
+        }
+    })
+</script>

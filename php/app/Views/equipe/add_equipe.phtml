@@ -1,8 +1,5 @@
 <?php
-// print_r($this->viewData->equipe);
-// $equipe = $this->viewData->equipe;
 $federacoes = $this->viewData->federacoes;
-
 ?>
 
 <div class="container">
@@ -13,11 +10,11 @@ $federacoes = $this->viewData->federacoes;
         </div>
         <?php if (isset($_GET['error']) && $_GET['error'] == '3') {
             echo '<div class="alert alert-danger" role="alert">
-                Nome já cadastrado
+                    Nome já cadastrado
                 </div>';
         } elseif (isset($_GET['error']) && $_GET['error'] == '4') {
             echo '<div class="alert alert-danger" role="alert">
-                Sigla já cadastrada
+                    Sigla já cadastrada
                 </div>';
         } ?>
 
@@ -26,77 +23,30 @@ $federacoes = $this->viewData->federacoes;
                 <div class="d-flex justify-content-center align-items-center mb-3">
                     <img class="img-logo-border" src="#" class="img-foto-border" alt="">
                 </div>
-                <!-- <ul class="list-group mb-3">
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0"><a href="#" class="text-decoration-none">Prova</a></h6>
-              <small class="text-body-secondary">Torneio</small>
-              <h6 class="text-body-secondary">11/11/2024</h6>
-            </div>
-            <span class="text-body-secondary">00:00.00</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0"><a href="#" class="text-decoration-none">Prova</a></h6>
-              <small class="text-body-secondary">Torneio</small>
-              <h6 class="text-body-secondary">11/11/2024</h6>
-            </div>
-            <span class="text-body-secondary">00:00.00</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0"><a href="#" class="text-decoration-none">Prova</a></h6>
-              <small class="text-body-secondary">Torneio</small>
-              <h6 class="text-body-secondary">11/11/2024</h6>
-            </div>
-            <span class="text-body-secondary">00:00.00</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
-            <div>
-              <h6 class="my-0"><a href="#" class="text-decoration-none">Prova</a></h6>
-              <small class="text-body-secondary">Torneio</small>
-              <h6 class="text-body-secondary">11/11/2024</h6>
-            </div>
-            <span class="text-body-secondary">00:00.00</span>
-          </li>
-
-        </ul>
-
-        <form class="card p-2">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Promo code">
-            <button type="submit" class="btn btn-secondary">Redeem</button>
-          </div>
-        </form> -->
+                
             </div>
             <div class="col-md-7 col-lg-8">
                 <h4 class="mb-3"></h4>
-                <form action="save_equipe" class="needs-validation" method="post" enctype="multipart/form-data">
+                <form action="/save_equipe" class="needs-validation" method="post" enctype="multipart/form-data">
                     <div class="row g-3">
                         <div class="col-12">
-                            <label for="firstName" class="form-label">Nome</label>
+                            <label for="nomeEquipe" class="form-label">Nome</label>
                             <?php if (isset($_GET['error']) && $_GET['error'] == '1') {
                                 echo '<div class="alert alert-danger" role="alert">
-                Campo Obrigatório
-                </div>';
+                                        Campo Obrigatório
+                                     </div>';
                             } ?>
-                            <input type="text" class="form-control" id="firstName" placeholder="Nome" name="nomeEquipe" value="">
-                            <div class="invalid-feedback">
-                                Valid first name is required.
-                            </div>
+                            <input type="text" class="form-control" id="nomeEquipe" placeholder="Nome da Equipe" name="nomeEquipe" value="" required>
                         </div>
                         <div class="col-12">
-                            <label for="nickname" class="form-label">Sigla</label>
-                            <input type="text" class="form-control" id="nickname" placeholder="Apelido" name="nomeFantasiaEquipe" value="">
+                            <label for="nomeFantasiaEquipe" class="form-label">Sigla</label>
+                            <input type="text" class="form-control" id="nomeFantasiaEquipe" placeholder="Sigla ou nome " name="nomeFantasiaEquipe" value="">
                         </div>
                     </div>
 
                     <div class="col-12">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="you@example.com" name="emailEquipe" value="">
-                        <div class="invalid-feedback">
-                            Please enter a valid email address.
-                        </div>
+                        <label for="emailEquipe" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="emailEquipe" placeholder="you@example.com" name="emailEquipe" value="">
                     </div>
 
                     <div class="col-12">
@@ -105,12 +55,12 @@ $federacoes = $this->viewData->federacoes;
                     </div>
                     <div class="row g-3">
                         <div class="col-6">
-                            <label for="facebook" class="form-label">Facebook <span class="text-body-secondary">(Opcional)</span></label>
-                            <input type="text" class="form-control" id="facebook" placeholder="Link facebook" name="facebookEquipe">
+                            <label for="facebookEquipe" class="form-label">Facebook <span class="text-body-secondary">(Opcional)</span></label>
+                            <input type="text" class="form-control" id="facebookEquipe" placeholder="Link facebook" name="facebookEquipe">
                         </div>
                         <div class="col-6">
-                            <label for="instagram" class="form-label">Instagram <span class="text-body-secondary">(Opcional)</span></label>
-                            <input type="text" class="form-control" id="instagram" placeholder="Link Instagram" name="instagramEquipe">
+                            <label for="instagramEquipe" class="form-label">Instagram <span class="text-body-secondary">(Opcional)</span></label>
+                            <input type="text" class="form-control" id="instagramEquipe" placeholder="Link Instagram" name="instagramEquipe">
                         </div>
                     </div>
 
@@ -121,15 +71,9 @@ $federacoes = $this->viewData->federacoes;
                     <div class="row gy-3">
                         <div class="col-md-6">
                             <label for="logoEquipe" class="form-label">Logotipo</label>
-                            <!-- <input type="text" class="form-control" id="logoEquipe" placeholder="" value="" name="logoEquipe"> -->
                             <input type="file" class="form-control" id="logoEquipe" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="logoEquipe" accept="image/jpeg,.gif,.png">
                         </div>
                         <div class="col-md-6">
-                            <?php if (isset($_GET['error']) && $_GET['error'] == '2') {
-                                echo '<div class="alert alert-danger" role="alert">
-                Nome deve ser preenchido
-                </div>';
-                            } ?>
                             <label for="federacao" class="form-label">Federação</label>
                             <select name="id_federacao" class="form-select" id="federacao">
                                 <option value="">Selecione</option>
@@ -150,6 +94,7 @@ $federacoes = $this->viewData->federacoes;
     </main>
 
     <script>
+        // Função de máscara para telefone
         let telefone = document.querySelector('#telefoneEquipe');
         telefone.addEventListener('keypress', (event) => {
             if ((telefone.value).length < 16) {

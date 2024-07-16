@@ -1,9 +1,6 @@
 <?php
-// print_r($this->viewData->equipe);
 $equipe = $this->viewData->equipe;
 $federacoes = $this->viewData->federacoes;
-
-$disabled = (isset($this->setHtmlData->edit) ? $this->setHtmlData->edit : 'disabled');
 ?>
 
 <div class="container">
@@ -20,42 +17,40 @@ $disabled = (isset($this->setHtmlData->edit) ? $this->setHtmlData->edit : 'disab
                 </div>
             </div>
             <div class="col-md-7 col-lg-8">
-                <form action="update_equipe" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+                <form action="/update_equipe" method="POST" enctype="multipart/form-data" class="needs-validation">
                     <div class="row g-3">
                         <div class="col-12">
                             <input type="hidden" name="idequipe" value="<?= $equipe['IDEQUIPE'] ?>">
-                            <label for="firstName" class="form-label">Nome</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="Nome" name="nomeEquipe" value="<?= $equipe['nomeEquipe'] ?>" <?php if ($_SESSION['permissao'] != 2) echo 'readonly'; ?>>
+                            <label for="nomeEquipe" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="nomeEquipe" placeholder="Nome" name="nomeEquipe" value="<?= $equipe['nomeEquipe'] ?>" <?php if ($_SESSION['permissao'] != 2) echo 'readonly'; ?>>
                         </div>
                         <div class="col-12">
-                            <label for="nickname" class="form-label">Sigla</label>
-                            <input type="text" class="form-control" id="nickname" placeholder="Apelido" name="nomeFantasiaEquipe" value="<?= $equipe['nomeFantasiaEquipe'] ?>" <?php if ($_SESSION['permissao'] != 2) echo 'readonly'; ?>>
+                            <label for="nomeFantasiaEquipe" class="form-label">Sigla</label>
+                            <input type="text" class="form-control" id="nomeFantasiaEquipe" placeholder="Sigla ou nome" name="nomeFantasiaEquipe" value="<?= $equipe['nomeFantasiaEquipe'] ?>" <?php if ($_SESSION['permissao'] != 2) echo 'readonly'; ?>>
                         </div>
                     </div>
-
                     <div class="col-12">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="you@example.com" name="emailEquipe" value="<?= $equipe['emailEquipe'] ?>">
+                        <label for="emailEquipe" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="emailEquipe" placeholder="you@example.com" name="emailEquipe" value="<?= $equipe['emailEquipe'] ?>">
                     </div>
-
                     <div class="col-12">
-                        <label for="address" class="form-label">Site</label>
-                        <input type="text" class="form-control" id="address" placeholder="www.example.com" name="siteEquipe" value="<?= $equipe['siteEquipe'] ?>">
+                        <label for="siteEquipe" class="form-label">Site</label>
+                        <input type="text" class="form-control" id="siteEquipe" placeholder="www.example.com" name="siteEquipe" value="<?= $equipe['siteEquipe'] ?>">
                     </div>
                     <div class="row g-3">
                         <div class="col-6">
-                            <label for="facebook" class="form-label" name>Facebook <span class="text-body-secondary">(Opcional)</span></label>
-                            <input type="text" class="form-control" id="facebook" name="facebookEquipe" placeholder="Link facebook" value="<?= $equipe['facebookEquipe'] ?>">
+                            <label for="facebookEquipe" class="form-label" name>Facebook <span class="text-body-secondary">(Opcional)</span></label>
+                            <input type="text" class="form-control" id="facebookEquipe" name="facebookEquipe" placeholder="Link facebook" value="<?= $equipe['facebookEquipe'] ?>">
                         </div>
                         <div class="col-6">
-                            <label for="instagram" class="form-label">Instagram <span class="text-body-secondary">(Opcional)</span></label>
-                            <input type="text" class="form-control" id="instagram" name="instagramEquipe" placeholder="Link Instagram" value="<?= $equipe['instagramEquipe'] ?>">
+                            <label for="instagramEquipe" class="form-label">Instagram <span class="text-body-secondary">(Opcional)</span></label>
+                            <input type="text" class="form-control" id="instagramEquipe" name="instagramEquipe" placeholder="Link Instagram" value="<?= $equipe['instagramEquipe'] ?>">
                         </div>
                     </div>
 
                     <div class="col-md-5">
                         <label for="telefoneEquipe" class="form-label">Telefone<span class="text-body-secondary">(Opcional)</span></label>
-                        <input type="phone" class="form-control" id="telefoneEquipe" name="telefoneEquipe" placeholder="" value="<?= $equipe['telefoneEquipe'] ?>">
+                        <input type="text" class="form-control" id="telefoneEquipe" name="telefoneEquipe" placeholder="" value="<?= $equipe['telefoneEquipe'] ?>">
                     </div>
                     <div class="row gy-3">
                         <div class="col-md-6">
@@ -77,9 +72,7 @@ $disabled = (isset($this->setHtmlData->edit) ? $this->setHtmlData->edit : 'disab
                     </div>
                     <hr class="my-4">
                     <div class="grid column-gap-0">
-
                         <button class="w-25 btn btn-primary btn-lg" type="submit">Edit</button>
-
                         <?php if ($_SESSION['permissao'] == 2) { ?>
                             <a class="w-25 btn btn-secondary btn-lg" href="/equipe_admin">Voltar</a>
                         <?php } else { ?>
@@ -93,6 +86,7 @@ $disabled = (isset($this->setHtmlData->edit) ? $this->setHtmlData->edit : 'disab
 </div>
 
 <script>
+    // Função de máscara para telefone
     let telefone = document.querySelector('#telefoneEquipe');
 
     telefone.addEventListener('keypress', (event) => {

@@ -1,8 +1,6 @@
 <?php
-
 $estados = $this->viewData->estados;
 $federacao = $this->viewData->federacao;
-
 ?>
 
 <div class="container">
@@ -20,51 +18,43 @@ $federacao = $this->viewData->federacao;
             </div>
             <div class="col-md-7 col-lg-8">
                 <h4 class="mb-3"></h4>
-                <form action="update_federacao" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+                <form action="/update_federacao" method="POST" enctype="multipart/form-data" class="needs-validation">
                     <div class="row g-3">
                         <div class="col-12">
                             <input type="hidden" name="idfederacao" value="<?= $federacao['IDFEDERACAO'] ?>">
-                            <label for="firstName" class="form-label">Nome</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="Nome" name="nomeFederacao" value="<?= $federacao['nomeFederacao'] ?>">
-                            <div class="invalid-feedback">
-                                Valid first name is required.
-                            </div>
+                            <label for="nomeFederacao" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="nomeFederacao" placeholder="Nome da Federação" name="nomeFederacao" value="<?= $federacao['nomeFederacao'] ?>">
                         </div>
                         <div class="col-12">
-                            <label for="nickname" class="form-label">Sigla</label>
-                            <input type="text" class="form-control" id="nickname" placeholder="Apelido" name="nomeFantasiaFederacao" value="<?= $federacao['nomeFantasiaFederacao'] ?>">
+                            <label for="nomeFantasiaFederacao" class="form-label">Sigla</label>
+                            <input type="text" class="form-control" id="nomeFantasiaFederacao" placeholder="Sigla" name="nomeFantasiaFederacao" value="<?= $federacao['nomeFantasiaFederacao'] ?>">
                         </div>
                     </div>
-
                     <div class="col-12">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="you@example.com" name="emailFederacao" value="<?= $federacao['emailFederacao'] ?>">
-                        <div class="invalid-feedback">
-                            Please enter a valid email address.
-                        </div>
+                        <label for="emailFederacao" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="emailFederacao" placeholder="you@example.com" name="emailFederacao" value="<?= $federacao['emailFederacao'] ?>">
                     </div>
-
                     <div class="col-12">
-                        <label for="address" class="form-label">Site</label>
-                        <input type="text" class="form-control" id="address" placeholder="www.example.com" name="siteFederacao" value="<?= $federacao['siteFederacao'] ?>">
+                        <label for="siteFederacao" class="form-label">Site</label>
+                        <input type="text" class="form-control" id="siteFederacao" placeholder="www.example.com" name="siteFederacao" value="<?= $federacao['siteFederacao'] ?>">
                         <div class="invalid-feedback">
                             Please enter your shipping address.
                         </div>
                     </div>
                     <div class="row g-3">
                         <div class="col-6">
-                            <label for="facebook" class="form-label" name>Facebook <span class="text-body-secondary">(Opcional)</span></label>
-                            <input type="text" class="form-control" id="facebook" name="facebookFederacao" placeholder="Link facebook" value="<?= $federacao['facebookFederacao'] ?>">
+                            <label for="facebookFederacao" class="form-label" name>Facebook <span class="text-body-secondary">(Opcional)</span></label>
+                            <input type="text" class="form-control" id="facebookFederacao" name="facebookFederacao" placeholder="Link facebook" value="<?= $federacao['facebookFederacao'] ?>">
                         </div>
                         <div class="col-6">
-                            <label for="instagram" class="form-label">Instagram <span class="text-body-secondary">(Opcional)</span></label>
-                            <input type="text" class="form-control" id="instagram" name="instagramFederacao" placeholder="Link Instagram" value="<?= $federacao['instagramFederacao'] ?>">
+                            <label for="instagramFederacao" class="form-label">Instagram <span class="text-body-secondary">(Opcional)</span></label>
+                            <input type="text" class="form-control" id="instagramFederacao" name="instagramFederacao" placeholder="Link Instagram" value="<?= $federacao['instagramFederacao'] ?>">
                         </div>
                     </div>
 
                     <div class="col-md-5">
-                        <label for="telefone" class="form-label">Telefone<span class="text-body-secondary">(Opcional)</span></label>
-                        <input type="text" class="form-control" id="telefone" name="telefoneFederacao" placeholder="" value="<?= $federacao['telefoneFederacao'] ?>">
+                        <label for="telefoneFederacao" class="form-label">Telefone<span class="text-body-secondary">(Opcional)</span></label>
+                        <input type="text" class="form-control" id="telefoneFederacao" name="telefoneFederacao" placeholder="" value="<?= $federacao['telefoneFederacao'] ?>">
                     </div>
                     <div class="row gy-3">
                         <div class="col-md-6">
@@ -94,6 +84,7 @@ $federacao = $this->viewData->federacao;
         </div>
     </main>
     <script>
+        // Função de máscara para telefone
         let telefone = document.querySelector('#telefoneFederacao');
         telefone.addEventListener('keypress', (event) => {
             if ((telefone.value).length < 16) {

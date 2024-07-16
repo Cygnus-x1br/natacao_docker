@@ -6,16 +6,16 @@ use MF\Model\Model;
 
 class Federacao extends Model
 {
-    private $idfederacao;
-    private $nomeFederacao;
-    private $nomeFantasiaFederacao;
-    private $logoFederacao;
-    private $siteFederacao;
-    private $emailFederacao;
-    private $telefoneFederacao;
-    private $facebookFederacao;
-    private $instagramFederacao;
-    private $ID_ESTADO;
+    private int $idfederacao;
+    private string $nomeFederacao;
+    private string $nomeFantasiaFederacao;
+    private string $logoFederacao;
+    private string $siteFederacao;
+    private string $emailFederacao;
+    private string $telefoneFederacao;
+    private string $facebookFederacao;
+    private string $instagramFederacao;
+    private int $ID_ESTADO;
 
     public function __get($atribute)
     {
@@ -27,18 +27,23 @@ class Federacao extends Model
         $this->$atribute = $value;
     }
 
-    public function getAllFederacoes()
+    public function getAllFederacoes():array
     {
-        $federacao = "SELECT *, e.nomeEstado AS nomeEstado, e.siglaEstado AS siglaEstado FROM tb_federacao INNER JOIN tb_estado AS e ON ID_ESTADO = e.IDESTADO ORDER BY nomeFederacao DESC";
+        $federacao = "SELECT *, e.nomeEstado AS nomeEstado, e.siglaEstado AS siglaEstado FROM tb_federacao 
+                      INNER JOIN tb_estado AS e ON ID_ESTADO = e.IDESTADO 
+                      ORDER BY nomeFederacao ASC";
         $stmt = $this->db->prepare($federacao);
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function getFederacao()
+    public function getFederacao():array
     {
-        $federacao = "SELECT *, e.nomeEstado AS nomeEstado, e.siglaEstado AS siglaEstado FROM tb_federacao INNER JOIN tb_estado AS e ON ID_ESTADO = e.IDESTADO WHERE IDFEDERACAO = :idfederacao ORDER BY nomeFederacao DESC";
+        $federacao = "SELECT *, e.nomeEstado AS nomeEstado, e.siglaEstado AS siglaEstado FROM tb_federacao 
+                      INNER JOIN tb_estado AS e ON ID_ESTADO = e.IDESTADO 
+                      WHERE IDFEDERACAO = :idfederacao 
+                      ORDER BY nomeFederacao DESC";
         $stmt = $this->db->prepare($federacao);
         $stmt->bindValue(':idfederacao', $this->__get('idfederacao'));
         $stmt->execute();
@@ -46,9 +51,28 @@ class Federacao extends Model
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function addFederacao()
+    public function addFederacao():object
     {
-        $federacao = "INSERT INTO tb_federacao(nomeFederacao, nomeFantasiaFederacao, logoFederacao, siteFederacao, emailFederacao, telefoneFederacao, facebookFederacao, instagramFederacao, ID_ESTADO) VALUES(:nomeFederacao, :nomeFantasiaFederacao, :logoFederacao, :siteFederacao, :emailFederacao, :telefoneFederacao, :facebookFederacao, :instagramFederacao, :ID_ESTADO)";
+        $federacao = "INSERT INTO tb_federacao(
+                         nomeFederacao, 
+                         nomeFantasiaFederacao, 
+                         logoFederacao, 
+                         siteFederacao, 
+                         emailFederacao, 
+                         telefoneFederacao, 
+                         facebookFederacao, 
+                         instagramFederacao, 
+                         ID_ESTADO) 
+                      VALUES(
+                         :nomeFederacao, 
+                         :nomeFantasiaFederacao, 
+                         :logoFederacao, 
+                         :siteFederacao, 
+                         :emailFederacao, 
+                         :telefoneFederacao, 
+                         :facebookFederacao, 
+                         :instagramFederacao, 
+                         :ID_ESTADO)";
         $stmt = $this->db->prepare($federacao);
         $stmt->bindValue(':nomeFederacao', $this->__get('nomeFederacao'));
         $stmt->bindValue(':nomeFantasiaFederacao', $this->__get('nomeFantasiaFederacao'));
@@ -63,10 +87,19 @@ class Federacao extends Model
 
         return $this;
     }
-    public function updateFederacao()
+    public function updateFederacao():object
     {
-        // print_r($_POST);
-        $federacao = "UPDATE tb_federacao SET nomeFederacao = :nomeFederacao, nomeFantasiaFederacao = :nomeFantasiaFederacao, logoFederacao = :logoFederacao, siteFederacao = :siteFederacao, emailFederacao = :emailFederacao, telefoneFederacao = :telefoneFederacao, facebookFederacao = :facebookFederacao, instagramFederacao = :instagramFederacao, ID_ESTADO = :ID_ESTADO WHERE IDFEDERACAO = :idfederacao";
+        $federacao = "UPDATE tb_federacao SET 
+                        nomeFederacao = :nomeFederacao, 
+                        nomeFantasiaFederacao = :nomeFantasiaFederacao, 
+                        logoFederacao = :logoFederacao, 
+                        siteFederacao = :siteFederacao, 
+                        emailFederacao = :emailFederacao, 
+                        telefoneFederacao = :telefoneFederacao, 
+                        facebookFederacao = :facebookFederacao, 
+                        instagramFederacao = :instagramFederacao, 
+                        ID_ESTADO = :ID_ESTADO 
+                      WHERE IDFEDERACAO = :idfederacao";
         $stmt = $this->db->prepare($federacao);
         $stmt->bindValue(':idfederacao', $this->__get('idfederacao'));
         $stmt->bindValue(':nomeFederacao', $this->__get('nomeFederacao'));
@@ -80,12 +113,10 @@ class Federacao extends Model
         $stmt->bindValue(':ID_ESTADO', $this->__get('id_estado'));
         $stmt->execute();
 
-        print_r($stmt);
-
         return $this;
     }
 
-    public function deleteFederacao()
+    public function deleteFederacao():object
     {
         $federacao = "DELETE FROM tb_federacao WHERE IDFEDERACAO = :idfederacao";
         $stmt = $this->db->prepare($federacao);

@@ -13,8 +13,7 @@ class FederacaoController extends Action
     public function list_federacao():void
     {
         $federacao = Container::getModel('Federacao');
-        $federacao_data = $federacao->getAllFederacoes();
-        $this->viewData->federacoes = $federacao_data;
+        $this->viewData->federacoes = $federacao->getAllFederacoes();
 
         $this->render('list_federacao');
     }
@@ -23,6 +22,10 @@ class FederacaoController extends Action
     public function add_federacao():void
     {
         Assets::admin_authenticate();
+
+        if(isset($_GET['file_type']) && $_GET['file_type'] == 'error') {
+            header('Location: error?error=1005');
+        }
         $this->viewData->estados = GenerateLists::list_estados();
 
         $this->render('add_federacao', 'admin_layout');
@@ -36,6 +39,8 @@ class FederacaoController extends Action
         if (($_FILES['logoFederacao']['size'] !== 0)) {
             $file_save = $this->upload_file();
             $federacao->__set('logoFederacao', $file_save);
+        } else {
+            $federacao->__set('logoFederacao', '');
         }
         $this->setSaveAndUpdateFederacao($federacao);
         $federacao->addFederacao();
@@ -46,12 +51,15 @@ class FederacaoController extends Action
     public function edit_federacao():void
     {
         Assets::admin_authenticate();
+
+        if(isset($_GET['file_type']) && $_GET['file_type'] == 'error') {
+            header('Location: error?error=1005');
+        }
         $this->viewData->estados = GenerateLists::list_estados();
 
         $federacao = Container::getModel('Federacao');
         $federacao->__set('idfederacao', $_GET['idfederacao']);
-        $federacao_data = $federacao->getFederacao();
-        $this->viewData->federacao = $federacao_data;
+        $this->viewData->federacao = $federacao->getFederacao();
 
         $this->render('edit_federacao', 'admin_layout');
     }

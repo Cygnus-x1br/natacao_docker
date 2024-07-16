@@ -6,11 +6,9 @@
             </div>
         </div>
         <div class="d-flex justify-content-end">
-
             <a class="w-25 btn btn-primary btn-lg" href="/add_equipe">Adicionar</a>
         </div>
     </section>
-
     <div class="album py-5 bg-body-tertiary">
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -18,8 +16,7 @@
                 foreach ($this->viewData->equipes as $equipe) { ?>
                     <div class="col">
                         <div class="card shadow-sm">
-                            <title></title>
-                            <img class="bd-placeholder-img card-img-top p-4" style="max-height: 225px; object-fit: contain" src="<?= $equipe['logoEquipe'] ?>" alt="Logotipo <?= $equipe['nomeFantasiaEquipe'] ?>" width="auto"></text>
+                            <img class="bd-placeholder-img card-img-top p-4" style="max-height: 225px; object-fit: contain" src="<?= $equipe['logoEquipe'] ?>" alt="Logotipo <?= $equipe['nomeFantasiaEquipe'] ?>" width="auto">
                             <div class=" card-body">
                                 <h6 class="card-text"><?= $equipe['nomeFantasiaEquipe'] ?></h6>
                                 <p class="card-text"><?= $equipe['nomeEquipe'] ?></p>
@@ -36,4 +33,5 @@
                 <?php } ?>
             </div>
         </div>
+    </div>    
 </main>

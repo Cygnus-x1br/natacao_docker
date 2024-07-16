@@ -6,9 +6,9 @@ use MF\Model\Model;
 
 class Estados extends Model
 {
-    private $idestado;
-    private $nomeEstado;
-    private $siglaEstado;
+    private int $idestado;
+    private string $nomeEstado;
+    private string $siglaEstado;
 
     public function __get($atribute)
     {

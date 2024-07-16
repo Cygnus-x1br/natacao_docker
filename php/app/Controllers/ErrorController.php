@@ -25,6 +25,9 @@ class ErrorController extends Action
         } elseif ($_GET['error'] == 1004) {
             $this->setHtmlData->error = 'Digite uma data de nascimento válida';
             $this->setHtmlData->url = $url;
+        } elseif ($_GET['error'] == 1005) {
+            $this->setHtmlData->error = 'Tipo de arquivo inválido. Tipos permitidos são: .jpg, .jpeg, .png e .gif';
+            $this->setHtmlData->url = $url;
         } elseif ($_GET['error'] == 2001) {
             $this->setHtmlData->error = 'Usuário já cadastrado com esse nome e data de nascimento';
             $this->setHtmlData->url = $url;

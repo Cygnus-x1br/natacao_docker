@@ -22,19 +22,12 @@ class EquipeController extends Action
     /** Funções de CRUD */
     public function view_equipe():void
     {
-        if (isset($_GET['edit']) && $_GET['edit'] == 'true') {
-            $this->setHtmlData->edit = '';
-        } else {
-            $this->setHtmlData->edit = 'disabled';
-        }
         $equipe = Container::getModel('Equipe');
         $equipe->__set('idequipe', $_GET['idequipe']);
         $equipe_data = $equipe->getEquipe();
         $this->viewData->equipe = $equipe_data;
 
-        $federacao = Container::getModel('Federacao');
-        $federacao_data = $federacao->getAllFederacoes();
-        $this->viewData->federacoes = $federacao_data;
+        $this->viewData->federacoes = GenerateLists::list_federacoes();
 
         $this->render('view_equipe');
     }
@@ -42,6 +35,10 @@ class EquipeController extends Action
     public function add_equipe():void
     {
         Assets::authenticate();
+        
+        if(isset($_GET['file_type']) && $_GET['file_type'] == 'error') {
+            header('Location: error?error=1005');
+        }
         $this->viewData->federacoes = GenerateLists::list_federacoes();
 
         $this->render('add_equipe');
@@ -53,14 +50,14 @@ class EquipeController extends Action
 
         if ($_POST['nomeEquipe'] == '') {
             header("Location: /add_equipe?error=1");
-        } elseif ($_POST['id_federacao'] == '') {
-            header("Location: /add_equipe?error=2");
         }
 
         $equipe = Container::getModel('Equipe');
         if (($_FILES['logoEquipe']['size'] !== 0)) {
             $file_save = $this->upload_file();
             $equipe->__set('logoEquipe', $file_save);
+        } else {
+            $equipe->__set('logoEquipe', '');
         }
         $this->setSaveAndUpdateEquipes($equipe);
 
@@ -77,12 +74,15 @@ class EquipeController extends Action
     public function edit_equipe():void
     {
         Assets::authenticate();
+
+        if(isset($_GET['file_type']) && $_GET['file_type'] == 'error') {
+            header('Location: error?error=1005');
+        }
         $this->viewData->federacoes = GenerateLists::list_federacoes();
 
         $equipe = Container::getModel('Equipe');
         $equipe->__set('idequipe', $_GET['idequipe']);
-        $equipe_data = $equipe->getEquipe();
-        $this->viewData->equipe = $equipe_data;
+        $this->viewData->equipe = $equipe->getEquipe();
 
         if ($_SESSION['permissao'] == 2) {
             $layout = 'admin_layout';
@@ -95,12 +95,6 @@ class EquipeController extends Action
     {
         Assets::authenticate();
         $this->viewData->federacoes = GenerateLists::list_federacoes();
-
-        if ($_POST['nomeEquipe'] == '') {
-            header("Location: /add_equipe?error=1");
-        } elseif ($_POST['id_federacao'] == '') {
-            header("Location: /add_equipe?error=2");
-        }
 
         $equipe = Container::getModel('Equipe');
         if (($_FILES['logoEquipe']['size'] !== 0)) {
@@ -144,7 +138,7 @@ class EquipeController extends Action
         $equipe->__set('telefoneEquipe', $_POST['telefoneEquipe']);
         $equipe->__set('facebookEquipe', $_POST['facebookEquipe']);
         $equipe->__set('instagramEquipe', $_POST['instagramEquipe']);
-        $equipe->__set('id_federacao', $_POST['id_federacao']);
+        $equipe->__set('id_federacao', ($_POST['id_federacao'] == '') ? 1 : $_POST['id_federacao']);
     }
     private function upload_file():string
     {

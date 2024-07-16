@@ -13,8 +13,7 @@ class ComplexoController extends Action
     public function list_complexos():void
     {
         $complexos = Container::getModel('Complexo');
-        $complexos_data = $complexos->getAllComplexos();
-        $this->viewData->complexos = $complexos_data;
+        $this->viewData->complexos = $complexos->getAllComplexos();
 
         $this->render('list_complexos');
     }
@@ -26,8 +25,7 @@ class ComplexoController extends Action
 
         $complexo = Container::getModel('Complexo');
         $complexo->__set('idcomplexo', $_GET['idcomplexo']);
-        $complexo_data = $complexo->getComplexo();
-        $this->viewData->complexo = $complexo_data;
+        $this->viewData->complexo = $complexo->getComplexo();
 
         $this->render('view_complexo');
     }
@@ -35,6 +33,9 @@ class ComplexoController extends Action
     public function add_complexo():void
     {
         Assets::authenticate();
+        if(isset($_GET['file_type']) && $_GET['file_type'] == 'error') {
+            header('Location: error?error=1005');
+        }
         $this->viewData->estados = GenerateLists::list_estados();
 
         $this->render('add_complexo');
@@ -53,6 +54,8 @@ class ComplexoController extends Action
         if (($_FILES['fotoComplexo']['size'] !== 0)) {
             $file_save = $this->upload_file();
             $complexo->__set('fotoComplexo', $file_save);
+        } else {
+            $complexo->__set('fotoComplexo', '');
         }
         $this->setSaveAndUpdateComplexo($complexo);
         $complexo->saveComplexo();
@@ -63,12 +66,14 @@ class ComplexoController extends Action
     public function edit_complexo():void
     {
         Assets::admin_authenticate();
+        if(isset($_GET['file_type']) && $_GET['file_type'] == 'error') {
+            header('Location: error?error=1005');
+        }
         $this->viewData->estados = GenerateLists::list_estados();
 
         $complexo = Container::getModel('Complexo');
         $complexo->__set('idcomplexo', $_GET['idcomplexo']);
-        $complexo_data = $complexo->getComplexo();
-        $this->viewData->complexo = $complexo_data;
+        $this->viewData->complexo = $complexo->getComplexo();
 
         $this->render('edit_complexo', 'admin_layout');
     }
@@ -76,10 +81,7 @@ class ComplexoController extends Action
     {
         if ($_POST['nomeComplexo'] == '') {
             header("Location: /add_complexo?error=1");
-        } elseif ($_POST['id_estado'] == '') {
-            header("Location: /add_complexo?error=2");
-        }
-
+        } 
         $complexo = Container::getModel('Complexo');
         if (($_FILES['fotoComplexo']['size'] !== 0)) {
             $file_save = $this->upload_file();
@@ -105,7 +107,7 @@ class ComplexoController extends Action
         } catch (\PDOException $Exception) {
             throw new MyException($Exception);
         }
-        
+      
         header('Location: /complexo_admin');
     }
 

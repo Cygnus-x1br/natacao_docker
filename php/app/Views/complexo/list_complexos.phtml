@@ -14,11 +14,10 @@
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <?php
-                if (!empty($this->viewData->complexos)) {
-                    foreach ($this->viewData->complexos as $complexo) { ?>
+                    if (!empty($this->viewData->complexos)) {
+                        foreach ($this->viewData->complexos as $complexo) { ?>
                         <div class="col">
                             <div class="card shadow-sm">
-                                <title></title>
                                 <img class="bd-placeholder-img card-img-top p-4" style="max-height: 225px; object-fit: contain" src="<?= $complexo['fotoComplexo'] ?>" alt="Logotipo <?= $complexo['nomeFantasiaComplexo'] ?>" width="auto"></text>
                                 <div class=" card-body">
                                     <h6 class="card-text"><?= $complexo['nomeFantasiaComplexo'] ?></h6>
@@ -32,8 +31,9 @@
                                 </div>
                             </div>
                         </div>
-                <?php }
-                } ?>
+                <?php } ?>
+                <?php } ?>
             </div>
         </div>
+    </div>    
 </main>

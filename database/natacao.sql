@@ -1,3 +1,5 @@
+-- Versao 0.1.4.0
+-- Adicionado campo tipoDePerfil em tb_atleta
 -- Versao 0.1.3.1
 -- Ativadas constraints FK_TORNEIO_COMPLEXO e outras
 -- Incluidos campos atletaRecordeProva e dataRecorde na tabela tb_prova
@@ -27,7 +29,7 @@ CREATE TABLE tb_estado (
 CREATE TABLE tb_categoria (
     IDCATEGORIA INT PRIMARY KEY AUTO_INCREMENT,
     nomeCategoria varchar(100) NOT NULL,
-    idadeCategoria INT
+    idadeCategoria INT NOT NULL
 );
 CREATE TABLE tb_piscina (
     IDPISCINA INT PRIMARY KEY AUTO_INCREMENT,
@@ -105,7 +107,7 @@ cidadeComplexo varchar(100),
 latitudeComplexo FLOAT,
 longitudeComplexo FLOAT,
 observacaoComplexo TEXT,
-ID_ESTADO INT
+ID_ESTADO INT NOT NULL
 );
 -- 
 ALTER TABLE tb_complexo
@@ -204,6 +206,7 @@ CREATE TABLE tb_atleta (
     facebookAtleta VARCHAR(100),
     telefoneAtleta VARCHAR(20),
     whatsappAtleta VARCHAR(20),
+    tipoDePerfil ENUM('Pub', 'Priv', 'Parc' ) NOT NULL,
     ID_EQUIPE INT
 );
 --
@@ -223,6 +226,8 @@ observacaoBiologicaAtleta TEXT
 ALTER TABLE tb_atleta_bio
 ADD CONSTRAINT FK_ATLETABIO_ATLETA FOREIGN KEY(ID_ATLETA) REFERENCES tb_atleta(IDATLETA);
 --
+-- Essa tabela não está sendo utilizada
+-- Verificar se podemos exclui-la 
 CREATE TABLE tba_prova_atleta (
 IDPROVAATLETA INT PRIMARY KEY AUTO_INCREMENT,
 ID_PROVA INT,
