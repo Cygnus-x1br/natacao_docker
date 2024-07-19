@@ -2,25 +2,31 @@
 
 $recordes = $this->viewData->recordes;
 //$anos = $this->viewData->anosIndice;
-//$tipos = $this->viewData->tipoRecorde;
+$tipos = $this->viewData->tipoRecorde;
 $categorias = $this->viewData->categorias;
 $piscinas = $this->viewData->piscinas;
+$generos = ['F', 'M'];
+$recordeSeparadoPorGenero = [];
 
-// function adjustTime($fullTime)
-// {
-//     $time = explode(':', $fullTime);
-//     (array_shift($time));
-//     return implode(':', $time);
-// }
+foreach ($generos as $genero){
+    $genero = array();
+    foreach ($recordes as $recorde) {
+        if ($recorde['generoRecorde'] == $genero) {
+            array_push($genero, $recorde);
+        }
+    }
+    print_r($genero);
+} 
 
-// echo "<pre>";
-// print_r($indices);
+
+ echo "<pre>";
+ print_r($recordeSeparadoPorGenero);
 // print_r($anos);
 // print_r($tipos);
 // print_r($piscinas);
 // echo '<br>';
 // var_dump(array_search('2024', array_column($indices, 'anoIndice')));
-// echo '</pre>';
+ echo '</pre>';
 ?>
 
 
@@ -30,93 +36,42 @@ $piscinas = $this->viewData->piscinas;
         <p class="lead"></p>
     </div>
 
-    <div class="row p-3 mb-5">
-        <form action="filtra_indices" method="post" class="row g-3 d-flex align-items-end">
-            <div class="col-md-4 col-lg-2">
-
-            </div>
-            <div class="col-md-4 col-lg-2">
-                <label for="tipoIndice" class="form-label">Tipo</label>
-                <select name="tipoIndice" class="form-select" id="tipoIndice">
-                    <option value="">Selecione</option>
-                    <?php foreach ($tipos as $tipo) { ?>
-                        <option value="<?= $tipo ?>"><?= $tipo ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-            <div class="col-md-4 col-lg-2">
-                <label for="generoIndice" class="form-label">Genero</label>
-                <select name="generoIndice" class="form-select" id="generoIndice">
-                    <option value="">Selecione</option>
-                    <option value="F">Feminino</option>
-                    <option value="M">Masculino</option>
-                </select>
-            </div>
-            <div class="col-md-4 col-lg-2">
-                <label for="categoriaIndice" class="form-label">Categoria</label>
-                <select name="id_categoria" class="form-select" id="categoriaIndice">
-                    <option value="">Selecione</option>
-                    <?php foreach ($categorias as $categoria) { ?>
-                        <option value="<?= $categoria['IDCATEGORIA'] ?>"><?= $categoria['nomeCategoria'] ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-            <div class="col-md-4 col-lg-2">
-                <input type="submit" class="form-control btn btn-primary" value="Filtrar" id="filtrar">
-            </div>
-        </form>
-    </div>
-
     <?php $countIndices = 1 ?>
     <div class="table-responsive small indices-table">
-        <?php foreach ($anos as $ano) { ?>
-            <?php if ((array_search($ano, array_column($recordes, 'dataRecorde'))) !== false) {
-            ?>
-                <h2 class="text-center display-3 mb-3"><?= $ano ?></h2>
-                <?php foreach ($tipos as $tipo) { ?>
-                    <?php if ((array_search($tipo, array_column($recordes, 'tipoRecorde'))) !== false) {
-                    ?>
-                        <h3><?= $tipo ?></h3>
-                        <?php foreach ($piscinas as $piscina) { ?>
-                            <?php if ((array_search($piscina, array_column($indices, 'tamanhoPiscina'))) !== false && $tipo != '') {
-                            ?>
-                                <div class="d-flex flex-row justify-content-between mb-3">
-                                    <h3 class="lead"><?= 'Tamanho da piscina: ' . $piscina . ' m' ?></h3>
-                                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#indices-<?= $countIndices ?>" aria-expanded="false" aria-controls="collapseExample">Ver mais</button>
-                                </div>
-                                <table class="table table-sm mx-auto collapse" id="indices-<?= $countIndices ?>">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Prova</th>
-                                            <th scope="col">Genero</th>
-                                            <th scope="col">Categoria</th>
-                                            <th scope="col">Tempo</th>
-                                        </tr>
-                                    </thead>
-                                    <?php foreach ($indices as $indice) {
-                                        if ($indice['anoIndice'] == $ano && $indice['tipoIndice'] == $tipo && $indice['tamanhoPiscina'] == $piscina) {
-                                    ?>
-                                            <tbody>
-                                                <tr class="mb-1">
-                                                    <td class="col-sm-3 p-2" style="background-color: <?= (($recorde['generoRecorde']) == 'F' ? 'pink' : 'lightblue') ?>;"><?= $recorde['distancia'] . 'm ' . $recorde['nomeEstilo'] ?></td>
-                                                    <td class="col-sm-2 p-2" style="background-color: <?= (($recorde['generoRecorde']) == 'F' ? 'pink' : 'lightblue') ?>;"><?= $recorde['generoRecorde'] ?></td>
-                                                    <td class="col-sm-3 p-2" style="background-color: <?= (($recorde['generoRecorde']) == 'F' ? 'pink' : 'lightblue') ?>;"><?= $recorde['nomeCategoria'] ?></td>
-                                                    <td class="col-sm-3 p-2" style="background-color: <?= (($recorde['generoRecorde']) == 'F' ? 'pink' : 'lightblue') ?>;"><?= adjustTime($recorde['tempoIndice']) ?></td>
-                                                </tr>
-                                            </tbody>
-                                    <?php }
-                                    } ?>
-                                </table>
-                                <?php $countIndices++ ?>
-            <?php           }
-                        }
-                    }
-                }
-            } ?>
-            <hr>
-        <?php
-        }
-        ?>
-
+        <?php foreach ($tipos as $tipo) { ?>
+        <?php if ((array_search($tipo, array_column($recordes, 'tipoRecorde'))) !== false) { ?>
+                <h3><?= $tipo ?></h3>
+        <?php foreach ($generos as $genero) { ?>
+            <?php if ((array_search($genero, array_column($recordes, 'generoRecorde'))) !== false) { ?>
+                <h4><?= $genero ?></h4>
+                    <table class="table table-sm mx-auto" id="indices-<?= $countIndices ?>">
+                        <thead>
+                            <tr>
+                                <th scope="col">Prova</th>
+                                <th scope="col">Genero</th>
+                                <th scope="col">Categoria</th>
+                                <th scope="col">Tempo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($recordes as $recorde) {
+                            if ($recorde['tipoRecorde'] == $tipo && $recorde['generoRecorde'] == $genero) {
+                        ?>
+                                <tr class="mb-1">
+                                    <th class="col-sm-3 p-2" style=""><?= $recorde['distancia'] . 'm ' . $recorde['nomeEstilo'] ?></th>
+                                    <td class="col-sm-2 p-2" style=""><?= $recorde['generoRecorde'] ?></td>
+                                    <td class="col-sm-3 p-2" style=""><?php echo $recorde['nomeCategoria'] == 'Senior' ? 'Absoluto' : $recorde['nomeCategoria'] ?></td>
+                                    <td class="col-sm-3 p-2" style=""><?= adjustTime($recorde['tempoRecorde']) ?></td>
+                                </tr>
+                        <?php }
+                        } ?>
+                        </tbody>
+                    </table>
+                    <?php $countIndices++ ?>
+        <?php } ?>
+        <?php } ?>
+        <?php } ?>
+        <?php } ?>
+        <hr>
     </div>
 </main>
