@@ -1,10 +1,6 @@
 <?php
-
 $torneio = $this->viewData->torneios;
 $provas = $this->viewData->provas;
-
-
-//print_r($provas);
 
 ?>
 
@@ -14,23 +10,23 @@ $provas = $this->viewData->provas;
             <img src="<?= $torneio['logoFederacao'] ?>" class="img-logo-fill" alt="">
             <div class="text-center">
                 <h2 class="display-5 my-3"><?= $torneio['nomeTorneio'] ?></h2>
-                <p class="lead"><?php echo implode('/',  array_reverse(explode('-', $torneio['dataTorneio']))); ?><?php if ($torneio['dataFimTorneio'] != '' && $torneio['dataFimTorneio'] != $torneio['dataTorneio']) {
-                                                                                                                        echo ' a ' .  implode('/',  array_reverse(explode('-', $torneio['dataFimTorneio'])));
-                                                                                                                    } ?></p>
+                <p class="lead"><?php echo implode('/',  array_reverse(explode('-', $torneio['dataTorneio']))); ?>
+                    <?php if ($torneio['dataFimTorneio'] != '' && $torneio['dataFimTorneio'] != $torneio['dataTorneio']) {
+                        echo ' a ' .  implode('/',  array_reverse(explode('-', $torneio['dataFimTorneio'])));
+                    } ?></p>
             </div>
         </div>
-
         <div class="d-flex justify-content-between row g-5">
-
             <div class="row g-3">
-                <input type="hidden" name="idcomplexo" value="<?= $complexo['IDCOMPLEXO'] ?>">
+                <input type="hidden" name="idcomplexo" value="<?= $torneio['IDTORNEIO'] ?>">
             </div>
             <div class="col-md-7 col-lg-8 ">
                 <div class="mb-3">
                     <img class="img-big img-fluid" src="<?= $torneio['fotoComplexo'] ?>" alt="">
                 </div>
             </div>
-            <div class="col-md-5 mt-6 col-lg-4 views-data">
+            <div class="col-md-5 mt-6 col-lg-4 views-data mb-5">
+                <p class="my-3"><?= $torneio['nomeComplexo'] ?></p>
                 <p class="lead">Endereço:</p>
                 <p class=""><?= $torneio['enderecoComplexo'] ?></p>
                 <p class=""><?= $torneio['bairroComplexo'] ?></p>
@@ -38,17 +34,18 @@ $provas = $this->viewData->provas;
                 <a href="/list_torneios" class="btn btn-success">Voltar</a>
             </div>
         </div>
-
+        <div class="h4 text-center text-black-75">
+            Relação de Provas
+        </div>
         <table class="table">
             <thead>
                 <tr>
-                    <th class="">Prova</th>
-                    <th class="">Estilo</th>
-                    <th class="">Genero</th>
-                    <th class="">Categorias</th>
+                    <th class="text-black-50">Prova</th>
+                    <th class="text-black-50">Estilo</th>
+                    <th class="text-black-50">Genero</th>
+                    <th class="text-black-50">Categorias</th>
                 </tr>
             </thead>
-
             <?php
             foreach ($provas as $prova) { ?>
                 <tbody>
@@ -64,9 +61,6 @@ $provas = $this->viewData->provas;
                     </tr>
                 </tbody>
             <?php } ?>
-
         </table>
-        
-
     </main>
 </div>

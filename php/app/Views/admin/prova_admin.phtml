@@ -1,14 +1,12 @@
 <?php
 
 $torneios = $this->viewData->torneios;
-
-if (isset($this->viewData->provas)) {
-    $provas = $this->viewData->provas;
-} else {
-    $provas = [];
-}
-
-// print_r($provas);
+$provas = $this->viewData->provas ?? [];
+//if (isset($this->viewData->provas)) {
+//    $provas = $this->viewData->provas;
+//} else {
+//    $provas = [];
+//}
 
 ?>
 
@@ -16,7 +14,6 @@ if (isset($this->viewData->provas)) {
 <div class="py-3 text-center">
     <h2 class="display-5 mb-3">Administração de Torneios</h2>
 </div>
-
 <div class="text-end">
     <a href="/add_prova">
         <i class="bi bi-plus-circle" style="font-size: 32px; color: rgba(var(--bs-secondary-color-rgb), 0.5)"></i>
@@ -41,7 +38,6 @@ if (isset($this->viewData->provas)) {
     <h3 class="display-6 text-center mb-3"><?php if (!empty($provas)) {
                                                 echo 'Provas do torneio ' . $provas[0]['nomeTorneio'];
                                             } ?></h3>
-
     <table class="table w-75 mx-auto" id="table">
         <thead>
             <tr>

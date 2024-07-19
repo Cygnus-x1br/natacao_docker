@@ -50,7 +50,6 @@ class TorneioController extends Action
         $torneio->__set('id_piscina', $_POST['id_piscina']);
         $torneio->__set('id_federacao', $_POST['id_federacao']);
         $torneio->__set('id_complexo', $_POST['id_complexo']);
-
         $torneio->saveTorneio();
 
         if ($_SESSION['permissao'] == 2) {

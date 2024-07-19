@@ -18,7 +18,7 @@ $countTipos = 1;
     <p class="lead"></p>
 </div>
 
-<form action="edit_indice" method="POST" class="needs-validation" enctype="multipart/form-data">
+<form action="/edit_indice" method="POST" class="needs-validation" enctype="multipart/form-data">
     <div class="row">
         <input type="hidden" name="idindice" value="<?= $indice['IDINDICE'] ?>"
         <div class="row d-flex justify-content-between align-items-end">
@@ -32,8 +32,8 @@ $countTipos = 1;
                 </select>
             </div>
             <div class="col-md-4">
-                <label for="nomeTorneio" class="form-label">Tipo Índice</label>
-                <input class="form-select" list="tipoIndice" name="tipoIndice" value="<?= $indice['tipoIndice'] ?>">
+                <label for="tipoIndice" class="form-label">Tipo Índice</label>
+                <input class="form-select" list="tipoIndice" name="tipoIndice" id="tipoIndice" value="<?= $indice['tipoIndice'] ?>">
                 <datalist id="tipoIndice" >
                     <?php foreach ($tipos as $tipo) { ?>
                     <option value="<?= $tipo ?>">
@@ -85,6 +85,7 @@ $countTipos = 1;
         <div class="row">
             <div class="d-flex justify-content-around">
                 <button class="btn btn-outline-primary w-25" type="submit">Alterar</button>
+                <a href="<?= $_SERVER['HTTP_REFERER'] ?>" class="btn btn-secondary w-25">Voltar</a>
                 <button type="button" class="btn btn-danger modalSelectBtn w-25" data-bs-toggle="modal" data-bs-target="#exampleModal" value="<?= $indice['IDINDICE'] ?>">
                     Delete
                 </button>
@@ -115,14 +116,7 @@ $countTipos = 1;
 
 <script>
     VMasker(document.querySelector('#tempoIndice')).maskPattern('99:99.99');
-    let table = document.getElementsByTagName('td')
-    for (let t of table) {
-        console.log(t);
-        if (t.innerHtml == ' ') {
-            t.innerHtml = 0;
-        }
-    }
-
+    
     let buttons = document.getElementsByClassName('modalSelectBtn');
     let enableDelete = document.getElementById('confirmDelete');
     let deleteBtn = document.getElementById('deleteBtn');

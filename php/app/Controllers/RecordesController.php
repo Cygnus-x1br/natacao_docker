@@ -58,13 +58,14 @@ class RecordesController extends Action
     }
     public function filtra_recordes_tabela():void
     {
-        $indices = Container::getModel('Recordes');
-        $indices->__set('dataRecorde', $_POST['dataRecorde']);
-        $indices->__set('tipoRecorde', $_POST['tipoRecorde']);
-        $indices->__set('generoRecorde', $_POST['generoRecorde']);
-        $indices->__set('id_categoria', $_POST['id_categoria']);
-        $indices_data = $indices->getRecordesFiltered();
-        $this->viewData->indices = $indices_data;
+//        $indices = Container::getModel('Recordes');
+//        $indices->__set('dataRecorde', $_POST['dataRecorde']);
+//        $indices->__set('tipoRecorde', $_POST['tipoRecorde']);
+//        $indices->__set('generoRecorde', $_POST['generoRecorde']);
+//        $indices->__set('id_categoria', $_POST['id_categoria']);
+//        $indices_data = $indices->getRecordesFiltered();
+//        $this->viewData->indices = $indices_data;
+        $this->viewData->indices = $this->filtra_recordes_tabela_separado();
 
         $this->viewData->anosIndice = GenerateLists::list_anos_indices();
         $this->viewData->tipoRecorde = GenerateLists::list_tipos_recorde();
@@ -158,5 +159,31 @@ class RecordesController extends Action
         $recordes->__set('idrecorde', $_GET['id']);
         $recordes->deleteRecorde();
         header('Location: /recordes_admin');
+    }
+
+    public function filtra_recordes_tabela_separado():array
+    {
+        $indicesJSON = [];
+        $indices = Container::getModel('Recordes');
+        $indices->__set('dataRecorde', $_POST['dataRecorde']);
+        $indices->__set('tipoRecorde', $_POST['tipoRecorde']);
+        $indices->__set('generoRecorde', $_POST['generoRecorde']);
+        $categorias = GenerateLists::list_categorias();
+        foreach ($categorias as $categoria){
+            $indices->__set('categoriaRecorde', $categoria['IDCATEGORIA']);
+            $indices_data = $indices->getRecordesFilteredCategoria();
+            array_push($indicesJSON, $indices_data);
+        }
+        
+        return $indicesJSON;
+                
+//        $this->viewData->indices = $indices_data;
+//
+//        $this->viewData->anosIndice = GenerateLists::list_anos_indices();
+//        $this->viewData->tipoRecorde = GenerateLists::list_tipos_recorde();
+//        $this->viewData->categorias = GenerateLists::list_categorias();
+//        $this->viewData->piscinas = GenerateLists::list_piscinas();
+//        
+//        $this->render('recorde_admin');
     }
 }

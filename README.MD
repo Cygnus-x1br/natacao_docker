@@ -1,4 +1,22 @@
-# Inicio do projeto.
+# Sistema de Gestão de Atletas
+
+## v 0.1
+
+- Implementação inicial do projeto. 
+- Criação das rotinas de CRUD de Federações, Equipes, Piscinas(complexos), Torneios e Provas.
+- Criação das rotinas de CRUD de Atletas e Usuários
+- Criação das rotinas de CRUD de Índices, Recordes e Tempos do Atleta.
+- Criação de gráficos de tempos com comparação com os índices cadastrados.
+- Criação de fórmula para cálculo do Índice Técnico e geração de gráfico.
+
+### TO DO:
+
+- Ajustar visibilidade do atleta;
+- Criar usuário (tabela ou rotina) para **Técnico**;
+- Ajustar segurança de login e administrador (token???);
+- Criar rotinas de **Dados Biomecânicos do Atleta**;
+- Criar **Agenda de Torneios**;
+- Criar rotina de **Treinos**;
 
 ## Criação do banco de dados.
 
@@ -39,3 +57,4 @@ https://gist.github.com/giancore/801b6fecc1fa357d4db3472ffd3f71f7
 - Gráficos:
 
 https://www.chartjs.org/docs/latest/charts/mixed.html
+

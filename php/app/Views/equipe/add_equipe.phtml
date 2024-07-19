@@ -1,5 +1,6 @@
 <?php
 $federacoes = $this->viewData->federacoes;
+$voltar = $_SERVER['HTTP_REFERER'];
 ?>
 
 <div class="container">
@@ -86,7 +87,7 @@ $federacoes = $this->viewData->federacoes;
                     <hr class="my-4">
                     <div class="d-flex justify-content-around">
                         <button class="w-25 btn btn-primary btn-lg" type="submit">Incluir</button>
-                        <a href="/list_equipes" class="w-25 btn btn-secondary btn-lg">Voltar</a>
+                        <a href="<?= $_SERVER['HTTP_REFERER'] ?>" class="w-25 btn btn-secondary btn-lg">Voltar</a>
                     </div>
                 </form>
             </div>

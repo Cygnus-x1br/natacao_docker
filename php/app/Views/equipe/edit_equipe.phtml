@@ -1,6 +1,7 @@
 <?php
 $equipe = $this->viewData->equipe;
 $federacoes = $this->viewData->federacoes;
+
 ?>
 
 <div class="container">
@@ -13,7 +14,7 @@ $federacoes = $this->viewData->federacoes;
         <div class="row g-5">
             <div class="col-md-5 col-lg-4 order-md-last">
                 <div class="d-flex justify-content-center align-items-center mb-3">
-                    <img class="img-logo" src="<?= $equipe['logoEquipe'] ?>" class="img-foto" alt="">
+                    <img class="img-logo" src="<?= $equipe['logoEquipe'] ?>" alt="">
                 </div>
             </div>
             <div class="col-md-7 col-lg-8">
@@ -71,10 +72,10 @@ $federacoes = $this->viewData->federacoes;
                         </div>
                     </div>
                     <hr class="my-4">
-                    <div class="grid column-gap-0">
+                    <div class="d-flex justify-content-around">
                         <button class="w-25 btn btn-primary btn-lg" type="submit">Edit</button>
                         <?php if ($_SESSION['permissao'] == 2) { ?>
-                            <a class="w-25 btn btn-secondary btn-lg" href="/equipe_admin">Voltar</a>
+                            <a class="w-25 btn btn-secondary btn-lg" href="<?= $_SERVER['HTTP_REFERER'] ?>">Voltar</a>
                         <?php } else { ?>
                             <a class="w-25 btn btn-secondary btn-lg" href="/list_equipes">Voltar</a>
                         <?php } ?>

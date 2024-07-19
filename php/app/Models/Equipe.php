@@ -127,6 +127,7 @@ class Equipe extends Model
         $stmt = $this->db->prepare($equipe);
         $stmt->bindValue(":" . $verifyData, $this->__get($verifyData));
         $stmt->execute();
+        
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 }

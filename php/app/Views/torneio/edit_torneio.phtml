@@ -15,35 +15,17 @@ $torneio = $this->viewData->torneio;
         </div>
         <p class="lead">Alterar dados do torneio</p>
     </section>
-
-    <?php if (isset($_GET['error']) && $_GET['error'] == '3') {
-        echo '<div class="alert alert-danger" role="alert">
-                Nome já cadastrado
-                </div>';
-    } elseif (isset($_GET['error']) && $_GET['error'] == '4') {
-        echo '<div class="alert alert-danger" role="alert">
-                Sigla já cadastrada
-                </div>';
-    } ?>
-
     <div class="row g-5">
-
         <div class="">
             <h4 class="mb-3"></h4>
-            <form action="update_torneio" class="needs-validation" method="post" enctype="multipart/form-data">
+            <form action="/update_torneio" class="needs-validation" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="idtorneio" value="<?= $torneio['IDTORNEIO'] ?>">
                 <div class="row g-2">
                     <div class="col-md-12">
                         <label for="nomeTorneio" class="form-label">Nome Torneio</label>
-                        <?php if (isset($_GET['error']) && $_GET['error'] == '1') {
-                            echo '<div class="alert alert-danger" role="alert">
-                                        Campo Obrigatório
-                                        </div>';
-                        } ?>
                         <input type="text" class="form-control" id="nomeTorneio" placeholder="Nome" name="nomeTorneio" value="<?= $torneio['nomeTorneio'] ?>" required>
                     </div>
                 </div>
-
                 <div class="row g-2">
                     <div class="col-md-2">
                         <label for="dataTorneio" class="form-label">Data Início</label>
@@ -63,7 +45,6 @@ $torneio = $this->viewData->torneio;
                         </select>
                     </div>
                 </div>
-
                 <div class="row g-3">
                     <div class="col-md-8">
                         <label for="complexo" class="form-label">Local</label>
@@ -84,12 +65,14 @@ $torneio = $this->viewData->torneio;
                         </select>
                     </div>
                 </div>
-
                 <hr class="my-4">
                 <div class="d-flex justify-content-around">
-
                     <button class="w-25 btn btn-primary btn-lg" type="submit">Alterar</button>
+                    <?php if ($_SESSION['permissao'] == 2) { ?>
+                        <a class="w-25 btn btn-secondary btn-lg" href="<?= $_SERVER['HTTP_REFERER'] ?>">Voltar</a>
+                    <?php } else { ?>
                     <a href="/list_torneios" class="w-25 btn btn-secondary btn-lg">Voltar</a>
+                    <?php } ?>
                 </div>
             </form>
         </div>
