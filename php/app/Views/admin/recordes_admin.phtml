@@ -97,59 +97,106 @@ $array_recordes = [];
         <hr class="my-4">
     </form>
 </div>
-
 <div class="table-responsive small">
     <?php foreach ($tipos as $tipo) { ?>
-        <?php if ((array_search($tipo, array_column($recordes, 'tipoRecorde'))) !== false) {
-        ?>
+        <?php if ((array_search($tipo, array_column($recordes, 'tipoRecorde'))) !== false) { ?>
             <h3><?= $tipo ?></h3>
             <?php foreach ($generos as $genero) { ?>
-                <?php if ((array_search($genero, array_column($recordes, 'generoRecorde'))) !== false) {
-                ?>
-                    <h3 class="lead"><?= 'Genero: ' . $genero ?></h3>
-                <?php } ?>
-                <table class="table table-sm">
-                    <thead>
-                        <tr>
-                            <th scope="col">Estilo</th>
-                            <th scope=" col">Atleta</th>
-                            <th scope="col">Tempo</th>
-                            <th scope=" col">Data</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($estilos as $estilo) { ?>
-                            <tr class="mb-1">
-                                <?php if ((array_search($estilo['IDDISTANCIAESTILO'], array_column($recordes, 'ID_DISTANCIAESTILO'))) !== false) { ?>
-                                    <th scope="row" style="width: 200px;"><?= $estilo['distancia'] . 'm ' . $estilo['nomeEstilo'] ?></th>
-                                    <?php
-                                    foreach ($recordes as $recorde) {
-                                        if ($recorde['tipoRecorde'] == $tipo && $recorde['generoRecorde'] == $genero && $recorde['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO']) { ?>
-                                            <td scope="col"><?= $recorde['nomeAtletaRecorde'] ?></td>
-                                            <td scope="col"><?= adjustTime($recorde['tempoRecorde']) ?></td>
-                                            <td scope="col"><?= convertDate($recorde['dataRecorde']) ?></td>
-                                            <td scope="col" class="text-end">
-                                                <a href="edit_recorde?id=<?= $recorde['IDRECORDE'] ?>" class="btn btn-outline-primary me-1">Editar</a>
-                                                <button type="button" class="btn btn-danger modalSelectBtn" data-bs-toggle="modal" data-bs-target="#exampleModal" value="<?= $recorde['IDRECORDE'] ?>">
-                                                    Delete
-                                                </button>
-                                            </td>
-                                        <?php } ?>
-                                    <?php } ?>
+                <?php if ((array_search($genero, array_column($recordes, 'generoRecorde'))) !== false) { ?>
+                    <h4><?= $genero ?></h4>
+                    <div class="table-responsive record-table">
+                        <table class="table" id="indices-<?= $countIndices ?>">
+                            <thead>
+                            <tr>
+                                <th scope="col">Prova</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Categoria</th>
+                                <th scope="col">Tempo</th>
+                                <th scope="col">Data</th>
+                                <th scope="col">Local</th>
+                                <th></th>
                             </tr>
-                        <?php } ?>
-                    <?php } ?>
-                    </tbody>
-                </table>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($recordes as $recorde) {
+                                if ($recorde['tipoRecorde'] == $tipo && $recorde['generoRecorde'] == $genero) {
+                                    ?>
+                                    <tr class="mb-1">
+                                        <th class="col-sm-1 p-2 text-black-50" style=""><?= $recorde['distancia'] . 'm ' . $recorde['nomeEstilo'] ?></th>
+                                        <td class="col-sm-3 p-2" style=""><strong><span class="text-primary-emphasis"><?= $recorde['nomeAtletaRecorde'] ?></span></strong><?=' - ' . $recorde['nacionalidadeRecorde'] ?></td>
+                                        <td class="col-sm-1 p-2" style=""><?php echo $recorde['nomeCategoria'] == 'Senior' ? 'Absoluto' : $recorde['nomeCategoria'] ?></td>
+                                        <td class="col-sm-1 p-2" style=""><?= adjustTime($recorde['tempoRecorde']) ?></td>
+                                        <td class="col-sm-1 p-2" style=""><?= convertDate($recorde['dataRecorde']) ?></td>
+                                        <td class="col-sm-3 p-2" style=""><?= convertDate($recorde['localRecorde']) ?></td>
+                                        <td scope="col-sm-2 p-2" class="text-end">
+                                            <a href="edit_recorde?id=<?= $recorde['IDRECORDE'] ?>" class="btn btn-outline-primary me-1">Editar</a>
+                                            <button type="button" class="btn btn-danger modalSelectBtn" data-bs-toggle="modal" data-bs-target="#exampleModal" value="<?= $recorde['IDRECORDE'] ?>">Delete</button>
+                                        </td>
+                                    </tr>
+                                <?php }
+                            } ?>
+                            </tbody>
+                        </table>
+                    </div>
+<!--                    --><?php //$countIndices++ ?>
+                <?php } ?>
             <?php } ?>
-            <?php
-            }
-        }
-    ?>
+        <?php } ?>
+    <?php } ?>
     <hr>
 </div>
+<!--<div class="table-responsive small">-->
+<!--    --><?php //foreach ($tipos as $tipo) { ?>
+<!--        --><?php //if ((array_search($tipo, array_column($recordes, 'tipoRecorde'))) !== false) {
+//        ?>
+<!--            <h3>--><?php //= $tipo ?><!--</h3>-->
+<!--            --><?php //foreach ($generos as $genero) { ?>
+<!--                --><?php //if ((array_search($genero, array_column($recordes, 'generoRecorde'))) !== false) {
+//                ?>
+<!--                    <h3 class="lead">--><?php //= 'Genero: ' . $genero ?><!--</h3>-->
+<!--                --><?php //} ?>
+<!--                <table class="table table-sm">-->
+<!--                    <thead>-->
+<!--                        <tr>-->
+<!--                            <th scope="col">Estilo</th>-->
+<!--                            <th scope=" col">Atleta</th>-->
+<!--                            <th scope="col">Tempo</th>-->
+<!--                            <th scope=" col">Data</th>-->
+<!--                            <th></th>-->
+<!--                            <th></th>-->
+<!--                        </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                        --><?php //foreach ($estilos as $estilo) { ?>
+<!--                            <tr class="mb-1">-->
+<!--                                --><?php //if ((array_search($estilo['IDDISTANCIAESTILO'], array_column($recordes, 'ID_DISTANCIAESTILO'))) !== false) { ?>
+<!--                                    <th scope="row" style="width: 200px;">--><?php //= $estilo['distancia'] . 'm ' . $estilo['nomeEstilo'] ?><!--</th>-->
+<!--                                    --><?php
+//                                    foreach ($recordes as $recorde) {
+//                                        if ($recorde['tipoRecorde'] == $tipo && $recorde['generoRecorde'] == $genero && $recorde['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO']) { ?>
+<!--                                            <td scope="col">--><?php //= $recorde['nomeAtletaRecorde'] ?><!--</td>-->
+<!--                                            <td scope="col">--><?php //= adjustTime($recorde['tempoRecorde']) ?><!--</td>-->
+<!--                                            <td scope="col">--><?php //= convertDate($recorde['dataRecorde']) ?><!--</td>-->
+<!--                                            <td scope="col" class="text-end">-->
+<!--                                                <a href="edit_recorde?id=--><?php //= $recorde['IDRECORDE'] ?><!--" class="btn btn-outline-primary me-1">Editar</a>-->
+<!--                                                <button type="button" class="btn btn-danger modalSelectBtn" data-bs-toggle="modal" data-bs-target="#exampleModal" value="--><?php //= $recorde['IDRECORDE'] ?><!--">-->
+<!--                                                    Delete-->
+<!--                                                </button>-->
+<!--                                            </td>-->
+<!--                                        --><?php //} ?>
+<!--                                    --><?php //} ?>
+<!--                            </tr>-->
+<!--                        --><?php //} ?>
+<!--                    --><?php //} ?>
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            --><?php //} ?>
+<!--            --><?php
+//            }
+//        }
+//    ?>
+<!--    <hr>-->
+<!--</div>-->
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
