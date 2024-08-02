@@ -7,65 +7,47 @@ $torneios = $this->viewData->torneios;
 $categorias = $this->viewData->categorias;
 $provas = $this->viewData->provas;
 $indicesMundial = $this->viewData->indices_mundial;
-
 $tempoAtleta = $this->viewData->tempoAtleta;
 $torneiosParticipados = $this->viewData->torneiosParticipados;
 
-//function indiceTecnico($tempo, $id_distanciaestilo, $indicesMundial, $genero)
-//{
-//    $tempoAtleta = tempoEmSegundos($tempo);
-//    $tempoIndice = 0;
-//    foreach ($indicesMundial as $indice) {
-//        if ($indice['ID_DISTANCIAESTILO'] == $id_distanciaestilo && $indice['generoRecorde'] == $genero) {
-//            $tempo = adjustTime($indice['tempoRecorde']);
-//            $tempoIndice = tempoEmSegundos($tempo);
-//        }
-//    }
-//    $indiceTecnico = 1000 * pow(($tempoIndice / $tempoAtleta), 3);
-//
-//    return floor($indiceTecnico);
-//}
+//print_var($arr_estilo);
+$arr_estilo = [];
+foreach ($estilos as $estilo) {
+   array_push($arr_estilo, explode('*', $estilo)[1]);
+}
 
-?>
 
-<style>
-    
-    .grafico-circular {
-        width: 10em;
-        margin: 10px;
-        justify-content: space-around;
+$arr_tempos = [];
+for($i = 0; $i < count($arr_estilo); $i++ ) {
+    $arr_tempo = [];
+    foreach($tempoAtleta as $tempo) {
+        if($tempo['distanciaEstilo'] == $arr_estilo[$i]) {
+            $arr_tempo_data = [$tempo['dataTorneio'] => [$tempo['tempoAtleta'], $tempo['tamanhoPiscina']]];
+            $arr_tempo += $arr_tempo_data;
+        }
+        $arr_estilo_tempo = [$arr_estilo[$i] => $arr_tempo];
     }
-
-    .circulo {
-        fill: none;
-        stroke: #CCCCCC;
-        stroke-width: 4px;
-    }
-
-    .circulo-progresso {
-        fill: none;
-        stroke-width: 4px;
-        animation: progress 1s ease-out forwards;
-        stroke: #22BF66;
-    }
-
-    @keyframes progress {
-        0% {
-            stroke-dasharray: 0 100;
+    $arr_tempos += $arr_estilo_tempo;
+}
+function diferencaTempoAnterior($estilo, $tempo, $data, $piscina, $arrUltimosTempos){
+    foreach($arrUltimosTempos as $est => $values) {
+        if ($estilo == $est) {
+            $ultimosTempos = [];
+            foreach($values as $date => $time) {
+                if(date($data) > date($date) && $piscina == $time[1]) {
+                    array_push($ultimosTempos, tempoEmSegundos(adjustTime($time[0])));
+                }
+            }
         }
     }
-
-    .label {
-        fill: #343F4B;
-        font-size: 0.2em;
-        text-transform: uppercase;
-        text-anchor: middle;
+    if(!empty($ultimosTempos[0])) {
+        return round((tempoEmSegundos(adjustTime($tempo)) - $ultimosTempos[0]),2);
+    } else {
+        return round(tempoEmSegundos(adjustTime($tempo)),2) * -1;
     }
+}
 
-    .label.percentage {
-        font-size: 0.5em;
-    }
-</style>
+?>
 
 <main>
     <section class="py-5 text-center container">
@@ -141,7 +123,8 @@ $torneiosParticipados = $this->viewData->torneiosParticipados;
                                 <td><?= $tempo['nomeTorneio'] ?></td>
                                 <td><?= $tempo['tamanhoPiscina'] . 'm' ?></td>
                                 <td class="text-start"><?= $tempo['distancia'] . 'm ' . $tempo['nomeEstilo'] ?><?php if ($tempo['final'] == 'S') { ?><span class="badge text-bg-secondary ms-2">Final</span> <?php } ?> </td>
-                                <td><?php echo adjustTime($tempo['tempoAtleta']) ?></td>
+                                <?php $diferencaTempo = tempoEmMinutos(diferencaTempoAnterior($tempo['distanciaEstilo'], $tempo['tempoAtleta'], $tempo['dataTorneio'], $tempo['tamanhoPiscina'],$arr_tempos ));?>
+                                <td><?php echo adjustTime($tempo['tempoAtleta']) ?> <span class="badge text-bg-<?php echo ($diferencaTempo > 0 ? 'danger': 'success') ?>"><?= $diferencaTempo?></span></td>
                                 <td><?php echo indiceTecnico(adjustTime($tempo['tempoAtleta']), $tempo['distanciaEstilo'], $indicesMundial, $tempo['genero']) ?></td>
                                 <td>
                                     <a href="edit_tempo?id=<?= $tempo['IDTMPATLETA'] ?>" class="btn btn-outline-primary">Editar</a>
