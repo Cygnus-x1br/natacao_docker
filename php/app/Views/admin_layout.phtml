@@ -31,10 +31,10 @@
 require_once './assets/php/common.php';
 ?>
 
-<body>
+<body style="width: 100%">
     <div class="container py-3">
         <header>
-            <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+            <div class="d-flex flex-column flex-md-row pb-3 mb-4 border-bottom">
                 <a href="/" class="d-flex align-items-center link-body-emphasis text-decoration-none">
                     <img src="./images/swim_icon.png" sizes="32x32" height="32" alt="" style="padding-right: 20px;">
                     <span class="fs-4">Sistema de Gestão de Atletas</span>
@@ -42,13 +42,6 @@ require_once './assets/php/common.php';
 
                 <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
                     <ul class="navbar-nav flex-row d-md-none">
-                        <!-- <li class="nav-item text-nowrap">
-                            <button class="nav-link px-3 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSearch" aria-controls="navbarSearch" aria-expanded="false" aria-label="Toggle search">
-                                <svg class="bi">
-                                    <use xlink:href="#search" />
-                                </svg>
-                            </button>
-                        </li> -->
                         <li class="nav-item text-nowrap">
                             <button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
                                 <svg class="bi">
@@ -98,9 +91,7 @@ require_once './assets/php/common.php';
 
                 </nav>
             </div>
-
         </header>
-
         <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
             <symbol id="calendar3" viewBox="0 0 16 16">
                 <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" />
@@ -168,12 +159,12 @@ require_once './assets/php/common.php';
                 <path d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12 12 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A20 20 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a20 20 0 0 0 1.349-.476l.019-.007.004-.002h.001M14 1.221c-.22.078-.48.167-.766.255-.81.252-1.872.523-2.734.523-.886 0-1.592-.286-2.203-.534l-.008-.003C7.662 1.21 7.139 1 6.5 1c-.669 0-1.606.229-2.415.478A21 21 0 0 0 3 1.845v6.433c.22-.078.48-.167.766-.255C4.576 7.77 5.638 7.5 6.5 7.5c.847 0 1.548.28 2.158.525l.028.01C9.32 8.29 9.86 8.5 10.5 8.5c.668 0 1.606-.229 2.415-.478A21 21 0 0 0 14 7.655V1.222z" />
             </symbol>
         </svg>
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
                 <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
                     <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
                         <div class="offcanvas-header">
-                            <h5 class="offcanvas-title" id="sidebarMenuLabel">Company name</h5>
+                            <h5 class="offcanvas-title" id="sidebarMenuLabel">Gerenciar</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
                         </div>
                         <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
@@ -218,9 +209,7 @@ require_once './assets/php/common.php';
                                         Cadastrar Recordes
                                     </a>
                                 </li>
-
                             </ul>
-
                             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
                                 <span>Saved reports</span>
                                 <a class="link-secondary" href="#" aria-label="Add a new report">
@@ -270,10 +259,6 @@ require_once './assets/php/common.php';
                                         Administrar Federações
                                     </a>
                                 </li>
-
-
-
-
                             </ul>
                             <hr class="my-3">
                             <ul class="nav flex-column mb-auto">
@@ -298,11 +283,10 @@ require_once './assets/php/common.php';
                     </div>
                 </div>
                 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                    <?php $this->content() ?>
+                     <?php $this->content() ?>
                 </main>
             </div>
         </div>
-
         <footer class="pt-4 my-md-5 pt-md-5 border-top">
             <div class="row">
                 <div class="col-12 col-md">

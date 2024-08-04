@@ -162,7 +162,8 @@ $indicesJson = json_encode($indices);
         </form>
     </div>
 
-    <div>
+    
+    <div class="chart-container" style="position: relative; min-height:40vh; min-width:80vw">
         <canvas class="my-4 sm-4" id="myChart"></canvas>
     </div>
 
@@ -214,6 +215,15 @@ $indicesJson = json_encode($indices);
     let labelTempos = [];
     let labelIndicesArray = [];
     let arrays = createArraysFromValues(JSON.parse(indicesNovo));
+
+    let y_axis_multiplier = 1;
+    if (window.innerWidth < 400) {
+        y_axis_multiplier = 4;
+        ctx.resize();
+    } else if (window.innerWidth < 600) {
+        y_axis_multiplier = 3;
+        ctx.resize();
+    }
 
     for (let i = 0; i < times.length; i++) {
         let timeConverted = adjustTime(times[i].innerHTML);
@@ -271,7 +281,9 @@ $indicesJson = json_encode($indices);
     } else {
         maxLabel = arrayIndices[0]
     }
-
+    
+    console.log(window.innerWidth);
+    
     let datasetsJson = []
 
     datasetsJson.push({
@@ -292,6 +304,10 @@ $indicesJson = json_encode($indices);
         })
         indiceLabel++;
     }
+    
+    console.log(timeArray.toSorted()[0] * y_axis_multiplier)
+    let graphHeightVariable = timeArray.toSorted()[0] * y_axis_multiplier;
+    
 
     new Chart(ctx, {
         data: {
@@ -328,7 +344,8 @@ $indicesJson = json_encode($indices);
                     position: 'bottom',
                     align: 'start',
                     labels: {
-                        padding: 40
+                        padding: 40,
+                        display: false
                     }
                 }
             }
@@ -351,4 +368,5 @@ $indicesJson = json_encode($indices);
     }
 
     preencherGrafico(melhorIndiceTecnico);
+    
 </script>

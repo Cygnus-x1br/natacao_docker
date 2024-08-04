@@ -31,18 +31,19 @@ require_once './assets/php/common.php';
 <body>
     <div class="container py-3">
         <header>
-            <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+            <div class="d-flex flex-column flex-md-row pb-3 mb-4 border-bottom">
                 <a href="/" class="d-flex align-items-center link-body-emphasis text-decoration-none">
                     <img src="./images/swim_icon.png" sizes="32x32" height="32" alt="" style="padding-right: 20px;">
                     <span class="fs-4">Sistema de Gestão de Atletas</span>
                 </a>
 
-                <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+                <nav class="d-flex flex-column text-center flex-md-row mt-2 mt-md-0 ms-md-auto">
                     <?php if (isset($_SESSION['id']) && $_SESSION['permissao'] == 2) { ?>
                         <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/select_atleta">Dados Atleta</a>
                     <?php } elseif (isset($_SESSION['id']) && $_SESSION['permissao'] == 1) { ?>
                         <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/index_atleta?id=<?= $_SESSION['user_id'] ?>">Dados Atleta</a>
                     <?php } ?>
+                    <hr>
                     <a class="me-3 py-2 link-body-emphasis text-decoration-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tempos</a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="./list_indices">Índices</a></li>
@@ -53,6 +54,7 @@ require_once './assets/php/common.php';
                         </li>
                         <li><a class="dropdown-item" href="/create_graph">Gráficos</a></li>
                     </ul>
+                    <hr>
                     <a class="me-3 py-2 link-body-emphasis text-decoration-none nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Cadastros
                     </a>
@@ -67,7 +69,8 @@ require_once './assets/php/common.php';
                         </li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
-                    <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">Agenda</a>
+                    <hr>
+                    <a class="me-3 py-2 link-body-emphasis text-decoration-none mb-3 mb-md-0" href="#">Agenda</a>
                     <?php if (isset($_SESSION['id']) && $_SESSION['permissao'] == 2) { ?>
                         <a class="me-3 py-2 btn btn-primary text-decoration-none" style="max-height: 40px" href="./index_admin">Admin</a>
                     <?php } ?>
