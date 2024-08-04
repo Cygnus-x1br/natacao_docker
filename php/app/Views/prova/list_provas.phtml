@@ -24,7 +24,7 @@ $provas = $this->viewData->provas;
     foreach ($torneios as $torneio) { ?>
         <div class="d-flex justify-content-between">
             <p class="lead"><?php echo $torneio['nomeTorneio'] . ' - ' . implode('/',  array_reverse(explode('-', $torneio['dataTorneio']))) ?></p>
-            <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#table<?= $countLists ?>" aria-expanded="false" aria-controls="collapseExample">Ver mais</button>
+            <button type="button" class="btn btn-primary" style="min-width: 100px; height: 40px;" data-bs-toggle="collapse" data-bs-target="#table<?= $countLists ?>" aria-expanded="false" aria-controls="collapseExample">Ver mais</button>
         </div>
         <table class="table w-75 mx-auto collapse" id="table<?php echo $countLists ?>">
             <thead>

@@ -40,8 +40,8 @@ require_once './assets/php/common.php';
                     <span class="fs-4">Sistema de Gestão de Atletas</span>
                 </a>
 
-                <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-                    <ul class="navbar-nav flex-row d-md-none">
+                <nav class="d-flex flex-column text-center flex-md-row mt-2 mt-md-0 ms-md-auto">
+                    <ul class="navbar-nav flex-row d-md-none justify-content-end">
                         <li class="nav-item text-nowrap">
                             <button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
                                 <svg class="bi">
@@ -55,6 +55,7 @@ require_once './assets/php/common.php';
                     <?php } elseif (isset($_SESSION['id']) && $_SESSION['permissao'] == 1) { ?>
                         <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/index_atleta?id=<?= $_SESSION['user_id'] ?>">Dados Atleta</a>
                     <?php } ?>
+                    <hr>
                     <a class="me-3 py-2 link-body-emphasis text-decoration-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tempos</a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="./list_indices">Índices</a></li>
@@ -65,6 +66,7 @@ require_once './assets/php/common.php';
                         </li>
                         <li><a class="dropdown-item" href="/create_graph">Gráficos</a></li>
                     </ul>
+                    <hr>
                     <a class="me-3 py-2 link-body-emphasis text-decoration-none nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Cadastros
                     </a>
@@ -79,9 +81,10 @@ require_once './assets/php/common.php';
                         </li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
-                    <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">Agenda</a>
+                    <hr>
+                    <a class="me-3 mb-3 mb-md-0 py-2 link-body-emphasis text-decoration-none" href="#">Agenda</a>
                     <?php if (isset($_SESSION['id']) && $_SESSION['permissao'] == 2) { ?>
-                        <a class="me-3 py-2 btn btn-primary text-decoration-none" style="max-height: 40px" href="./index_admin">Admin</a>
+                        <a class="me-md-3 mb-3 mb-md-0 py-2 btn btn-primary text-decoration-none" style="max-height: 40px" href="./index_admin">Admin</a>
                     <?php } ?>
                     <?php if (!isset($_SESSION['id'])) { ?>
                         <a class="py-2 btn btn-primary text-decoration-none" style="max-height: 40px" href="./sign_in">Entrar</a>

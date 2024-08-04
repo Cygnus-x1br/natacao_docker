@@ -36,7 +36,7 @@ require_once './assets/php/common.php';
                     <img src="./images/swim_icon.png" sizes="32x32" height="32" alt="" style="padding-right: 20px;">
                     <span class="fs-4">Sistema de Gestão de Atletas</span>
                 </a>
-
+                <hr class="mb-0">
                 <nav class="d-flex flex-column text-center flex-md-row mt-2 mt-md-0 ms-md-auto">
                     <?php if (isset($_SESSION['id']) && $_SESSION['permissao'] == 2) { ?>
                         <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/select_atleta">Dados Atleta</a>
@@ -72,7 +72,7 @@ require_once './assets/php/common.php';
                     <hr>
                     <a class="me-3 py-2 link-body-emphasis text-decoration-none mb-3 mb-md-0" href="#">Agenda</a>
                     <?php if (isset($_SESSION['id']) && $_SESSION['permissao'] == 2) { ?>
-                        <a class="me-3 py-2 btn btn-primary text-decoration-none" style="max-height: 40px" href="./index_admin">Admin</a>
+                        <a class="me-md-3 mb-3 mb-md-0 py-2 btn btn-primary text-decoration-none" style="max-height: 40px" href="./index_admin">Admin</a>
                     <?php } ?>
                     <?php if (!isset($_SESSION['id'])) { ?>
                         <a class="py-2 btn btn-primary text-decoration-none" style="max-height: 40px" href="./sign_in">Entrar</a>

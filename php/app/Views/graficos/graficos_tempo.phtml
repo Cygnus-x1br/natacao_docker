@@ -86,35 +86,35 @@ $indicesJson = json_encode($indices);
         <form action="/graficos_tempo_filtrado" method="post" class="row g-3 d-flex align-items-end">
 
             <div class="row">
-                <div class="col-sm-1">
+                <div class="col-lg-1">
                     <input class="form-ckeck-input" type="checkbox" name="p1" id="p1-check" value="11">
                     <label for="p1-check" class="form-label">Petiz 1</label>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-lg-1">
                     <input class="form-ckeck-input" type="checkbox" name="p2" id="p2-check" value="12">
                     <label for="p2-check" class="form-label">Petiz 2</label>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-lg-1">
                     <input class="form-ckeck-input" type="checkbox" name="i1" id="i1-check" value="13">
                     <label for="i1-check" class="form-label">Infantil 1</label>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-lg-1">
                     <input class="form-ckeck-input" type="checkbox" name="i2" id="i2-check" value="14">
                     <label for="i2-check" class="form-label">Infantil 2</label>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-lg-1">
                     <input class="form-ckeck-input" type="checkbox" name="jv1" id="jv1-check" value="15">
                     <label for="jv1-check" class="form-label">Juvenil 1</label>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-lg-1">
                     <input class="form-ckeck-input" type="checkbox" name="jv2" id="jv2-check" value="16">
                     <label for="jv2-check" class="form-label">Juvenil 2</label>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-lg-1">
                     <input class="form-ckeck-input" type="checkbox" name="jr1" id="jr1-check" value="17">
                     <label for="jr1-check" class="form-label">Junior 1</label>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-lg-2">
                     <input class="form-ckeck-input" type="checkbox" name="jr2" id="jr2-check" value="18">
                     <label for="jr2-check" class="form-label">Junior 2 / Absoluto</label>
                 </div>
@@ -164,7 +164,7 @@ $indicesJson = json_encode($indices);
 
     
     <div class="chart-container" style="position: relative; min-height:40vh; min-width:80vw">
-        <canvas class="my-4 sm-4" id="myChart"></canvas>
+        <canvas class="my-4 sm-4" id="myChart" style="min-height:40vh; min-width:80vw"></canvas>
     </div>
 
     <div class="table-responsive">
@@ -219,10 +219,10 @@ $indicesJson = json_encode($indices);
     let y_axis_multiplier = 1;
     if (window.innerWidth < 400) {
         y_axis_multiplier = 4;
-        ctx.resize();
+        // ctx.resize();
     } else if (window.innerWidth < 600) {
         y_axis_multiplier = 3;
-        ctx.resize();
+        // ctx.resize();
     }
 
     for (let i = 0; i < times.length; i++) {

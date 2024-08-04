@@ -10,12 +10,10 @@ $indicesMundial = $this->viewData->indices_mundial;
 $tempoAtleta = $this->viewData->tempoAtleta;
 $torneiosParticipados = $this->viewData->torneiosParticipados;
 
-//print_var($arr_estilo);
 $arr_estilo = [];
 foreach ($estilos as $estilo) {
    array_push($arr_estilo, explode('*', $estilo)[1]);
 }
-
 
 $arr_tempos = [];
 for($i = 0; $i < count($arr_estilo); $i++ ) {
@@ -83,7 +81,7 @@ function diferencaTempoAnterior($estilo, $tempo, $data, $piscina, $arrUltimosTem
                     <label for="tamanhoPiscina" class="form-label">Piscina</label>
                     <select name="tamanhoPiscina" class="form-select" id="tamanhoPiscina">
                         <option value="">Selecione</option>
-                        <option value="25">25 m</option>
+r                        <option value="25">25 m</option>
                         <option value="50">50 m</option>
                     </select>
                 </div>
