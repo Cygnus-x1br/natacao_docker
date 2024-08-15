@@ -1,5 +1,7 @@
 -- Versao 0.1.4.0
 -- Adicionado campo tipoDePerfil em tb_atleta
+-- TODO adicionar campo tempo de balizamento
+-- 
 -- Versao 0.1.3.1
 -- Ativadas constraints FK_TORNEIO_COMPLEXO e outras
 -- Incluidos campos atletaRecordeProva e dataRecorde na tabela tb_prova

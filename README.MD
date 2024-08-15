@@ -42,7 +42,15 @@ Para inicializar o container do PHP execute o seguinte comando (executando em mo
 
 Criar uma pasta local db_data (dados do MySQL) ou criar um volume Docker para armazenar o banco ???
 
-Criar o arquivo Env.php
+Criar o arquivo Env.php com as seguintes variáveis:
+
+`<?php
+const DB_HOST = 'db_name';
+const DB_PORT = num_porta;
+const DB_NAME = 'db_name';
+const DB_USER = 'db_user';
+const DB_PASSWD = 'db_password';
+`
 
 Bibliotecas Javascript:
 
