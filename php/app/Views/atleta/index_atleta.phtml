@@ -9,12 +9,12 @@ if ($melhoresTempos != null) {
     $melhoresTempos25 = [];
     $melhoresTempos50 = [];
     foreach ($melhoresTempos as $tempo25) {
-        if ($tempo25['piscina'] === 25) {
+        if ($tempo25['piscina'] == 25) {
             $melhoresTempos25[] = $tempo25;
         }
     }
     foreach ($melhoresTempos as $tempo50) {
-        if ($tempo50['piscina'] === 50) {
+        if ($tempo50['piscina'] == 50) {
             $melhoresTempos50[] = $tempo50;
         }
     }
@@ -73,11 +73,11 @@ if ($melhoresTempos != null) {
                                         <p>MELHOR TEMPO</p>
                                         <h1 class="card-title pricing-card-title"><?php echo adjustTime($tempo['tempo']) ?></h1>
                                         <ul class="list-unstyled mt-3 mb-4">
-                                            <li><?php echo implode('/',  array_reverse(explode('-', $tempo['data']))) ?></li>
+                                            <li><?php echo convertDate($tempo['data']) ?></li>
                                             <hr class="ms-5 me-5">
                                             <li><?= $tempo['torneio'] ?></li>
                                             <hr class="ms-5 me-5">
-                                            <li><?= 'Piscina: ' . $tempo['piscina'] . 'm' ?></li>
+                                            <li><strong><em><?= 'Piscina: ' . $tempo['piscina'] . 'm' ?></em></strong></li>
                                             <hr class="ms-5 me-5">
                                             <li><?= 'Local: ' . $tempo['complexo'] ?></li>
                                             <hr class="ms-5 me-5">
@@ -108,7 +108,7 @@ if ($melhoresTempos != null) {
         </button>
     </div>
     <?php } ?>
-
+    <hr class="d-flex d-md-none mb-5 mb-md-none">
     <?php if(count($melhoresTempos25) > 0) { ?>
     <div id="carousel25" class="carousel carousel-dark slide">
         <div class="carousel-inner">
@@ -128,11 +128,11 @@ if ($melhoresTempos != null) {
                                         <p>MELHOR TEMPO</p>
                                         <h1 class="card-title pricing-card-title"><?php echo adjustTime($tempo25['tempo']) ?></h1>
                                         <ul class="list-unstyled mt-3 mb-4">
-                                            <li><?php echo implode('/',  array_reverse(explode('-', $tempo25['data']))) ?></li>
+                                            <li><?php echo convertDate($tempo25['data']) ?></li>
                                             <hr class="ms-5 me-5">
                                             <li><?= $tempo25['torneio'] ?></li>
                                             <hr class="ms-5 me-5">
-                                            <li><?= 'Piscina: ' . $tempo25['piscina'] . 'm' ?></li>
+                                            <li><strong><em><?= 'Piscina: ' . $tempo25['piscina'] . 'm' ?></em></strong></li>
                                             <hr class="ms-5 me-5">
                                             <li><?= 'Local: ' . $tempo25['complexo'] ?></li>
                                             <hr class="ms-5 me-5">
