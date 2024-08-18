@@ -10,9 +10,10 @@ $provas = $this->viewData->provas;
             <img src="<?= $torneio['logoFederacao'] ?>" class="img-logo-fill" alt="">
             <div class="text-center">
                 <h2 class="display-5 my-3"><?= $torneio['nomeTorneio'] ?></h2>
-                <p class="lead"><?php echo implode('/',  array_reverse(explode('-', $torneio['dataTorneio']))); ?>
+                <p class="display-6"><?= 'Piscina: ' . $torneio['tamanhoPiscina'] . 'm' ?></p>
+                <p class="lead"><?php echo convertDate($torneio['dataTorneio']); ?>
                     <?php if ($torneio['dataFimTorneio'] != '' && $torneio['dataFimTorneio'] != $torneio['dataTorneio']) {
-                        echo ' a ' .  implode('/',  array_reverse(explode('-', $torneio['dataFimTorneio'])));
+                        echo ' a ' .  convertDate($torneio['dataFimTorneio']);
                     } ?></p>
             </div>
         </div>
