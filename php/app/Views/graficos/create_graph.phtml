@@ -118,7 +118,9 @@ $estilos = $this->viewData->estilos;
         <div class="row mt-5">
             <?php if(isset($_GET['error']) && $_GET['error'] == 1) {
                 echo '<div class="alert alert-danger" role="alert" id="alerta">Selecione o estilo para gerar o gráfico</div>';
-            } ?>
+            } else if(isset($_GET['error']) && $_GET['error'] == 2) {
+                echo '<div class="alert alert-danger" role="alert" id="alerta">Selecione o tamanho da piscina para gerar o gráfico</div>';
+            }?>
         </div>
     </div>
     <script>

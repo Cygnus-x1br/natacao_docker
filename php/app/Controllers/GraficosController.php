@@ -34,6 +34,9 @@ class GraficosController extends Action
         if($_POST['distanciaEstilo'] == ''){
             header('Location: create_graph?error=1');
         }
+        if($_POST['tamanhoPiscina'] == ''){
+            header('Location: create_graph?error=2');
+        }
         $this->listDataFromModels();
 
         $atleta = Container::getModel('Atleta');

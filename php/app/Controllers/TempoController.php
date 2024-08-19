@@ -30,6 +30,7 @@ class TempoController extends Action
         $tempoAtleta->__set('id_atleta', $_SESSION['user_id']);
         $tempoAtleta_data = $tempoAtleta->getTemposFiltered();
         $this->viewData->tempoAtleta = $tempoAtleta_data;
+        $this->viewData->todosTemposAtleta = $tempoAtleta_data;
 
         $indicesMundial = Container::getModel('Recordes');
         $indicesMundial->__set('tipoRecorde', 'Recorde Mundial');
@@ -146,6 +147,7 @@ class TempoController extends Action
     public function filtra_tempos():void
     {
         Assets::authenticate();
+        
         $this->viewData->anos = GenerateLists::list_anos($_SESSION['user_id']);
         $this->viewData->torneiosParticipados = GenerateLists::list_torneios_atleta($_SESSION['user_id']);
         $this->viewData->estilos = GenerateLists::list_estilos($_SESSION['user_id']);
@@ -164,12 +166,18 @@ class TempoController extends Action
 
         $tempos = Container::getModel('Tempo');
         $tempos->__set('id_atleta', $_SESSION['user_id']);
-        $tempos->__set('anoTempo', $_POST['anoTempo']);
-        $tempos->__set('nomeTorneio', $_POST['nomeTorneio']);
-        $tempos->__set('tamanhoPiscina', $_POST['tamanhoPiscina']);
-        $tempos->__set('distanciaEstilo', $_POST['distanciaEstilo']);
+        $todos_tempos = $tempos->getTemposFiltered();
+        $tempos->__set('anoTempo', $_POST['anoTempo'] ?? '');
+        if(isset($_GET['torneio'])) {
+            $tempos->__set('nomeTorneio', $_GET['torneio']);
+        } else {
+            $tempos->__set('nomeTorneio', $_POST['nomeTorneio']);
+        }
+        $tempos->__set('tamanhoPiscina', $_POST['tamanhoPiscina'] ?? '');
+        $tempos->__set('distanciaEstilo', $_POST['distanciaEstilo'] ?? '');
         $tempoAtleta_data = $tempos->getTemposFiltered();
-
+        
+        $this->viewData->todosTemposAtleta = $todos_tempos;
         $this->viewData->tempoAtleta = $tempoAtleta_data;
         $this->render('tempos_atleta');
     }

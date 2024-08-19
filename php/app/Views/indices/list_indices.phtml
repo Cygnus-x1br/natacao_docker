@@ -5,10 +5,9 @@ $anos = $this->viewData->anosIndice;
 $tipos = $this->viewData->tipoIndice;
 $categorias = $this->viewData->categorias;
 $piscinas = $this->viewData->piscinas;
+$estilos = $this->viewData->estilos;
 
 ?>
-
-
 <main>
     <div class="py-5 text-center">
         <h2 class="fw-light">Tabela de Índices</h2>
@@ -49,6 +48,15 @@ $piscinas = $this->viewData->piscinas;
                     <option value="">Selecione</option>
                     <?php foreach ($categorias as $categoria) { ?>
                         <option value="<?= $categoria['IDCATEGORIA'] ?>"><?= $categoria['nomeCategoria'] ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="col-md-4 col-lg-2">
+                <label for="estiloIndice" class="form-label">Estilo</label>
+                <select name="id_estilo" class="form-select" id="estiloIndice">
+                    <option value="">Selecione</option>
+                    <?php foreach ($estilos as $estilo) { ?>
+                        <option value="<?= $estilo['IDDISTANCIAESTILO'] ?>"><?= $estilo['distancia'] . 'm ' . $estilo['nomeEstilo'] ?></option>
                     <?php } ?>
                 </select>
             </div>

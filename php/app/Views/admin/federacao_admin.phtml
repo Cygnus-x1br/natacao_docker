@@ -1,6 +1,5 @@
 <?php
 $federacoes = $this->viewData->federacoes;
-
 ?>
 
 <div class="py-5 text-center">
@@ -29,7 +28,6 @@ $federacoes = $this->viewData->federacoes;
                     <td><?= $federacao['IDFEDERACAO'] ?></td>
                     <td class="text-start"><?= $federacao['nomeFantasiaFederacao'] ?></td>
                     <td class="text-start"><?= $federacao['nomeFederacao'] ?></td>
-
                     <td><?= $federacao['siglaEstado'] ?></td>
                     <td><a href="/edit_federacao?idfederacao=<?= $federacao['IDFEDERACAO'] ?>" class="btn btn-outline-primary">Editar</a></td>
                     <td><button type="button" class="btn btn-danger modalSelectBtn" data-bs-toggle="modal" data-bs-target="#exampleModal" value="<?= $federacao['IDFEDERACAO'] ?>">

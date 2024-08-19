@@ -21,6 +21,7 @@ class IndicesController extends Action
         $this->viewData->tipoIndice = GenerateLists::list_tipos();
         $this->viewData->categorias = GenerateLists::list_categorias();
         $this->viewData->piscinas = GenerateLists::list_piscinas();
+        $this->viewData->estilos = GenerateLists::list_todos_estilos();
 
         $this->render('list_indices');
     }
@@ -32,6 +33,7 @@ class IndicesController extends Action
         $indices->__set('tipoIndice', $_POST['tipoIndice']);
         $indices->__set('generoIndice', $_POST['generoIndice']);
         $indices->__set('id_categoria', $_POST['id_categoria']);
+        $indices->__set('id_distanciaestilo', $_POST['id_estilo']);
         $indices_data = $indices->getIndicesFiltered();
         $this->viewData->indices = $indices_data;
 
@@ -39,6 +41,7 @@ class IndicesController extends Action
         $this->viewData->tipoIndice = GenerateLists::list_tipos();
         $this->viewData->categorias = GenerateLists::list_categorias();
         $this->viewData->piscinas = GenerateLists::list_piscinas();
+        $this->viewData->estilos = GenerateLists::list_todos_estilos();
         $this->render('list_indices');
     }
     public function filtra_indices_grafico():void
@@ -48,6 +51,7 @@ class IndicesController extends Action
         $indices->__set('tipoIndice', $_POST['tipoIndice']);
         $indices->__set('generoIndice', $_POST['generoIndice']);
         $indices->__set('id_categoria', $_POST['id_categoria']);
+        $indices->__set('id_distanciaestilo', $_POST['id_estilo']);
         $indices_data = $indices->getIndicesFilteredGrafico();
         $this->viewData->indices = $indices_data;
 
@@ -55,6 +59,7 @@ class IndicesController extends Action
         $this->viewData->tipoIndice = GenerateLists::list_tipos();
         $this->viewData->categorias = GenerateLists::list_categorias();
         $this->viewData->piscinas = GenerateLists::list_piscinas();
+        $this->viewData->estilos = GenerateLists::list_todos_estilos();
         $this->render('list_indices');
     }
     public function filtra_indices_tabela():void

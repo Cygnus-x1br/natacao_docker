@@ -9,6 +9,10 @@ $provas = $this->viewData->provas;
 $indicesMundial = $this->viewData->indices_mundial;
 $tempoAtleta = $this->viewData->tempoAtleta;
 $torneiosParticipados = $this->viewData->torneiosParticipados;
+$todosTemposAtleta = $this->viewData->todosTemposAtleta;
+
+//print_var($todosTemposAtleta);
+
 
 $arr_estilo = [];
 foreach ($estilos as $estilo) {
@@ -18,8 +22,9 @@ foreach ($estilos as $estilo) {
 $arr_tempos = [];
 for($i = 0; $i < count($arr_estilo); $i++ ) {
     $arr_tempo = [];
-    foreach($tempoAtleta as $tempo) {
+    foreach($todosTemposAtleta as $tempo) {
         if($tempo['distanciaEstilo'] == $arr_estilo[$i]) {
+            
             $arr_tempo_data = [$tempo['dataTorneio'] => [$tempo['tempoAtleta'], $tempo['tamanhoPiscina']]];
             $arr_tempo += $arr_tempo_data;
         }
@@ -31,6 +36,7 @@ function diferencaTempoAnterior($estilo, $tempo, $data, $piscina, $arrUltimosTem
     foreach($arrUltimosTempos as $est => $values) {
         if ($estilo == $est) {
             $ultimosTempos = [];
+            
             foreach($values as $date => $time) {
                 if(date($data) > date($date) && $piscina == $time[1]) {
                     array_push($ultimosTempos, tempoEmSegundos(adjustTime($time[0])));
