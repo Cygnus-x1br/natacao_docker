@@ -87,17 +87,37 @@ class UserController extends Action
             echo 'Erro';
             $this->create_user($_POST['emailAtleta'], '2006');
         } else {
+            
+            
             $user = Container::getModel('Users');
-            $user->__set('user_id', $_POST['idAtleta']);
-            $user->__set('username', $_POST['emailAtleta']);
+            
+            
+            $user->__set('username', $_POST['emailUser'] ?? $_POST['emailAtleta']);
+            
             $user->__set('passwd', $_POST['passwd']);
-            $user->__set('user_name', $_POST['emailAtleta']);
-            $user->__set('permission', 1);
+            $user->__set('user_name', $_POST['nomeUsuario'] ?? $_POST['emailAtleta']);
+            $user->__set('permission', $_POST['permission'] ?? 1);
+            $user->__set('user_id', $_POST['idAtleta']);
             $user->saveUser();
 
             $user->login($_POST['emailAtleta'], $_POST['passwd']);
             header("Location: /sign_in");
         }
+    }
+    
+    public function add_user()
+    {
+        Assets::admin_authenticate();
+
+        $users = Container::getModel('Users');
+        $users_data = $users->getAllUsers();
+        $this->viewData->user = $users_data;
+
+        $atleta = Container::getModel('Atleta');
+        $atleta_data = $atleta->getAllAtletas();
+        $this->viewData->atletas = $atleta_data;
+        
+        $this->render('add_user', 'admin_layout');
     }
     
     public function edit_user():void

@@ -135,5 +135,12 @@ class GenerateLists extends Action
         }
         return array_unique($tamanhos);
     }
+    
+    public static function list_atleta_email():array
+    {
+        $atletas = Container::getModel('Atleta');
+        return $atletas->getAtletaIDEmail();
+        
+    }
 
 }

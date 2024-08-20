@@ -44,6 +44,14 @@ class Atleta extends Model
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function getAtletaIDEmail()
+    {
+        $atletas = "SELECT IDATLETA, emailAtleta FROM tb_atleta";
+        $stmt = $this->db->prepare($atletas);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
     public function saveAtleta()
     {
 

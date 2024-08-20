@@ -136,6 +136,11 @@ class Route extends \MF\Init\Bootstrap
             'controller' => 'UserController',
             'action' => 'save_atleta'
         );
+        $routes['add_user'] = array(
+            'route' => '/add_user',
+            'controller' => 'UserController',
+            'action' => 'add_user'
+        );
         $routes['edit_user'] = array(
             'route' => '/edit_user',
             'controller' => 'UserController',

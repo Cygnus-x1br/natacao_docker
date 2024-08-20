@@ -1,7 +1,7 @@
 {
   "name": "jean/natacao",
   "require": {
-    "php": ">= 7.4",
+    "php": ">= 8.1",
     "koolreport/core": "^6.5",
     "ext-pdo": "*",
     "ext-mbstring": "*"
