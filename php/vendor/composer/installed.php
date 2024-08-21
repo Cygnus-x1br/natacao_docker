@@ -3,7 +3,7 @@
         'name' => 'jean/natacao',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'e85219f74a9172fa6af6cac63ae4f4a990cb4197',
+        'reference' => 'eafbe655c522e08882cf875d26ed54fc9b37b994',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'jean/natacao' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'e85219f74a9172fa6af6cac63ae4f4a990cb4197',
+            'reference' => 'eafbe655c522e08882cf875d26ed54fc9b37b994',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

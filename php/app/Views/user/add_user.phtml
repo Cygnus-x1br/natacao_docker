@@ -1,0 +1,68 @@
+<?php
+//$location = $this->setHtmlData->referer;
+$atletas = $this->viewData->atletas;
+$user = $this->viewData->user;
+//$error = $this->viewData->error ?? '';
+
+//print_r($atletas);
+?>
+<main class="form-signin w-100 m-auto">
+    <form method="post" action="/save_user">
+        <div class="py-5 text-center">
+            <h2 class="display-5 my-3">Adicionar Usuários</h2>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 py-3">
+                <label for="loginName" class="form-label">Nome de Login</label>
+                <input type="email" class="form-control" id="loginName" name="emailUser" value="" required>
+            </div>
+            <div class="col-sm-6 py-3">
+                <label for="userName" class="form-label">User Name</label>
+                <input type="text" class="form-control" id="userName" name="nomeUsuario" value="" required>
+            </div>
+        </div>    
+        <div class="row">
+            <div class="col-sm-6 py-3">
+                <label for="passwd" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="passwd" name="passwd" value="">
+            </div>
+            <div class="col-sm-6 py-3">
+                <label for="passwdConfirm" class="form-label">Confirma Senha</label>
+                <input type="password" class="form-control" id="passwdConfirm" name="passwd_confirm" value="">
+            </div>
+        </div>
+        
+        <div class="col-sm-12 py-3">
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="user_id" class="form-label">ID Atleta</label>
+                    <input type="text" class="form-control" id="user_id" name="idAtleta" value="">
+                </div>
+                <div class="col-md-6">
+                    <label for="user_id" class="form-label">Nome Atleta</label>
+                    <!--            --><?php //foreach ($atletas as $atleta) {
+                    //                if($user['user_id'] == $atleta['IDATLETA']) { ?>
+                    <!--                    <p>--><?php //= $atleta['nomeAtleta'] . ' ' . $atleta['sobreNomeAtleta'] ?><!--</p>-->
+                    <!--                --><?php //} } ?>
+                </div>
+                <div class="col-md-2">
+                    <label for="permission" class="form-label">Permissao</label>
+                    <select class="form-select me-2" name="permission" id="permission">
+                        <option value="">Selected</option>
+                        <option value="1">Usuario</option>
+                        <option value="2">Administrador</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="py-3">
+            <button class="btn btn-primary w-25 py-2" type="submit">Salvar</button>
+            <a href="/user_admin" class="btn btn-secondary w-25 py-2" type="submit">Voltar</a>
+        </div>
+    </form>
+    <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
+</main>
+
+<script>
+    let document.getElementById('loginName')
+</script>

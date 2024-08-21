@@ -1,5 +1,6 @@
--- Versao 0.1.4.0
--- Adicionado campo tipoDePerfil em tb_atleta
+-- Versao 0.1.4.0 (não compilado)
+-- Adicionado campo tipoDePerfil ENUM('Pub', 'Priv', 'Res' ) em tb_atleta
+-- Adicionado campo ID_USER nas tabelas tb_provaUsuario e tb_torneioUsuario e criadas as Constraints para esses campos
 -- TODO adicionar campo tempo de balizamento
 -- 
 -- Versao 0.1.3.1
@@ -134,6 +135,7 @@ ADD CONSTRAINT FK_TORNEIO_COMPLEXO FOREIGN KEY(ID_COMPLEXO) REFERENCES tb_comple
 --
 CREATE TABLE tb_torneioUsuario (
 IDTORNEIOUSUARIO INT PRIMARY KEY AUTO_INCREMENT,
+ID_USER INT NOT NULL,
 nomeTorneioUsuario varchar(100) NOT NULL,
 dataTorneioUsuario DATE NOT NULL,
 dataFimTorneioUsuario DATE,
@@ -148,6 +150,8 @@ ALTER TABLE tb_torneioUsuario
 ADD CONSTRAINT FK_TORNEIOUSUARIO_FEDERACAO FOREIGN KEY(ID_FEDERACAO) REFERENCES tb_federacao(IDFEDERACAO);
 ALTER TABLE tb_torneioUsuario
 ADD CONSTRAINT FK_TORNEIOUSUARIO_COMPLEXO FOREIGN KEY(ID_COMPLEXO) REFERENCES tb_complexo(IDCOMPLEXO);
+ALTER TABLE tb_torneioUsuario
+ADD CONSTRAINT FK_TORNEIOUSUARIO_USER FOREIGN KEY(ID_USER) REFERENCES tb_users(IDUSER);
 --
 CREATE TABLE tb_prova (
 IDPROVA INT PRIMARY KEY AUTO_INCREMENT,
@@ -173,6 +177,7 @@ ADD CONSTRAINT FK_PROVA_DISTANCIAESTILO FOREIGN KEY(ID_DISTANCIAESTILO) REFERENC
 -- 
 CREATE TABLE tb_provaUsuario (
     IDPROVAUSUARIO INT PRIMARY KEY AUTO_INCREMENT,
+    ID_USER INT NOT NULL,
     numeroProvaUsuario VARCHAR(5) NOT NULL,
     generoProvaUsuario ENUM('M', 'F') NOT NULL,
     finalUsuario ENUM('S', 'N'),
@@ -191,6 +196,8 @@ ALTER TABLE tb_provaUsuario
 ADD CONSTRAINT FK_PROVAUSUARIO_TORNEIOUSUARIO FOREIGN KEY(ID_TORNEIOUSUARIO) REFERENCES tb_torneioUsuario(IDTORNEIOUSUARIO);
 ALTER TABLE tb_provaUsuario
 ADD CONSTRAINT FK_PROVAUSUARIO_DISTANCIAESTILO FOREIGN KEY(ID_DISTANCIAESTILO) REFERENCES tba_distancia_estilo(IDDISTANCIAESTILO);
+ALTER TABLE tb_provaUsuario
+ADD CONSTRAINT FK_PROVAUSUARIO_USER FOREIGN KEY(ID_USER) REFERENCES tb_users(IDUSER);
 -- 
 CREATE TABLE tb_atleta (
     IDATLETA INT PRIMARY KEY AUTO_INCREMENT,
@@ -208,7 +215,7 @@ CREATE TABLE tb_atleta (
     facebookAtleta VARCHAR(100),
     telefoneAtleta VARCHAR(20),
     whatsappAtleta VARCHAR(20),
-    tipoDePerfil ENUM('Pub', 'Priv', 'Parc' ) NOT NULL,
+    tipoDePerfil ENUM('Pub', 'Priv', 'Res' ) NOT NULL,
     ID_EQUIPE INT
 );
 --
