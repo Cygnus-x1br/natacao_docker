@@ -2,8 +2,23 @@
 
 $torneios = $this->viewData->torneios;
 
-if (count($torneios) > 0) {
-    $torneios = array_slice($torneios, 0, 3);
+$torneiosPassados = [];
+$torneiosFuturos = [];
+
+
+foreach ($torneios as $torneio) {
+    if($torneio['dataTorneio'] > date("Y-m-d")){
+        array_push($torneiosFuturos, $torneio);
+    }
+    if($torneio['dataTorneio'] < date("Y-m-d")){
+        array_push($torneiosPassados, $torneio);
+    }
+}
+
+if (count($torneiosFuturos) > 0) {
+    $torneiosFuturos = array_slice($torneiosFuturos, 0, 3);
+}if (count($torneiosPassados) > 0) {
+    $torneiosPassados = array_slice($torneiosPassados, 0, 3);
 }
 
 ?>
@@ -19,10 +34,10 @@ if (count($torneios) > 0) {
 <main>
 
     <h3 class="display-4 fw-light mb-5 text-center">
-        Últimos Torneios
+        Próximos Eventos
     </h3>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 mb-3 text-center">
-        <?php foreach ($torneios as $torneio) { ?>
+        <?php foreach ($torneiosFuturos as $torneio) { ?>
             <div class="col">
                 <div class="card mb-4 rounded-3 shadow-sm" style="height: 400px;">
                     <div class="card-header py-3 bg-dark-subtle">
@@ -31,6 +46,35 @@ if (count($torneios) > 0) {
                     <div class="card-body d-flex flex-column justify-content-between">
                         <p><?= $torneio['nomeFantasiaComplexo'] ?></p>
                         
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li><?php $datas = implode('/',  array_reverse(explode('-', $torneio['dataTorneio'])));
+                                if ($torneio['dataFimTorneio'] != '' && $torneio['dataFimTorneio'] != $torneio['dataTorneio']) {
+                                    $datas = implode('/',  array_reverse(explode('-', $torneio['dataTorneio']))) . ' a ' . implode('/',  array_reverse(explode('-', $torneio['dataFimTorneio'])));
+                                }
+                                echo $datas; ?></li>
+                            <li><?= $torneio['nomeFantasiaFederacao'] ?></li>
+                            <li><?= 'Piscina: ' . $torneio['tamanhoPiscina'] . 'm' ?></li>
+                            <li>Local: <?= $torneio['nomeFantasiaComplexo'] ?></li>
+                        </ul>
+                        <a href="/sign_in" class="w-100 btn btn-lg btn-outline-primary">Entre</a>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+    <h3 class="display-4 fw-light mb-5 text-center">
+        Últimos Torneios
+    </h3>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 mb-3 text-center">
+        <?php foreach ($torneiosPassados as $torneio) { ?>
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm" style="height: 400px;">
+                    <div class="card-header py-3 bg-dark-subtle">
+                        <h4 class="my-0 fw-normal" style="height: 80px;"><?= $torneio['nomeTorneio'] ?></h4>
+                    </div>
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <p><?= $torneio['nomeFantasiaComplexo'] ?></p>
+
                         <ul class="list-unstyled mt-3 mb-4">
                             <li><?php $datas = implode('/',  array_reverse(explode('-', $torneio['dataTorneio'])));
                                 if ($torneio['dataFimTorneio'] != '' && $torneio['dataFimTorneio'] != $torneio['dataTorneio']) {
