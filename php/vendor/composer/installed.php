@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'jean/natacao',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => 'e85219f74a9172fa6af6cac63ae4f4a990cb4197',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'jean/natacao' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => 'e85219f74a9172fa6af6cac63ae4f4a990cb4197',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
