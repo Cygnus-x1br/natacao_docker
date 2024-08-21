@@ -84,24 +84,52 @@ class UserController extends Action
     public function save_user():void
     {
         if ($_POST['passwd'] == '' || $_POST['passwd_confirm'] == '' || $_POST['passwd'] != $_POST['passwd_confirm']) {
-            echo 'Erro';
-            $this->create_user($_POST['emailAtleta'], '2006');
+            if(isset($_POST['emailAtleta'])){
+                $this->create_user($_POST['emailAtleta'], '2006');
+            } else {
+                $this->add_user();
+            }
         } else {
+            if(isset($_POST['emailUser'])){
+                $this->verify_email($_POST['emailUser']);
+            }
+
             
-            
+            if(isset($_POST['emailUser'])){
+                $idAtleta = '';
+                $atletas = GenerateLists::list_atleta_email();
+                foreach ($atletas as $atleta) {
+                    if($_POST['emailUser'] == $atleta['emailAtleta']) {
+                        $idAtleta = $atleta['IDATLETA'];
+                    }
+                }
+            }
             $user = Container::getModel('Users');
             
-            
             $user->__set('username', $_POST['emailUser'] ?? $_POST['emailAtleta']);
-            
             $user->__set('passwd', $_POST['passwd']);
             $user->__set('user_name', $_POST['nomeUsuario'] ?? $_POST['emailAtleta']);
-            $user->__set('permission', $_POST['permission'] ?? 1);
-            $user->__set('user_id', $_POST['idAtleta']);
+            $user->__set('permission', isset($_POST['permission']) && $_POST['permission'] != '' ? $_POST['permission'] : 1);
+            $user->__set('user_id', $idAtleta ?? $_POST['idAtleta']);
+            
             $user->saveUser();
 
-            $user->login($_POST['emailAtleta'], $_POST['passwd']);
-            header("Location: /sign_in");
+            $user->login($_POST['emailAtleta'] ?? $_POST['emailUser'], $_POST['passwd']);
+            header("Location: /");
+        }
+    }
+    
+    private function verify_email($email)
+    {
+        $user = Container::getModel('Users');
+        $users = $user->getAllUsers();
+        
+        foreach ($users as $user) {
+
+            if($_POST['emailUser'] == $user['username']) {
+               header("Location: error?error=2002");
+               die();
+            }
         }
     }
     
