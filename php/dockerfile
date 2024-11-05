@@ -1,26 +1,83 @@
-#Versao apache 0.1
+FROM ubuntu:noble
+LABEL Author="Raja Subramanian" Description="A comprehensive docker image to run Apache-2.4 PHP-8.3 applications like Wordpress, Laravel, etc"
 
-FROM php:8.1-apache
-WORKDIR /var/www/html/
-# COPY . .
+
+# Stop dpkg-reconfigure tzdata from prompting for input
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && \
+    apt-get -y install software-properties-common &&\
+    add-apt-repository ppa:ondrej/php && \
+    apt-get update
+
+# Install apache and php7
+RUN apt-get -y install \
+    apache2 \
+    libapache2-mod-php \
+    libapache2-mod-auth-openidc \
+    php8.3 \
+    php8.3-bcmath \
+    php8.3-cli \
+    php8.3-common \
+    php8.3-curl \
+    php8.3-dev \
+    php8.3-fpm \
+    php8.3-gd \
+    php8.3-intl \
+    php8.3-imagick \
+    php8.3-imap \
+    php8.3-ldap \
+    php8.3-mbstring \
+    php8.3-memcached \
+    php8.3-mysql \
+    php8.3-opcache \
+    php8.3-pgsql \
+    php8.3-soap \
+    php8.3-sqlite3 \
+    php8.3-redis \
+    php8.3-tidy \
+    php8.3-uploadprogress \
+    php8.3-xml \
+    php8.3-xmlrpc \
+    php8.3-yaml \
+    php8.3-zip \
+    # Ensure apache can bind to 80 as non-root
+    libcap2-bin && \
+    setcap 'cap_net_bind_service=+ep' /usr/sbin/apache2 && \
+    # dpkg --purge libcap2-bin && \
+    apt-get -y autoremove && \
+    # As apache is never run as root, change dir ownership
+    a2disconf other-vhosts-access-log && \
+    chown -Rh www-data:www-data /var/run/apache2 && \
+    # Install ImageMagick CLI tools
+    apt-get -y install --no-install-recommends imagemagick && \
+    # Clean up apt setup files
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Setup apache
+
+# Override default apache and php config
+COPY docker-src/000-default.conf /etc/apache2/sites-available
+COPY docker-src/mpm_prefork.conf /etc/apache2/mods-available
+COPY docker-src/status.conf      /etc/apache2/mods-available
+COPY docker-src/99-local.ini     /etc/php/8.1/apache2/conf.d
+
+# Expose details about this docker image
+COPY docker-src/index.php /var/www/html
+RUN rm -f /var/www/html/index.html && \
+    mkdir /var/www/html/.config && \
+    tar cf /var/www/html/.config/etc-apache2.tar etc/apache2 && \
+    tar cf /var/www/html/.config/etc-php.tar     etc/php && \
+    dpkg -l > /var/www/html/.config/dpkg-l.txt
+
+COPY docker-src/apache2.conf /etc/apache2
+RUN a2enmod rewrite headers expires ext_filter
+# ENV APACHE_DOCUMENT_ROOT=/var/www/html/public/
+
 EXPOSE 80
+# USER www-data
 
-# RUN chown -R www-data:www-data /var/www
-# RUN chown -R www-data:www-data /var/www
+ENTRYPOINT ["apache2ctl", "-D", "FOREGROUND"]
 
-COPY ./apache2.conf /etc/apache2
-
-ENV APACHE_DOCUMENT_ROOT=/var/www/html/public/
-
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
-RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
-
-RUN apt-get update
-
-ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
-
-RUN install-php-extensions @composer
-RUN install-php-extensions bcmath gd intl pdo_mysql
-
-RUN a2enmod rewrite
-
+COPY . /var/www/html
