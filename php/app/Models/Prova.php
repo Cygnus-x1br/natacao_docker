@@ -13,6 +13,8 @@ class Prova extends Model
     private $id_distanciaestilo;
     private $categoria_min;
     private $categoria_max;
+    private $id_categoria_min;
+    private $id_categoria_max;
     private $numeroProvasShowed;
 
 
