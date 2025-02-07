@@ -32,12 +32,12 @@ $countTipos = 1;
             <div class="row d-flex justify-content-around align-items-end">
                 <div class="col-md-2">
                     <label for="anoIndice" class="form-label">Ano Índice</label>
-                    <select class="form-select" name="anoIndice" id="anoIndice">
-                        <option value="">Selected</option>
+                    <input class="form-select" name="anoIndice" list="anoIndice">
+                    <datalist id="anoIndice">
                         <?php foreach ($anos as $ano) { ?>
                             <option value="<?= $ano ?>"><?= $ano ?></option>
                         <?php } ?>
-                    </select>
+                    </datalist>
                 </div>
                 <div class="col-md-2">
                     <label for="nomeTorneio" class="form-label">Tipo Índice</label>
@@ -158,7 +158,7 @@ $countTipos = 1;
                                 ?>
                                     <h3 class="lead"><?= 'Genero: ' . $genero ?></h3>
                                 <?php } ?>
-                                <table class="table table-sm mx-auto collapse" id="indices-<?= $countIndices ?>" >
+                                <table class="table table-sm mx-auto collapse" id="indices-<?= $countIndices ?>">
                                     <thead>
                                         <tr>
                                             <th class="col-sm-1">Estilo</th>
@@ -170,8 +170,8 @@ $countTipos = 1;
                                         </tr>
                                     </thead>
                                     <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#indices-<?= $countIndices ?>" aria-expanded="false" aria-controls="collapseExample">Ver</button>
-<!--                                    //TODO Ajustar a tabela para não mostrar valores vazios-->
-                                    <tbody >
+                                    <!--                                    //TODO Ajustar a tabela para não mostrar valores vazios-->
+                                    <tbody>
                                         <?php foreach ($estilos as $estilo) { ?>
                                             <tr class="mb-1">
                                                 <?php if ((array_search($estilo['IDDISTANCIAESTILO'], array_column($indices, 'ID_DISTANCIAESTILO'))) !== false) { ?>
@@ -180,85 +180,85 @@ $countTipos = 1;
                                                         foreach ($indices as $indice) {
                                                             if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '8') { ?>
                                                                 <a href="/view_indice?id=<?= $indice['IDINDICE'] ?>"><?= adjustTime($indice['tempoIndice']) ?? '00:00.00' ?> </a>
-                                                            <?php }
+                                                        <?php }
                                                         } ?>
                                                     </td>
                                                     <td><?php
                                                         foreach ($indices as $indice) {
                                                             if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '9') { ?>
                                                                 <a href="/view_indice?id=<?= $indice['IDINDICE'] ?>"><?= adjustTime($indice['tempoIndice']) ?? '00:00.00' ?> </a>
-                                                            <?php }
+                                                        <?php }
                                                         } ?>
                                                     </td>
                                                     <td><?php
                                                         foreach ($indices as $indice) {
                                                             if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '10') { ?>
                                                                 <a href="/view_indice?id=<?= $indice['IDINDICE'] ?>"><?= adjustTime($indice['tempoIndice']) ?? '00:00.00' ?> </a>
-                                                            <?php }
+                                                        <?php }
                                                         } ?>
                                                     </td>
                                                     <td><?php
                                                         foreach ($indices as $indice) {
                                                             if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '11') { ?>
                                                                 <a href="/view_indice?id=<?= $indice['IDINDICE'] ?>"><?= adjustTime($indice['tempoIndice']) ?? '00:00.00' ?> </a>
-                                                            <?php }
+                                                        <?php }
                                                         } ?>
                                                     </td>
                                                     <td><?php
                                                         foreach ($indices as $indice) {
-                                                            
+
                                                             if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '12') { ?>
                                                                 <a href="/view_indice?id=<?= $indice['IDINDICE'] ?>"><?= adjustTime($indice['tempoIndice']) ?? '00:00.00' ?> </a>
-                                                            <?php }
+                                                        <?php }
                                                         } ?>
                                                     </td>
                                                     <td><?php
                                                         foreach ($indices as $indice) {
                                                             if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '13') { ?>
                                                                 <a href="/view_indice?id=<?= $indice['IDINDICE'] ?>"><?= adjustTime($indice['tempoIndice']) ?? '00:00.00' ?> </a>
-                                                           <?php }
+                                                        <?php }
                                                         } ?>
                                                     </td>
                                                     <td><?php
                                                         foreach ($indices as $indice) {
                                                             if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '14') { ?>
                                                                 <a href="/view_indice?id=<?= $indice['IDINDICE'] ?>"><?= adjustTime($indice['tempoIndice']) ?? '00:00.00' ?> </a>
-                                                            <?php }
+                                                        <?php }
                                                         } ?>
                                                     </td>
                                                     <td><?php
                                                         foreach ($indices as $indice) {
                                                             if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '15') { ?>
                                                                 <a href="/view_indice?id=<?= $indice['IDINDICE'] ?>"><?= adjustTime($indice['tempoIndice']) ?? '00:00.00' ?> </a>
-                                                            <?php }
+                                                        <?php }
                                                         } ?>
                                                     </td>
                                                     <td><?php
                                                         foreach ($indices as $indice) {
                                                             if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '16') { ?>
                                                                 <a href="/view_indice?id=<?= $indice['IDINDICE'] ?>"><?= adjustTime($indice['tempoIndice']) ?? '00:00.00' ?> </a>
-                                                            <?php }
+                                                        <?php }
                                                         } ?>
                                                     </td>
                                                     <td><?php
                                                         foreach ($indices as $indice) {
                                                             if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '17') { ?>
                                                                 <a href="/view_indice?id=<?= $indice['IDINDICE'] ?>"><?= adjustTime($indice['tempoIndice']) ?? '00:00.00' ?> </a>
-                                                            <?php }
+                                                        <?php }
                                                         } ?>
                                                     </td>
                                                     <td><?php
                                                         foreach ($indices as $indice) {
                                                             if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '18') { ?>
                                                                 <a href="/view_indice?id=<?= $indice['IDINDICE'] ?>"><?= adjustTime($indice['tempoIndice']) ?? '00:00.00' ?> </a>
-                                                            <?php }
+                                                        <?php }
                                                         } ?>
                                                     </td>
                                                     <td><?php
                                                         foreach ($indices as $indice) {
                                                             if ($indice['tipoIndice'] == $tipo && $indice['anoIndice'] == $ano && $indice['tamanhoPiscina'] == $piscina && $indice['generoIndice'] == $genero && $indice['ID_DISTANCIAESTILO'] == $estilo['IDDISTANCIAESTILO'] && $indice['ID_CATEGORIA'] == '99') { ?>
                                                                 <a href="/view_indice?id=<?= $indice['IDINDICE'] ?>"><?= adjustTime($indice['tempoIndice']) ?? '00:00.00' ?> </a>
-                                                            <?php }
+                                                        <?php }
                                                         } ?>
                                                     </td>
                                                 <?php } ?>
@@ -268,15 +268,15 @@ $countTipos = 1;
                                 </table>
                                 <hr>
                                 <?php $countIndices++; ?>
-                            <?php                              
+                            <?php
                             } ?>
-                        <?php
+        <?php
                         }
                     }
                 }
             }
         } ?>
-       
+
     <?php } ?>
 </div>
 
